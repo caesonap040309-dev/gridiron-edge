@@ -29,6 +29,7 @@ jobs:
       - name: Fetch schedules and odds
         env:
           SPORTSGAMEODDS_API_KEY: ${{ secrets.SPORTSGAMEODDS_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: node scripts/update-data.mjs
       - name: Publish changed data
         run: |
