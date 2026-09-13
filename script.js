@@ -149,6 +149,38 @@ function populateBooks(){
   $("bookFilter").innerHTML='<option value="all">Best available</option>'+[...books].sort((a,b)=>a[1].localeCompare(b[1])).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
   if(books.has(current))$("bookFilter").value=current;
 }
+async function refreshLiveGames(year,week){
+  const params=new URLSearchParams({limit:"100",dates:String(year),seasontype:"2"});
+  if(String(week)!=="0")params.set("week",String(week));
+  try{
+    const url=`https://site.api.espn.com/apis/site/v2/sports/football/${leagueConfig().summary}/scoreboard?${params}`;
+    const response=await fetch(url,{cache:"no-store"});
+    if(!response.ok)return;
+    const scoreboard=await response.json();
+    const updates=new Map();
+    for(const event of scoreboard.events||[]){
+      const competition=event.competitions?.[0]||{};
+      const home=competition.competitors?.find(team=>team.homeAway==="home");
+      const away=competition.competitors?.find(team=>team.homeAway==="away");
+      updates.set(String(event.id),{
+        status:event.status?.type?.shortDetail||"Scheduled",
+        statusState:event.status?.type?.state||null,
+        statusCompleted:event.status?.type?.completed===true,
+        homeScore:home?.score,awayScore:away?.score,
+        homeId:String(home?.team?.id||""),awayId:String(away?.team?.id||""),
+        situation:competition.situation?{
+          possession:String(competition.situation.possession||""),
+          downDistanceText:competition.situation.downDistanceText||null,
+          possessionText:competition.situation.possessionText||null,
+          yardLine:Number.isFinite(Number(competition.situation.yardLine))?Number(competition.situation.yardLine):null,
+          lastPlay:competition.situation.lastPlay?.text||null
+        }:null
+      });
+    }
+    const apply=game=>Object.assign(game,updates.get(String(game.id))||{});
+    state.allGames.forEach(apply);state.games.forEach(apply);
+  }catch{}
+}
 async function load(){
   $("loading").classList.remove("hidden"); $("notice").classList.add("hidden");
   try{
@@ -158,6 +190,7 @@ async function load(){
     const live=await response.json();
     state.odds=live.events||[]; state.allGames=(live.games||[]).filter(g=>String(g.season)===String(year)); $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?state.odds.some(o=>o.id===g.id):String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
+    await refreshLiveGames(year,week);
     populateBooks();render();renderModelRecords();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
