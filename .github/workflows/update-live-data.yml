@@ -21,8 +21,6 @@ jobs:
         with:
           node-version: 22
       - name: Fetch schedules and odds
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: node scripts/update-data.mjs
       - name: Publish changed data
         run: |
