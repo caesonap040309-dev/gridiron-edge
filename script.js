@@ -63,6 +63,6 @@ async function load(){
   }catch(e){showError(e.message+" Check the API setup and try again.")}
   finally{$("loading").classList.add("hidden");state.seconds=60}
 }
-function showError(message){$("loading").classList.add("hidden");$("notice").textContent=message+" Add the ODDS_API_KEY repository secret, then run the Update live college football data workflow.";$("notice").classList.remove("hidden");$("connectionStatus").className="status error";$("connectionStatus").lastElementChild.textContent="Feed needs setup"}
+function showError(message){$("loading").classList.add("hidden");$("notice").textContent=message+" The automatic updater will try again shortly.";$("notice").classList.remove("hidden");$("connectionStatus").className="status error";$("connectionStatus").lastElementChild.textContent="Feed is updating"}
 function tick(){state.seconds--;if(state.seconds<=0)load();$("countdown").textContent=state.seconds+"s"}
 setupFilters();$("season").addEventListener("change",load);$("week").addEventListener("change",load);$("bookFilter").addEventListener("change",render);$("teamSearch").addEventListener("input",render);$("refreshBtn").addEventListener("click",load);state.timer=setInterval(tick,1000);load();
