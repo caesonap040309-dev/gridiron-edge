@@ -35,6 +35,30 @@ for(let week=1;week<=16;week++){
     }
   }
 }
+const publishers=[
+  ["ESPN","espn.com"],
+  ["Bleacher Report","bleacherreport.com"],
+  ["Yahoo Sports","sports.yahoo.com"],
+  ["Sporting News","sportingnews.com"],
+  ["The Athletic","nytimes.com/athletic"]
+];
+const decode=value=>value.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/\s+/g," ").trim();
+const tag=(xml,name)=>decode(xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`,"i"))?.[1]||"");
+const news=[];
+for(const [source,domain] of publishers){
+  const query=encodeURIComponent(`college football site:${domain}`);
+  try{
+    const response=await fetch(`https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`);
+    if(!response.ok)continue;
+    const xml=await response.text();
+    for(const item of xml.match(/<item>[\s\S]*?<\/item>/gi)?.slice(0,25)||[]){
+      const rawTitle=tag(item,"title");
+      const title=rawTitle.replace(new RegExp(`\\s+-\\s+${source.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")}$`,"i"),"");
+      const description=tag(item,"description");
+      news.push({source,title,summary:description.slice(0,220),link:tag(item,"link"),publishedAt:tag(item,"pubDate")});
+    }
+  }catch(error){console.warn(`News feed unavailable for ${source}: ${error.message}`)}
+}
 await mkdir("data",{recursive:true});
-await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),games,events},null,2)+"\n");
-console.log(`Saved ${games.length} games and ${events.length} games with market data`);
+await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),games,events,news},null,2)+"\n");
+console.log(`Saved ${games.length} games, ${events.length} markets, and ${news.length} news items`);
