@@ -1,4 +1,3 @@
-const API = (window.GRIDIRON_EDGE_API || "").replace(/\/$/, "");
 const state = { games: [], odds: [], previous: new Map(), seconds: 60, timer: null };
 const $ = id => document.getElementById(id);
 
@@ -50,18 +49,20 @@ function populateBooks(){
   if(books.has(current))$("bookFilter").value=current;
 }
 async function load(){
-  if(!API){showError("Live feed setup is almost complete. Add your deployed Worker URL to config.js.");return;}
   $("loading").classList.remove("hidden"); $("notice").classList.add("hidden");
   try{
     const year=$("season").value,week=$("week").value;
-    const [gamesRes,oddsRes]=await Promise.all([fetch(`${API}/api/games?year=${year}&week=${week}`),fetch(`${API}/api/odds`)]);
-    if(!gamesRes.ok||!oddsRes.ok)throw new Error("The live feed did not respond.");
-    const games=await gamesRes.json(),odds=await oddsRes.json(); state.games=games.games||[];state.odds=odds.events||[];
+    const response=await fetch(`data/live.json?t=${Date.now()}`,{cache:"no-store"});
+    if(!response.ok)throw new Error("The live feed has not been generated yet.");
+    const live=await response.json();
+    state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"||String(g.week)===String(week)));
+    state.odds=live.events||[];
     populateBooks();render();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
+    if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
   }catch(e){showError(e.message+" Check the API setup and try again.")}
   finally{$("loading").classList.add("hidden");state.seconds=60}
 }
-function showError(message){$("loading").classList.add("hidden");$("notice").textContent=message;$("notice").classList.remove("hidden");$("connectionStatus").className="status error";$("connectionStatus").lastElementChild.textContent="Feed needs setup"}
+function showError(message){$("loading").classList.add("hidden");$("notice").textContent=message+" Add the ODDS_API_KEY repository secret, then run the Update live college football data workflow.";$("notice").classList.remove("hidden");$("connectionStatus").className="status error";$("connectionStatus").lastElementChild.textContent="Feed needs setup"}
 function tick(){state.seconds--;if(state.seconds<=0)load();$("countdown").textContent=state.seconds+"s"}
 setupFilters();$("season").addEventListener("change",load);$("week").addEventListener("change",load);$("bookFilter").addEventListener("change",render);$("teamSearch").addEventListener("input",render);$("refreshBtn").addEventListener("click",load);state.timer=setInterval(tick,1000);load();
