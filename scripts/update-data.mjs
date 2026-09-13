@@ -101,6 +101,17 @@ if(multiBookEvents.length){
     events[index]={...current,bookmakers:[...books.values()]};
   }
 }
+const eventByTeams=new Map(events.map(event=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,event]));
+function snapshotMarket(game,prediction){
+  const event=eventByTeams.get(`${cleanTeam(game.away)}|${cleanTeam(game.home)}`);if(!event)return null;
+  const offers=[];
+  for(const book of event.bookmakers||[])for(const market of book.markets||[])for(const outcome of market.outcomes||[])offers.push({...outcome,key:market.key,book:book.title});
+  const homeSpread=offers.filter(o=>o.key==="spreads"&&o.name===game.home).sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0];
+  const over=offers.filter(o=>o.key==="totals"&&o.name==="Over").sort((a,b)=>(Number(a.point)-Number(b.point))||(Number(b.price)-Number(a.price)))[0];
+  if(!homeSpread&&!over)return null;
+  const projectedMargin=Number(prediction.homeScore)-Number(prediction.awayScore);
+  return {capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
+}
 const stats=new Map();
 const statFor=name=>{if(!stats.has(name))stats.set(name,{games:0,for:0,against:0});return stats.get(name)};
 for(const game of games){
@@ -120,6 +131,7 @@ for(const game of games){
   if(stored&&!stored.createdAt&&new Date(game.date)>now)stored.createdAt=now.toISOString();
   game.prediction=stored||{winner:margin>=0?game.home:game.away,homeWin,spread:margin===0?0:-margin,total,homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample:Math.min(home.games,away.games),createdAt:now.toISOString()};
   game.prediction={...game.prediction,homeOffense:Math.round(homeFor*10)/10,homeDefense:Math.round(homeAgainst*10)/10,awayOffense:Math.round(awayFor*10)/10,awayDefense:Math.round(awayAgainst*10)/10};
+  if(!game.prediction.market&&new Date(game.date)>now)game.prediction.market=snapshotMarket(game,game.prediction);
 }
 await mkdir("data",{recursive:true});
 await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),oddsSource:sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":theOddsApi.length?"The Odds API multi-book":"ESPN market fallback",games,events},null,2)+"\n");
