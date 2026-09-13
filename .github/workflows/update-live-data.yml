@@ -1,4 +1,4 @@
-name: Update live college football data
+name: Update live football data
 # Recheck corrected ODDS_API_KEY
 # Multi-book feed activates when the repository secret is present.
 
@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - "scripts/update-data.mjs"
+      - "scripts/update-nfl-data.mjs"
       - ".github/workflows/update-live-data.yml"
   schedule:
     - cron: "17 10 * * *"
@@ -31,13 +32,15 @@ jobs:
         env:
           SPORTSGAMEODDS_API_KEY: ${{ secrets.SPORTSGAMEODDS_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: node scripts/update-data.mjs
+        run: |
+          node scripts/update-data.mjs
+          node scripts/update-nfl-data.mjs
       - name: Publish changed data
         run: |
           git config user.name "gridiron-edge-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/live.json
+          git add data/live.json data/nfl.json
           git diff --cached --quiet && exit 0
-          git commit -m "Update live college football data"
+          git commit -m "Update live football data"
           git pull --rebase origin main
           git push
