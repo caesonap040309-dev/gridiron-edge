@@ -112,26 +112,93 @@ function snapshotMarket(game,prediction){
   const projectedMargin=Number(prediction.homeScore)-Number(prediction.awayScore);
   return {capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
 }
-const stats=new Map();
-const statFor=name=>{if(!stats.has(name))stats.set(name,{games:0,for:0,against:0});return stats.get(name)};
+const MODEL_VERSION=2;
+const LEAGUE_MEAN=27;
+const HOME_FIELD=2.7;
+const PRIOR_GAMES=3.5;
+const RECENCY_DAYS=70;
+const SPREAD_SCALE=6.8;
+const TOTAL_SCALE=8.5;
+const records=new Map();
+const recordFor=name=>{if(!records.has(name))records.set(name,[]);return records.get(name)};
 for(const game of games){
   if(!/final/i.test(game.status||""))continue;
-  const homeScore=Number(game.homeScore),awayScore=Number(game.awayScore);if(!Number.isFinite(homeScore)||!Number.isFinite(awayScore))continue;
-  const home=statFor(game.home),away=statFor(game.away);home.games++;home.for+=homeScore;home.against+=awayScore;away.games++;away.for+=awayScore;away.against+=homeScore;
+  const homeScore=Number(game.homeScore),awayScore=Number(game.awayScore);
+  if(!Number.isFinite(homeScore)||!Number.isFinite(awayScore))continue;
+  const ageDays=Math.max(0,(now-new Date(game.date))/86400000);
+  const weight=Math.max(.28,Math.exp(-ageDays/RECENCY_DAYS));
+  recordFor(game.home).push({opponent:game.away,scored:homeScore,allowed:awayScore,weight});
+  recordFor(game.away).push({opponent:game.home,scored:awayScore,allowed:homeScore,weight});
 }
+const ratings=new Map([...records.keys()].map(name=>[name,{offense:0,defense:0,games:records.get(name).length,for:LEAGUE_MEAN,against:LEAGUE_MEAN}]));
+for(let pass=0;pass<10;pass++){
+  const next=new Map();
+  for(const [name,teamGames] of records){
+    let off=0,def=0,weights=0,pointsFor=0,pointsAgainst=0;
+    for(const result of teamGames){
+      const opponent=ratings.get(result.opponent)||{offense:0,defense:0};
+      const scored=Math.min(LEAGUE_MEAN*2.45,Math.max(0,result.scored));
+      const allowed=Math.min(LEAGUE_MEAN*2.45,Math.max(0,result.allowed));
+      off+=result.weight*((scored-LEAGUE_MEAN)+opponent.defense);
+      def+=result.weight*((LEAGUE_MEAN-allowed)+opponent.offense);
+      pointsFor+=result.weight*result.scored;
+      pointsAgainst+=result.weight*result.allowed;
+      weights+=result.weight;
+    }
+    next.set(name,{offense:off/(weights+PRIOR_GAMES),defense:def/(weights+PRIOR_GAMES),games:teamGames.length,for:weights?pointsFor/weights:LEAGUE_MEAN,against:weights?pointsAgainst/weights:LEAGUE_MEAN});
+  }
+  ratings.clear();
+  for(const [name,rating] of next)ratings.set(name,rating);
+}
+const ratingFor=name=>ratings.get(name)||{offense:0,defense:0,games:0,for:LEAGUE_MEAN,against:LEAGUE_MEAN};
+const median=values=>{const sorted=values.filter(Number.isFinite).sort((a,b)=>a-b);if(!sorted.length)return null;const middle=Math.floor(sorted.length/2);return sorted.length%2?sorted[middle]:(sorted[middle-1]+sorted[middle])/2};
+function consensusMarket(game){
+  const event=eventByTeams.get(`${cleanTeam(game.away)}|${cleanTeam(game.home)}`);
+  if(!event)return {margin:null,total:null};
+  const homePoints=[],totals=[];
+  for(const book of event.bookmakers||[])for(const market of book.markets||[])for(const outcome of market.outcomes||[]){
+    if(market.key==="spreads"&&outcome.name===game.home&&Number.isFinite(Number(outcome.point)))homePoints.push(Number(outcome.point));
+    if(market.key==="totals"&&outcome.name==="Over"&&Number.isFinite(Number(outcome.point)))totals.push(Number(outcome.point));
+  }
+  const homePoint=median(homePoints);
+  return {margin:homePoint==null?null:-homePoint,total:median(totals)};
+}
+const fairAmerican=probability=>{const p=Math.min(.995,Math.max(.005,probability/100));return Math.round(p>=.5?-100*p/(1-p):100*(1-p)/p)};
 for(const game of games){
-  const home=statFor(game.home),away=statFor(game.away);const league=27;
-  const homeFor=home.games?home.for/home.games:league,homeAgainst=home.games?home.against/home.games:league;
-  const awayFor=away.games?away.for/away.games:league,awayAgainst=away.games?away.against/away.games:league;
-  const homePoints=Math.max(3,Math.round(((homeFor+awayAgainst)/2+1.5)*10)/10);
-  const awayPoints=Math.max(3,Math.round(((awayFor+homeAgainst)/2)*10)/10);
-  const margin=Math.round((homePoints-awayPoints)*10)/10,total=Math.round((homePoints+awayPoints)*10)/10;
-  const homeWin=Math.round((1/(1+Math.exp(-margin/7)))*1000)/10;
   const stored=previousPredictions.get(game.id);
-  if(stored&&!stored.createdAt&&new Date(game.date)>now)stored.createdAt=now.toISOString();
-  game.prediction=stored||{winner:margin>=0?game.home:game.away,homeWin,spread:margin===0?0:-margin,total,homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample:Math.min(home.games,away.games),createdAt:now.toISOString()};
-  game.prediction={...game.prediction,homeOffense:Math.round(homeFor*10)/10,homeDefense:Math.round(homeAgainst*10)/10,awayOffense:Math.round(awayFor*10)/10,awayDefense:Math.round(awayAgainst*10)/10};
-  if(!game.prediction.market&&new Date(game.date)>now)game.prediction.market=snapshotMarket(game,game.prediction);
+  const locked=stored&&new Date(game.date)<=now;
+  if(locked){game.prediction=stored;continue}
+  const home=ratingFor(game.home),away=ratingFor(game.away);
+  const rawHome=LEAGUE_MEAN+home.offense-away.defense+HOME_FIELD/2;
+  const rawAway=LEAGUE_MEAN+away.offense-home.defense-HOME_FIELD/2;
+  const rawMargin=rawHome-rawAway,rawTotal=rawHome+rawAway;
+  const market=consensusMarket(game),sample=Math.min(home.games,away.games);
+  const marketWeight=sample<2?.55:sample<4?.42:sample<7?.30:.20;
+  const margin=market.margin==null?rawMargin:rawMargin*(1-marketWeight)+market.margin*marketWeight;
+  const projectedTotal=market.total==null?rawTotal:rawTotal*(1-marketWeight)+market.total*marketWeight;
+  const homePoints=Math.max(3,(projectedTotal+margin)/2),awayPoints=Math.max(3,(projectedTotal-margin)/2);
+  const homeWin=Math.round((1/(1+Math.exp(-margin/10.5)))*1000)/10;
+  const spreadEdge=market.margin==null?null:Math.round((margin-market.margin)*10)/10;
+  const totalEdge=market.total==null?null:Math.round((projectedTotal-market.total)*10)/10;
+  const homeCover=spreadEdge==null?null:Math.round((1/(1+Math.exp(-spreadEdge/SPREAD_SCALE)))*1000)/10;
+  const overProb=totalEdge==null?null:Math.round((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*1000)/10;
+  const maxEdge=Math.max(Math.abs(spreadEdge||0),Math.abs(totalEdge||0));
+  const confidence=sample>=6&&maxEdge>=3?"High":sample>=3?"Medium":"Low";
+  const prediction={
+    version:MODEL_VERSION,winner:margin>=0?game.home:game.away,homeWin,
+    spread:Math.round(-margin*10)/10,total:Math.round(projectedTotal*10)/10,
+    homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample,
+    createdAt:stored?.createdAt||now.toISOString(),
+    homeOffense:Math.round(home.for*10)/10,homeDefense:Math.round(home.against*10)/10,
+    awayOffense:Math.round(away.for*10)/10,awayDefense:Math.round(away.against*10)/10,
+    power:{homeOffense:Math.round(home.offense*10)/10,homeDefense:Math.round(home.defense*10)/10,awayOffense:Math.round(away.offense*10)/10,awayDefense:Math.round(away.defense*10)/10},
+    marketMargin:market.margin,marketTotal:market.total,spreadEdge,totalEdge,homeCover,
+    awayCover:homeCover==null?null:Math.round((100-homeCover)*10)/10,
+    overProb,underProb:overProb==null?null:Math.round((100-overProb)*10)/10,
+    fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence
+  };
+  prediction.market=stored?.market||snapshotMarket(game,prediction);
+  game.prediction=prediction;
 }
 await mkdir("data",{recursive:true});
 await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),oddsSource:sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":theOddsApi.length?"The Odds API multi-book":"ESPN market fallback",games,events},null,2)+"\n");
