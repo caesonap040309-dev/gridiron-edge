@@ -12,11 +12,20 @@ function fmtTime(value){return new Intl.DateTimeFormat(undefined,{weekday:"short
 function signed(n){if(n==null)return "—";return `${n>0?"+":""}${n}`}
 function american(n){if(n==null)return "—";return `${n>0?"+":""}${n}`}
 function bestMarkets(event){
-  const chosen=$("bookFilter").value; const books=event?.bookmakers||[];
-  const pool=chosen==="all"?books:books.filter(b=>b.key===chosen);
-  const rows={};
-  pool.forEach(book=>book.markets.forEach(m=>{ if(!rows[m.key]) rows[m.key]={book:book.title,outcomes:m.outcomes}; }));
-  return rows;
+  const chosen=$("bookFilter").value;
+  const books=(event?.bookmakers||[]).filter(book=>chosen==="all"||book.key===chosen);
+  const offers={spreads:[],totals:[],h2h:[]};
+  books.forEach(book=>(book.markets||[]).forEach(m=>(m.outcomes||[]).forEach(outcome=>{
+    if(offers[m.key])offers[m.key].push({...outcome,book:book.title,bookKey:book.key});
+  })));
+  if(chosen!=="all")return Object.fromEntries(Object.entries(offers).map(([key,outcomes])=>[key,{outcomes}]));
+  const names=[...new Set(offers.spreads.map(o=>o.name))];
+  const bestSpread=names.map(name=>offers.spreads.filter(o=>o.name===name).sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0]).filter(Boolean);
+  const mlNames=[...new Set(offers.h2h.map(o=>o.name))];
+  const bestMoneyline=mlNames.map(name=>offers.h2h.filter(o=>o.name===name).sort((a,b)=>Number(b.price)-Number(a.price))[0]).filter(Boolean);
+  const over=offers.totals.filter(o=>o.name==="Over").sort((a,b)=>(Number(a.point)-Number(b.point))||(Number(b.price)-Number(a.price)))[0];
+  const under=offers.totals.filter(o=>o.name==="Under").sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0];
+  return {spreads:{outcomes:bestSpread},h2h:{outcomes:bestMoneyline},totals:{outcomes:[over,under].filter(Boolean)}};
 }
 function movementFor(id,markets){
   const spread=markets.spreads?.outcomes?.find(o=>o.name)?.point??null;
@@ -39,13 +48,14 @@ function render(){
     const oe=oddsEventFor(g), m=bestMarkets(oe), move=movementFor(g.id,m); if(oe)withOdds++; if(move.cls)moves++;
     const spread=m.spreads?.outcomes||[], totals=m.totals?.outcomes||[], h2h=m.h2h?.outcomes||[];
     const awaySpread=spread.find(o=>o.name===g.away), homeSpread=spread.find(o=>o.name===g.home);
-    const over=totals.find(o=>o.name==="Over"), awayMl=h2h.find(o=>o.name===g.away), homeMl=h2h.find(o=>o.name===g.home);
+    const over=totals.find(o=>o.name==="Over"), under=totals.find(o=>o.name==="Under"), awayMl=h2h.find(o=>o.name===g.away), homeMl=h2h.find(o=>o.name===g.home);
+    const offer=(outcome,label="")=>outcome?`${label}${label?" ":""}${outcome.point==null?"":signed(outcome.point)+" "}${american(outcome.price)} · ${esc(outcome.book||"")}`:"—";
     const p=g.prediction||{};
     const prediction=p.winner?`<div class="model-strip"><div><span>Gridiron Edge prediction</span><strong>${esc(p.winner)} · ${esc(g.away)} ${Number(p.awayScore)||0}–${esc(g.home)} ${Number(p.homeScore)||0}</strong></div><div><span>Model spread</span><strong>${esc(g.home)} ${signed(p.spread)}</strong></div><div><span>Model total</span><strong>${Number(p.total).toFixed(1)}</strong></div><div><span>Home win chance</span><strong>${Number(p.homeWin).toFixed(1)}%</strong></div><small>Based on season scoring and defensive results · ${Number(p.sample)||0} shared-game sample</small></div>`:"";
     const isFinal=/final/i.test(g.status||"");
     const wasPregame=p.createdAt&&new Date(p.createdAt)<new Date(g.date);
     const final=isFinal?`<div class="final-strip"><div><span>Actual final score</span><strong>${esc(g.away)} ${Number(g.awayScore)}–${esc(g.home)} ${Number(g.homeScore)}</strong></div><div><span>${wasPregame?"Pregame prediction":"Prediction comparison"}</span><strong>${wasPregame?`${esc(g.away)} ${Number(p.awayScore)}–${esc(g.home)} ${Number(p.homeScore)}`:"Available for games predicted before kickoff"}</strong></div></div>`:"";
-    return `<article class="game"><div class="matchup"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span><div class="teams"><div class="team"><span>${esc(g.away)}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${esc(g.home)}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${esc(m.spreads?.book||"Line unavailable")}</small></div><div class="market"><span>Total</span><strong>${over?`O/U ${Number(over.point)}`:"—"}</strong><small>${esc(m.totals?.book||"Line unavailable")}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${american(awayMl.price)} / ${american(homeMl?.price)}`:"—"}</strong><small>${esc(m.h2h?.book||"Line unavailable")}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}${final}</article>`;
+    return `<article class="game"><div class="matchup"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span><div class="teams"><div class="team"><span>${esc(g.away)}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${esc(g.home)}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${homeSpread?esc(homeSpread.book):"Line unavailable"}${awaySpread?` · ${esc(g.away)} ${signed(awaySpread.point)} (${american(awaySpread.price)}) · ${esc(awaySpread.book)}`:""}</small></div><div class="market"><span>Total</span><strong>${over?`Over ${Number(over.point)} (${american(over.price)})`:"—"}</strong><small>${over?esc(over.book):"Line unavailable"}${under?` · Under ${Number(under.point)} (${american(under.price)}) · ${esc(under.book)}`:""}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${esc(g.away)} ${american(awayMl.price)} / ${esc(g.home)} ${american(homeMl?.price)}`:"—"}</strong><small>${awayMl?esc(awayMl.book):"Line unavailable"}${homeMl?` / ${esc(homeMl.book)}`:""}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}${final}</article>`;
   }).join("");
   $("gameCount").textContent=list.length; $("oddsCount").textContent=withOdds; $("moveCount").textContent=moves;
   $("empty").classList.toggle("hidden",list.length>0);
@@ -62,7 +72,7 @@ async function load(){
     const response=await fetch(`data/live.json?t=${Date.now()}`,{cache:"no-store"});
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
-    state.odds=live.events||[];
+    state.odds=live.events||[]; $("dataCredit").textContent=`Schedules and scores: ESPN · Odds: ${live.oddsSource||"available sportsbook markets"}`;
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?state.odds.some(o=>o.id===g.id):String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     populateBooks();render();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
