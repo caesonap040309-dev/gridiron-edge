@@ -1,4 +1,4 @@
-const state = { games: [], odds: [], previous: new Map(), seconds: 60, timer: null, league: localStorage.getItem("gridiron-league")==="nfl"?"nfl":"cfb" };
+const state = { games: [], allGames: [], odds: [], previous: new Map(), seconds: 60, timer: null, league: localStorage.getItem("gridiron-league")==="nfl"?"nfl":"cfb" };
 const LEAGUES={
   cfb:{label:"College Football",short:"COLLEGE FOOTBALL",eyebrow:"LIVE FBS ODDS",copy:"Real college-football schedules and sportsbook prices, refreshed automatically throughout the season.",data:"data/live.json",weeks:16,summary:"college-football"},
   nfl:{label:"NFL",short:"NFL",eyebrow:"LIVE NFL ODDS",copy:"Every NFL game, sportsbook price, model projection, and final result across the full regular season.",data:"data/nfl.json",weeks:18,summary:"nfl"}
@@ -71,6 +71,45 @@ function oddsEventFor(game){
   const a=(game.away||"").toLowerCase(),h=(game.home||"").toLowerCase();
   return state.odds.find(o=>o.away_team.toLowerCase()===a&&o.home_team.toLowerCase()===h);
 }
+function modelRecords(){
+  const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
+  for(const game of state.allGames){
+    if(!/final/i.test(game.status||""))continue;
+    const p=game.prediction||{},market=p.market;
+    if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
+    const home=Number(game.homeScore),away=Number(game.awayScore);
+    if(!Number.isFinite(home)||!Number.isFinite(away))continue;
+    if(home!==away&&p.winner){
+      const actual=home>away?game.home:game.away;
+      result.outright[p.winner===actual?"wins":"losses"]++;
+    }
+    if(market?.spreadPick&&market.homePoint!=null){
+      const adjusted=home+Number(market.homePoint)-away;
+      if(adjusted===0)result.spread.pushes++;
+      else{
+        const homeCovered=adjusted>0;
+        result.spread[(market.spreadPick===game.home)===homeCovered?"wins":"losses"]++;
+      }
+    }
+    if(market?.totalPick&&market.total!=null){
+      const actualTotal=home+away,posted=Number(market.total);
+      if(actualTotal===posted)result.total.pushes++;
+      else result.total[(market.totalPick==="Over")===(actualTotal>posted)?"wins":"losses"]++;
+    }
+  }
+  return result;
+}
+function renderModelRecords(){
+  const records=modelRecords();
+  const put=(key,prefix)=>{
+    const r=records[key],decisions=r.wins+r.losses,total=decisions+r.pushes;
+    $(prefix+"Record").textContent=`${r.wins}–${r.losses}${r.pushes?"–"+r.pushes+"P":""}`;
+    $(prefix+"Pct").textContent=decisions?`${(r.wins/decisions*100).toFixed(1)}%`:"—";
+    $(prefix+"Sample").textContent=`${total} graded pick${total===1?"":"s"}`;
+  };
+  put("outright","outright");put("spread","spread");put("total","total");
+  $("performanceNote").textContent=`${leagueConfig().label} · ${$("season").value} season · Only saved pregame predictions are graded`;
+}
 function render(){
   const query=$("teamSearch").value.trim().toLowerCase(); let moves=0,withOdds=0;
   const list=state.games.filter(g=>!query||g.away.toLowerCase().includes(query)||g.home.toLowerCase().includes(query));
@@ -102,9 +141,9 @@ async function load(){
     const response=await fetch(`${leagueConfig().data}?t=${Date.now()}`,{cache:"no-store"});
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
-    state.odds=live.events||[]; $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
+    state.odds=live.events||[]; state.allGames=(live.games||[]).filter(g=>String(g.season)===String(year)); $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?state.odds.some(o=>o.id===g.id):String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
-    populateBooks();render();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
+    populateBooks();render();renderModelRecords();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
   }catch(e){showError(e.message+" Check the API setup and try again.")}
