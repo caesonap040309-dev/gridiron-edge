@@ -6,7 +6,7 @@ function safeNewsUrl(value){try{const url=new URL(value);return url.protocol==="
 function setupFilters(){
   const now=new Date(); const currentYear=now.getFullYear();
   for(let y=currentYear-1;y<=currentYear+1;y++) $("season").add(new Option(y,y,y===currentYear,y===currentYear));
-  for(let w=0;w<=16;w++) $("week").add(new Option(w===0?"All / current":"Week "+w,w,w===0,w===0));
+  for(let w=0;w<=16;w++) $("week").add(new Option(w===0?"Upcoming with odds":"Week "+w,w,w===0,w===0));
 }
 function fmtTime(value){return new Intl.DateTimeFormat(undefined,{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}).format(new Date(value))}
 function signed(n){if(n==null)return "—";return `${n>0?"+":""}${n}`}
@@ -44,9 +44,11 @@ function render(){
     const spread=m.spreads?.outcomes||[], totals=m.totals?.outcomes||[], h2h=m.h2h?.outcomes||[];
     const awaySpread=spread.find(o=>o.name===g.away), homeSpread=spread.find(o=>o.name===g.home);
     const over=totals.find(o=>o.name==="Over"), awayMl=h2h.find(o=>o.name===g.away), homeMl=h2h.find(o=>o.name===g.home);
+    const p=g.prediction||{};
+    const prediction=p.winner?`<div class="model-strip"><div><span>Gridiron Edge prediction</span><strong>${esc(p.winner)} · ${esc(g.away)} ${Number(p.awayScore)||0}–${esc(g.home)} ${Number(p.homeScore)||0}</strong></div><div><span>Model spread</span><strong>${esc(g.home)} ${signed(p.spread)}</strong></div><div><span>Model total</span><strong>${Number(p.total).toFixed(1)}</strong></div><div><span>Home win chance</span><strong>${Number(p.homeWin).toFixed(1)}%</strong></div><small>Based on season scoring and defensive results · ${Number(p.sample)||0} shared-game sample</small></div>`:"";
     const stories=newsFor(g);
     const news=stories.length?stories.map(s=>`<a href="${esc(safeNewsUrl(s.link))}" target="_blank" rel="noopener noreferrer"><span>${esc(s.source)}</span><strong>${esc(s.title)}</strong><small>${esc(s.summary)}</small></a>`).join(""):'<p>No recent matchup reporting found.</p>';
-    return `<article class="game"><div class="matchup"><span class="kickoff">${fmtTime(g.date)} · ${g.status||"Scheduled"}</span><div class="teams"><div class="team"><span>${g.away}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${g.home}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${g.home} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${m.spreads?.book||"No line posted"}</small></div><div class="market"><span>Total</span><strong>${over?`O/U ${over.point}`:"—"}</strong><small>${m.totals?.book||"No line posted"}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${american(awayMl.price)} / ${american(homeMl?.price)}`:"—"}</strong><small>${m.h2h?.book||"No line posted"}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${move.text}</strong><small class="pill">60 sec</small></div><div class="news-strip"><div class="news-label">Latest reporting</div><div class="news-list">${news}</div></div></article>`;
+    return `<article class="game"><div class="matchup"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span><div class="teams"><div class="team"><span>${esc(g.away)}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${esc(g.home)}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${esc(m.spreads?.book||"No line posted")}</small></div><div class="market"><span>Total</span><strong>${over?`O/U ${Number(over.point)}`:"—"}</strong><small>${esc(m.totals?.book||"No line posted")}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${american(awayMl.price)} / ${american(homeMl?.price)}`:"—"}</strong><small>${esc(m.h2h?.book||"No line posted")}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}<div class="news-strip"><div class="news-label">Latest reporting</div><div class="news-list">${news}</div></div></article>`;
   }).join("");
   $("gameCount").textContent=list.length; $("oddsCount").textContent=withOdds; $("moveCount").textContent=moves;
   $("empty").classList.toggle("hidden",list.length>0);
@@ -63,8 +65,8 @@ async function load(){
     const response=await fetch(`data/live.json?t=${Date.now()}`,{cache:"no-store"});
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
-    state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"||String(g.week)===String(week)));
     state.odds=live.events||[]; state.news=(live.news||[]).map(item=>({...item,searchText:`${item.title} ${item.summary}`.toLowerCase()}));
+    state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?state.odds.some(o=>o.id===g.id):String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     populateBooks();render();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
