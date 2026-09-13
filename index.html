@@ -8,6 +8,27 @@
   <link rel="stylesheet" href="style.css?v=20260913-11">
   <link rel="stylesheet" href="model.css?v=20260913-11">
   <link rel="stylesheet" href="final.css?v=20260913-11">
+  <style>
+    /* Keep matchup-room model numbers readable while using the home-team accent. */
+    body.theme-light .game-dialog .score-projection strong,
+    body.theme-light .game-dialog .projection-summary b,
+    body.theme-light .game-dialog .detail-prob-labels b,
+    body.theme-light .game-dialog .comparison strong,
+    body.theme-light .game-dialog .rating-label b,
+    body.theme-light .game-dialog .keys-grid strong {
+      color: var(--team-color, #0879e6) !important;
+    }
+
+    body.theme-dark .game-dialog .score-projection strong,
+    body.theme-dark .game-dialog .projection-summary b,
+    body.theme-dark .game-dialog .detail-prob-labels b,
+    body.theme-dark .game-dialog .comparison strong,
+    body.theme-dark .game-dialog .rating-label b,
+    body.theme-dark .game-dialog .keys-grid strong {
+      color: color-mix(in srgb, var(--team-color, #58a6ff) 68%, white 32%) !important;
+      text-shadow: 0 0 16px color-mix(in srgb, var(--team-color, #58a6ff) 30%, transparent);
+    }
+  </style>
 </head>
 <body class="theme-light">
   <header class="topbar">
