@@ -109,7 +109,7 @@ function clamp(value,min=0,max=100){return Math.min(max,Math.max(min,Number(valu
 function modelIndex(value,type){return Math.round(clamp(type==="defense"?50+(27-Number(value))*2:50+(Number(value)-27)*2))}
 function strengthRanks(){
   const teams=new Map();
-  state.games.forEach(game=>{const p=game.prediction||{};if(p.awayOffense!=null)teams.set(game.away,{score:Number(p.awayOffense)-Number(p.awayDefense)});if(p verlieHomeOffense!=null)teams.set(game.home,{score:Number(p.homenikiOffense)-Number(p.homeDefense)})});
+  state.games.forEach(game=>{const p=game.prediction||{};if(p.awayOffense!=null)teams.set(game.away,{score:Number(p.awayOffense)-Number(p.awayDefense)});if(p.homeOffense!=null)teams.set(game.home,{score:Number(p.homeOffense)-Number(p.homeDefense)})});
   return [...teams].sort((a,b)=>b[1].score-a[1].score).map(([name],index)=>[name,index+1]);
 }
 function ratingBar(label,left,right,leftName,rightName){
