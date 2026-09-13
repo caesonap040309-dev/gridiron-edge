@@ -119,6 +119,7 @@ for(const game of games){
   const stored=previousPredictions.get(game.id);
   if(stored&&!stored.createdAt&&new Date(game.date)>now)stored.createdAt=now.toISOString();
   game.prediction=stored||{winner:margin>=0?game.home:game.away,homeWin,spread:margin===0?0:-margin,total,homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample:Math.min(home.games,away.games),createdAt:now.toISOString()};
+  game.prediction={...game.prediction,homeOffense:Math.round(homeFor*10)/10,homeDefense:Math.round(homeAgainst*10)/10,awayOffense:Math.round(awayFor*10)/10,awayDefense:Math.round(awayAgainst*10)/10};
 }
 await mkdir("data",{recursive:true});
 await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),oddsSource:sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":theOddsApi.length?"The Odds API multi-book":"ESPN market fallback",games,events},null,2)+"\n");
