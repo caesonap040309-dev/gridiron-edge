@@ -1,468 +1,726 @@
-console.log("🏈 Gridiron Edge Model Loaded!");
-
-// ============================================================
-// GRIDIIRON EDGE — COLLEGE FOOTBALL PREDICTION ENGINE
-// ============================================================
-
-// ------------------------------------------------------------
-// MONEYLINE → IMPLIED PROBABILITY
-// ------------------------------------------------------------
-
-function moneylineProbability(moneyline) {
-
-```
-if (isNaN(moneyline)) {
-    return 0.50;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-if (moneyline < 0) {
-
-    return (
-        -moneyline /
-        (-moneyline + 100)
-    );
-
-} else {
-
-    return (
-        100 /
-        (moneyline + 100)
-    );
-
-}
-```
-
-}
-
-// ------------------------------------------------------------
-// REMOVE SPORTSBOOK VIG
-// ------------------------------------------------------------
-
-function removeVig(homeProbability, awayProbability) {
-
-```
-const total =
-    homeProbability +
-    awayProbability;
-
-return {
-
-    home:
-        homeProbability / total,
-
-    away:
-        awayProbability / total
-
-};
-```
-
-}
-
-// ------------------------------------------------------------
-// MAIN MODEL
-// ------------------------------------------------------------
-
-function runPrediction() {
-
-```
-// --------------------------------------------------------
-// GET INPUTS
-// --------------------------------------------------------
-
-const awayTeam =
-    document.getElementById("awayTeam").value.trim();
-
-const homeTeam =
-    document.getElementById("homeTeam").value.trim();
-
-const location =
-    document.getElementById("gameLocation").value;
-
-const spread =
-    parseFloat(
-        document.getElementById("spread").value
-    );
-
-const overUnder =
-    parseFloat(
-        document.getElementById("overUnder").value
-    );
-
-const homeMoneyline =
-    parseFloat(
-        document.getElementById("homeMoneyline").value
-    );
-
-const awayMoneyline =
-    parseFloat(
-        document.getElementById("awayMoneyline").value
-    );
-
-
-// --------------------------------------------------------
-// VALIDATION
-// --------------------------------------------------------
-
-if (
-    !awayTeam ||
-    !homeTeam ||
-    isNaN(spread) ||
-    isNaN(overUnder) ||
-    isNaN(homeMoneyline) ||
-    isNaN(awayMoneyline)
-) {
-
-    alert(
-        "Please enter all game information before running the model."
-    );
-
-    return;
-
+:root {
+    --bg: #070b11;
+    --panel: #101722;
+    --panel2: #0c121b;
+    --border: #24303e;
+    --text: #f5f7fa;
+    --muted: #8b97a8;
+    --green: #39ff88;
+    --green-dark: #0e2418;
 }
 
 
-// --------------------------------------------------------
-// MARKET PROBABILITY
-// --------------------------------------------------------
+/* PAGE */
 
-const rawHomeProbability =
-    moneylineProbability(
-        homeMoneyline
-    );
+body {
+    font-family: Arial, Helvetica, sans-serif;
 
-const rawAwayProbability =
-    moneylineProbability(
-        awayMoneyline
-    );
+    background:
+        radial-gradient(
+            circle at top right,
+            #12202d 0,
+            var(--bg) 40%
+        );
 
+    color: var(--text);
 
-const market =
-    removeVig(
-        rawHomeProbability,
-        rawAwayProbability
-    );
-
-
-// --------------------------------------------------------
-// HOME FIELD ADVANTAGE
-// --------------------------------------------------------
-
-let homeFieldAdjustment = 0;
-
-if (location === "home") {
-
-    homeFieldAdjustment = 0.025;
-
-}
-
-if (location === "away") {
-
-    homeFieldAdjustment = -0.025;
-
-}
-
-if (location === "neutral") {
-
-    homeFieldAdjustment = 0;
-
+    min-height: 100vh;
 }
 
 
-// --------------------------------------------------------
-// MODEL WIN PROBABILITY
-// --------------------------------------------------------
+/* HEADER */
 
-/*
-    CURRENT MODEL INPUTS:
+.topbar {
+    min-height: 78px;
 
-    • Market probability
-    • Betting spread
-    • Home-field advantage
+    padding: 15px 5%;
 
-    FUTURE DATA INPUTS:
+    background: rgba(9, 13, 20, 0.96);
 
-    • Offensive efficiency
-    • Defensive efficiency
-    • Strength of schedule
-    • Recent form
-    • Turnover margin
-    • QB performance
-    • Injuries
-    • Rest
-    • Weather
-    • Pace
-    • EPA
-    • Success rate
-    • Explosive plays
-*/
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
 
 
-let modelProbability =
-    market.home;
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
 
 
-// Home-field adjustment
+.logo {
+    width: 45px;
 
-modelProbability +=
-    homeFieldAdjustment;
+    height: 45px;
 
+    display: grid;
 
-// Spread adjustment
+    place-items: center;
 
-modelProbability -=
-    spread * 0.015;
+    border-radius: 12px;
 
+    background: var(--green-dark);
 
-// --------------------------------------------------------
-// KEEP PROBABILITY BETWEEN 1% AND 99%
-// --------------------------------------------------------
+    border: 1px solid #31513f;
 
-modelProbability =
-    Math.max(
-        0.01,
-        Math.min(
-            0.99,
-            modelProbability
-        )
-    );
+    font-size: 22px;
+}
 
 
-const awayModelProbability =
-    1 -
-    modelProbability;
+.brand h1 {
+    color: var(--green);
+
+    font-size: 23px;
+}
 
 
-// --------------------------------------------------------
-// MODEL EDGE
-// --------------------------------------------------------
+.brand p {
+    color: var(--muted);
 
-const modelEdge =
-    modelProbability -
-    market.home;
+    font-size: 12px;
 
-
-// --------------------------------------------------------
-// PROJECTED MARGIN
-// --------------------------------------------------------
-
-const projectedMargin =
-    -spread * 0.85;
+    margin-top: 2px;
+}
 
 
-// --------------------------------------------------------
-// PROJECTED TOTAL
-// --------------------------------------------------------
+.status {
+    border: 1px solid var(--border);
 
-const projectedTotal =
-    overUnder;
+    background: var(--panel2);
 
+    color: var(--muted);
 
-// --------------------------------------------------------
-// PROJECTED SCORES
-// --------------------------------------------------------
+    border-radius: 999px;
 
-let projectedHomeScore =
-    (
-        projectedTotal +
-        projectedMargin
-    ) / 2;
+    padding: 8px 12px;
 
+    font-size: 10px;
 
-let projectedAwayScore =
-    (
-        projectedTotal -
-        projectedMargin
-    ) / 2;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
 
 
-projectedHomeScore =
-    Math.max(
-        0,
-        projectedHomeScore
-    );
+.dot {
+    display: inline-block;
+
+    width: 7px;
+
+    height: 7px;
+
+    margin-right: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow: 0 0 9px var(--green);
+}
 
 
-projectedAwayScore =
-    Math.max(
-        0,
-        projectedAwayScore
-    );
+/* MAIN */
+
+.container {
+    width: 92%;
+
+    max-width: 1250px;
+
+    margin: 34px auto 70px;
+}
 
 
-// --------------------------------------------------------
-// WINNER
-// --------------------------------------------------------
+/* HERO */
 
-const modelPick =
-    modelProbability >= 0.50
-        ? homeTeam
-        : awayTeam;
+.hero {
+    padding: 36px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #121d29,
+            #0b1018
+        );
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+}
 
 
-// --------------------------------------------------------
-// SPREAD PICK
-// --------------------------------------------------------
+.eyebrow {
+    color: var(--green);
 
-let spreadPick;
+    font-size: 10px;
 
-if (
-    projectedMargin >
-    -spread
-) {
+    font-weight: 800;
 
-    spreadPick =
-        `${homeTeam} ${spread}`;
+    letter-spacing: 1.5px;
+}
 
-} else {
 
-    spreadPick =
-        `${awayTeam} ${-spread}`;
+.hero h2 {
+    font-size: clamp(28px, 4vw, 42px);
+
+    margin: 7px 0 10px;
+}
+
+
+.hero p:not(.eyebrow) {
+    color: var(--muted);
+
+    max-width: 720px;
+
+    line-height: 1.6;
+}
+
+
+.hero-badge {
+    min-width: 125px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    background: var(--green-dark);
+
+    border: 1px solid #31513f;
+
+    border-radius: 14px;
+}
+
+
+.hero-badge strong {
+    display: block;
+
+    color: var(--green);
+
+    font-size: 25px;
+}
+
+
+.hero-badge span {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* CARDS */
+
+.card {
+    background: rgba(16, 23, 34, 0.96);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+}
+
+
+.section-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+
+.section-head h2 {
+    font-size: 21px;
+
+    margin-top: 5px;
+}
+
+
+/* BUTTONS */
+
+.primary-btn,
+.secondary-btn {
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: 800;
+}
+
+
+.primary-btn {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 14px 18px;
+
+    border: 0;
+
+    background: var(--green);
+
+    color: #06100a;
+
+    font-size: 15px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.primary-btn:hover {
+    transform: translateY(-1px);
+
+    filter: brightness(1.05);
+}
+
+
+.secondary-btn {
+    padding: 9px 13px;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    border: 1px solid var(--border);
+}
+
+
+.secondary-btn:hover {
+    color: var(--green);
+
+    border-color: var(--green);
+}
+
+
+/* FORM */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+
+label {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+input,
+select {
+    width: 100%;
+
+    margin-top: 7px;
+
+    padding: 12px 13px;
+
+    border-radius: 9px;
+
+    border: 1px solid #293545;
+
+    background: #080d14;
+
+    color: var(--text);
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+
+input:focus,
+select:focus {
+    border-color: var(--green);
+
+    box-shadow:
+        0 0 0 2px rgba(57, 255, 136, 0.08);
+}
+
+
+.note {
+    color: #687586;
+
+    font-size: 10px;
+
+    text-align: center;
+
+    margin-top: 10px;
+}
+
+
+/* RESULTS */
+
+.hidden {
+    display: none;
+}
+
+
+.result-head {
+    margin-top: 30px;
+}
+
+
+.confidence-pill {
+    border: 1px solid var(--border);
+
+    background: var(--panel2);
+
+    color: var(--muted);
+
+    border-radius: 999px;
+
+    padding: 8px 12px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* METRICS */
+
+.metrics {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 14px;
+}
+
+
+.metric {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    min-height: 135px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.metric.featured {
+    border-color: #2c8c56;
+
+    background:
+        linear-gradient(
+            145deg,
+            #102319,
+            var(--panel)
+        );
+}
+
+
+.metric span,
+.picks span {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    font-weight: 800;
+}
+
+
+.metric strong {
+    color: var(--green);
+
+    font-size: 27px;
+
+    margin-top: 9px;
+
+    line-height: 1.15;
+}
+
+
+.metric small {
+    color: #687586;
+
+    font-size: 10px;
+
+    margin-top: 8px;
+}
+
+
+/* PICKS */
+
+.picks {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+.picks article {
+    background: var(--panel2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    padding: 18px;
+}
+
+
+.picks strong {
+    display: block;
+
+    font-size: 19px;
+
+    margin-top: 6px;
+}
+
+
+/* TWO COLUMNS */
+
+.two-col {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* DATA LIST */
+
+.list {
+    margin-top: 17px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.list div {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 12px 14px;
+
+    background: #0c121b;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 12px;
+}
+
+
+.list div:last-child {
+    border-bottom: 0;
+}
+
+
+.list span {
+    color: var(--muted);
+}
+
+
+.list b {
+    color: #e9edf2;
+}
+
+
+/* CONFIDENCE */
+
+.confidence {
+    display: grid;
+
+    grid-template-columns: 1fr 360px;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+.confidence h2 {
+    font-size: 20px;
+
+    margin: 5px 0;
+}
+
+
+.confidence p:not(.eyebrow) {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.meter-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.meter {
+    height: 10px;
+
+    flex: 1;
+
+    background: #222d3b;
+
+    border-radius: 99px;
+
+    overflow: hidden;
+}
+
+
+.meter div {
+    height: 100%;
+
+    width: 0;
+
+    background: var(--green);
+
+    transition: width 0.5s ease;
+}
+
+
+.meter-row strong {
+    color: var(--green);
+
+    min-width: 40px;
+
+    text-align: right;
+}
+
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid var(--border);
+
+    padding: 26px;
+
+    text-align: center;
+
+    color: var(--green);
+}
+
+
+footer span {
+    display: block;
+
+    color: #657182;
+
+    font-size: 10px;
+
+    margin-top: 4px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    .form-grid,
+    .metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .two-col,
+    .confidence {
+        grid-template-columns: 1fr;
+    }
 
 }
 
 
-// --------------------------------------------------------
-// TOTAL PICK
-// --------------------------------------------------------
+@media (max-width: 600px) {
 
-/*
-    The current prototype uses the market total.
+    .topbar,
+    .hero {
+        flex-direction: column;
 
-    The historical scoring model will eventually
-    determine whether the predicted total is OVER
-    or UNDER the sportsbook total.
-*/
+        align-items: flex-start;
+    }
 
+    .hero-badge {
+        width: 100%;
+    }
 
-let totalPick;
+    .form-grid,
+    .metrics,
+    .picks {
+        grid-template-columns: 1fr;
+    }
 
-if (
-    projectedTotal >=
-    overUnder
-) {
+    .container {
+        width: 94%;
 
-    totalPick =
-        `OVER ${overUnder}`;
+        margin-top: 20px;
+    }
 
-} else {
-
-    totalPick =
-        `UNDER ${overUnder}`;
+    .card,
+    .hero {
+        padding: 19px;
+    }
 
 }
-
-
-// --------------------------------------------------------
-// UPDATE PAGE
-// --------------------------------------------------------
-
-document.getElementById(
-    "matchupTitle"
-).textContent =
-    `${awayTeam} @ ${homeTeam}`;
-
-
-document.getElementById(
-    "winProbability"
-).textContent =
-    `${(
-        modelProbability * 100
-    ).toFixed(1)}%`;
-
-
-document.getElementById(
-    "marketProbability"
-).textContent =
-    `${(
-        market.home * 100
-    ).toFixed(1)}%`;
-
-
-document.getElementById(
-    "modelEdge"
-).textContent =
-    `${(
-        modelEdge * 100
-    ).toFixed(1)}%`;
-
-
-document.getElementById(
-    "predictedScore"
-).textContent =
-    `${awayTeam} ${Math.round(projectedAwayScore)} - ${homeTeam} ${Math.round(projectedHomeScore)}`;
-
-
-document.getElementById(
-    "modelPick"
-).textContent =
-    modelPick;
-
-
-document.getElementById(
-    "spreadPick"
-).textContent =
-    spreadPick;
-
-
-document.getElementById(
-    "totalPick"
-).textContent =
-    totalPick;
-
-
-// --------------------------------------------------------
-// MARKET INFORMATION
-// --------------------------------------------------------
-
-document.getElementById(
-    "displaySpread"
-).textContent =
-    spread > 0
-        ? `${homeTeam} +${spread}`
-        : `${homeTeam} ${spread}`;
-
-
-document.getElementById(
-    "displayTotal"
-).textContent =
-    overUnder;
-
-
-document.getElementById(
-    "modelSpread"
-).textContent =
-    projectedMargin.toFixed(1);
-
-
-document.getElementById(
-    "spreadEdge"
-).textContent =
-    `${(
-        projectedMargin +
-        spread
-    ).toFixed(1)}`;
-
-
-document.getElementById(
-    "predictedTotal"
-).textContent =
-    projectedTotal.toFixed(1);
-
-
-document.getElementById(
-    "totalEdge"
-).textContent =
-    "0.0";
-
-
-// --------------------------------------------------------
-// CONFIDENCE
-// --------------------------------------------------------
-
-const confidence =
-    Math.abs(modelEdge) * 100;
-
-
-const confidenceScore =
-    Math.min(
-```
