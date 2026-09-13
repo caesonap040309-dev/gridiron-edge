@@ -1,0 +1,34 @@
+name: Update live college football data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-data
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch schedules and odds
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: node scripts/update-data.mjs
+      - name: Publish changed data
+        run: |
+          git config user.name "gridiron-edge-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/live.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update live college football data"
+          git push
