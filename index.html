@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Live college football schedules, sportsbook odds, and line movement.">
-  <title>Gridiron Edge | Live College Football Odds</title>
-  <link rel="stylesheet" href="style.css?v=20260913-14">
+  <meta name="description" content="Live college football and NFL schedules, sportsbook odds, predictions, and line movement.">
+  <title>Gridiron Edge | Football Market Board</title>
+  <link rel="stylesheet" href="style.css?v=20260913-15">
   <link rel="stylesheet" href="model.css?v=20260913-11">
   <link rel="stylesheet" href="final.css?v=20260913-11">
   <style>
@@ -32,7 +32,11 @@
 </head>
 <body class="theme-light">
   <header class="topbar">
-    <a class="brand" href="#"><span class="logo">GE</span><span><strong>Gridiron Edge</strong><small>College Football Market Board</small></span></a>
+    <a class="brand" href="#"><span class="logo">GE</span><span><strong>Gridiron Edge</strong><small id="brandSubtitle">College Football Market Board</small></span></a>
+    <div class="league-tabs" role="tablist" aria-label="Football league">
+      <button class="league-tab active" type="button" role="tab" aria-selected="true" data-league="cfb">College Football</button>
+      <button class="league-tab" type="button" role="tab" aria-selected="false" data-league="nfl">NFL</button>
+    </div>
     <nav class="side-nav" aria-label="Main navigation">
       <a class="active" href="#top">⌂ <span>Home</span></a>
       <a href="#market-board">◷ <span>Games</span></a>
@@ -40,16 +44,16 @@
       <a href="#market-board">⌁ <span>Predictions</span></a>
     </nav>
     <button id="themeToggle" class="theme-toggle" type="button">☾ Dark mode</button>
-    <div class="side-label">COLLEGE FOOTBALL · 2026</div>
+    <div id="sideLabel" class="side-label">COLLEGE FOOTBALL · 2026</div>
     <div id="connectionStatus" class="status"><span class="dot"></span><span>Connecting to live feed</span></div>
   </header>
 
   <main id="top">
     <section class="hero">
       <div>
-        <p class="eyebrow">LIVE FBS ODDS</p>
-        <h1>Every game. Every move.<br><span>One clear board.</span></h1>
-        <p class="hero-copy">Real college-football schedules and sportsbook prices, refreshed automatically throughout the season.</p>
+        <p id="heroEyebrow" class="eyebrow">LIVE FBS ODDS</p>
+        <h1 id="heroTitle">Every game. Every move.<br><span>One clear board.</span></h1>
+        <p id="heroCopy" class="hero-copy">Real college-football schedules and sportsbook prices, refreshed automatically throughout the season.</p>
       </div>
       <div class="refresh-card"><span>Next refresh</span><strong id="countdown">60s</strong><button id="refreshBtn" type="button">Refresh now</button></div>
     </section>
@@ -84,7 +88,7 @@
     </div>
   </dialog>
 
-  <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules and scores: ESPN · Available lines: DraftKings</span></footer>
-  <script src="script.js?v=20260913-12"></script>
+  <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
+  <script src="script.js?v=20260913-13"></script>
 </body>
 </html>
