@@ -10,9 +10,9 @@ Live FBS schedules and sportsbook odds with automatic line-change detection.
 ## One-time live setup
 
 1. Create an API key at The Odds API.
-2. Deploy `worker.js` as a Cloudflare Worker using `wrangler.toml`.
-3. Add the API key as the Worker secret named `ODDS_API_KEY` (never commit the key).
-4. Put the deployed Worker URL in `config.js`.
+2. In GitHub, open **Settings → Secrets and variables → Actions**.
+3. Create a repository secret named `ODDS_API_KEY` and paste the key there. Never add it to a code file.
+4. Open **Actions → Update live college football data → Run workflow** once.
 5. Keep GitHub Pages enabled for the repository's `main` branch.
 
-The browser refreshes every 60 seconds and compares each response with the prior response to mark changes. Persistent historical charts require a database and a paid historical-data plan.
+GitHub refreshes the source data every 15 minutes and the open website checks for a new file every 60 seconds. The Odds API charges request credits based on markets and regions, so confirm that the selected plan supports this frequency. Persistent historical charts require a database and a historical-data plan.
