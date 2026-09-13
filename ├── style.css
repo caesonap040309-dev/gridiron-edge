@@ -1,1 +1,73 @@
-├── style.css
+ {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b12;
+    color: white;
+}
+
+header {
+    background: #101722;
+    padding: 25px 8%;
+    border-bottom: 1px solid #242b38;
+}
+
+header h1 {
+    color: #39ff88;
+    font-size: 32px;
+}
+
+header p {
+    color: #9aa4b2;
+    margin-top: 5px;
+}
+
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.hero {
+    margin-bottom: 30px;
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    color: #9aa4b2;
+}
+
+.game-card {
+    background: #111722;
+    border: 1px solid #242d3a;
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 600px;
+}
+
+.game-card h2 {
+    margin-bottom: 25px;
+}
+
+.prediction {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #252d38;
+}
+
+.prediction span {
+    color: #9aa4b2;
+}
+
+.prediction strong {
+    color: #39ff88;
+}
