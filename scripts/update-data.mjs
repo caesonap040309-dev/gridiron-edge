@@ -8,6 +8,42 @@ const season=Number(process.env.SEASON||now.getUTCFullYear());
 const espn="https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard";
 const games=[];
 const events=[];
+const cleanTeam=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+const num=value=>{const parsed=Number(String(value??"").replace("+",""));return Number.isFinite(parsed)?parsed:null};
+const teamName=(event,side)=>event.teams?.[side]?.names?.long||event.teams?.[side]?.name||event.teams?.[side]?.names?.medium||side;
+const marketPoint=(odd,quote)=>num(quote?.spread??quote?.overUnder??odd?.bookSpread??odd?.bookOverUnder);
+
+function sportsGameOddsEvents(rawEvents){
+  return (rawEvents||[]).map(event=>{
+    const home=teamName(event,"home"),away=teamName(event,"away");
+    const books=new Map();
+    for(const odd of Object.values(event.odds||{})){
+      if(odd.periodID!=="game"||!["ml","sp","ou"].includes(odd.betTypeID))continue;
+      const marketKey={ml:"h2h",sp:"spreads",ou:"totals"}[odd.betTypeID];
+      for(const [bookKey,quote] of Object.entries(odd.byBookmaker||{})){
+        if(quote?.available===false)continue;
+        if(!books.has(bookKey))books.set(bookKey,{key:bookKey,title:quote?.bookmakerName||bookKey.replace(/[-_]/g," ").replace(/\b\w/g,c=>c.toUpperCase()),markets:new Map()});
+        const book=books.get(bookKey);
+        if(!book.markets.has(marketKey))book.markets.set(marketKey,[]);
+        const name=odd.betTypeID==="ou"?(odd.sideID==="over"?"Over":"Under"):(odd.sideID==="home"?home:away);
+        const point=odd.betTypeID==="ml"?undefined:marketPoint(odd,quote);
+        const price=num(quote.odds??odd.bookOdds);
+        if(price!=null&&(odd.betTypeID==="ml"||point!=null))book.markets.get(marketKey).push({name,...(point==null?{}:{point}),price});
+      }
+    }
+    return {id:event.eventID,commence_time:event.status?.startsAt,home_team:home,away_team:away,bookmakers:[...books.values()].map(book=>({...book,markets:[...book.markets].map(([key,outcomes])=>({key,outcomes}))}))};
+  }).filter(event=>event.bookmakers.length);
+}
+
+async function fetchSportsGameOdds(){
+  const key=process.env.SPORTSGAMEODDS_API_KEY?.trim();
+  if(!key)return [];
+  const params=new URLSearchParams({leagueID:"NCAAF",oddsAvailable:"true",includeAltLines:"false",limit:"100"});
+  const response=await fetch(`https://api.sportsgameodds.com/v2/events?${params}`,{headers:{"x-api-key":key}});
+  const payload=await response.json().catch(()=>({}));
+  if(!response.ok||payload.success===false)throw new Error(`SportsGameOdds failed: ${response.status} ${payload.error||""}`);
+  return sportsGameOddsEvents(payload.data);
+}
 for(let week=1;week<=16;week++){
   const q=new URLSearchParams({limit:"100",groups:"80",dates:String(season),seasontype:"2",week:String(week)});
   const response=await fetch(`${espn}?${q}`);
@@ -38,6 +74,16 @@ for(let week=1;week<=16;week++){
     }
   }
 }
+const multiBookEvents=await fetchSportsGameOdds();
+if(multiBookEvents.length){
+  const byMatch=new Map(events.map((event,index)=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,index]));
+  for(const event of multiBookEvents){
+    const key=`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`;
+    const index=byMatch.get(key);
+    if(index==null)events.push(event);
+    else events[index]={...events[index],bookmakers:event.bookmakers};
+  }
+}
 const stats=new Map();
 const statFor=name=>{if(!stats.has(name))stats.set(name,{games:0,for:0,against:0});return stats.get(name)};
 for(const game of games){
@@ -58,5 +104,5 @@ for(const game of games){
   game.prediction=stored||{winner:margin>=0?game.home:game.away,homeWin,spread:margin===0?0:-margin,total,homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample:Math.min(home.games,away.games),createdAt:now.toISOString()};
 }
 await mkdir("data",{recursive:true});
-await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),games,events},null,2)+"\n");
-console.log(`Saved ${games.length} games and ${events.length} markets`);
+await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),oddsSource:multiBookEvents.length?"SportsGameOdds multi-book":"ESPN market fallback",games,events},null,2)+"\n");
+console.log(`Saved ${games.length} games and ${events.length} markets (${multiBookEvents.length} multi-book events)`);
