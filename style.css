@@ -188,3 +188,11 @@ body.theme-light .league-tab{color:#536273}
 body.theme-light .league-tab.active{color:#fff}
 @media(max-width:900px){.league-tabs{display:flex;margin-left:auto}.league-tab{padding:8px 10px}.league-tab:first-child{font-size:0}.league-tab:first-child:after{content:"CFB";font-size:10px}}
 @media(max-width:520px){.league-tabs{margin-left:6px}.league-tab{padding:7px 8px}}
+
+/* Sharper model output */
+.sharp-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 20px}
+.sharp-metrics>div{padding:14px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--team-color,#0879e6) 7%,var(--panel2))}
+.sharp-metrics span,.sharp-metrics small{display:block;color:var(--muted);font-size:9px}
+.sharp-metrics span{text-transform:uppercase;letter-spacing:.8px;font-weight:800}
+.sharp-metrics b{display:block;margin:7px 0 4px;color:var(--team-ink,var(--team-color,#58a6ff));font-size:15px}
+@media(max-width:760px){.sharp-metrics{grid-template-columns:1fr 1fr}}
