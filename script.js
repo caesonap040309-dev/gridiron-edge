@@ -1,12 +1,39 @@
-const state = { games: [], odds: [], previous: new Map(), seconds: 60, timer: null };
+const state = { games: [], odds: [], previous: new Map(), seconds: 60, timer: null, league: localStorage.getItem("gridiron-league")==="nfl"?"nfl":"cfb" };
+const LEAGUES={
+  cfb:{label:"College Football",short:"COLLEGE FOOTBALL",eyebrow:"LIVE FBS ODDS",copy:"Real college-football schedules and sportsbook prices, refreshed automatically throughout the season.",data:"data/live.json",weeks:16,summary:"college-football"},
+  nfl:{label:"NFL",short:"NFL",eyebrow:"LIVE NFL ODDS",copy:"Every NFL game, sportsbook price, model projection, and final result across the full regular season.",data:"data/nfl.json",weeks:18,summary:"nfl"}
+};
+const leagueConfig=()=>LEAGUES[state.league];
 const $ = id => document.getElementById(id);
 const esc=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 function safeNewsUrl(value){try{const url=new URL(value);return url.protocol==="https:"?url.href:"#"}catch{return "#"}}
 
 function setupFilters(){
   const now=new Date(); const currentYear=now.getFullYear();
+  $("season").innerHTML="";
   for(let y=currentYear-1;y<=currentYear+1;y++) $("season").add(new Option(y,y,y===currentYear,y===currentYear));
-  for(let w=0;w<=16;w++) $("week").add(new Option(w===0?"Upcoming with odds":"Week "+w,w,w===0,w===0));
+  rebuildWeeks();
+}
+function rebuildWeeks(){
+  const selected=$("week").value||"0"; $("week").innerHTML="";
+  for(let w=0;w<=leagueConfig().weeks;w++) $("week").add(new Option(w===0?"Upcoming with odds":"Week "+w,w,false,String(w)===selected));
+  if(!$("week").value)$("week").value="0";
+}
+function applyLeagueUI(){
+  const config=leagueConfig(),year=$("season").value||new Date().getFullYear();
+  document.querySelectorAll(".league-tab").forEach(button=>{const active=button.dataset.league===state.league;button.classList.toggle("active",active);button.setAttribute("aria-selected",String(active))});
+  $("brandSubtitle").textContent=config.label+" Market Board";
+  $("sideLabel").textContent=config.short+" · "+year;
+  $("heroEyebrow").textContent=config.eyebrow;
+  $("heroCopy").textContent=config.copy;
+  $("boardTitle").textContent=config.label;
+  document.title="Gridiron Edge | "+config.label+" Market Board";
+  $("teamSearch").placeholder=state.league==="nfl"?"Search Chiefs, Eagles…":"Search Alabama, Michigan…";
+}
+function switchLeague(league){
+  if(!LEAGUES[league]||league===state.league)return;
+  state.league=league;localStorage.setItem("gridiron-league",league);state.previous.clear();$("teamSearch").value="";
+  rebuildWeeks();applyLeagueUI();load();
 }
 function fmtTime(value){return new Intl.DateTimeFormat(undefined,{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}).format(new Date(value))}
 function signed(n){if(n==null)return "—";return `${n>0?"+":""}${n}`}
@@ -72,10 +99,10 @@ async function load(){
   $("loading").classList.remove("hidden"); $("notice").classList.add("hidden");
   try{
     const year=$("season").value,week=$("week").value;
-    const response=await fetch(`data/live.json?t=${Date.now()}`,{cache:"no-store"});
+    const response=await fetch(`${leagueConfig().data}?t=${Date.now()}`,{cache:"no-store"});
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
-    state.odds=live.events||[]; $("dataCredit").textContent=`Schedules and scores: ESPN · Odds: ${live.oddsSource||"available sportsbook markets"}`;
+    state.odds=live.events||[]; $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?state.odds.some(o=>o.id===g.id):String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     populateBooks();render();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
@@ -153,7 +180,7 @@ async function openGame(id){
   $("detailBody").innerHTML=`<div class="detail-loading"><span class="eyebrow">MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>Loading game statistics…</p></div>`;
   dialog.showModal();
   let summary=null;
-  try{const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=${encodeURIComponent(game.id)}`);if(response.ok)summary=await response.json()}catch{}
+  try{const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${leagueConfig().summary}/summary?event=${encodeURIComponent(game.id)}`);if(response.ok)summary=await response.json()}catch{}
   const ranks=new Map(strengthRanks());
   const awayOff=modelIndex(p.awayOffense,"offense"),homeOff=modelIndex(p.homeOffense,"offense"),awayDef=modelIndex(p.awayDefense,"defense"),homeDef=modelIndex(p.homeDefense,"defense");
   const awayCover=awayDef,homeCover=homeDef;
@@ -191,4 +218,6 @@ document.body.classList.toggle("theme-dark",savedTheme==="dark");
 function updateThemeButton(){const light=document.body.classList.contains("theme-light");$("themeToggle").textContent=light?"☾ Dark mode":"☀ Light mode"}
 $("themeToggle").addEventListener("click",()=>{const light=!document.body.classList.contains("theme-light");document.body.classList.toggle("theme-light",light);document.body.classList.toggle("theme-dark",!light);localStorage.setItem("gridiron-theme",light?"light":"dark");updateThemeButton()});updateThemeButton();
 
-setupFilters();$("season").addEventListener("change",load);$("week").addEventListener("change",load);$("bookFilter").addEventListener("change",render);$("teamSearch").addEventListener("input",render);$("refreshBtn").addEventListener("click",load);state.timer=setInterval(tick,1000);load();
+setupFilters();applyLeagueUI();
+document.querySelectorAll(".league-tab").forEach(button=>button.addEventListener("click",()=>switchLeague(button.dataset.league)));
+$("season").addEventListener("change",()=>{applyLeagueUI();load()});$("week").addEventListener("change",load);$("bookFilter").addEventListener("change",render);$("teamSearch").addEventListener("input",render);$("refreshBtn").addEventListener("click",load);state.timer=setInterval(tick,1000);load();
