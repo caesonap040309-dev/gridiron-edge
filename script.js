@@ -228,6 +228,26 @@ async function openGame(id){
   dialog.showModal();
   let summary=null;
   try{const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${leagueConfig().summary}/summary?event=${encodeURIComponent(game.id)}`);if(response.ok)summary=await response.json()}catch{}
+  const liveCompetition=summary?.header?.competitions?.[0]||null;
+  const liveStatus=liveCompetition?.status?.type||{};
+  const detailStatus=liveStatus.shortDetail||liveStatus.detail||game.status||"Scheduled";
+  const summaryCompetitors=liveCompetition?.competitors||[];
+  const competitorScore=side=>{
+    const competitor=summaryCompetitors.find(item=>item.homeAway===side);
+    const value=competitor?.score?.displayValue??competitor?.score;
+    return value==null||value===""?null:Number(value);
+  };
+  const summaryAwayScore=competitorScore("away"),summaryHomeScore=competitorScore("home");
+  const feedAwayScore=Number(game.awayScore),feedHomeScore=Number(game.homeScore);
+  const actualAwayScore=Number.isFinite(summaryAwayScore)?summaryAwayScore:(Number.isFinite(feedAwayScore)?feedAwayScore:null);
+  const actualHomeScore=Number.isFinite(summaryHomeScore)?summaryHomeScore:(Number.isFinite(feedHomeScore)?feedHomeScore:null);
+  const detailIsFinal=liveStatus.completed===true||/final/i.test(detailStatus);
+  const detailIsLive=liveStatus.state==="in"||(!detailIsFinal&&/quarter|qtr|half|halftime|in progress|end of/i.test(detailStatus));
+  const showActualScore=(detailIsLive||detailIsFinal)&&actualAwayScore!=null&&actualHomeScore!=null;
+  const scoreLabel=detailIsFinal?"FINAL SCORE":detailIsLive?"LIVE SCORE":"MODEL PREDICTION";
+  const topAwayScore=showActualScore?actualAwayScore:(Number(p.awayScore)||0);
+  const topHomeScore=showActualScore?actualHomeScore:(Number(p.homeScore)||0);
+  const predictionComparison=showActualScore?`<div class="prediction-comparison"><span>GRIDIRON EDGE PREGAME PREDICTION</span><strong>${esc(game.away)} ${Number(p.awayScore)||0}–${esc(game.home)} ${Number(p.homeScore)||0}</strong><small>Locked before kickoff for an honest comparison</small></div>`:"";
   const ranks=new Map(strengthRanks());
   const awayOff=modelIndex(p.awayOffense,"offense"),homeOff=modelIndex(p.homeOffense,"offense"),awayDef=modelIndex(p.awayDefense,"defense"),homeDef=modelIndex(p.homeDefense,"defense");
   const awayCover=awayDef,homeCover=homeDef;
@@ -245,7 +265,7 @@ async function openGame(id){
   ];
   $("detailBody").innerHTML=`
     <header class="detail-head"><a class="back-link" href="#" id="detailBack">← All games</a><span class="eyebrow">THE MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>${esc(fmtTime(game.date))} · ${esc(game.status||"Scheduled")}</p></header><nav class="detail-tabs"><a href="#model-pick">Model pick</a><a href="#win-probability">Win probability</a><a href="#scoring">Scoring</a><a href="#team-stats">Team stats</a><a href="#box-score">Box score</a></nav>
-    <section class="score-projection" id="model-pick"><div>${logo(game.awayLogo,game.away)}<h3>${esc(game.away)}</h3><small>Rank ${ranks.get(game.away)?"#"+ranks.get(game.away):"—"} · Away</small><strong>${Number(p.awayScore)||0}</strong></div><span>VS</span><div>${logo(game.homeLogo,game.home)}<h3>${esc(game.home)}</h3><small>Rank ${ranks.get(game.home)?"#"+ranks.get(game.home):"—"} · Home</small><strong>${Number(p.homeScore)||0}</strong></div><div class="projection-summary"><div><span>Model spread</span><b>${esc(game.home)} ${signed(p.spread)}</b></div><div><span>Projected total</span><b>${Number(p.total).toFixed(1)}</b></div><div><span>Win outlook</span><b>${esc(p.winner||"Toss-up")}</b></div></div><div class="detail-prob-labels"><b>${awayWin.toFixed(1)}%</b><span>WIN PROBABILITY</span><b>${homeWin.toFixed(1)}%</b></div><div class="detail-probability"><i style="width:${awayWin}%"></i><i style="width:${homeWin}%"></i></div></section>
+    <section class="score-projection ${showActualScore?"showing-actual":"showing-prediction"}" id="model-pick"><div class="score-state-label ${detailIsLive?"live":detailIsFinal?"final":""}">${esc(scoreLabel)}${detailIsLive?` · ${esc(detailStatus)}`:""}</div><div>${logo(game.awayLogo,game.away)}<h3>${esc(game.away)}</h3><small>Rank ${ranks.get(game.away)?"#"+ranks.get(game.away):"—"} · Away</small><strong>${topAwayScore}</strong></div><span>VS</span><div>${logo(game.homeLogo,game.home)}<h3>${esc(game.home)}</h3><small>Rank ${ranks.get(game.home)?"#"+ranks.get(game.home):"—"} · Home</small><strong>${topHomeScore}</strong></div><div class="projection-summary"><div><span>Model spread</span><b>${esc(game.home)} ${signed(p.spread)}</b></div><div><span>Projected total</span><b>${Number(p.total).toFixed(1)}</b></div><div><span>Win outlook</span><b>${esc(p.winner||"Toss-up")}</b></div></div>${predictionComparison}<div class="detail-prob-labels"><b>${awayWin.toFixed(1)}%</b><span>WIN PROBABILITY</span><b>${homeWin.toFixed(1)}%</b></div><div class="detail-probability"><i style="width:${awayWin}%"></i><i style="width:${homeWin}%"></i></div></section>
     <section class="detail-section model-pick-card"><div class="section-title"><span class="eyebrow">OUR PICK · VS THE MARKET</span><h3>Model picks and results</h3></div><div class="pick-results">${pickResults(game,p)}</div>${sharpMetrics(game,p)}<div class="section-subtitle">Matchup advantages</div><div class="keys-grid">${keys.map(key=>`<div><span>${esc(key.text)}</span><b>${esc(key.team)}</b><strong>${key.edge>=0?"+":""}${key.edge.toFixed(1)}</strong></div>`).join("")}</div></section>
     <section class="detail-section" id="win-probability"><div class="section-title"><span class="eyebrow">WIN PROBABILITY · TALE OF THE TAPE</span><h3>Head-to-head numbers</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(game.away)}</b><span>Metric</span><b>${esc(game.home)}</b></div>${metrics.map(row=>`<div><strong>${esc(row[1]??"—")}</strong><span>${esc(row[0])}</span><strong>${esc(row[2]??"—")}</strong></div>`).join("")}</div><div class="ratings">${ratingBar("Offense",awayOff,homeOff,game.away,game.home)}${ratingBar("Defense",awayDef,homeDef,game.away,game.home)}${ratingBar("Coverage proxy",awayCover,homeCover,game.away,game.home)}</div><p class="method-note">The model uses the current season plus two prior seasons, with older games discounted and every performance adjusted for opponent strength. Historical player participation is included only when a stable athlete ID is available; coverage proxy is not an official player-tracking grade.</p></section>
     <section class="detail-section" id="team-stats"><div class="section-title"><span class="eyebrow">SPORTSBOOKS</span><h3>Every available line</h3></div><div class="table-scroll"><table class="odds-table"><thead><tr><th>Book</th><th>Spread</th><th>Total</th><th>Moneyline</th></tr></thead><tbody>${allBookRows(event)||'<tr><td colspan="4">No current markets</td></tr>'}</tbody></table></div></section>
