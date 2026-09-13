@@ -149,7 +149,7 @@ function scoringSummary(summary){
 async function openGame(id){
   const game=state.games.find(item=>String(item.id)===String(id));if(!game)return;
   const event=oddsEventFor(game),p=game.prediction||{},homeWin=Number(p.homeWin)||50,awayWin=100-homeWin;
-  const dialog=$("gameDialog");const color=/^[0-9a-f]{6}$/i.test(game.homeColor||"")?"#"+game.homeColor:"#0879e6";const alt=/^[0-9a-f]{6}$/i.test(game.homeAltColor||"")?"#"+game.homeAltColor:color;dialog.style.setProperty("--team-color",color);dialog.style.setProperty("--team-alt",alt);location.hash=`game-${game.id}`;
+  const dialog=$("gameDialog");const color=/^[0-9a-f]{6}$/i.test(game.homeColor||"")?"#"+game.homeColor:"#0879e6";const alt=/^[0-9a-f]{6}$/i.test(game.homeAltColor||"")?"#"+game.homeAltColor:color;const brightness=hex=>{const v=hex.replace("#","");return(299*parseInt(v.slice(0,2),16)+587*parseInt(v.slice(2,4),16)+114*parseInt(v.slice(4,6),16))/1000};const darkMode=document.body.classList.contains("theme-dark");const candidates=[color,alt];const readable=darkMode?(candidates.sort((a,b)=>brightness(b)-brightness(a))[0]):(candidates.sort((a,b)=>brightness(a)-brightness(b))[0]);dialog.style.setProperty("--team-color",color);dialog.style.setProperty("--team-alt",alt);dialog.style.setProperty("--team-ink",readable);location.hash=`game-${game.id}`;
   $("detailBody").innerHTML=`<div class="detail-loading"><span class="eyebrow">MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>Loading game statistics…</p></div>`;
   dialog.showModal();
   let summary=null;
