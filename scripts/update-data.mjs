@@ -84,6 +84,32 @@ for(let week=1;week<=16;week++){
     }
   }
 }
+const historicalGames=[];
+async function fetchHistoricalSeason(year){
+  const collected=[];
+  const maxWeek=16;
+  for(let week=1;week<=maxWeek;week++){
+    const q=new URLSearchParams({limit:"100",groups:"80",dates:String(year),seasontype:"2",week:String(week)});
+    const response=await fetch(`${espn}?${q}`);
+    if(!response.ok){console.error(`Historical season ${year} week ${week} failed: ${response.status}`);continue}
+    const data=await response.json();
+    for(const event of data.events||[]){
+      const competition=event.competitions?.[0]||{};
+      const home=competition.competitors?.find(team=>team.homeAway==="home");
+      const away=competition.competitors?.find(team=>team.homeAway==="away");
+      const homeScore=Number(home?.score),awayScore=Number(away?.score);
+      if(!Number.isFinite(homeScore)||!Number.isFinite(awayScore)||!/final/i.test(event.status?.type?.shortDetail||""))continue;
+      collected.push({id:event.id,season:year,week,date:event.date,status:"Final",home:home?.team?.displayName||"TBD",away:away?.team?.displayName||"TBD",homeScore,awayScore});
+    }
+  }
+  return collected;
+}
+for(const year of [season-1,season-2]){
+  const seasonGames=await fetchHistoricalSeason(year);
+  historicalGames.push(...seasonGames);
+  console.log(`Loaded ${seasonGames.length} historical games from ${year}`);
+}
+
 const [sportsGameOdds,theOddsApi]=await Promise.all([
   fetchSportsGameOdds().catch(error=>(console.error(error.message),[])),
   fetchTheOddsApi().catch(error=>(console.error(error.message),[]))
@@ -121,12 +147,13 @@ const SPREAD_SCALE=6.8;
 const TOTAL_SCALE=8.5;
 const records=new Map();
 const recordFor=name=>{if(!records.has(name))records.set(name,[]);return records.get(name)};
-for(const game of games){
+for(const game of [...games,...historicalGames]){
   if(!/final/i.test(game.status||""))continue;
   const homeScore=Number(game.homeScore),awayScore=Number(game.awayScore);
   if(!Number.isFinite(homeScore)||!Number.isFinite(awayScore))continue;
   const ageDays=Math.max(0,(now-new Date(game.date))/86400000);
-  const weight=Math.max(.28,Math.exp(-ageDays/RECENCY_DAYS));
+  const seasonWeight=Math.pow(.45,Math.max(0,season-Number(game.season||season)));
+  const weight=Math.max(.28,Math.exp(-ageDays/RECENCY_DAYS))*seasonWeight;
   recordFor(game.home).push({opponent:game.away,scored:homeScore,allowed:awayScore,weight});
   recordFor(game.away).push({opponent:game.home,scored:awayScore,allowed:homeScore,weight});
 }
@@ -197,6 +224,12 @@ for(const game of games){
     overProb,underProb:overProb==null?null:Math.round((100-overProb)*10)/10,
     fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence
   };
+  const teamHistory=[...historicalGames,...games.filter(item=>item.id!==game.id&&/final/i.test(item.status||""))];
+  const relevant=teamHistory.filter(item=>item.home===game.home||item.away===game.home||item.home===game.away||item.away===game.away);
+  const headToHead=relevant.filter(item=>[item.home,item.away].includes(game.home)&&[item.home,item.away].includes(game.away));
+  const homeHistoricalGames=relevant.filter(item=>item.home===game.home||item.away===game.home).length;
+  const awayHistoricalGames=relevant.filter(item=>item.home===game.away||item.away===game.away).length;
+  prediction.history={seasons:[season-2,season-1,season],homeGames:homeHistoricalGames,awayGames:awayHistoricalGames,headToHead:headToHead.length,headToHeadAverageTotal:headToHead.length?Math.round(headToHead.reduce((sum,item)=>sum+Number(item.homeScore)+Number(item.awayScore),0)/headToHead.length*10)/10:null};
   prediction.market=stored?.market||snapshotMarket(game,prediction);
   game.prediction=prediction;
 }
