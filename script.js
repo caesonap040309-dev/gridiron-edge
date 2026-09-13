@@ -1,4 +1,4 @@
-const state = { games: [], odds: [], news: [], previous: new Map(), seconds: 60, timer: null };
+const state = { games: [], odds: [], previous: new Map(), seconds: 60, timer: null };
 const $ = id => document.getElementById(id);
 const esc=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 function safeNewsUrl(value){try{const url=new URL(value);return url.protocol==="https:"?url.href:"#"}catch{return "#"}}
@@ -32,10 +32,6 @@ function oddsEventFor(game){
   const a=(game.away||"").toLowerCase(),h=(game.home||"").toLowerCase();
   return state.odds.find(o=>o.away_team.toLowerCase()===a&&o.home_team.toLowerCase()===h);
 }
-function newsFor(game){
-  const names=[game.home,game.away].map(n=>n.toLowerCase());
-  return state.news.filter(item=>names.some(name=>item.searchText.includes(name)||name.split(" ").some(part=>part.length>5&&item.searchText.includes(part)))).slice(0,3);
-}
 function render(){
   const query=$("teamSearch").value.trim().toLowerCase(); let moves=0,withOdds=0;
   const list=state.games.filter(g=>!query||g.away.toLowerCase().includes(query)||g.home.toLowerCase().includes(query));
@@ -46,9 +42,10 @@ function render(){
     const over=totals.find(o=>o.name==="Over"), awayMl=h2h.find(o=>o.name===g.away), homeMl=h2h.find(o=>o.name===g.home);
     const p=g.prediction||{};
     const prediction=p.winner?`<div class="model-strip"><div><span>Gridiron Edge prediction</span><strong>${esc(p.winner)} · ${esc(g.away)} ${Number(p.awayScore)||0}–${esc(g.home)} ${Number(p.homeScore)||0}</strong></div><div><span>Model spread</span><strong>${esc(g.home)} ${signed(p.spread)}</strong></div><div><span>Model total</span><strong>${Number(p.total).toFixed(1)}</strong></div><div><span>Home win chance</span><strong>${Number(p.homeWin).toFixed(1)}%</strong></div><small>Based on season scoring and defensive results · ${Number(p.sample)||0} shared-game sample</small></div>`:"";
-    const stories=newsFor(g);
-    const news=stories.length?stories.map(s=>`<a href="${esc(safeNewsUrl(s.link))}" target="_blank" rel="noopener noreferrer"><span>${esc(s.source)}</span><strong>${esc(s.title)}</strong><small>${esc(s.summary)}</small></a>`).join(""):'<p>No recent matchup reporting found.</p>';
-    return `<article class="game"><div class="matchup"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span><div class="teams"><div class="team"><span>${esc(g.away)}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${esc(g.home)}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${esc(m.spreads?.book||"No line posted")}</small></div><div class="market"><span>Total</span><strong>${over?`O/U ${Number(over.point)}`:"—"}</strong><small>${esc(m.totals?.book||"No line posted")}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${american(awayMl.price)} / ${american(homeMl?.price)}`:"—"}</strong><small>${esc(m.h2h?.book||"No line posted")}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}<div class="news-strip"><div class="news-label">Latest reporting</div><div class="news-list">${news}</div></div></article>`;
+    const isFinal=/final/i.test(g.status||"");
+    const wasPregame=p.createdAt&&new Date(p.createdAt)<new Date(g.date);
+    const final=isFinal?`<div class="final-strip"><div><span>Actual final score</span><strong>${esc(g.away)} ${Number(g.awayScore)}–${esc(g.home)} ${Number(g.homeScore)}</strong></div><div><span>${wasPregame?"Pregame prediction":"Prediction comparison"}</span><strong>${wasPregame?`${esc(g.away)} ${Number(p.awayScore)}–${esc(g.home)} ${Number(p.homeScore)}`:"Available for games predicted before kickoff"}</strong></div></div>`:"";
+    return `<article class="game"><div class="matchup"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span><div class="teams"><div class="team"><span>${esc(g.away)}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${esc(g.home)}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${esc(m.spreads?.book||"Line unavailable")}</small></div><div class="market"><span>Total</span><strong>${over?`O/U ${Number(over.point)}`:"—"}</strong><small>${esc(m.totals?.book||"Line unavailable")}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${american(awayMl.price)} / ${american(homeMl?.price)}`:"—"}</strong><small>${esc(m.h2h?.book||"Line unavailable")}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}${final}</article>`;
   }).join("");
   $("gameCount").textContent=list.length; $("oddsCount").textContent=withOdds; $("moveCount").textContent=moves;
   $("empty").classList.toggle("hidden",list.length>0);
@@ -65,7 +62,7 @@ async function load(){
     const response=await fetch(`data/live.json?t=${Date.now()}`,{cache:"no-store"});
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
-    state.odds=live.events||[]; state.news=(live.news||[]).map(item=>({...item,searchText:`${item.title} ${item.summary}`.toLowerCase()}));
+    state.odds=live.events||[];
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?state.odds.some(o=>o.id===g.id):String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     populateBooks();render();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
