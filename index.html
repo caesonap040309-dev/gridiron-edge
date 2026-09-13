@@ -5,17 +5,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Live college football schedules, sportsbook odds, and line movement.">
   <title>Gridiron Edge | Live College Football Odds</title>
-  <link rel="stylesheet" href="style.css?v=20260913-4">
-  <link rel="stylesheet" href="model.css?v=20260913-4">
-  <link rel="stylesheet" href="final.css?v=20260913-4">
+  <link rel="stylesheet" href="style.css?v=20260913-5">
+  <link rel="stylesheet" href="model.css?v=20260913-5">
+  <link rel="stylesheet" href="final.css?v=20260913-5">
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#"><span class="logo">GE</span><span><strong>Gridiron Edge</strong><small>College Football Market Board</small></span></a>
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="active" href="#top">⌂ <span>Home</span></a>
+      <a href="#market-board">◷ <span>Games</span></a>
+      <a href="#market-board">▦ <span>Best odds</span></a>
+      <a href="#market-board">⌁ <span>Predictions</span></a>
+    </nav>
+    <div class="side-label">COLLEGE FOOTBALL · 2026</div>
     <div id="connectionStatus" class="status"><span class="dot"></span><span>Connecting to live feed</span></div>
   </header>
 
-  <main>
+  <main id="top">
     <section class="hero">
       <div>
         <p class="eyebrow">LIVE FBS ODDS</p>
@@ -39,7 +46,7 @@
       <article><span>Last updated</span><strong id="lastUpdated">—</strong></article>
     </section>
 
-    <section class="board">
+    <section class="board" id="market-board">
       <div class="board-head"><div><p class="eyebrow">MARKET BOARD</p><h2 id="boardTitle">College Football</h2></div><div class="legend"><span><i class="up"></i> moved up</span><span><i class="down"></i> moved down</span></div></div>
       <div id="notice" class="notice hidden" role="status"></div>
       <div id="loading" class="loading"><div class="spinner"></div><p>Loading real games and odds…</p></div>
@@ -49,6 +56,6 @@
   </main>
 
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules and scores: ESPN · Available lines: DraftKings</span></footer>
-  <script src="script.js?v=20260913-2"></script>
+  <script src="script.js?v=20260913-5"></script>
 </body>
 </html>
