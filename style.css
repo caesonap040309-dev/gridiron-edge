@@ -196,3 +196,9 @@ body.theme-light .league-tab.active{color:#fff}
 .sharp-metrics span{text-transform:uppercase;letter-spacing:.8px;font-weight:800}
 .sharp-metrics b{display:block;margin:7px 0 4px;color:var(--team-ink,var(--team-color,#58a6ff));font-size:15px}
 @media(max-width:760px){.sharp-metrics{grid-template-columns:1fr 1fr}}
+
+/* Gridiron Edge brand mark and unobtrusive background refresh */
+.logo{padding:3px;background:transparent;border-color:rgba(8,121,230,.38);overflow:hidden}
+.logo img{display:block;width:100%;height:100%;object-fit:contain}
+.refresh-card{display:none!important}
+.hero{justify-content:flex-start}
