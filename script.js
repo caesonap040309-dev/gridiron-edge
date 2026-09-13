@@ -105,31 +105,59 @@ function playerTables(summary){
     return `<section class="player-team"><h3>${esc(team.team?.displayName||team.team?.name||"Team")} player stats</h3>${groups}</section>`;
   }).join("");
 }
+function clamp(value,min=0,max=100){return Math.min(max,Math.max(min,Number(value)||0))}
+function modelIndex(value,type){return Math.round(clamp(type==="defense"?50+(27-Number(value))*2:50+(Number(value)-27)*2))}
+function strengthRanks(){
+  const teams=new Map();
+  state.games.forEach(game=>{const p=game.prediction||{};if(p.awayOffense!=null)teams.set(game.away,{score:Number(p.awayOffense)-Number(p.awayDefense)});if(p verlieHomeOffense!=null)teams.set(game.home,{score:Number(p.homenikiOffense)-Number(p.homeDefense)})});
+  return [...teams].sort((a,b)=>b[1].score-a[1].score).map(([name],index)=>[name,index+1]);
+}
+function ratingBar(label,left,right,leftName,rightName){
+  const leftWidth=clamp(left),rightWidth=clamp(right);
+  return `<div class="rating-row"><div class="rating-label"><b>${esc(leftName)} ${leftWidth}</b><span>${esc(label)}</span><b>${rightWidth} ${esc(rightName)}</b></div><div class="dual-bars"><i><b style="width:${leftWidth}%"></b></i><i><b style="width:${rightWidth}%"></b></i></div></div>`;
+}
+function espnTeamStats(summary,awayName,homeName){
+  const teams=summary?.boxscore?.teams||[];if(teams.length<2)return "";
+  const find=name=>teams.find(x=>(x.team?.displayName||"").toLowerCase()===name.toLowerCase());
+  const away=find(awayName)||teams[0],home=find(homeName)||teams[1];
+  const amap=new Map((away.statistics||[]).map(x=>[x.name||x.label,x.displayValue??x.value]));
+  const hmap=new Map((home.statistics||[]).map(x=>[x.name||x.label,x.displayValue??x.value]));
+  const labels=new Map([...(away.statistics||[]),...(home.statistics||[])].map(x=>[x.name||x.label,x.label||x.name]));
+  if(!labels.size)return "";
+  return `<section class="detail-section"><div class="section-title"><span class="eyebrow">OFFICIAL GAME DATA</span><h3>Team statistics</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(awayName)}</b><span>Statistic</span><b>${esc(homeName)}</b></div>${[...labels].slice(0,18).map(([key,label])=>`<div><strong>${esc(amap.get(key)??"—")}</strong><span>${esc(label)}</span><strong>${esc(hmap.get(key)??"—")}</strong></div>`).join("")}</div></section>`;
+}
 async function openGame(id){
   const game=state.games.find(item=>String(item.id)===String(id));if(!game)return;
   const event=oddsEventFor(game),p=game.prediction||{},homeWin=Number(p.homeWin)||50,awayWin=100-homeWin;
-  const dialog=$("gameDialog");
+  const dialog=$("gameDialog");location.hash=`game-${game.id}`;
   $("detailBody").innerHTML=`<div class="detail-loading"><span class="eyebrow">MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>Loading game statistics…</p></div>`;
   dialog.showModal();
   let summary=null;
   try{const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=${encodeURIComponent(game.id)}`);if(response.ok)summary=await response.json()}catch{}
+  const ranks=new Map(strengthRanks());
+  const awayOff=modelIndex(p.awayOffense,"offense"),homeOff=modelIndex(p.homeOffense,"offense"),awayDef=modelIndex(p.awayDefense,"defense"),homeDef=modelIndex(p.homeDefense,"defense");
+  const awayCover=awayDef,homeCover=homeDef;
   const metrics=[
-    ["Avg points scored",p.awayOffense,p.homeOffense],
-    ["Avg points allowed",p.awayDefense,p.homeDefense],
-    ["Projected points",p.awayScore,p.homeScore],
-    ["Win probability",awayWin.toFixed(1)+"%",homeWin.toFixed(1)+"%"]
+    ["Strength rank",ranks.get(game.away)?"#"+ranks.get(game.away):"—",ranks.get(game.home)?"#"+ranks.get(game.home):"—"],
+    ["Avg points scored",p.awayOffense,p.homeOffense],["Avg points allowed",p.awayDefense,p.homeDefense],
+    ["Offense index",awayOff,homeOff],["Defense index",awayDef,homeDef],["Coverage proxy",awayCover,homeCover],
+    ["Projected points",p.awayScore,p.homeScore],["Win probability",awayWin.toFixed(1)+"%",homeWin.toFixed(1)+"%"]
+  ];
+  const awayEdge=Math.round((awayOff-homeDef)*10)/10,homeEdge=Math.round((homeOff-awayDef)*10)/10;
+  const keys=[
+    {team:awayEdge>=0?game.away:game.home,text:`${game.away} offense vs. ${game.home} defensive scoring index`,edge:awayEdge},
+    {team:homeEdge>=0?game.home:game.away,text:`${game.home} offense vs. ${game.away} defensive scoring index`,edge:homeEdge},
+    {team:homeWin>=50?game.home:game.away,text:"Overall projection advantage",edge:Math.abs(homeWin-50)}
   ];
   $("detailBody").innerHTML=`
-    <header class="detail-head"><span class="eyebrow">THE MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>${esc(fmtTime(game.date))} · ${esc(game.status||"Scheduled")}</p></header>
-    <section class="score-projection">
-      <div>${logo(game.awayLogo,game.away)}<h3>${esc(game.away)}</h3><strong>${Number(p.awayScore)||0}</strong><small>${awayWin.toFixed(1)}% win chance</small></div>
-      <span>VS</span>
-      <div>${logo(game.homeLogo,game.home)}<h3>${esc(game.home)}</h3><strong>${Number(p.homeScore)||0}</strong><small>${homeWin.toFixed(1)}% win chance</small></div>
-      <div class="detail-probability"><i style="width:${awayWin}%"></i><i style="width:${homeWin}%"></i></div>
-    </section>
-    <section class="detail-section"><div class="section-title"><span class="eyebrow">MODEL COMPARISON</span><h3>Head to head</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(game.away)}</b><span>Metric</span><b>${esc(game.home)}</b></div>${metrics.map(row=>`<div><strong>${esc(row[1]??"—")}</strong><span>${esc(row[0])}</span><strong>${esc(row[2]??"—")}</strong></div>`).join("")}</div><p class="method-note">Scoring and defense figures are calculated from completed games in the selected season. Exact zone/man-coverage grades are not supplied by the connected feeds.</p></section>
+    <header class="detail-head"><a class="back-link" href="#" id="detailBack">← All games</a><span class="eyebrow">THE MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>${esc(fmtTime(game.date))} · ${esc(game.status||"Scheduled")}</p></header>
+    <section class="score-projection"><div>${logo(game.awayLogo,game.away)}<h3>${esc(game.away)}</h3><small>Rank ${ranks.get(game.away)?"#"+ranks.get(game.away):"—"} · Away</small><strong>${Number(p.awayScore)||0}</strong></div><span>VS</span><div>${logo(game.homeLogo,game.home)}<h3>${esc(game.home)}</h3><small>Rank ${ranks.get(game.home)?"#"+ranks.get(game.home):"—"} · Home</small><strong>${Number(p.homeScore)||0}</strong></div><div class="projection-summary"><div><span>Model spread</span><b>${esc(game.home)} ${signed(p.spread)}</b></div><div><span>Projected total</span><b>${Number(p.total).toFixed(1)}</b></div><div><span>Win outlook</span><b>${esc(p.winner||"Toss-up")}</b></div></div><div class="detail-prob-labels"><b>${awayWin.toFixed(1)}%</b><span>WIN PROBABILITY</span><b>${homeWin.toFixed(1)}%</b></div><div class="detail-probability"><i style="width:${awayWin}%"></i><i style="width:${homeWin}%"></i></div></section>
+    <section class="detail-section"><div class="section-title"><span class="eyebrow">KEYS TO THE GAME</span><h3>Model matchup advantages</h3></div><div class="keys-grid">${keys.map(key=>`<div><span>${esc(key.text)}</span><b>${esc(key.team)}</b><strong>${key.edge>=0?"+":""}${key.edge.toFixed(1)}</strong></div>`).join("")}</div></section>
+    <section class="detail-section"><div class="section-title"><span class="eyebrow">TALE OF THE TAPE</span><h3>Head-to-head numbers</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(game.away)}</b><span>Metric</span><b>${esc(game.home)}</b></div>${metrics.map(row=>`<div><strong>${esc(row[1]??"—")}</strong><span>${esc(row[0])}</span><strong>${esc(row[2]??"—")}</strong></div>`).join("")}</div><div class="ratings">${ratingBar("Offense",awayOff,homeOff,game.away,game.home)}${ratingBar("Defense",awayDef,homeDef,game.away,game.home)}${ratingBar("Coverage proxy",awayCover,homeCover,game.away,game.home)}</div><p class="method-note">Indexes and coverage proxy are Gridiron Edge model estimates based on season scoring and points allowed—not official player-tracking grades.</p></section>
     <section class="detail-section"><div class="section-title"><span class="eyebrow">SPORTSBOOKS</span><h3>Every available line</h3></div><div class="table-scroll"><table class="odds-table"><thead><tr><th>Book</th><th>Spread</th><th>Total</th><th>Moneyline</th></tr></thead><tbody>${allBookRows(event)||'<tr><td colspan="4">No current markets</td></tr>'}</tbody></table></div></section>
+    ${espnTeamStats(summary,game.away,game.home)}
     <section class="detail-section"><div class="section-title"><span class="eyebrow">ESPN BOX SCORE</span><h3>Player statistics</h3></div>${playerTables(summary)}</section>`;
+  $("detailBack")?.addEventListener("click",event=>{event.preventDefault();dialog.close();history.replaceState(null,"",location.pathname+location.search)});
 }
 $("games").addEventListener("click",event=>{const card=event.target.closest(".game");if(card)openGame(card.dataset.gameId)});
 $("games").addEventListener("keydown",event=>{if((event.key==="Enter"||event.key===" ")&&event.target.matches(".game")){event.preventDefault();openGame(event.target.dataset.gameId)}});
