@@ -129,3 +129,16 @@ body.theme-dark .game-dialog[open]{background:#171b20;color:#f4f7f9}body.theme-d
 .games .market small{font-size:7px;line-height:1.35;max-height:29px;overflow:hidden}
 .games .kickoff{font-size:8px}
 @media(max-width:620px){.games{grid-template-columns:1fr}.games .market{display:flex}}
+
+/* Readable home-team colors inside Our Picks vs. Market */
+.game-dialog .model-pick-card h3,
+.game-dialog .model-pick-card .pick-result h4,
+.game-dialog .model-pick-card .pick-result strong,
+.game-dialog .model-pick-card .section-subtitle,
+.game-dialog .model-pick-card .keys-grid b,
+.game-dialog .model-pick-card .keys-grid strong{color:var(--team-ink,var(--team-color,#3cff8f))!important}
+.game-dialog .model-pick-card .pick-result p,
+.game-dialog .model-pick-card .keys-grid span{color:#718195!important}
+body.theme-dark .game-dialog .model-pick-card .pick-result p,
+body.theme-dark .game-dialog .model-pick-card .keys-grid span{color:#b4c0cb!important}
+body.theme-dark .game-dialog .model-pick-card .pick-result{background:#20262d!important}
