@@ -44,6 +44,16 @@ async function fetchSportsGameOdds(){
   if(!response.ok||payload.success===false)throw new Error(`SportsGameOdds failed: ${response.status} ${payload.error||""}`);
   return sportsGameOddsEvents(payload.data);
 }
+async function fetchTheOddsApi(){
+  const key=process.env.ODDS_API_KEY?.trim();
+  if(!key)return [];
+  const params=new URLSearchParams({apiKey:key,regions:"us,us2",markets:"h2h,spreads,totals",oddsFormat:"american",dateFormat:"iso"});
+  const response=await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_ncaaf/odds/?${params}`);
+  const payload=await response.json().catch(()=>null);
+  if(!response.ok||!Array.isArray(payload))throw new Error(`The Odds API failed: ${response.status} ${payload?.message||""}`);
+  return payload;
+}
+
 for(let week=1;week<=16;week++){
   const q=new URLSearchParams({limit:"100",groups:"80",dates:String(season),seasontype:"2",week:String(week)});
   const response=await fetch(`${espn}?${q}`);
@@ -74,14 +84,21 @@ for(let week=1;week<=16;week++){
     }
   }
 }
-const multiBookEvents=await fetchSportsGameOdds();
+const [sportsGameOdds,theOddsApi]=await Promise.all([
+  fetchSportsGameOdds().catch(error=>(console.error(error.message),[])),
+  fetchTheOddsApi().catch(error=>(console.error(error.message),[]))
+]);
+const multiBookEvents=[...sportsGameOdds,...theOddsApi];
 if(multiBookEvents.length){
   const byMatch=new Map(events.map((event,index)=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,index]));
   for(const event of multiBookEvents){
     const key=`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`;
     const index=byMatch.get(key);
-    if(index==null)events.push(event);
-    else events[index]={...events[index],bookmakers:event.bookmakers};
+    if(index==null){byMatch.set(key,events.length);events.push(event);continue}
+    const current=events[index];
+    const books=new Map((current.bookmakers||[]).map(book=>[book.key,book]));
+    for(const book of event.bookmakers||[])books.set(book.key,book);
+    events[index]={...current,bookmakers:[...books.values()]};
   }
 }
 const stats=new Map();
@@ -104,5 +121,5 @@ for(const game of games){
   game.prediction=stored||{winner:margin>=0?game.home:game.away,homeWin,spread:margin===0?0:-margin,total,homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample:Math.min(home.games,away.games),createdAt:now.toISOString()};
 }
 await mkdir("data",{recursive:true});
-await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),oddsSource:multiBookEvents.length?"SportsGameOdds multi-book":"ESPN market fallback",games,events},null,2)+"\n");
-console.log(`Saved ${games.length} games and ${events.length} markets (${multiBookEvents.length} multi-book events)`);
+await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),oddsSource:sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":theOddsApi.length?"The Odds API multi-book":"ESPN market fallback",games,events},null,2)+"\n");
+console.log(`Saved ${games.length} games and ${events.length} markets (${sportsGameOdds.length} SportsGameOdds + ${theOddsApi.length} The Odds API events)`);
