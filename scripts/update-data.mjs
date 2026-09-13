@@ -53,7 +53,9 @@ for(const game of games){
   const awayPoints=Math.max(3,Math.round(((awayFor+homeAgainst)/2)*10)/10);
   const margin=Math.round((homePoints-awayPoints)*10)/10,total=Math.round((homePoints+awayPoints)*10)/10;
   const homeWin=Math.round((1/(1+Math.exp(-margin/7)))*1000)/10;
-  game.prediction=previousPredictions.get(game.id)||{winner:margin>=0?game.home:game.away,homeWin,spread:margin===0?0:-margin,total,homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample:Math.min(home.games,away.games),createdAt:now.toISOString()};
+  const stored=previousPredictions.get(game.id);
+  if(stored&&!stored.createdAt&&new Date(game.date)>now)stored.createdAt=now.toISOString();
+  game.prediction=stored||{winner:margin>=0?game.home:game.away,homeWin,spread:margin===0?0:-margin,total,homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample:Math.min(home.games,away.games),createdAt:now.toISOString()};
 }
 await mkdir("data",{recursive:true});
 await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),games,events},null,2)+"\n");
