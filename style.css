@@ -1,1326 +1,399 @@
-/* ============================================================
-GRIDIIRON EDGE
-College Football Prediction Dashboard
-============================================================ */
+// ==========================================
+// GRIDIRON EDGE
+// College Football Prediction Prototype
+// ==========================================
 
-/* ============================================================
-RESET
-============================================================ */
+console.log("🏈 Gridiron Edge loaded successfully!");
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  }
 
-html {
-scroll-behavior: smooth;
+// Get an HTML element by ID
+function $(id) {
+    return document.getElementById(id);
 }
 
-body {
-font-family:
-Arial,
-Helvetica,
-sans-serif;
 
-```
-background:
-    #080b12;
+// ==========================================
+// MONEYLINE CALCULATIONS
+// ==========================================
 
-color:
-    #ffffff;
+function impliedProbability(moneyline) {
 
-min-height:
-    100vh;
+    const ml = Number(moneyline);
 
-line-height:
-    1.5;
-```
+    if (!Number.isFinite(ml)) {
+        return 0.5;
+    }
 
+    if (ml < 0) {
+        return (-ml) / (-ml + 100);
+    }
+
+    return 100 / (ml + 100);
 }
 
-/* ============================================================
-HEADER
-============================================================ */
 
-.site-header {
+// Remove sportsbook vig
+function noVigProbability(homeML, awayML) {
 
-```
-background:
-    #101722;
+    const homeProbability =
+        impliedProbability(homeML);
 
-border-bottom:
-    1px solid #242b38;
+    const awayProbability =
+        impliedProbability(awayML);
 
-padding:
-    22px 5%;
-```
+    const total =
+        homeProbability + awayProbability;
 
+    return homeProbability / total;
 }
 
-.header-content {
 
-```
-max-width:
-    1400px;
+// Keep a number between two values
+function clamp(value, minimum, maximum) {
 
-margin:
-    0 auto;
-
-display:
-    flex;
-
-align-items:
-    center;
-
-justify-content:
-    space-between;
-
-gap:
-    20px;
-```
-
-}
-
-.site-header h1 {
-
-```
-color:
-    #39ff88;
-
-font-size:
-    32px;
-
-font-weight:
-    800;
-
-letter-spacing:
-    -0.5px;
-```
-
-}
-
-.site-header p {
-
-```
-color:
-    #9aa4b2;
-
-margin-top:
-    4px;
-
-font-size:
-    14px;
-```
-
-}
-
-.status {
-
-```
-display:
-    flex;
-
-align-items:
-    center;
-
-gap:
-    8px;
-
-color:
-    #9aa4b2;
-
-font-size:
-    13px;
-
-background:
-    #0c121c;
-
-border:
-    1px solid #242d3a;
-
-padding:
-    8px 12px;
-
-border-radius:
-    20px;
-```
-
-}
-
-.status-dot {
-
-```
-width:
-    8px;
-
-height:
-    8px;
-
-background:
-    #39ff88;
-
-border-radius:
-    50%;
-
-box-shadow:
-    0 0 10px #39ff88;
-```
-
-}
-
-/* ============================================================
-MAIN
-============================================================ */
-
-main {
-
-```
-width:
-    90%;
-
-max-width:
-    1400px;
-
-margin:
-    40px auto 80px;
-```
-
-}
-
-/* ============================================================
-HERO
-============================================================ */
-
-.hero {
-
-```
-display:
-    flex;
-
-justify-content:
-    space-between;
-
-align-items:
-    center;
-
-gap:
-    30px;
-
-margin-bottom:
-    30px;
-
-padding:
-    30px;
-
-background:
-    linear-gradient(
-        135deg,
-        #111a27,
-        #0c111a
+    return Math.max(
+        minimum,
+        Math.min(maximum, value)
     );
-
-border:
-    1px solid #242d3a;
-
-border-radius:
-    18px;
-```
-
-}
-
-.hero h2 {
-
-```
-font-size:
-    34px;
-
-margin-bottom:
-    8px;
-```
-
-}
-
-.hero p {
-
-```
-color:
-    #9aa4b2;
-
-max-width:
-    700px;
-```
-
-}
-
-.hero-badge {
-
-```
-display:
-    flex;
-
-flex-direction:
-    column;
-
-align-items:
-    center;
-
-justify-content:
-    center;
-
-min-width:
-    100px;
-
-padding:
-    18px;
-
-border:
-    1px solid #39ff88;
-
-border-radius:
-    12px;
-
-background:
-    #0c1712;
-```
-
-}
-
-.hero-badge strong {
-
-```
-color:
-    #39ff88;
-
-font-size:
-    18px;
-```
-
-}
-
-.hero-badge span {
-
-```
-color:
-    #9aa4b2;
-
-font-size:
-    12px;
-```
-
-}
-
-/* ============================================================
-PANELS
-============================================================ */
-
-.panel {
-
-```
-background:
-    #111722;
-
-border:
-    1px solid #242d3a;
-
-border-radius:
-    16px;
-
-padding:
-    28px;
-
-margin-bottom:
-    25px;
-```
-
-}
-
-.panel-header {
-
-```
-display:
-    flex;
-
-justify-content:
-    space-between;
-
-align-items:
-    flex-start;
-
-margin-bottom:
-    25px;
-```
-
-}
-
-.panel-header h2 {
-
-```
-font-size:
-    22px;
-
-margin:
-    3px 0 5px;
-```
-
-}
-
-.panel-header p {
-
-```
-color:
-    #7f8998;
-
-font-size:
-    14px;
-```
-
-}
-
-.eyebrow {
-
-```
-color:
-    #39ff88;
-
-font-size:
-    11px;
-
-font-weight:
-    700;
-
-letter-spacing:
-    1.5px;
-```
-
-}
-
-/* ============================================================
-INPUTS
-============================================================ */
-
-.input-grid {
-
-```
-display:
-    grid;
-
-grid-template-columns:
-    repeat(3, 1fr);
-
-gap:
-    18px;
-```
-
-}
-
-.input-group {
-
-```
-display:
-    flex;
-
-flex-direction:
-    column;
-```
-
-}
-
-.input-group label {
-
-```
-color:
-    #9aa4b2;
-
-font-size:
-    13px;
-
-margin-bottom:
-    7px;
-```
-
-}
-
-.input-group input,
-.input-group select {
-
-```
-width:
-    100%;
-
-padding:
-    13px 14px;
-
-background:
-    #090e16;
-
-color:
-    #ffffff;
-
-border:
-    1px solid #293443;
-
-border-radius:
-    9px;
-
-outline:
-    none;
-
-font-size:
-    15px;
-
-transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-```
-
-}
-
-.input-group input:focus,
-.input-group select:focus {
-
-```
-border-color:
-    #39ff88;
-
-box-shadow:
-    0 0 0 2px rgba(57, 255, 136, 0.08);
-```
-
-}
-
-.input-group input::placeholder {
-
-```
-color:
-    #596372;
-```
-
-}
-
-/* ============================================================
-BUTTON
-============================================================ */
-
-.primary-button {
-
-```
-width:
-    100%;
-
-margin-top:
-    22px;
-
-padding:
-    15px 20px;
-
-display:
-    flex;
-
-justify-content:
-    space-between;
-
-align-items:
-    center;
-
-border:
-    none;
-
-border-radius:
-    10px;
-
-background:
-    #39ff88;
-
-color:
-    #061009;
-
-font-size:
-    16px;
-
-font-weight:
-    800;
-
-cursor:
-    pointer;
-
-transition:
-    transform 0.15s,
-    box-shadow 0.15s;
-```
-
-}
-
-.primary-button:hover {
-
-```
-transform:
-    translateY(-1px);
-
-box-shadow:
-    0 8px 25px rgba(57, 255, 136, 0.18);
-```
-
-}
-
-.primary-button:active {
-
-```
-transform:
-    translateY(0);
-```
-
-}
-
-/* ============================================================
-RESULTS
-============================================================ */
-
-.results {
-
-```
-animation:
-    fadeIn 0.35s ease;
-```
-
-}
-
-.hidden {
-
-```
-display:
-    none;
-```
-
-}
-
-.section-title {
-
-```
-margin:
-    35px 0 18px;
-```
-
-}
-
-.section-title h2 {
-
-```
-font-size:
-    26px;
-
-margin-top:
-    5px;
-```
-
-}
-
-/* ============================================================
-METRICS
-============================================================ */
-
-.metrics-grid {
-
-```
-display:
-    grid;
-
-grid-template-columns:
-    repeat(4, 1fr);
-
-gap:
-    16px;
-
-margin-bottom:
-    18px;
-```
-
-}
-
-.metric-card {
-
-```
-background:
-    #111722;
-
-border:
-    1px solid #242d3a;
-
-border-radius:
-    14px;
-
-padding:
-    22px;
-
-min-height:
-    145px;
-
-display:
-    flex;
-
-flex-direction:
-    column;
-
-justify-content:
-    center;
-```
-
-}
-
-.metric-card.featured {
-
-```
-border-color:
-    #39ff88;
-
-background:
-    linear-gradient(
-        145deg,
-        #111f18,
-        #111722
-    );
-```
-
-}
-
-.metric-label {
-
-```
-color:
-    #9aa4b2;
-
-font-size:
-    13px;
-
-margin-bottom:
-    10px;
-```
-
-}
-
-.metric-card strong {
-
-```
-color:
-    #39ff88;
-
-font-size:
-    30px;
-
-line-height:
-    1.1;
-```
-
-}
-
-.metric-card small {
-
-```
-color:
-    #687384;
-
-margin-top:
-    9px;
-
-font-size:
-    11px;
-```
-
-}
-
-/* ============================================================
-PICKS
-============================================================ */
-
-.picks-grid {
-
-```
-display:
-    grid;
-
-grid-template-columns:
-    repeat(3, 1fr);
-
-gap:
-    16px;
-
-margin-bottom:
-    25px;
-```
-
-}
-
-.pick-card {
-
-```
-padding:
-    22px;
-
-background:
-    #0d131d;
-
-border:
-    1px solid #242d3a;
-
-border-radius:
-    13px;
-```
-
-}
-
-.pick-card span {
-
-```
-display:
-    block;
-
-color:
-    #7f8998;
-
-font-size:
-    11px;
-
-font-weight:
-    700;
-
-letter-spacing:
-    1px;
-
-margin-bottom:
-    7px;
-```
-
-}
-
-.pick-card strong {
-
-```
-display:
-    block;
-
-color:
-    #ffffff;
-
-font-size:
-    21px;
-```
-
-}
-
-/* ============================================================
-DATA GRID
-============================================================ */
-
-.data-grid {
-
-```
-display:
-    grid;
-
-grid-template-columns:
-    repeat(2, 1fr);
-
-gap:
-    1px;
-
-background:
-    #242d3a;
-
-border:
-    1px solid #242d3a;
-
-border-radius:
-    10px;
-
-overflow:
-    hidden;
-```
-
-}
-
-.data-row {
-
-```
-display:
-    flex;
-
-justify-content:
-    space-between;
-
-align-items:
-    center;
-
-padding:
-    15px 17px;
-
-background:
-    #0d131d;
-```
-
-}
-
-.data-row span {
-
-```
-color:
-    #7f8998;
-
-font-size:
-    13px;
-```
-
-}
-
-.data-row strong {
-
-```
-color:
-    #ffffff;
-
-font-size:
-    14px;
-```
-
-}
-
-/* ============================================================
-HISTORICAL FACTORS
-============================================================ */
-
-.factor-grid {
-
-```
-display:
-    grid;
-
-grid-template-columns:
-    repeat(4, 1fr);
-
-gap:
-    14px;
-```
-
-}
-
-.factor {
-
-```
-background:
-    #0d131d;
-
-border:
-    1px solid #242d3a;
-
-border-radius:
-    12px;
-
-padding:
-    18px;
-```
-
-}
-
-.factor span {
-
-```
-display:
-    block;
-
-color:
-    #9aa4b2;
-
-font-size:
-    12px;
-
-margin-bottom:
-    8px;
-```
-
 }
-
-.factor strong {
-
-```
-display:
-    block;
-
-color:
-    #39ff88;
 
-font-size:
-    20px;
 
-margin-bottom:
-    5px;
-```
+// ==========================================
+// RUN PREDICTION
+// ==========================================
 
-}
-
-.factor small {
+function runPrediction() {
 
-```
-color:
-    #606b7c;
+    const awayTeam =
+        $("awayTeam").value.trim();
 
-font-size:
-    11px;
-```
+    const homeTeam =
+        $("homeTeam").value.trim();
 
-}
+    const location =
+        $("location").value;
 
-/* ============================================================
-CONFIDENCE
-============================================================ */
+    const spread =
+        Number($("spread").value);
 
-.confidence-panel {
+    const total =
+        Number($("total").value);
 
-```
-display:
-    grid;
+    const homeMoneyline =
+        Number($("homeML").value);
 
-grid-template-columns:
-    1fr 350px;
+    const awayMoneyline =
+        Number($("awayML").value);
 
-gap:
-    40px;
 
-align-items:
-    center;
-```
+    // Check inputs
 
-}
+    if (
+        !awayTeam ||
+        !homeTeam ||
+        !Number.isFinite(spread) ||
+        !Number.isFinite(total) ||
+        !Number.isFinite(homeMoneyline) ||
+        !Number.isFinite(awayMoneyline)
+    ) {
 
-.confidence-panel h2 {
+        alert(
+            "Please enter both teams, the spread, total, and both moneylines."
+        );
 
-```
-margin:
-    5px 0 8px;
-```
+        return;
+    }
 
-}
 
-.confidence-panel p {
+    // ======================================
+    // MARKET PROBABILITY
+    // ======================================
 
-```
-color:
-    #7f8998;
+    const marketHomeProbability =
+        noVigProbability(
+            homeMoneyline,
+            awayMoneyline
+        );
 
-font-size:
-    14px;
 
-max-width:
-    650px;
-```
+    // ======================================
+    // PROTOTYPE MODEL
+    // ======================================
 
-}
+    /*
+        This is currently a browser prototype.
 
-.confidence-meter {
+        It uses:
 
-```
-display:
-    flex;
+        • Moneyline
+        • Spread
+        • Home-field adjustment
 
-align-items:
-    center;
+        Later this section can be replaced with
+        your real historical college football
+        model and database.
+    */
 
-gap:
-    15px;
-```
 
-}
+    let modelHomeProbability =
+        marketHomeProbability;
 
-.confidence-track {
 
-```
-height:
-    10px;
+    // Home-field advantage
 
-flex:
-    1;
+    if (location === "home") {
 
-background:
-    #252d38;
+        modelHomeProbability += 0.025;
 
-border-radius:
-    10px;
+    }
 
-overflow:
-    hidden;
-```
 
-}
+    // Spread adjustment
 
-.confidence-fill {
+    modelHomeProbability -=
+        spread * 0.006;
 
-```
-height:
-    100%;
 
-background:
-    #39ff88;
+    // Keep probability reasonable
 
-border-radius:
-    10px;
+    modelHomeProbability =
+        clamp(
+            modelHomeProbability,
+            0.01,
+            0.99
+        );
 
-transition:
-    width 0.5s ease;
-```
 
-}
+    const modelAwayProbability =
+        1 - modelHomeProbability;
 
-.confidence-meter strong {
 
-```
-min-width:
-    50px;
+    // ======================================
+    // MODEL EDGE
+    // ======================================
 
-text-align:
-    right;
+    const modelEdge =
+        modelHomeProbability -
+        marketHomeProbability;
 
-color:
-    #39ff88;
-```
 
-}
+    // ======================================
+    // PROJECTED SCORE
+    // ======================================
 
-/* ============================================================
-GAME CARD
-============================================================ */
+    const projectedMargin =
+        (-spread * 0.85) +
+        (location === "home" ? 1.5 : 0);
 
-.game-card {
 
-```
-background:
-    #111722;
+    const predictedTotal =
+        total;
 
-border:
-    1px solid #242d3a;
 
-border-radius:
-    15px;
+    const homeScore =
+        Math.round(
+            (predictedTotal + projectedMargin) / 2
+        );
 
-padding:
-    25px;
 
-width:
-    100%;
-```
+    const awayScore =
+        Math.round(
+            (predictedTotal - projectedMargin) / 2
+        );
 
-}
 
-.game-card h2 {
+    // ======================================
+    // WINNER
+    // ======================================
 
-```
-margin-bottom:
-    20px;
+    const winner =
+        modelHomeProbability >= 0.50
+            ? homeTeam
+            : awayTeam;
 
-font-size:
-    20px;
-```
 
-}
+    // ======================================
+    // CONFIDENCE
+    // ======================================
 
-.prediction {
+    const confidence =
+        clamp(
+            Math.abs(modelEdge) * 500,
+            0,
+            100
+        );
 
-```
-display:
-    flex;
 
-justify-content:
-    space-between;
+    // ======================================
+    // DISPLAY RESULTS
+    // ======================================
 
-align-items:
-    center;
+    $("matchup").textContent =
+        `${awayTeam} @ ${homeTeam}`;
 
-gap:
-    20px;
 
-padding:
-    14px 0;
+    $("winPct").textContent =
+        `${(modelHomeProbability * 100).toFixed(1)}%`;
 
-border-bottom:
-    1px solid #252d38;
-```
 
-}
+    $("marketPct").textContent =
+        `${(marketHomeProbability * 100).toFixed(1)}%`;
 
-.prediction:last-child {
 
-```
-border-bottom:
-    none;
-```
+    $("edgePct").textContent =
+        `${modelEdge >= 0 ? "+" : ""}${(modelEdge * 100).toFixed(1)}%`;
 
-}
 
-.prediction span {
+    $("score").textContent =
+        `${awayTeam} ${awayScore} - ${homeTeam} ${homeScore}`;
 
-```
-color:
-    #9aa4b2;
 
-font-size:
-    13px;
-```
+    $("winner").textContent =
+        winner;
 
-}
 
-.prediction strong {
+    $("spreadPick").textContent =
+        `${homeTeam} ${
+            spread > 0 ? "+" : ""
+        }${spread}`;
 
-```
-color:
-    #39ff88;
 
-text-align:
-    right;
+    // We aren't pretending to have a real
+    // historical total-points model yet.
 
-font-size:
-    14px;
-```
+    $("totalPick").textContent =
+        "PASS";
 
-}
 
-/* ============================================================
-EMPTY STATE
-============================================================ */
+    // ======================================
+    // MARKET DATA
+    // ======================================
 
-.empty-state {
+    $("marketSpread").textContent =
+        `${homeTeam} ${
+            spread > 0 ? "+" : ""
+        }${spread}`;
 
-```
-text-align:
-    center;
 
-padding:
-    50px 20px;
+    $("marketTotal").textContent =
+        total.toFixed(1);
 
-border:
-    1px dashed #293443;
 
-border-radius:
-    12px;
-```
+    $("modelSpread").textContent =
+        `${projectedMargin >= 0 ? "+" : ""}${
+            projectedMargin.toFixed(1)
+        }`;
 
-}
 
-.empty-icon {
+    $("spreadEdge").textContent =
+        `${
+            projectedMargin + spread >= 0
+                ? "+"
+                : ""
+        }${
+            (projectedMargin + spread).toFixed(1)
+        }`;
 
-```
-font-size:
-    35px;
 
-margin-bottom:
-    10px;
-```
+    $("predictedTotal").textContent =
+        predictedTotal.toFixed(1);
 
-}
 
-.empty-state h3 {
+    $("totalEdge").textContent =
+        "0.0";
 
-```
-margin-bottom:
-    5px;
-```
 
-}
+    // ======================================
+    // HISTORICAL FACTOR DISPLAY
+    // ======================================
 
-.empty-state p {
+    if (location === "home") {
 
-```
-color:
-    #687384;
+        $("homeFactor").textContent =
+            "Home-field adjustment";
 
-font-size:
-    13px;
-```
+    } else {
 
-}
+        $("homeFactor").textContent =
+            "Neutral-site adjustment";
 
-/* ============================================================
-FOOTER
-============================================================ */
+    }
 
-footer {
 
-```
-text-align:
-    center;
+    // ======================================
+    // CONFIDENCE METER
+    // ======================================
 
-padding:
-    30px;
+    $("meterBar").style.width =
+        `${confidence}%`;
 
-border-top:
-    1px solid #1e2632;
 
-color:
-    #39ff88;
+    $("confidence").textContent =
+        `${confidence.toFixed(0)}%`;
 
-font-weight:
-    700;
-```
 
-}
+    $("confidencePill").textContent =
+        `Confidence: ${confidence.toFixed(0)}%`;
 
-footer span {
 
-```
-display:
-    block;
+    // ======================================
+    // SHOW RESULTS
+    // ======================================
 
-margin-top:
-    4px;
+    $("results").classList.remove("hidden");
 
-color:
-    #596372;
 
-font-size:
-    11px;
+    // Scroll to results
 
-font-weight:
-    normal;
-```
+    $("results").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 
 }
 
-/* ============================================================
-ANIMATION
-============================================================ */
 
-@keyframes fadeIn {
+// ==========================================
+// RUN BUTTON
+// ==========================================
 
-```
-from {
+$("runBtn").addEventListener(
+    "click",
+    runPrediction
+);
 
-    opacity:
-        0;
 
-    transform:
-        translateY(8px);
+// ==========================================
+// DEMO BUTTON
+// ==========================================
 
-}
+$("demoBtn").addEventListener(
+    "click",
+    function () {
 
-to {
+        $("awayTeam").value =
+            "Texas";
 
-    opacity:
-        1;
+        $("homeTeam").value =
+            "Ohio State";
 
-    transform:
-        translateY(0);
+        $("location").value =
+            "home";
 
-}
-```
+        $("spread").value =
+            "-2.5";
 
-}
+        $("total").value =
+            "52.5";
 
-/* ============================================================
-TABLET
-============================================================ */
+        $("homeML").value =
+            "-140";
 
-@media (max-width: 1000px) {
+        $("awayML").value =
+            "120";
 
-```
-.input-grid {
 
-    grid-template-columns:
-        repeat(2,
-```
+        runPrediction();
 
+    }
+);
