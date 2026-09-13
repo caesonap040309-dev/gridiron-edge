@@ -6,7 +6,7 @@
   <meta name="description" content="Live college football and NFL schedules, sportsbook odds, predictions, and line movement.">
   <title>Gridiron Edge | Football Market Board</title>
   <link rel="icon" type="image/png" href="assets/gridiron-edge-logo.png">
-  <link rel="stylesheet" href="style.css?v=20260913-16">
+  <link rel="stylesheet" href="style.css?v=20260913-17">
   <link rel="stylesheet" href="model.css?v=20260913-11">
   <link rel="stylesheet" href="final.css?v=20260913-11">
   <style>
@@ -43,6 +43,7 @@
       <a href="#market-board">◷ <span>Games</span></a>
       <a href="#market-board">▦ <span>Best odds</span></a>
       <a href="#market-board">⌁ <span>Predictions</span></a>
+      <a href="#model-performance">◎ <span>Model record</span></a>
     </nav>
     <button id="themeToggle" class="theme-toggle" type="button">☾ Dark mode</button>
     <div id="sideLabel" class="side-label">COLLEGE FOOTBALL · 2026</div>
@@ -73,6 +74,18 @@
       <article><span>Last updated</span><strong id="lastUpdated">—</strong></article>
     </section>
 
+    <section class="performance" id="model-performance" aria-labelledby="performanceTitle">
+      <div class="performance-head">
+        <div><p class="eyebrow">VERIFIED RESULTS</p><h2 id="performanceTitle">Model Performance</h2></div>
+        <p id="performanceNote">Only predictions saved before kickoff are graded. Pushes do not count toward accuracy.</p>
+      </div>
+      <div class="record-grid">
+        <article><span>Outright winners</span><strong id="outrightRecord">0–0</strong><b id="outrightPct">—</b><small id="outrightSample">0 graded picks</small></article>
+        <article><span>Spread picks</span><strong id="spreadRecord">0–0</strong><b id="spreadPct">—</b><small id="spreadSample">0 graded picks</small></article>
+        <article><span>Over / Under</span><strong id="totalRecord">0–0</strong><b id="totalPct">—</b><small id="totalSample">0 graded picks</small></article>
+      </div>
+    </section>
+
     <section class="board" id="market-board">
       <div class="board-head"><div><p class="eyebrow">MARKET BOARD</p><h2 id="boardTitle">College Football</h2></div><div class="legend"><span><i class="up"></i> moved up</span><span><i class="down"></i> moved down</span></div></div>
       <div id="notice" class="notice hidden" role="status"></div>
@@ -90,6 +103,6 @@
   </dialog>
 
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
-  <script src="script.js?v=20260913-13"></script>
+  <script src="script.js?v=20260913-14"></script>
 </body>
 </html>
