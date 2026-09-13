@@ -177,3 +177,14 @@ body.theme-dark .model-strip{background:linear-gradient(90deg,#0c2942,#09131d);b
 body.theme-dark .model-strip div{border-color:#1e4261;background:#0b1824}
 body.theme-dark .model-strip strong{color:#4db1ff}
 body.theme-dark footer{background:#070b11;border-color:#1d2a3a}
+
+/* League switcher */
+.league-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;border:1px solid var(--line);border-radius:11px;background:var(--panel);margin:4px 0 8px}
+.league-tab{border:1px solid transparent;border-radius:8px;padding:10px 8px;background:transparent;color:var(--muted);font-size:10px;font-weight:800;cursor:pointer;transition:.2s}
+.league-tab:hover{color:var(--text);background:rgba(8,121,230,.08)}
+.league-tab.active{color:#fff;border-color:#0879e6;background:#0879e6;box-shadow:0 6px 18px rgba(8,121,230,.24)}
+body.theme-light .league-tabs{background:#f1f5f9;border-color:#d8e1ea}
+body.theme-light .league-tab{color:#536273}
+body.theme-light .league-tab.active{color:#fff}
+@media(max-width:900px){.league-tabs{display:flex;margin-left:auto}.league-tab{padding:8px 10px}.league-tab:first-child{font-size:0}.league-tab:first-child:after{content:"CFB";font-size:10px}}
+@media(max-width:520px){.league-tabs{margin-left:6px}.league-tab{padding:7px 8px}}
