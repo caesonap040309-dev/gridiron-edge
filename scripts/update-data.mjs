@@ -64,7 +64,7 @@ for(let week=1;week<=16;week++){
     const home=competition.competitors?.find(team=>team.homeAway==="home");
     const away=competition.competitors?.find(team=>team.homeAway==="away");
     const homeName=home?.team?.displayName||"TBD", awayName=away?.team?.displayName||"TBD";
-    games.push({id:event.id,season,week,date:event.date,status:event.status?.type?.shortDetail,home:homeName,away:awayName,homeScore:home?.score,awayScore:away?.score});
+    games.push({id:event.id,season,week,date:event.date,status:event.status?.type?.shortDetail,home:homeName,away:awayName,homeLogo:home?.team?.logo||null,awayLogo:away?.team?.logo||null,homeScore:home?.score,awayScore:away?.score});
     const line=competition.odds?.[0];
     if(line){
       const favorite=(line.details||"").replace(/\s[-+]?[\d.]+$/,"");
