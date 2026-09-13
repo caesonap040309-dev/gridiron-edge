@@ -142,3 +142,16 @@ body.theme-dark .game-dialog[open]{background:#171b20;color:#f4f7f9}body.theme-d
 body.theme-dark .game-dialog .model-pick-card .pick-result p,
 body.theme-dark .game-dialog .model-pick-card .keys-grid span{color:#b4c0cb!important}
 body.theme-dark .game-dialog .model-pick-card .pick-result{background:#20262d!important}
+
+/* Extra-high contrast for model numbers */
+body.theme-dark .game-dialog .model-pick-card{background:#2a313a!important;border-color:#4d5864!important}
+body.theme-dark .game-dialog .model-pick-card .pick-result,
+body.theme-dark .game-dialog .model-pick-card .keys-grid>div{background:#343d47!important;border-color:#596572!important}
+body.theme-dark .game-dialog .model-pick-card h3,
+body.theme-dark .game-dialog .model-pick-card .pick-result h4,
+body.theme-dark .game-dialog .model-pick-card .pick-result strong,
+body.theme-dark .game-dialog .model-pick-card .keys-grid b,
+body.theme-dark .game-dialog .model-pick-card .keys-grid strong{color:#fff!important;color:color-mix(in srgb,var(--team-color,#3cff8f) 38%,white 62%)!important;text-shadow:0 1px 1px rgba(0,0,0,.35)}
+body.theme-dark .game-dialog .model-pick-card .pick-result p,
+body.theme-dark .game-dialog .model-pick-card .keys-grid span,
+body.theme-dark .game-dialog .model-pick-card .section-subtitle{color:#d7e0e8!important}
