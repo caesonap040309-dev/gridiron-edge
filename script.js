@@ -56,7 +56,7 @@ function render(){
     const isFinal=/final/i.test(g.status||"");
     const wasPregame=p.createdAt&&new Date(p.createdAt)<new Date(g.date);
     const final=isFinal?`<div class="final-strip"><div><span>Actual final score</span><strong>${esc(g.away)} ${Number(g.awayScore)}–${esc(g.home)} ${Number(g.homeScore)}</strong></div><div><span>${wasPregame?"Pregame prediction":"Prediction comparison"}</span><strong>${wasPregame?`${esc(g.away)} ${Number(p.awayScore)}–${esc(g.home)} ${Number(p.homeScore)}`:"Available for games predicted before kickoff"}</strong></div></div>`:"";
-    return `<article class="game"><div class="matchup"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span><div class="teams"><div class="team">${logo(g.awayLogo,g.away)}<span>${esc(g.away)}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team">${logo(g.homeLogo,g.home)}<span>${esc(g.home)}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${homeSpread?esc(homeSpread.book):"Line unavailable"}${awaySpread?` · ${esc(g.away)} ${signed(awaySpread.point)} (${american(awaySpread.price)}) · ${esc(awaySpread.book)}`:""}</small></div><div class="market"><span>Total</span><strong>${over?`Over ${Number(over.point)} (${american(over.price)})`:"—"}</strong><small>${over?esc(over.book):"Line unavailable"}${under?` · Under ${Number(under.point)} (${american(under.price)}) · ${esc(under.book)}`:""}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${esc(g.away)} ${american(awayMl.price)} / ${esc(g.home)} ${american(homeMl?.price)}`:"—"}</strong><small>${awayMl?esc(awayMl.book):"Line unavailable"}${homeMl?` / ${esc(homeMl.book)}`:""}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}${final}</article>`;
+    return `<article class="game" role="button" tabindex="0" data-game-id="${esc(g.id)}" aria-label="Open ${esc(g.away)} at ${esc(g.home)} details"><div class="matchup"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span><div class="teams"><div class="team">${logo(g.awayLogo,g.away)}<span>${esc(g.away)}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team">${logo(g.homeLogo,g.home)}<span>${esc(g.home)}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${homeSpread?esc(homeSpread.book):"Line unavailable"}${awaySpread?` · ${esc(g.away)} ${signed(awaySpread.point)} (${american(awaySpread.price)}) · ${esc(awaySpread.book)}`:""}</small></div><div class="market"><span>Total</span><strong>${over?`Over ${Number(over.point)} (${american(over.price)})`:"—"}</strong><small>${over?esc(over.book):"Line unavailable"}${under?` · Under ${Number(under.point)} (${american(under.price)}) · ${esc(under.book)}`:""}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${esc(g.away)} ${american(awayMl.price)} / ${esc(g.home)} ${american(homeMl?.price)}`:"—"}</strong><small>${awayMl?esc(awayMl.book):"Line unavailable"}${homeMl?` / ${esc(homeMl.book)}`:""}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}${final}</article>`;
   }).join("");
   $("gameCount").textContent=list.length; $("oddsCount").textContent=withOdds; $("moveCount").textContent=moves;
   $("empty").classList.toggle("hidden",list.length>0);
@@ -83,4 +83,57 @@ async function load(){
 }
 function showError(message){$("loading").classList.add("hidden");$("notice").textContent=message+" The automatic updater will try again shortly.";$("notice").classList.remove("hidden");$("connectionStatus").className="status error";$("connectionStatus").lastElementChild.textContent="Feed is updating"}
 function tick(){state.seconds--;if(state.seconds<=0)load();$("countdown").textContent=state.seconds+"s"}
+function allBookRows(event){
+  return (event?.bookmakers||[]).map(book=>{
+    const markets=Object.fromEntries((book.markets||[]).map(m=>[m.key,m.outcomes||[]]));
+    const spread=markets.spreads?.map(o=>`${esc(o.name)} ${signed(o.point)} (${american(o.price)})`).join(" · ")||"—";
+    const total=markets.totals?.map(o=>`${esc(o.name)} ${o.point} (${american(o.price)})`).join(" · ")||"—";
+    const moneyline=markets.h2h?.map(o=>`${esc(o.name)} ${american(o.price)}`).join(" · ")||"—";
+    return `<tr><th>${esc(book.title)}</th><td>${spread}</td><td>${total}</td><td>${moneyline}</td></tr>`;
+  }).join("");
+}
+function playerTables(summary){
+  const teams=summary?.boxscore?.players||[];
+  if(!teams.length)return '<div class="detail-empty">Player box-score statistics become available when ESPN publishes them for this game.</div>';
+  return teams.map(team=>{
+    const groups=(team.statistics||[]).slice(0,4).map(group=>{
+      const labels=group.labels||group.names||[];
+      const athletes=(group.athletes||[]).slice(0,8);
+      if(!athletes.length)return "";
+      return `<div class="player-group"><h4>${esc(group.name||group.type||"Players")}</h4><div class="table-scroll"><table><thead><tr><th>Player</th>${labels.map(label=>`<th>${esc(label)}</th>`).join("")}</tr></thead><tbody>${athletes.map(row=>`<tr><td>${esc(row.athlete?.displayName||row.athlete?.shortName||"Player")}</td>${(row.stats||[]).map(value=>`<td>${esc(value)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`;
+    }).join("");
+    return `<section class="player-team"><h3>${esc(team.team?.displayName||team.team?.name||"Team")} player stats</h3>${groups}</section>`;
+  }).join("");
+}
+async function openGame(id){
+  const game=state.games.find(item=>String(item.id)===String(id));if(!game)return;
+  const event=oddsEventFor(game),p=game.prediction||{},homeWin=Number(p.homeWin)||50,awayWin=100-homeWin;
+  const dialog=$("gameDialog");
+  $("detailBody").innerHTML=`<div class="detail-loading"><span class="eyebrow">MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>Loading game statistics…</p></div>`;
+  dialog.showModal();
+  let summary=null;
+  try{const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=${encodeURIComponent(game.id)}`);if(response.ok)summary=await response.json()}catch{}
+  const metrics=[
+    ["Avg points scored",p.awayOffense,p.homeOffense],
+    ["Avg points allowed",p.awayDefense,p.homeDefense],
+    ["Projected points",p.awayScore,p.homeScore],
+    ["Win probability",awayWin.toFixed(1)+"%",homeWin.toFixed(1)+"%"]
+  ];
+  $("detailBody").innerHTML=`
+    <header class="detail-head"><span class="eyebrow">THE MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>${esc(fmtTime(game.date))} · ${esc(game.status||"Scheduled")}</p></header>
+    <section class="score-projection">
+      <div>${logo(game.awayLogo,game.away)}<h3>${esc(game.away)}</h3><strong>${Number(p.awayScore)||0}</strong><small>${awayWin.toFixed(1)}% win chance</small></div>
+      <span>VS</span>
+      <div>${logo(game.homeLogo,game.home)}<h3>${esc(game.home)}</h3><strong>${Number(p.homeScore)||0}</strong><small>${homeWin.toFixed(1)}% win chance</small></div>
+      <div class="detail-probability"><i style="width:${awayWin}%"></i><i style="width:${homeWin}%"></i></div>
+    </section>
+    <section class="detail-section"><div class="section-title"><span class="eyebrow">MODEL COMPARISON</span><h3>Head to head</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(game.away)}</b><span>Metric</span><b>${esc(game.home)}</b></div>${metrics.map(row=>`<div><strong>${esc(row[1]??"—")}</strong><span>${esc(row[0])}</span><strong>${esc(row[2]??"—")}</strong></div>`).join("")}</div><p class="method-note">Scoring and defense figures are calculated from completed games in the selected season. Exact zone/man-coverage grades are not supplied by the connected feeds.</p></section>
+    <section class="detail-section"><div class="section-title"><span class="eyebrow">SPORTSBOOKS</span><h3>Every available line</h3></div><div class="table-scroll"><table class="odds-table"><thead><tr><th>Book</th><th>Spread</th><th>Total</th><th>Moneyline</th></tr></thead><tbody>${allBookRows(event)||'<tr><td colspan="4">No current markets</td></tr>'}</tbody></table></div></section>
+    <section class="detail-section"><div class="section-title"><span class="eyebrow">ESPN BOX SCORE</span><h3>Player statistics</h3></div>${playerTables(summary)}</section>`;
+}
+$("games").addEventListener("click",event=>{const card=event.target.closest(".game");if(card)openGame(card.dataset.gameId)});
+$("games").addEventListener("keydown",event=>{if((event.key==="Enter"||event.key===" ")&&event.target.matches(".game")){event.preventDefault();openGame(event.target.dataset.gameId)}});
+$("closeDialog").addEventListener("click",()=>$("gameDialog").close());
+$("gameDialog").addEventListener("click",event=>{if(event.target===$("gameDialog"))$("gameDialog").close()});
+
 setupFilters();$("season").addEventListener("change",load);$("week").addEventListener("change",load);$("bookFilter").addEventListener("change",render);$("teamSearch").addEventListener("input",render);$("refreshBtn").addEventListener("click",load);state.timer=setInterval(tick,1000);load();
