@@ -1,62 +1,698 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+# ============================================================
+# 🏈 COLLEGE FOOTBALL PREDICTION MODEL
+# ============================================================
+# Predicts:
+#   • Team win probability
+#   • Predicted score
+#   • Spread result
+#   • Over/Under result
+#   • Market vs. Model probability
+#
+# IMPORTANT:
+# The model should only use information that was available
+# BEFORE each game to avoid look-ahead bias.
+# ============================================================
 
-    <title>Gridiron Edge</title>
+import pandas as pd
+import numpy as np
 
-    <link rel="stylesheet" href="style.css">
-</head>
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.metrics import (
+    accuracy_score,
+    log_loss,
+    mean_absolute_error,
+    brier_score_loss
+)
 
-<body>
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", 200)
 
-    <header>
-        <h1>🏈 Gridiron Edge</h1>
-        <p>College Football Predictions</p>
-    </header>
 
-    <main>
+# ============================================================
+# 1. LOAD DATA
+# ============================================================
 
-        <section class="hero">
-            <h2>Today's Best Bets</h2>
-            <p>Data-driven college football predictions.</p>
-        </section>
+FILE_NAME = "college_football_history.csv"
 
-        <section id="games">
+df = pd.read_csv(FILE_NAME)
 
-            <div class="game-card">
+print(f"Loaded {len(df):,} games.")
+print(df.head())
 
-                <h2>Texas vs Ohio State</h2>
 
-                <div class="prediction">
-                    <span>Overall</span>
-                    <strong>68%</strong>
-                </div>
+# ============================================================
+# 2. CLEAN DATA
+# ============================================================
 
-                <div class="prediction">
-                    <span>Spread</span>
-                    <strong>Texas +2.5</strong>
-                </div>
+df["date"] = pd.to_datetime(df["date"])
 
-                <div class="prediction">
-                    <span>Over / Under</span>
-                    <strong>Under 52.5</strong>
-                </div>
+df = df.sort_values("date").reset_index(drop=True)
 
-                <div class="prediction">
-                    <span>Projected Score</span>
-                    <strong>Texas 27 - Ohio State 24</strong>
-                </div>
+# Remove games without completed scores
+df = df.dropna(subset=["home_score", "away_score"])
 
-            </div>
+# Actual results
+df["home_win"] = (df["home_score"] > df["away_score"]).astype(int)
 
-        </section>
+df["margin"] = (
+    df["home_score"] -
+    df["away_score"]
+)
 
-    </main>
+df["total_points"] = (
+    df["home_score"] +
+    df["away_score"]
+)
 
-    <script src="script.js"></script>
 
-</body>
-</html>
-<!-- Gridiron Edge -->
+# ============================================================
+# 3. MARKET INFORMATION
+# ============================================================
+
+# Example:
+# home_spread = -6.5 means home team was favored by 6.5
+
+# If your dataset uses the opposite convention,
+# change this section.
+
+df["spread"] = pd.to_numeric(
+    df["home_spread"],
+    errors="coerce"
+)
+
+df["over_under"] = pd.to_numeric(
+    df["over_under"],
+    errors="coerce"
+)
+
+# Closing moneyline
+df["home_moneyline"] = pd.to_numeric(
+    df["home_moneyline"],
+    errors="coerce"
+)
+
+df["away_moneyline"] = pd.to_numeric(
+    df["away_moneyline"],
+    errors="coerce"
+)
+
+
+# ============================================================
+# 4. MONEYLINE → IMPLIED PROBABILITY
+# ============================================================
+
+def moneyline_probability(ml):
+    """
+    Converts American moneyline into implied probability.
+    """
+
+    if pd.isna(ml):
+        return np.nan
+
+    if ml < 0:
+        return (-ml) / ((-ml) + 100)
+
+    return 100 / (ml + 100)
+
+
+df["home_implied_probability"] = df[
+    "home_moneyline"
+].apply(moneyline_probability)
+
+df["away_implied_probability"] = df[
+    "away_moneyline"
+].apply(moneyline_probability)
+
+
+# Remove bookmaker vig by normalizing probabilities
+
+prob_total = (
+    df["home_implied_probability"] +
+    df["away_implied_probability"]
+)
+
+df["home_market_probability"] = (
+    df["home_implied_probability"] /
+    prob_total
+)
+
+df["away_market_probability"] = (
+    df["away_implied_probability"] /
+    prob_total
+)
+
+
+# ============================================================
+# 5. HOME / AWAY / NEUTRAL
+# ============================================================
+
+# Change this column name if your dataset uses another name.
+
+if "neutral_site" in df.columns:
+
+    df["neutral_site"] = (
+        df["neutral_site"]
+        .fillna(False)
+        .astype(int)
+    )
+
+else:
+
+    df["neutral_site"] = 0
+
+
+df["home_field"] = 1 - df["neutral_site"]
+
+
+# ============================================================
+# 6. TEAM HISTORICAL FEATURES
+# ============================================================
+
+# These rolling statistics are calculated ONLY from previous
+# games. This prevents future results from leaking into the model.
+
+
+def add_team_history(data):
+
+    data = data.copy()
+
+    data["home_prev_wins"] = 0
+    data["home_prev_games"] = 0
+
+    data["away_prev_wins"] = 0
+    data["away_prev_games"] = 0
+
+    data["home_prev_points"] = 0.0
+    data["away_prev_points"] = 0.0
+
+    data["home_prev_allowed"] = 0.0
+    data["away_prev_allowed"] = 0.0
+
+    team_stats = {}
+
+    for i, row in data.iterrows():
+
+        home = row["home_team"]
+        away = row["away_team"]
+
+        home_stats = team_stats.get(
+            home,
+            {
+                "games": 0,
+                "wins": 0,
+                "points": [],
+                "allowed": []
+            }
+        )
+
+        away_stats = team_stats.get(
+            away,
+            {
+                "games": 0,
+                "wins": 0,
+                "points": [],
+                "allowed": []
+            }
+        )
+
+        # Historical information BEFORE game
+
+        data.at[i, "home_prev_games"] = home_stats["games"]
+        data.at[i, "home_prev_wins"] = home_stats["wins"]
+
+        data.at[i, "away_prev_games"] = away_stats["games"]
+        data.at[i, "away_prev_wins"] = away_stats["wins"]
+
+        if home_stats["points"]:
+            data.at[i, "home_prev_points"] = np.mean(
+                home_stats["points"][-5:]
+            )
+
+        if away_stats["points"]:
+            data.at[i, "away_prev_points"] = np.mean(
+                away_stats["points"][-5:]
+            )
+
+        if home_stats["allowed"]:
+            data.at[i, "home_prev_allowed"] = np.mean(
+                home_stats["allowed"][-5:]
+            )
+
+        if away_stats["allowed"]:
+            data.at[i, "away_prev_allowed"] = np.mean(
+                away_stats["allowed"][-5:]
+            )
+
+        # Update stats AFTER game
+
+        home_stats["games"] += 1
+        away_stats["games"] += 1
+
+        if row["home_score"] > row["away_score"]:
+            home_stats["wins"] += 1
+        else:
+            away_stats["wins"] += 1
+
+        home_stats["points"].append(
+            row["home_score"]
+        )
+
+        away_stats["points"].append(
+            row["away_score"]
+        )
+
+        home_stats["allowed"].append(
+            row["away_score"]
+        )
+
+        away_stats["allowed"].append(
+            row["home_score"]
+        )
+
+        team_stats[home] = home_stats
+        team_stats[away] = away_stats
+
+    return data
+
+
+df = add_team_history(df)
+
+
+# ============================================================
+# 7. CREATE MODEL FEATURES
+# ============================================================
+
+df["home_win_rate"] = np.where(
+    df["home_prev_games"] > 0,
+    df["home_prev_wins"] /
+    df["home_prev_games"],
+    0.50
+)
+
+df["away_win_rate"] = np.where(
+    df["away_prev_games"] > 0,
+    df["away_prev_wins"] /
+    df["away_prev_games"],
+    0.50
+)
+
+df["home_offense"] = df["home_prev_points"]
+
+df["away_offense"] = df["away_prev_points"]
+
+df["home_defense"] = df["home_prev_allowed"]
+
+df["away_defense"] = df["away_prev_allowed"]
+
+df["offensive_difference"] = (
+    df["home_offense"] -
+    df["away_offense"]
+)
+
+df["defensive_difference"] = (
+    df["away_defense"] -
+    df["home_defense"]
+)
+
+df["win_rate_difference"] = (
+    df["home_win_rate"] -
+    df["away_win_rate"]
+)
+
+
+# ============================================================
+# 8. MODEL FEATURES
+# ============================================================
+
+FEATURES = [
+
+    # Betting market
+    "spread",
+    "over_under",
+    "home_market_probability",
+
+    # Location
+    "home_field",
+
+    # Historical performance
+    "home_win_rate",
+    "away_win_rate",
+
+    "home_offense",
+    "away_offense",
+
+    "home_defense",
+    "away_defense",
+
+    "offensive_difference",
+    "defensive_difference",
+
+    "win_rate_difference"
+]
+
+
+model_data = df.dropna(
+    subset=FEATURES + ["home_win"]
+).copy()
+
+
+X = model_data[FEATURES]
+
+y = model_data["home_win"]
+
+
+# ============================================================
+# 9. TIME-BASED TRAIN / TEST SPLIT
+# ============================================================
+
+# DO NOT randomly mix old and future games.
+# Train on earlier games and test on later games.
+
+split_index = int(len(model_data) * 0.80)
+
+X_train = X.iloc[:split_index]
+X_test = X.iloc[split_index:]
+
+y_train = y.iloc[:split_index]
+y_test = y.iloc[split_index:]
+
+
+# ============================================================
+# 10. WIN PROBABILITY MODEL
+# ============================================================
+
+win_model = RandomForestClassifier(
+    n_estimators=500,
+    max_depth=8,
+    min_samples_leaf=10,
+    random_state=42,
+    class_weight="balanced"
+)
+
+win_model.fit(
+    X_train,
+    y_train
+)
+
+
+# ============================================================
+# 11. MODEL WIN PROBABILITY
+# ============================================================
+
+model_data["model_home_win_probability"] = (
+    win_model
+    .predict_proba(X)[:, 1]
+)
+
+model_data["model_away_win_probability"] = (
+    1 -
+    model_data["model_home_win_probability"]
+)
+
+
+# ============================================================
+# 12. PREDICT SCORE / MARGIN
+# ============================================================
+
+score_features = [
+
+    "spread",
+    "over_under",
+    "home_field",
+
+    "home_offense",
+    "away_offense",
+
+    "home_defense",
+    "away_defense",
+
+    "offensive_difference",
+    "defensive_difference"
+]
+
+score_data = model_data.dropna(
+    subset=score_features
+).copy()
+
+
+# Predict point margin
+
+margin_model = RandomForestRegressor(
+    n_estimators=500,
+    max_depth=10,
+    min_samples_leaf=10,
+    random_state=42
+)
+
+margin_model.fit(
+    score_data[score_features],
+    score_data["margin"]
+)
+
+
+score_data["predicted_margin"] = (
+    margin_model.predict(
+        score_data[score_features]
+    )
+)
+
+
+# ============================================================
+# 13. PREDICT TOTAL POINTS
+# ============================================================
+
+total_model = RandomForestRegressor(
+    n_estimators=500,
+    max_depth=10,
+    min_samples_leaf=10,
+    random_state=42
+)
+
+total_model.fit(
+    score_data[score_features],
+    score_data["total_points"]
+)
+
+
+score_data["predicted_total"] = (
+    total_model.predict(
+        score_data[score_features]
+    )
+)
+
+
+# ============================================================
+# 14. ESTIMATE PREDICTED SCORE
+# ============================================================
+
+score_data["predicted_home_score"] = (
+    score_data["predicted_total"] +
+    score_data["predicted_margin"]
+) / 2
+
+score_data["predicted_away_score"] = (
+    score_data["predicted_total"] -
+    score_data["predicted_margin"]
+) / 2
+
+
+# ============================================================
+# 15. MODEL EDGE
+# ============================================================
+
+score_data["win_probability_edge"] = (
+    score_data["model_home_win_probability"] -
+    score_data["home_market_probability"]
+)
+
+
+score_data["model_pick"] = np.where(
+    score_data["model_home_win_probability"] >= 0.50,
+    score_data["home_team"],
+    score_data["away_team"]
+)
+
+
+# ============================================================
+# 16. SPREAD PREDICTION
+# ============================================================
+
+score_data["model_spread"] = (
+    -score_data["predicted_margin"]
+)
+
+score_data["spread_edge"] = (
+    score_data["model_spread"] -
+    score_data["spread"]
+)
+
+
+score_data["spread_pick"] = np.where(
+    score_data["spread_edge"] < 0,
+    score_data["home_team"],
+    score_data["away_team"]
+)
+
+
+# ============================================================
+# 17. OVER / UNDER PREDICTION
+# ============================================================
+
+score_data["total_edge"] = (
+    score_data["predicted_total"] -
+    score_data["over_under"]
+)
+
+score_data["total_pick"] = np.where(
+    score_data["total_edge"] > 0,
+    "OVER",
+    "UNDER"
+)
+
+
+# ============================================================
+# 18. MODEL ACCURACY
+# ============================================================
+
+test_predictions = (
+    win_model.predict_proba(X_test)[:, 1]
+)
+
+binary_predictions = (
+    test_predictions >= 0.50
+).astype(int)
+
+
+accuracy = accuracy_score(
+    y_test,
+    binary_predictions
+)
+
+logloss = log_loss(
+    y_test,
+    test_predictions
+)
+
+brier = brier_score_loss(
+    y_test,
+    test_predictions
+)
+
+
+print("\n" + "=" * 60)
+print("🏈 MODEL PERFORMANCE")
+print("=" * 60)
+
+print(f"Win Prediction Accuracy: {accuracy:.2%}")
+print(f"Log Loss:                {logloss:.4f}")
+print(f"Brier Score:             {brier:.4f}")
+
+
+# ============================================================
+# 19. PRETTY OUTPUT
+# ============================================================
+
+output_columns = [
+
+    "date",
+    "away_team",
+    "home_team",
+
+    "away_score",
+    "home_score",
+
+    "home_market_probability",
+
+    "model_home_win_probability",
+
+    "predicted_away_score",
+    "predicted_home_score",
+
+    "spread",
+    "model_spread",
+    "spread_edge",
+
+    "over_under",
+    "predicted_total",
+    "total_edge",
+
+    "model_pick",
+    "spread_pick",
+    "total_pick"
+]
+
+
+final_output = score_data[
+    output_columns
+].copy()
+
+
+# Convert probabilities to percentages
+
+final_output["market_win_%"] = (
+    final_output["home_market_probability"] * 100
+)
+
+final_output["model_win_%"] = (
+    final_output["model_home_win_probability"] * 100
+)
+
+
+# Round numbers
+
+final_output = final_output.round({
+    "market_win_%": 1,
+    "model_win_%": 1,
+    "predicted_away_score": 1,
+    "predicted_home_score": 1,
+    "model_spread": 1,
+    "spread_edge": 1,
+    "predicted_total": 1,
+    "total_edge": 1
+})
+
+
+# ============================================================
+# 20. DISPLAY BEST MODEL EDGES
+# ============================================================
+
+best_edges = final_output.sort_values(
+    "model_win_%",
+    ascending=False
+).head(25)
+
+
+print("\n" + "=" * 100)
+print("🔥 TOP MODEL WIN PROBABILITIES")
+print("=" * 100)
+
+print(
+    best_edges[
+        [
+            "date",
+            "away_team",
+            "home_team",
+            "model_win_%",
+            "market_win_%",
+            "predicted_away_score",
+            "predicted_home_score",
+            "model_pick"
+        ]
+    ].to_string(index=False)
+)
+
+
+# ============================================================
+# 21. SAVE EVERYTHING
+# ============================================================
+
+final_output.to_csv(
+    "college_football_model_results.csv",
+    index=False
+)
+
+print(
+    "\n✅ Saved results to "
+    "'college_football_model_results.csv'"
+)
