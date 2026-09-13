@@ -1,5 +1,7 @@
-const state = { games: [], odds: [], previous: new Map(), seconds: 60, timer: null };
+const state = { games: [], odds: [], news: [], previous: new Map(), seconds: 60, timer: null };
 const $ = id => document.getElementById(id);
+const esc=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+function safeNewsUrl(value){try{const url=new URL(value);return url.protocol==="https:"?url.href:"#"}catch{return "#"}}
 
 function setupFilters(){
   const now=new Date(); const currentYear=now.getFullYear();
@@ -30,6 +32,10 @@ function oddsEventFor(game){
   const a=(game.away||"").toLowerCase(),h=(game.home||"").toLowerCase();
   return state.odds.find(o=>o.away_team.toLowerCase()===a&&o.home_team.toLowerCase()===h);
 }
+function newsFor(game){
+  const names=[game.home,game.away].map(n=>n.toLowerCase());
+  return state.news.filter(item=>names.some(name=>item.searchText.includes(name)||name.split(" ").some(part=>part.length>5&&item.searchText.includes(part)))).slice(0,3);
+}
 function render(){
   const query=$("teamSearch").value.trim().toLowerCase(); let moves=0,withOdds=0;
   const list=state.games.filter(g=>!query||g.away.toLowerCase().includes(query)||g.home.toLowerCase().includes(query));
@@ -38,7 +44,9 @@ function render(){
     const spread=m.spreads?.outcomes||[], totals=m.totals?.outcomes||[], h2h=m.h2h?.outcomes||[];
     const awaySpread=spread.find(o=>o.name===g.away), homeSpread=spread.find(o=>o.name===g.home);
     const over=totals.find(o=>o.name==="Over"), awayMl=h2h.find(o=>o.name===g.away), homeMl=h2h.find(o=>o.name===g.home);
-    return `<article class="game"><div class="matchup"><span class="kickoff">${fmtTime(g.date)} · ${g.status||"Scheduled"}</span><div class="teams"><div class="team"><span>${g.away}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${g.home}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${g.home} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${m.spreads?.book||"No line posted"}</small></div><div class="market"><span>Total</span><strong>${over?`O/U ${over.point}`:"—"}</strong><small>${m.totals?.book||"No line posted"}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${american(awayMl.price)} / ${american(homeMl?.price)}`:"—"}</strong><small>${m.h2h?.book||"No line posted"}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${move.text}</strong><small class="pill">60 sec</small></div></article>`;
+    const stories=newsFor(g);
+    const news=stories.length?stories.map(s=>`<a href="${esc(safeNewsUrl(s.link))}" target="_blank" rel="noopener noreferrer"><span>${esc(s.source)}</span><strong>${esc(s.title)}</strong><small>${esc(s.summary)}</small></a>`).join(""):'<p>No recent matchup reporting found.</p>';
+    return `<article class="game"><div class="matchup"><span class="kickoff">${fmtTime(g.date)} · ${g.status||"Scheduled"}</span><div class="teams"><div class="team"><span>${g.away}</span><small>${awaySpread?signed(awaySpread.point):""}</small></div><div class="team"><span>${g.home}</span><small>${homeSpread?signed(homeSpread.point):""}</small></div></div></div><div class="market"><span>Spread</span><strong>${homeSpread?`${g.home} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${m.spreads?.book||"No line posted"}</small></div><div class="market"><span>Total</span><strong>${over?`O/U ${over.point}`:"—"}</strong><small>${m.totals?.book||"No line posted"}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${american(awayMl.price)} / ${american(homeMl?.price)}`:"—"}</strong><small>${m.h2h?.book||"No line posted"}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${move.text}</strong><small class="pill">60 sec</small></div><div class="news-strip"><div class="news-label">Latest reporting</div><div class="news-list">${news}</div></div></article>`;
   }).join("");
   $("gameCount").textContent=list.length; $("oddsCount").textContent=withOdds; $("moveCount").textContent=moves;
   $("empty").classList.toggle("hidden",list.length>0);
@@ -56,7 +64,7 @@ async function load(){
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"||String(g.week)===String(week)));
-    state.odds=live.events||[];
+    state.odds=live.events||[]; state.news=(live.news||[]).map(item=>({...item,searchText:`${item.title} ${item.summary}`.toLowerCase()}));
     populateBooks();render();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Live data connected";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
