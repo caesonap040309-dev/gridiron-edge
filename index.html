@@ -1,357 +1,498 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Gridiron Edge</title>
+<title>Gridiron Edge | College Football Predictions</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <div class="header-content">
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="logo">🏈</div>
+
         <div>
-            <h1>🏈 Gridiron Edge</h1>
+            <h1>Gridiron Edge</h1>
             <p>College Football Predictions & Betting Analytics</p>
         </div>
 
-        <div class="status">
-            <span class="status-dot"></span>
-            Model Online
-        </div>
     </div>
+
+    <div class="status">
+        <span class="dot"></span>
+        MODEL ONLINE
+    </div>
+
 </header>
 
-<main>
+
+<main class="container">
+
+    <!-- HERO -->
 
     <section class="hero">
+
         <div>
-            <h2>College Football Edge</h2>
+
+            <p class="eyebrow">PREDICTION CENTER</p>
+
+            <h2>Find the edge before kickoff.</h2>
+
             <p>
-                Data-driven college football predictions using
-                betting markets and historical performance.
+                Enter the betting information for a matchup and compare
+                the market with a model-based prediction.
             </p>
+
         </div>
 
         <div class="hero-badge">
-            <strong>GRIDIRON</strong>
-            <span>EDGE</span>
+
+            <strong>CFB</strong>
+
+            <span>EDGE ENGINE</span>
+
         </div>
+
     </section>
 
 
-    <section class="panel">
+    <!-- INPUT SECTION -->
 
-        <span class="eyebrow">GAME ANALYSIS</span>
+    <section class="card">
 
-        <h2>Analyze a Matchup</h2>
+        <div class="section-head">
 
-        <p class="description">
-            Enter the current betting information below.
-        </p>
+            <div>
 
-        <div class="input-grid">
+                <p class="eyebrow">GAME INPUT</p>
 
-            <div class="input-group">
-                <label>Away Team</label>
+                <h2>Analyze a Matchup</h2>
+
+            </div>
+
+            <button
+                class="secondary-btn"
+                id="demoBtn"
+            >
+                Load Demo
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <label>
+                Away Team
+
                 <input
                     id="awayTeam"
                     type="text"
                     placeholder="Texas"
                 >
-            </div>
 
-            <div class="input-group">
-                <label>Home Team</label>
+            </label>
+
+
+            <label>
+                Home Team
+
                 <input
                     id="homeTeam"
                     type="text"
                     placeholder="Ohio State"
                 >
-            </div>
 
-            <div class="input-group">
-                <label>Game Location</label>
+            </label>
 
-                <select id="gameLocation">
-                    <option value="home">Home Team</option>
-                    <option value="away">Away Team</option>
-                    <option value="neutral">Neutral Site</option>
+
+            <label>
+                Location
+
+                <select id="location">
+
+                    <option value="home">
+                        Home Team
+                    </option>
+
+                    <option value="neutral">
+                        Neutral Site
+                    </option>
+
                 </select>
-            </div>
 
-            <div class="input-group">
-                <label>Spread</label>
+            </label>
+
+
+            <label>
+                Home Spread
+
                 <input
                     id="spread"
                     type="number"
                     step="0.5"
                     placeholder="-2.5"
                 >
-            </div>
 
-            <div class="input-group">
-                <label>Over / Under</label>
+            </label>
+
+
+            <label>
+                Over / Under
+
                 <input
-                    id="overUnder"
+                    id="total"
                     type="number"
                     step="0.5"
                     placeholder="52.5"
                 >
-            </div>
 
-            <div class="input-group">
-                <label>Home Moneyline</label>
-                <input
-                    id="homeMoneyline"
-                    type="number"
-                    placeholder="-150"
-                >
-            </div>
+            </label>
 
-            <div class="input-group">
-                <label>Away Moneyline</label>
+
+            <label>
+                Home Moneyline
+
                 <input
-                    id="awayMoneyline"
+                    id="homeML"
                     type="number"
-                    placeholder="+130"
+                    placeholder="-140"
                 >
-            </div>
+
+            </label>
+
+
+            <label>
+                Away Moneyline
+
+                <input
+                    id="awayML"
+                    type="number"
+                    placeholder="120"
+                >
+
+            </label>
 
         </div>
 
+
         <button
-            class="primary-button"
-            onclick="runPrediction()"
+            class="primary-btn"
+            id="runBtn"
         >
-            <span>Run Prediction</span>
+
+            Run Prediction
+
             <span>→</span>
+
         </button>
+
+
+        <p class="note">
+
+            Prototype mode: this page runs in your browser.
+            It is not connected to a live sportsbook or historical
+            database yet.
+
+        </p>
 
     </section>
 
 
-    <section id="results" class="results hidden">
+    <!-- RESULTS -->
 
-        <div class="section-title">
-            <span class="eyebrow">MODEL OUTPUT</span>
-            <h2 id="matchupTitle">Game Prediction</h2>
+    <section id="results" class="hidden">
+
+        <div class="section-head result-head">
+
+            <div>
+
+                <p class="eyebrow">
+                    MODEL OUTPUT
+                </p>
+
+                <h2 id="matchup">
+                    Matchup
+                </h2>
+
+            </div>
+
+
+            <div
+                class="confidence-pill"
+                id="confidencePill"
+            >
+
+                Confidence: —
+
+            </div>
+
         </div>
 
 
-        <div class="metrics-grid">
+        <!-- METRICS -->
 
-            <div class="metric-card featured">
-                <span class="metric-label">
-                    Model Win Probability
+        <div class="metrics">
+
+            <article class="metric featured">
+
+                <span>
+                    MODEL WIN %
                 </span>
 
-                <strong id="winProbability">
-                    --%
+                <strong id="winPct">
+                    —
                 </strong>
 
-                <small>Model estimate</small>
-            </div>
+                <small>
+                    Estimated home-team win probability
+                </small>
+
+            </article>
 
 
-            <div class="metric-card">
-                <span class="metric-label">
-                    Market Probability
+            <article class="metric">
+
+                <span>
+                    MARKET WIN %
                 </span>
 
-                <strong id="marketProbability">
-                    --%
+                <strong id="marketPct">
+                    —
                 </strong>
 
-                <small>No-vig market probability</small>
-            </div>
+                <small>
+                    No-vig implied probability
+                </small>
+
+            </article>
 
 
-            <div class="metric-card">
-                <span class="metric-label">
-                    Model Edge
+            <article class="metric">
+
+                <span>
+                    MODEL EDGE
                 </span>
 
-                <strong id="modelEdge">
-                    --%
+                <strong id="edgePct">
+                    —
                 </strong>
 
-                <small>Model vs market</small>
-            </div>
+                <small>
+                    Model minus market
+                </small>
+
+            </article>
 
 
-            <div class="metric-card">
-                <span class="metric-label">
-                    Projected Score
+            <article class="metric">
+
+                <span>
+                    PROJECTED SCORE
                 </span>
 
-                <strong id="predictedScore">
-                    -- - --
+                <strong id="score">
+                    —
                 </strong>
 
-                <small>Expected final score</small>
-            </div>
+                <small>
+                    Expected final score
+                </small>
+
+            </article>
 
         </div>
 
 
-        <div class="picks-grid">
+        <!-- PICKS -->
 
-            <div class="pick-card">
-                <span>WINNER</span>
-                <strong id="modelPick">--</strong>
-            </div>
+        <div class="picks">
 
-            <div class="pick-card">
-                <span>SPREAD</span>
-                <strong id="spreadPick">--</strong>
-            </div>
+            <article>
 
-            <div class="pick-card">
-                <span>TOTAL</span>
-                <strong id="totalPick">--</strong>
-            </div>
+                <span>
+                    WINNER
+                </span>
 
-        </div>
+                <strong id="winner">
+                    —
+                </strong>
+
+            </article>
 
 
-        <div class="panel">
+            <article>
 
-            <span class="eyebrow">
-                MARKET DATA
-            </span>
+                <span>
+                    SPREAD
+                </span>
 
-            <h2>Betting Information</h2>
+                <strong id="spreadPick">
+                    —
+                </strong>
 
-            <div class="data-grid">
+            </article>
 
-                <div class="data-row">
-                    <span>Spread</span>
-                    <strong id="displaySpread">--</strong>
-                </div>
 
-                <div class="data-row">
-                    <span>Over / Under</span>
-                    <strong id="displayTotal">--</strong>
-                </div>
+            <article>
 
-                <div class="data-row">
-                    <span>Model Spread</span>
-                    <strong id="modelSpread">--</strong>
-                </div>
+                <span>
+                    TOTAL
+                </span>
 
-                <div class="data-row">
-                    <span>Spread Edge</span>
-                    <strong id="spreadEdge">--</strong>
-                </div>
+                <strong id="totalPick">
+                    —
+                </strong>
 
-                <div class="data-row">
-                    <span>Predicted Total</span>
-                    <strong id="predictedTotal">--</strong>
-                </div>
-
-                <div class="data-row">
-                    <span>Total Edge</span>
-                    <strong id="totalEdge">--</strong>
-                </div>
-
-            </div>
+            </article>
 
         </div>
 
 
-        <div class="panel">
+        <!-- TWO COLUMNS -->
 
-            <span class="eyebrow">
-                HISTORICAL FACTORS
-            </span>
+        <div class="two-col">
 
-            <h2>Model Factors</h2>
 
-            <div class="factor-grid">
+            <!-- MARKET -->
 
-                <div class="factor">
-                    <span>Home Field</span>
-                    <strong>✓</strong>
-                    <small>Location advantage</small>
+            <section class="card">
+
+                <p class="eyebrow">
+                    BETTING MARKET
+                </p>
+
+                <h2>
+                    Market vs. Model
+                </h2>
+
+
+                <div class="list">
+
+                    <div>
+                        <span>Spread</span>
+                        <b id="marketSpread">—</b>
+                    </div>
+
+                    <div>
+                        <span>Over / Under</span>
+                        <b id="marketTotal">—</b>
+                    </div>
+
+                    <div>
+                        <span>Model Spread</span>
+                        <b id="modelSpread">—</b>
+                    </div>
+
+                    <div>
+                        <span>Spread Edge</span>
+                        <b id="spreadEdge">—</b>
+                    </div>
+
+                    <div>
+                        <span>Predicted Total</span>
+                        <b id="predictedTotal">—</b>
+                    </div>
+
+                    <div>
+                        <span>Total Edge</span>
+                        <b id="totalEdge">—</b>
+                    </div>
+
                 </div>
 
-                <div class="factor">
-                    <span>Recent Form</span>
-                    <strong>DATA</strong>
-                    <small>Recent performance</small>
+            </section>
+
+
+            <!-- FACTORS -->
+
+            <section class="card">
+
+                <p class="eyebrow">
+                    HISTORICAL FACTORS
+                </p>
+
+                <h2>
+                    Model Factors
+                </h2>
+
+
+                <div class="list">
+
+                    <div>
+                        <span>Home / Away</span>
+                        <b id="homeFactor">—</b>
+                    </div>
+
+                    <div>
+                        <span>Recent Form</span>
+                        <b>Not connected</b>
+                    </div>
+
+                    <div>
+                        <span>Offense / Defense</span>
+                        <b>Not connected</b>
+                    </div>
+
+                    <div>
+                        <span>Strength of Schedule</span>
+                        <b>Not connected</b>
+                    </div>
+
+                    <div>
+                        <span>Turnover Margin</span>
+                        <b>Not connected</b>
+                    </div>
+
+                    <div>
+                        <span>Rest / Injuries</span>
+                        <b>Not connected</b>
+                    </div>
+
                 </div>
 
-                <div class="factor">
-                    <span>Offense</span>
-                    <strong>DATA</strong>
-                    <small>Scoring efficiency</small>
-                </div>
-
-                <div class="factor">
-                    <span>Defense</span>
-                    <strong>DATA</strong>
-                    <small>Points allowed</small>
-                </div>
-
-                <div class="factor">
-                    <span>Strength of Schedule</span>
-                    <strong>DATA</strong>
-                    <small>Opponent quality</small>
-                </div>
-
-                <div class="factor">
-                    <span>Turnovers</span>
-                    <strong>DATA</strong>
-                    <small>Turnover margin</small>
-                </div>
-
-                <div class="factor">
-                    <span>Rest</span>
-                    <strong>DATA</strong>
-                    <small>Days between games</small>
-                </div>
-
-                <div class="factor">
-                    <span>Betting Market</span>
-                    <strong>DATA</strong>
-                    <small>Spread & moneyline</small>
-                </div>
-
-            </div>
+            </section>
 
         </div>
 
 
-        <div class="panel">
+        <!-- CONFIDENCE -->
 
-            <span class="eyebrow">
-                MODEL CONFIDENCE
-            </span>
+        <section class="card confidence">
 
-            <h2>Prediction Strength</h2>
+            <div>
 
-            <div class="confidence-meter">
+                <p class="eyebrow">
+                    MODEL CONFIDENCE
+                </p>
 
-                <div class="confidence-track">
-                    <div
-                        id="confidenceBar"
-                        class="confidence-fill"
-                        style="width: 0%;"
-                    ></div>
+                <h2>
+                    Prediction Strength
+                </h2>
+
+                <p>
+                    The meter shows the size of the model's
+                    difference from the market probability.
+                </p>
+
+            </div>
+
+
+            <div class="meter-row">
+
+                <div class="meter">
+
+                    <div id="meterBar"></div>
+
                 </div>
 
-                <strong id="confidenceText">
-                    --%
+                <strong id="confidence">
+                    —
                 </strong>
 
             </div>
 
-        </div>
+        </section>
 
     </section>
 
@@ -359,8 +500,15 @@
 
 
 <footer>
-    <p>🏈 Gridiron Edge</p>
-    <span>College Football Analytics</span>
+
+    <strong>
+        🏈 Gridiron Edge
+    </strong>
+
+    <span>
+        College Football Analytics • Prototype
+    </span>
+
 </footer>
 
 
