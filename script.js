@@ -126,6 +126,19 @@ function espnTeamStats(summary,awayName,homeName){
   if(!labels.size)return "";
   return `<section class="detail-section"><div class="section-title"><span class="eyebrow">OFFICIAL GAME DATA</span><h3>Team statistics</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(awayName)}</b><span>Statistic</span><b>${esc(homeName)}</b></div>${[...labels].slice(0,18).map(([key,label])=>`<div><strong>${esc(amap.get(key)??"—")}</strong><span>${esc(label)}</span><strong>${esc(hmap.get(key)??"—")}</strong></div>`).join("")}</div></section>`;
 }
+function pickResults(game,p){
+  const market=p?.market;if(!market)return '<div class="detail-empty compact">A pregame market snapshot has not been saved for this game.</div>';
+  const isFinal=/final/i.test(game.status||""),home=Number(game.homeScore),away=Number(game.awayScore),total=home+away;
+  let spreadStatus="PENDING",totalStatus="PENDING";
+  if(isFinal&&Number.isFinite(home)&&Number.isFinite(away)&&market.homePoint!=null){
+    const adjusted=home+Number(market.homePoint)-away;
+    const homeCovered=adjusted>0, push=adjusted===0;
+    spreadStatus=push?"PUSH":((market.spreadPick===game.home)===homeCovered?"COVERED":"MISSED");
+  }
+  if(isFinal&&Number.isFinite(total)&&market.total!=null)totalStatus=total===Number(market.total)?"PUSH":((market.totalPick==="Over")===(total>Number(market.total))?"COVERED":"MISSED");
+  const badge=status=>`<span class="result-badge ${status.toLowerCase()}">${status}</span>`;
+  return `<div class="pick-result"><h4>${esc(market.spreadPick||"Spread unavailable")} ${market.homePoint!=null?"vs "+esc(game.home)+" "+signed(market.homePoint):""}</h4><p>Model line ${signed(p.spread)} · Market captured at ${esc(market.spreadBook||"sportsbook")}</p>${badge(spreadStatus)}</div><div class="pick-result"><h4>${esc(market.totalPick||"Total unavailable")} ${market.total!=null?market.total:""}</h4><p>Model total ${Number(p.total).toFixed(1)} · ${esc(market.totalBook||"sportsbook")}</p>${badge(totalStatus)}</div>`;
+}
 function scoringSummary(summary){
   const plays=summary?.scoringPlays||[];
   if(!plays.length)return '<div class="detail-empty">Scoring plays will appear here once the game begins.</div>';
@@ -134,7 +147,7 @@ function scoringSummary(summary){
 async function openGame(id){
   const game=state.games.find(item=>String(item.id)===String(id));if(!game)return;
   const event=oddsEventFor(game),p=game.prediction||{},homeWin=Number(p.homeWin)||50,awayWin=100-homeWin;
-  const dialog=$("gameDialog");location.hash=`game-${game.id}`;
+  const dialog=$("gameDialog");const color=/^[0-9a-f]{6}$/i.test(game.homeColor||"")?"#"+game.homeColor:"#0879e6";const alt=/^[0-9a-f]{6}$/i.test(game.homeAltColor||"")?"#"+game.homeAltColor:color;dialog.style.setProperty("--team-color",color);dialog.style.setProperty("--team-alt",alt);location.hash=`game-${game.id}`;
   $("detailBody").innerHTML=`<div class="detail-loading"><span class="eyebrow">MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>Loading game statistics…</p></div>`;
   dialog.showModal();
   let summary=null;
@@ -157,7 +170,7 @@ async function openGame(id){
   $("detailBody").innerHTML=`
     <header class="detail-head"><a class="back-link" href="#" id="detailBack">← All games</a><span class="eyebrow">THE MATCHUP ROOM</span><h2>${esc(game.away)} at ${esc(game.home)}</h2><p>${esc(fmtTime(game.date))} · ${esc(game.status||"Scheduled")}</p></header><nav class="detail-tabs"><a href="#model-pick">Model pick</a><a href="#win-probability">Win probability</a><a href="#scoring">Scoring</a><a href="#team-stats">Team stats</a><a href="#box-score">Box score</a></nav>
     <section class="score-projection" id="model-pick"><div>${logo(game.awayLogo,game.away)}<h3>${esc(game.away)}</h3><small>Rank ${ranks.get(game.away)?"#"+ranks.get(game.away):"—"} · Away</small><strong>${Number(p.awayScore)||0}</strong></div><span>VS</span><div>${logo(game.homeLogo,game.home)}<h3>${esc(game.home)}</h3><small>Rank ${ranks.get(game.home)?"#"+ranks.get(game.home):"—"} · Home</small><strong>${Number(p.homeScore)||0}</strong></div><div class="projection-summary"><div><span>Model spread</span><b>${esc(game.home)} ${signed(p.spread)}</b></div><div><span>Projected total</span><b>${Number(p.total).toFixed(1)}</b></div><div><span>Win outlook</span><b>${esc(p.winner||"Toss-up")}</b></div></div><div class="detail-prob-labels"><b>${awayWin.toFixed(1)}%</b><span>WIN PROBABILITY</span><b>${homeWin.toFixed(1)}%</b></div><div class="detail-probability"><i style="width:${awayWin}%"></i><i style="width:${homeWin}%"></i></div></section>
-    <section class="detail-section model-pick-card"><div class="section-title"><span class="eyebrow">OUR PICK · VS THE MARKET</span><h3>Model matchup advantages</h3></div><div class="keys-grid">${keys.map(key=>`<div><span>${esc(key.text)}</span><b>${esc(key.team)}</b><strong>${key.edge>=0?"+":""}${key.edge.toFixed(1)}</strong></div>`).join("")}</div></section>
+    <section class="detail-section model-pick-card"><div class="section-title"><span class="eyebrow">OUR PICK · VS THE MARKET</span><h3>Model picks and results</h3></div><div class="pick-results">${pickResults(game,p)}</div><div class="section-subtitle">Matchup advantages</div><div class="keys-grid">${keys.map(key=>`<div><span>${esc(key.text)}</span><b>${esc(key.team)}</b><strong>${key.edge>=0?"+":""}${key.edge.toFixed(1)}</strong></div>`).join("")}</div></section>
     <section class="detail-section" id="win-probability"><div class="section-title"><span class="eyebrow">WIN PROBABILITY · TALE OF THE TAPE</span><h3>Head-to-head numbers</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(game.away)}</b><span>Metric</span><b>${esc(game.home)}</b></div>${metrics.map(row=>`<div><strong>${esc(row[1]??"—")}</strong><span>${esc(row[0])}</span><strong>${esc(row[2]??"—")}</strong></div>`).join("")}</div><div class="ratings">${ratingBar("Offense",awayOff,homeOff,game.away,game.home)}${ratingBar("Defense",awayDef,homeDef,game.away,game.home)}${ratingBar("Coverage proxy",awayCover,homeCover,game.away,game.home)}</div><p class="method-note">Indexes and coverage proxy are Gridiron Edge model estimates based on season scoring and points allowed—not official player-tracking grades.</p></section>
     <section class="detail-section" id="team-stats"><div class="section-title"><span class="eyebrow">SPORTSBOOKS</span><h3>Every available line</h3></div><div class="table-scroll"><table class="odds-table"><thead><tr><th>Book</th><th>Spread</th><th>Total</th><th>Moneyline</th></tr></thead><tbody>${allBookRows(event)||'<tr><td colspan="4">No current markets</td></tr>'}</tbody></table></div></section>
     <section class="detail-section" id="scoring"><div class="section-title"><span class="eyebrow">GAME FLOW</span><h3>Scoring summary</h3></div>${scoringSummary(summary)}</section>
@@ -169,5 +182,11 @@ $("games").addEventListener("click",event=>{const card=event.target.closest(".ga
 $("games").addEventListener("keydown",event=>{if((event.key==="Enter"||event.key===" ")&&event.target.matches(".game")){event.preventDefault();openGame(event.target.dataset.gameId)}});
 $("closeDialog").addEventListener("click",()=>$("gameDialog").close());
 $("gameDialog").addEventListener("click",event=>{if(event.target===$("gameDialog"))$("gameDialog").close()});
+
+const savedTheme=localStorage.getItem("gridiron-theme")||"light";
+document.body.classList.toggle("theme-light",savedTheme==="light");
+document.body.classList.toggle("theme-dark",savedTheme==="dark");
+function updateThemeButton(){const light=document.body.classList.contains("theme-light");$("themeToggle").textContent=light?"☾ Dark mode":"☀ Light mode"}
+$("themeToggle").addEventListener("click",()=>{const light=!document.body.classList.contains("theme-light");document.body.classList.toggle("theme-light",light);document.body.classList.toggle("theme-dark",!light);localStorage.setItem("gridiron-theme",light?"light":"dark");updateThemeButton()});updateThemeButton();
 
 setupFilters();$("season").addEventListener("change",load);$("week").addEventListener("change",load);$("bookFilter").addEventListener("change",render);$("teamSearch").addEventListener("input",render);$("refreshBtn").addEventListener("click",load);state.timer=setInterval(tick,1000);load();
