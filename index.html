@@ -1,698 +1,370 @@
-# ============================================================
-# 🏈 COLLEGE FOOTBALL PREDICTION MODEL
-# ============================================================
-# Predicts:
-#   • Team win probability
-#   • Predicted score
-#   • Spread result
-#   • Over/Under result
-#   • Market vs. Model probability
-#
-# IMPORTANT:
-# The model should only use information that was available
-# BEFORE each game to avoid look-ahead bias.
-# ============================================================
 
-import pandas as pd
-import numpy as np
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gridiron Edge</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+        <div>
+            <h1>🏈 Gridiron Edge</h1>
+            <p>College Football Predictions & Betting Analytics</p>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Model Online
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div>
+            <h2>College Football Edge</h2>
+            <p>
+                Data-driven college football predictions using
+                betting markets and historical performance.
+            </p>
+        </div>
+
+        <div class="hero-badge">
+            <strong>GRIDIRON</strong>
+            <span>EDGE</span>
+        </div>
+    </section>
+
+
+    <section class="panel">
+
+        <span class="eyebrow">GAME ANALYSIS</span>
+
+        <h2>Analyze a Matchup</h2>
+
+        <p class="description">
+            Enter the current betting information below.
+        </p>
+
+        <div class="input-grid">
+
+            <div class="input-group">
+                <label>Away Team</label>
+                <input
+                    id="awayTeam"
+                    type="text"
+                    placeholder="Texas"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Home Team</label>
+                <input
+                    id="homeTeam"
+                    type="text"
+                    placeholder="Ohio State"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Game Location</label>
+
+                <select id="gameLocation">
+                    <option value="home">Home Team</option>
+                    <option value="away">Away Team</option>
+                    <option value="neutral">Neutral Site</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Spread</label>
+                <input
+                    id="spread"
+                    type="number"
+                    step="0.5"
+                    placeholder="-2.5"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Over / Under</label>
+                <input
+                    id="overUnder"
+                    type="number"
+                    step="0.5"
+                    placeholder="52.5"
+                >
+            </div>
 
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.metrics import (
-    accuracy_score,
-    log_loss,
-    mean_absolute_error,
-    brier_score_loss
-)
+            <div class="input-group">
+                <label>Home Moneyline</label>
+                <input
+                    id="homeMoneyline"
+                    type="number"
+                    placeholder="-150"
+                >
+            </div>
 
-pd.set_option("display.max_columns", None)
-pd.set_option("display.width", 200)
+            <div class="input-group">
+                <label>Away Moneyline</label>
+                <input
+                    id="awayMoneyline"
+                    type="number"
+                    placeholder="+130"
+                >
+            </div>
 
+        </div>
 
-# ============================================================
-# 1. LOAD DATA
-# ============================================================
+        <button
+            class="primary-button"
+            onclick="runPrediction()"
+        >
+            <span>Run Prediction</span>
+            <span>→</span>
+        </button>
 
-FILE_NAME = "college_football_history.csv"
+    </section>
 
-df = pd.read_csv(FILE_NAME)
 
-print(f"Loaded {len(df):,} games.")
-print(df.head())
+    <section id="results" class="results hidden">
 
+        <div class="section-title">
+            <span class="eyebrow">MODEL OUTPUT</span>
+            <h2 id="matchupTitle">Game Prediction</h2>
+        </div>
 
-# ============================================================
-# 2. CLEAN DATA
-# ============================================================
 
-df["date"] = pd.to_datetime(df["date"])
+        <div class="metrics-grid">
 
-df = df.sort_values("date").reset_index(drop=True)
+            <div class="metric-card featured">
+                <span class="metric-label">
+                    Model Win Probability
+                </span>
 
-# Remove games without completed scores
-df = df.dropna(subset=["home_score", "away_score"])
+                <strong id="winProbability">
+                    --%
+                </strong>
 
-# Actual results
-df["home_win"] = (df["home_score"] > df["away_score"]).astype(int)
+                <small>Model estimate</small>
+            </div>
 
-df["margin"] = (
-    df["home_score"] -
-    df["away_score"]
-)
 
-df["total_points"] = (
-    df["home_score"] +
-    df["away_score"]
-)
+            <div class="metric-card">
+                <span class="metric-label">
+                    Market Probability
+                </span>
 
+                <strong id="marketProbability">
+                    --%
+                </strong>
 
-# ============================================================
-# 3. MARKET INFORMATION
-# ============================================================
+                <small>No-vig market probability</small>
+            </div>
 
-# Example:
-# home_spread = -6.5 means home team was favored by 6.5
 
-# If your dataset uses the opposite convention,
-# change this section.
+            <div class="metric-card">
+                <span class="metric-label">
+                    Model Edge
+                </span>
 
-df["spread"] = pd.to_numeric(
-    df["home_spread"],
-    errors="coerce"
-)
+                <strong id="modelEdge">
+                    --%
+                </strong>
 
-df["over_under"] = pd.to_numeric(
-    df["over_under"],
-    errors="coerce"
-)
+                <small>Model vs market</small>
+            </div>
 
-# Closing moneyline
-df["home_moneyline"] = pd.to_numeric(
-    df["home_moneyline"],
-    errors="coerce"
-)
 
-df["away_moneyline"] = pd.to_numeric(
-    df["away_moneyline"],
-    errors="coerce"
-)
+            <div class="metric-card">
+                <span class="metric-label">
+                    Projected Score
+                </span>
 
+                <strong id="predictedScore">
+                    -- - --
+                </strong>
 
-# ============================================================
-# 4. MONEYLINE → IMPLIED PROBABILITY
-# ============================================================
+                <small>Expected final score</small>
+            </div>
 
-def moneyline_probability(ml):
-    """
-    Converts American moneyline into implied probability.
-    """
+        </div>
 
-    if pd.isna(ml):
-        return np.nan
 
-    if ml < 0:
-        return (-ml) / ((-ml) + 100)
+        <div class="picks-grid">
 
-    return 100 / (ml + 100)
+            <div class="pick-card">
+                <span>WINNER</span>
+                <strong id="modelPick">--</strong>
+            </div>
 
+            <div class="pick-card">
+                <span>SPREAD</span>
+                <strong id="spreadPick">--</strong>
+            </div>
 
-df["home_implied_probability"] = df[
-    "home_moneyline"
-].apply(moneyline_probability)
+            <div class="pick-card">
+                <span>TOTAL</span>
+                <strong id="totalPick">--</strong>
+            </div>
 
-df["away_implied_probability"] = df[
-    "away_moneyline"
-].apply(moneyline_probability)
+        </div>
 
 
-# Remove bookmaker vig by normalizing probabilities
+        <div class="panel">
 
-prob_total = (
-    df["home_implied_probability"] +
-    df["away_implied_probability"]
-)
+            <span class="eyebrow">
+                MARKET DATA
+            </span>
 
-df["home_market_probability"] = (
-    df["home_implied_probability"] /
-    prob_total
-)
+            <h2>Betting Information</h2>
 
-df["away_market_probability"] = (
-    df["away_implied_probability"] /
-    prob_total
-)
+            <div class="data-grid">
 
+                <div class="data-row">
+                    <span>Spread</span>
+                    <strong id="displaySpread">--</strong>
+                </div>
 
-# ============================================================
-# 5. HOME / AWAY / NEUTRAL
-# ============================================================
+                <div class="data-row">
+                    <span>Over / Under</span>
+                    <strong id="displayTotal">--</strong>
+                </div>
 
-# Change this column name if your dataset uses another name.
+                <div class="data-row">
+                    <span>Model Spread</span>
+                    <strong id="modelSpread">--</strong>
+                </div>
 
-if "neutral_site" in df.columns:
+                <div class="data-row">
+                    <span>Spread Edge</span>
+                    <strong id="spreadEdge">--</strong>
+                </div>
 
-    df["neutral_site"] = (
-        df["neutral_site"]
-        .fillna(False)
-        .astype(int)
-    )
+                <div class="data-row">
+                    <span>Predicted Total</span>
+                    <strong id="predictedTotal">--</strong>
+                </div>
 
-else:
+                <div class="data-row">
+                    <span>Total Edge</span>
+                    <strong id="totalEdge">--</strong>
+                </div>
 
-    df["neutral_site"] = 0
+            </div>
 
+        </div>
 
-df["home_field"] = 1 - df["neutral_site"]
 
+        <div class="panel">
 
-# ============================================================
-# 6. TEAM HISTORICAL FEATURES
-# ============================================================
+            <span class="eyebrow">
+                HISTORICAL FACTORS
+            </span>
 
-# These rolling statistics are calculated ONLY from previous
-# games. This prevents future results from leaking into the model.
+            <h2>Model Factors</h2>
 
+            <div class="factor-grid">
 
-def add_team_history(data):
+                <div class="factor">
+                    <span>Home Field</span>
+                    <strong>✓</strong>
+                    <small>Location advantage</small>
+                </div>
 
-    data = data.copy()
+                <div class="factor">
+                    <span>Recent Form</span>
+                    <strong>DATA</strong>
+                    <small>Recent performance</small>
+                </div>
 
-    data["home_prev_wins"] = 0
-    data["home_prev_games"] = 0
+                <div class="factor">
+                    <span>Offense</span>
+                    <strong>DATA</strong>
+                    <small>Scoring efficiency</small>
+                </div>
 
-    data["away_prev_wins"] = 0
-    data["away_prev_games"] = 0
+                <div class="factor">
+                    <span>Defense</span>
+                    <strong>DATA</strong>
+                    <small>Points allowed</small>
+                </div>
 
-    data["home_prev_points"] = 0.0
-    data["away_prev_points"] = 0.0
+                <div class="factor">
+                    <span>Strength of Schedule</span>
+                    <strong>DATA</strong>
+                    <small>Opponent quality</small>
+                </div>
 
-    data["home_prev_allowed"] = 0.0
-    data["away_prev_allowed"] = 0.0
+                <div class="factor">
+                    <span>Turnovers</span>
+                    <strong>DATA</strong>
+                    <small>Turnover margin</small>
+                </div>
 
-    team_stats = {}
+                <div class="factor">
+                    <span>Rest</span>
+                    <strong>DATA</strong>
+                    <small>Days between games</small>
+                </div>
 
-    for i, row in data.iterrows():
+                <div class="factor">
+                    <span>Betting Market</span>
+                    <strong>DATA</strong>
+                    <small>Spread & moneyline</small>
+                </div>
 
-        home = row["home_team"]
-        away = row["away_team"]
+            </div>
 
-        home_stats = team_stats.get(
-            home,
-            {
-                "games": 0,
-                "wins": 0,
-                "points": [],
-                "allowed": []
-            }
-        )
+        </div>
 
-        away_stats = team_stats.get(
-            away,
-            {
-                "games": 0,
-                "wins": 0,
-                "points": [],
-                "allowed": []
-            }
-        )
 
-        # Historical information BEFORE game
+        <div class="panel">
 
-        data.at[i, "home_prev_games"] = home_stats["games"]
-        data.at[i, "home_prev_wins"] = home_stats["wins"]
+            <span class="eyebrow">
+                MODEL CONFIDENCE
+            </span>
 
-        data.at[i, "away_prev_games"] = away_stats["games"]
-        data.at[i, "away_prev_wins"] = away_stats["wins"]
+            <h2>Prediction Strength</h2>
 
-        if home_stats["points"]:
-            data.at[i, "home_prev_points"] = np.mean(
-                home_stats["points"][-5:]
-            )
+            <div class="confidence-meter">
 
-        if away_stats["points"]:
-            data.at[i, "away_prev_points"] = np.mean(
-                away_stats["points"][-5:]
-            )
+                <div class="confidence-track">
+                    <div
+                        id="confidenceBar"
+                        class="confidence-fill"
+                        style="width: 0%;"
+                    ></div>
+                </div>
 
-        if home_stats["allowed"]:
-            data.at[i, "home_prev_allowed"] = np.mean(
-                home_stats["allowed"][-5:]
-            )
+                <strong id="confidenceText">
+                    --%
+                </strong>
 
-        if away_stats["allowed"]:
-            data.at[i, "away_prev_allowed"] = np.mean(
-                away_stats["allowed"][-5:]
-            )
+            </div>
 
-        # Update stats AFTER game
+        </div>
 
-        home_stats["games"] += 1
-        away_stats["games"] += 1
+    </section>
 
-        if row["home_score"] > row["away_score"]:
-            home_stats["wins"] += 1
-        else:
-            away_stats["wins"] += 1
+</main>
 
-        home_stats["points"].append(
-            row["home_score"]
-        )
 
-        away_stats["points"].append(
-            row["away_score"]
-        )
+<footer>
+    <p>🏈 Gridiron Edge</p>
+    <span>College Football Analytics</span>
+</footer>
 
-        home_stats["allowed"].append(
-            row["away_score"]
-        )
 
-        away_stats["allowed"].append(
-            row["home_score"]
-        )
+<script src="script.js"></script>
 
-        team_stats[home] = home_stats
-        team_stats[away] = away_stats
-
-    return data
-
-
-df = add_team_history(df)
-
-
-# ============================================================
-# 7. CREATE MODEL FEATURES
-# ============================================================
-
-df["home_win_rate"] = np.where(
-    df["home_prev_games"] > 0,
-    df["home_prev_wins"] /
-    df["home_prev_games"],
-    0.50
-)
-
-df["away_win_rate"] = np.where(
-    df["away_prev_games"] > 0,
-    df["away_prev_wins"] /
-    df["away_prev_games"],
-    0.50
-)
-
-df["home_offense"] = df["home_prev_points"]
-
-df["away_offense"] = df["away_prev_points"]
-
-df["home_defense"] = df["home_prev_allowed"]
-
-df["away_defense"] = df["away_prev_allowed"]
-
-df["offensive_difference"] = (
-    df["home_offense"] -
-    df["away_offense"]
-)
-
-df["defensive_difference"] = (
-    df["away_defense"] -
-    df["home_defense"]
-)
-
-df["win_rate_difference"] = (
-    df["home_win_rate"] -
-    df["away_win_rate"]
-)
-
-
-# ============================================================
-# 8. MODEL FEATURES
-# ============================================================
-
-FEATURES = [
-
-    # Betting market
-    "spread",
-    "over_under",
-    "home_market_probability",
-
-    # Location
-    "home_field",
-
-    # Historical performance
-    "home_win_rate",
-    "away_win_rate",
-
-    "home_offense",
-    "away_offense",
-
-    "home_defense",
-    "away_defense",
-
-    "offensive_difference",
-    "defensive_difference",
-
-    "win_rate_difference"
-]
-
-
-model_data = df.dropna(
-    subset=FEATURES + ["home_win"]
-).copy()
-
-
-X = model_data[FEATURES]
-
-y = model_data["home_win"]
-
-
-# ============================================================
-# 9. TIME-BASED TRAIN / TEST SPLIT
-# ============================================================
-
-# DO NOT randomly mix old and future games.
-# Train on earlier games and test on later games.
-
-split_index = int(len(model_data) * 0.80)
-
-X_train = X.iloc[:split_index]
-X_test = X.iloc[split_index:]
-
-y_train = y.iloc[:split_index]
-y_test = y.iloc[split_index:]
-
-
-# ============================================================
-# 10. WIN PROBABILITY MODEL
-# ============================================================
-
-win_model = RandomForestClassifier(
-    n_estimators=500,
-    max_depth=8,
-    min_samples_leaf=10,
-    random_state=42,
-    class_weight="balanced"
-)
-
-win_model.fit(
-    X_train,
-    y_train
-)
-
-
-# ============================================================
-# 11. MODEL WIN PROBABILITY
-# ============================================================
-
-model_data["model_home_win_probability"] = (
-    win_model
-    .predict_proba(X)[:, 1]
-)
-
-model_data["model_away_win_probability"] = (
-    1 -
-    model_data["model_home_win_probability"]
-)
-
-
-# ============================================================
-# 12. PREDICT SCORE / MARGIN
-# ============================================================
-
-score_features = [
-
-    "spread",
-    "over_under",
-    "home_field",
-
-    "home_offense",
-    "away_offense",
-
-    "home_defense",
-    "away_defense",
-
-    "offensive_difference",
-    "defensive_difference"
-]
-
-score_data = model_data.dropna(
-    subset=score_features
-).copy()
-
-
-# Predict point margin
-
-margin_model = RandomForestRegressor(
-    n_estimators=500,
-    max_depth=10,
-    min_samples_leaf=10,
-    random_state=42
-)
-
-margin_model.fit(
-    score_data[score_features],
-    score_data["margin"]
-)
-
-
-score_data["predicted_margin"] = (
-    margin_model.predict(
-        score_data[score_features]
-    )
-)
-
-
-# ============================================================
-# 13. PREDICT TOTAL POINTS
-# ============================================================
-
-total_model = RandomForestRegressor(
-    n_estimators=500,
-    max_depth=10,
-    min_samples_leaf=10,
-    random_state=42
-)
-
-total_model.fit(
-    score_data[score_features],
-    score_data["total_points"]
-)
-
-
-score_data["predicted_total"] = (
-    total_model.predict(
-        score_data[score_features]
-    )
-)
-
-
-# ============================================================
-# 14. ESTIMATE PREDICTED SCORE
-# ============================================================
-
-score_data["predicted_home_score"] = (
-    score_data["predicted_total"] +
-    score_data["predicted_margin"]
-) / 2
-
-score_data["predicted_away_score"] = (
-    score_data["predicted_total"] -
-    score_data["predicted_margin"]
-) / 2
-
-
-# ============================================================
-# 15. MODEL EDGE
-# ============================================================
-
-score_data["win_probability_edge"] = (
-    score_data["model_home_win_probability"] -
-    score_data["home_market_probability"]
-)
-
-
-score_data["model_pick"] = np.where(
-    score_data["model_home_win_probability"] >= 0.50,
-    score_data["home_team"],
-    score_data["away_team"]
-)
-
-
-# ============================================================
-# 16. SPREAD PREDICTION
-# ============================================================
-
-score_data["model_spread"] = (
-    -score_data["predicted_margin"]
-)
-
-score_data["spread_edge"] = (
-    score_data["model_spread"] -
-    score_data["spread"]
-)
-
-
-score_data["spread_pick"] = np.where(
-    score_data["spread_edge"] < 0,
-    score_data["home_team"],
-    score_data["away_team"]
-)
-
-
-# ============================================================
-# 17. OVER / UNDER PREDICTION
-# ============================================================
-
-score_data["total_edge"] = (
-    score_data["predicted_total"] -
-    score_data["over_under"]
-)
-
-score_data["total_pick"] = np.where(
-    score_data["total_edge"] > 0,
-    "OVER",
-    "UNDER"
-)
-
-
-# ============================================================
-# 18. MODEL ACCURACY
-# ============================================================
-
-test_predictions = (
-    win_model.predict_proba(X_test)[:, 1]
-)
-
-binary_predictions = (
-    test_predictions >= 0.50
-).astype(int)
-
-
-accuracy = accuracy_score(
-    y_test,
-    binary_predictions
-)
-
-logloss = log_loss(
-    y_test,
-    test_predictions
-)
-
-brier = brier_score_loss(
-    y_test,
-    test_predictions
-)
-
-
-print("\n" + "=" * 60)
-print("🏈 MODEL PERFORMANCE")
-print("=" * 60)
-
-print(f"Win Prediction Accuracy: {accuracy:.2%}")
-print(f"Log Loss:                {logloss:.4f}")
-print(f"Brier Score:             {brier:.4f}")
-
-
-# ============================================================
-# 19. PRETTY OUTPUT
-# ============================================================
-
-output_columns = [
-
-    "date",
-    "away_team",
-    "home_team",
-
-    "away_score",
-    "home_score",
-
-    "home_market_probability",
-
-    "model_home_win_probability",
-
-    "predicted_away_score",
-    "predicted_home_score",
-
-    "spread",
-    "model_spread",
-    "spread_edge",
-
-    "over_under",
-    "predicted_total",
-    "total_edge",
-
-    "model_pick",
-    "spread_pick",
-    "total_pick"
-]
-
-
-final_output = score_data[
-    output_columns
-].copy()
-
-
-# Convert probabilities to percentages
-
-final_output["market_win_%"] = (
-    final_output["home_market_probability"] * 100
-)
-
-final_output["model_win_%"] = (
-    final_output["model_home_win_probability"] * 100
-)
-
-
-# Round numbers
-
-final_output = final_output.round({
-    "market_win_%": 1,
-    "model_win_%": 1,
-    "predicted_away_score": 1,
-    "predicted_home_score": 1,
-    "model_spread": 1,
-    "spread_edge": 1,
-    "predicted_total": 1,
-    "total_edge": 1
-})
-
-
-# ============================================================
-# 20. DISPLAY BEST MODEL EDGES
-# ============================================================
-
-best_edges = final_output.sort_values(
-    "model_win_%",
-    ascending=False
-).head(25)
-
-
-print("\n" + "=" * 100)
-print("🔥 TOP MODEL WIN PROBABILITIES")
-print("=" * 100)
-
-print(
-    best_edges[
-        [
-            "date",
-            "away_team",
-            "home_team",
-            "model_win_%",
-            "market_win_%",
-            "predicted_away_score",
-            "predicted_home_score",
-            "model_pick"
-        ]
-    ].to_string(index=False)
-)
-
-
-# ============================================================
-# 21. SAVE EVERYTHING
-# ============================================================
-
-final_output.to_csv(
-    "college_football_model_results.csv",
-    index=False
-)
-
-print(
-    "\n✅ Saved results to "
-    "'college_football_model_results.csv'"
-)
+</body>
+</html>
