@@ -64,7 +64,7 @@ for(let week=1;week<=18;week++){
     const home=competition.competitors?.find(team=>team.homeAway==="home");
     const away=competition.competitors?.find(team=>team.homeAway==="away");
     const homeName=home?.team?.displayName||"TBD", awayName=away?.team?.displayName||"TBD";
-    games.push({id:event.id,season,week,date:event.date,status:event.status?.type?.shortDetail,home:homeName,away:awayName,homeLogo:home?.team?.logo||null,awayLogo:away?.team?.logo||null,homeColor:home?.team?.color||null,homeAltColor:home?.team?.alternateColor||null,awayColor:away?.team?.color||null,awayAltColor:away?.team?.alternateColor||null,homeScore:home?.score,awayScore:away?.score});
+    games.push({id:event.id,season,week,date:event.date,status:event.status?.type?.shortDetail,statusState:event.status?.type?.state||null,statusCompleted:event.status?.type?.completed===true,home:homeName,away:awayName,homeId:String(home?.team?.id||""),awayId:String(away?.team?.id||""),homeLogo:home?.team?.logo||null,awayLogo:away?.team?.logo||null,homeColor:home?.team?.color||null,homeAltColor:home?.team?.alternateColor||null,awayColor:away?.team?.color||null,awayAltColor:away?.team?.alternateColor||null,homeScore:home?.score,awayScore:away?.score,situation:competition.situation?{possession:String(competition.situation.possession||""),downDistanceText:competition.situation.downDistanceText||null,possessionText:competition.situation.possessionText||null,yardLine:Number.isFinite(Number(competition.situation.yardLine))?Number(competition.situation.yardLine):null,lastPlay:competition.situation.lastPlay?.text||null}:null});
     const line=competition.odds?.[0];
     if(line){
       const favorite=(line.details||"").replace(/\s[-+]?[\d.]+$/,"");
