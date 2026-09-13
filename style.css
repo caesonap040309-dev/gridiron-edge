@@ -303,3 +303,8 @@ body.theme-dark .record-grid b{color:#58a6ff}
 .live-situation small{display:-webkit-box;overflow:hidden;color:var(--muted);font-size:.72rem;line-height:1.35;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 @media(max-width:900px){.live-game-tracker{grid-template-columns:1fr 1fr}.live-situation{grid-column:1/-1}}
 @media(max-width:620px){.live-game-tracker{grid-template-columns:1fr}.live-situation{grid-column:auto}}
+
+
+/* Model v4 context chips */
+.model-factors{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.75rem}
+.model-factors span{padding:.38rem .58rem;border:1px solid color-mix(in srgb,var(--team-color) 26%,var(--line));border-radius:999px;background:color-mix(in srgb,var(--team-color) 7%,var(--panel));color:var(--text);font-size:.7rem;font-weight:700}
