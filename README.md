@@ -6,6 +6,7 @@ Live FBS schedules and sportsbook odds with automatic line-change detection.
 
 - ESPN scoreboard feed for schedules, start times, scores, and game status.
 - ESPN's available market feed for real spreads, totals, and moneylines.
+- Publicly available headlines and excerpts from ESPN, Bleacher Report, Yahoo Sports, Sporting News, and The Athletic, linked to their original articles.
 
 ## One-time live setup
 
