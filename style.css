@@ -69,3 +69,39 @@ footer{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;border-top:1p
 
 .game-dialog{width:100vw;max-width:none;height:100vh;max-height:none;border:0;border-radius:0}.dialog-shell{min-height:100%;background:radial-gradient(circle at 78% -10%,#143224 0,transparent 28%),var(--bg)}.detail-body{width:min(1220px,calc(100% - 40px));margin:auto;padding:30px 0 70px}.dialog-close{position:fixed;right:18px;top:10px}.detail-head{position:relative}.back-link{position:absolute;left:0;top:10px;color:var(--green);font-size:11px;text-decoration:none}.score-projection .team-logo{width:64px;height:64px}.projection-summary{grid-column:1/-1!important;width:100%;display:grid!important;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.projection-summary div{padding:15px}.projection-summary span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase}.projection-summary b{display:block;margin-top:5px;color:var(--green)}.detail-prob-labels{grid-column:1/-1!important;width:100%;display:grid!important;grid-template-columns:1fr auto 1fr!important;text-align:left}.detail-prob-labels b:last-child{text-align:right}.detail-prob-labels span{color:var(--muted);font-size:8px}.keys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.keys-grid>div{display:grid;grid-template-columns:1fr auto;gap:6px;padding:15px;border:1px solid var(--line);border-left:3px solid var(--green);border-radius:9px;background:#111a23}.keys-grid span{grid-column:1/-1;color:var(--muted);font-size:9px}.keys-grid b{font-size:11px}.keys-grid strong{color:var(--green)}.ratings{display:grid;gap:16px;margin-top:22px}.rating-label{display:grid;grid-template-columns:1fr auto 1fr;font-size:9px}.rating-label span{text-align:center;color:var(--muted)}.rating-label b:last-child{text-align:right}.dual-bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:7px}.dual-bars i{height:6px;border-radius:99px;background:#24303b;overflow:hidden}.dual-bars i:first-child b{margin-left:auto;background:#7c8d9e}.dual-bars b{display:block;height:100%;border-radius:99px;background:var(--green)}.odds-table th:first-child{position:sticky;left:0;background:#131e28}.odds-table td:first-child{position:sticky;left:0;background:#0e161f;color:var(--green);font-weight:700}
 @media(max-width:700px){.detail-body{width:calc(100% - 18px);padding-top:55px}.detail-head{padding-left:0;padding-right:0}.back-link{top:-34px}.projection-summary{grid-template-columns:1fr}.keys-grid{grid-template-columns:1fr}.score-projection .team-logo{width:48px;height:48px}}
+
+/* Full-page Matchup Room */
+.game-dialog[open]{inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;padding:0;border:0;border-radius:0;background:#f3f5f7;color:#15202c;overflow-y:auto}
+.game-dialog::backdrop{background:#f3f5f7}
+.game-dialog .dialog-shell{min-height:100dvh;background:#f3f5f7;color:#15202c}
+.game-dialog .detail-body{width:min(1320px,calc(100% - 48px));margin:0 auto;padding:58px 0 90px}
+.game-dialog .dialog-close{position:fixed;z-index:20;right:22px;top:16px;float:none;margin:0;width:40px;height:40px;border:1px solid #d7dde4;border-radius:9px;background:#fff;color:#26384c;box-shadow:0 4px 14px rgba(20,40,60,.08)}
+.game-dialog .detail-head{padding:0 60px 24px;text-align:left}
+.game-dialog .detail-head .eyebrow,.game-dialog .section-title .eyebrow{color:#0879e6}
+.game-dialog .detail-head h2{font-family:'Barlow Condensed',Inter,sans-serif;font-size:48px;letter-spacing:-.6px;color:#111820}
+.game-dialog .detail-head p,.game-dialog .method-note{color:#677789}
+.game-dialog .back-link{left:0;top:-35px;color:#0879e6;font-weight:700}
+.game-dialog .score-projection{padding:34px;border:1px solid #d8dde3;border-top:4px solid #0879e6;border-radius:14px;background:#fff;color:#121923;box-shadow:0 6px 22px rgba(20,40,60,.05)}
+.game-dialog .score-projection h3{font-family:'Barlow Condensed',Inter,sans-serif;font-size:28px}
+.game-dialog .score-projection strong{font-family:'Barlow Condensed',Inter,sans-serif;font-size:64px;color:#111820}
+.game-dialog .score-projection small,.game-dialog .projection-summary span,.game-dialog .detail-prob-labels span{color:#68798a}
+.game-dialog .projection-summary{border-color:#e0e4e8}
+.game-dialog .projection-summary b{color:#0768c6}
+.game-dialog .detail-probability{background:#e2e7ec}
+.game-dialog .detail-probability i:first-child{background:#8798aa}
+.game-dialog .detail-probability i:last-child{background:#0879e6}
+.game-dialog .detail-section{margin-top:20px;padding:24px;border:1px solid #d9dee4;border-radius:13px;background:#fff;color:#17212c;box-shadow:0 5px 18px rgba(20,40,60,.035)}
+.game-dialog .section-title h3{font-family:'Barlow Condensed',Inter,sans-serif;font-size:27px;color:#111820}
+.game-dialog .keys-grid>div{border-color:#dce1e6;border-left-color:#0879e6;background:#fff}
+.game-dialog .keys-grid span,.game-dialog .comparison span,.game-dialog .rating-label span{color:#6b7c8d}
+.game-dialog .keys-grid strong,.game-dialog table th{color:#0872da}
+.game-dialog .comparison,.game-dialog .player-group{border-color:#dce1e6}
+.game-dialog .comparison>div,.game-dialog th,.game-dialog td{border-color:#e1e5e9}
+.game-dialog .comparison-head,.game-dialog .player-group h4{background:#f0f3f6;color:#17212c}
+.game-dialog .dual-bars i{background:#e1e6eb}
+.game-dialog .dual-bars i:first-child b{background:#8d9cac}
+.game-dialog .dual-bars b{background:#0879e6}
+.game-dialog .odds-table th:first-child{background:#f0f3f6}
+.game-dialog .odds-table td:first-child{background:#fff;color:#0872da}
+.game-dialog .detail-empty,.game-dialog .detail-loading{color:#677789}
+@media(max-width:700px){.game-dialog .detail-body{width:calc(100% - 18px);padding-top:62px}.game-dialog .detail-head{padding:0 8px 20px}.game-dialog .detail-head h2{font-size:36px}.game-dialog .score-projection{padding:22px 12px}.game-dialog .score-projection strong{font-size:46px}.game-dialog .detail-section{padding:14px}.game-dialog .dialog-close{right:10px;top:10px}}
