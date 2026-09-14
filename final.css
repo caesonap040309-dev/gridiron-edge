@@ -1,1 +1,6 @@
 .final-strip{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px 20px;border-top:1px solid var(--line);background:#111820}.final-strip div{display:grid;gap:5px}.final-strip span{color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.8px}.final-strip strong{font-size:13px;color:var(--text)}@media(max-width:520px){.final-strip{grid-template-columns:1fr}}
+
+/* Week 1 college football was not tracked live, so never show a graded result badge there. */
+body:has(.league-tab[data-league="cfb"].active):has(#week option[value="1"]:checked) article.game[data-game-id] .result-badge.covered,
+body:has(.league-tab[data-league="cfb"].active):has(#week option[value="1"]:checked) article.game[data-game-id] .result-badge.missed,
+body:has(.league-tab[data-league="cfb"].active):has(#week option[value="1"]:checked) article.game[data-game-id] .result-badge.push{display:none!important}
