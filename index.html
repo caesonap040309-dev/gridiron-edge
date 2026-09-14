@@ -108,11 +108,18 @@
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
   <script src="script.js?v=20260914-15"></script>
   <script>
-    /* NFL games before 4:25 PM Eastern on Sep 13, 2026 are excluded from
-       result grading because the model did not track them from start to finish. */
+    /* NFL games on Sep 9 and Sep 10, plus games before 4:25 PM Eastern on Sep 13,
+       are excluded because those predictions were not verified from start to finish. */
     function excludeFromVerifiedResults(game){
       if(state.league!=="nfl" || !game?.date) return false;
       const kickoff=new Date(game.date);
+      const easternDate=new Intl.DateTimeFormat("en-CA",{
+        timeZone:"America/New_York",
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit"
+      }).format(kickoff);
+      if(easternDate==="2026-09-09" || easternDate==="2026-09-10") return true;
       const cutoff=new Date("2026-09-13T20:25:00Z");
       return kickoff < cutoff;
     }
@@ -175,7 +182,7 @@
       put("outright","outright");
       put("spread","spread");
       put("total","total");
-      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Sep 13 games before 4:25 PM ET excluded from verified grading`;
+      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Sep 9, Sep 10, and Sep 13 before 4:25 PM ET excluded from verified grading`;
     };
   </script>
 </body>
