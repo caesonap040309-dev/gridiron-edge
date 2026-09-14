@@ -82,7 +82,7 @@ function normalizeEvent(event,data){
           eventId:event.id,commenceTime:event.commence_time,matchup:summarizeEvent(event),home:event.home_team,away:event.away_team,
           player:pair.player,market:market.key,marketLabel:MARKET_LABELS[market.key]||market.key.replace(/^player_/,"").replaceAll("_"," "),category:CATEGORY[market.key]||"Top Props",
           providerKey:book.key,provider:providerLabel(book),line:pair.line,pick,price:chosen?.price??null,multiplier:chosen?.multiplier??null,
-          hitProbability:round(prob*100),confidence:confidence(prob),capturedAt:now.toISOString()
+          hitProbability:round(prob*100),confidence:confidence(prob),capturedAt:now.toISOString(),headshot:null
         });
       }
     }
@@ -98,6 +98,55 @@ function dedupeAndRank(rows){
   }
   return out;
 }
+
+function findEspnHeadshot(value){
+  const queue=[value],seen=new Set();
+  while(queue.length){
+    const item=queue.shift();
+    if(item==null)continue;
+    if(typeof item==="string"){
+      if(/^https?:\/\//i.test(item)&&/espncdn\.com/i.test(item)&&/(headshot|athletes)/i.test(item))return item;
+      continue;
+    }
+    if(typeof item!=="object"||seen.has(item))continue;
+    seen.add(item);
+    for(const v of Object.values(item))queue.push(v);
+  }
+  return null;
+}
+async function espnHeadshot(player,league){
+  try{
+    const q=new URLSearchParams({query:player,limit:"8"});
+    const data=await fetchJson(`https://site.web.api.espn.com/apis/common/v3/search?${q}`);
+    const sportWord=league==="NFL"?"nfl":"college";
+    const candidates=[];
+    const walk=value=>{
+      if(!value)return;
+      if(Array.isArray(value)){for(const item of value)walk(item);return}
+      if(typeof value!=="object")return;
+      const text=JSON.stringify(value).toLowerCase();
+      if(text.includes(player.split(" ").pop().toLowerCase())&&(text.includes(sportWord)||text.includes("football")))candidates.push(value);
+      for(const v of Object.values(value))if(typeof v==="object")walk(v);
+    };
+    walk(data);
+    for(const candidate of candidates){const url=findEspnHeadshot(candidate);if(url)return url}
+    return findEspnHeadshot(data);
+  }catch{return null}
+}
+async function enrichHeadshots(rows,league){
+  const names=[...new Set(rows.slice(0,180).map(r=>r.player))];
+  const result=new Map();
+  let cursor=0;
+  async function worker(){
+    while(cursor<names.length){
+      const name=names[cursor++];
+      result.set(name,await espnHeadshot(name,league));
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(8,names.length)},()=>worker()));
+  for(const row of rows)row.headshot=result.get(row.player)||null;
+}
+
 async function build(sport,label,maxEvents){
   if(!apiKey)return {updatedAt:now.toISOString(),league:label,source:"The Odds API",props:[],notice:"ODDS_API_KEY is not configured"};
   const events=(await fetchEvents(sport)).slice(0,maxEvents);
@@ -106,7 +155,8 @@ async function build(sport,label,maxEvents){
     const data=await fetchEventProps(sport,event);if(data)props.push(...normalizeEvent(event,data));
   }
   const ranked=dedupeAndRank(props);
-  return {updatedAt:now.toISOString(),league:label,source:"The Odds API multi-book + DFS",eventsChecked:events.length,providers:[...new Set(ranked.map(p=>p.provider))].sort(),props:ranked};
+  await enrichHeadshots(ranked,label);
+  return {updatedAt:now.toISOString(),league:label,source:"The Odds API multi-book + DFS + ESPN player photos",eventsChecked:events.length,providers:[...new Set(ranked.map(p=>p.provider))].sort(),props:ranked};
 }
 
 await mkdir("data",{recursive:true});
