@@ -106,7 +106,7 @@
   </dialog>
 
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
-  <script src="script.js?v=20260914-15"></script>
+  <script src="script.js?v=20260914-18"></script>
   <script>
     /* NFL games on Sep 9 and Sep 10, plus games before 4:25 PM Eastern on Sep 13,
        are excluded because those predictions were not verified from start to finish. */
@@ -136,6 +136,39 @@
       return modelPickedHome===homeCovered?"COVERED":"MISSED";
     };
 
+    function addOverUnderToCards(){
+      document.querySelectorAll("article.game[data-game-id]").forEach(card=>{
+        const game=state.games.find(g=>String(g.id)===String(card.dataset.gameId)) || state.allGames.find(g=>String(g.id)===String(card.dataset.gameId));
+        if(!game)return;
+        const p=game.prediction||{};
+        const strip=card.querySelector(".model-strip");
+        if(!strip || strip.querySelector("[data-model-ou]"))return;
+        const market=p.market||{};
+        const projected=Number(p.total);
+        const line=Number(market.total);
+        let text="";
+        if(market.totalPick && Number.isFinite(line)){
+          text=`${market.totalPick} ${line}${Number.isFinite(projected)?` · Model ${projected.toFixed(1)}`:""}`;
+        }else if(Number.isFinite(projected)){
+          text=`Model ${projected.toFixed(1)} · Line unavailable`;
+        }else{
+          text="Unavailable";
+        }
+        const item=document.createElement("div");
+        item.setAttribute("data-model-ou","true");
+        item.innerHTML=`<span>Over / Under</span><strong>${esc(text)}</strong>`;
+        const probability=strip.querySelector(".probability");
+        if(probability)strip.insertBefore(item,probability);
+        else strip.appendChild(item);
+      });
+    }
+
+    const baseRender=render;
+    render=function(){
+      baseRender();
+      addOverUnderToCards();
+    };
+
     modelRecords = function(){
       const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
       for(const game of state.allGames){
@@ -151,16 +184,10 @@
           result.outright[p.winner===actual?"wins":"losses"]++;
         }
 
-        const modelSpread=Number(p.spread);
-        if(Number.isFinite(modelSpread)){
-          const adjusted=home+modelSpread-away;
-          if(Math.abs(adjusted)<0.0001)result.spread.pushes++;
-          else{
-            const homeCovered=adjusted>0;
-            const modelPickedHome=modelSpread<0;
-            result.spread[modelPickedHome===homeCovered?"wins":"losses"]++;
-          }
-        }
+        const spreadGrade=gradeSpread(game,p);
+        if(spreadGrade==="PUSH")result.spread.pushes++;
+        else if(spreadGrade==="COVERED")result.spread.wins++;
+        else if(spreadGrade==="MISSED")result.spread.losses++;
 
         const projectedTotal=Number(p.total);
         if(Number.isFinite(projectedTotal)){
