@@ -15,10 +15,7 @@
     body.theme-light .game-dialog .detail-prob-labels b,
     body.theme-light .game-dialog .comparison strong,
     body.theme-light .game-dialog .rating-label b,
-    body.theme-light .game-dialog .keys-grid strong {
-      color: var(--team-color, #0879e6) !important;
-    }
-
+    body.theme-light .game-dialog .keys-grid strong { color: var(--team-color, #0879e6) !important; }
     body.theme-dark .game-dialog .score-projection strong,
     body.theme-dark .game-dialog .projection-summary b,
     body.theme-dark .game-dialog .detail-prob-labels b,
@@ -28,7 +25,6 @@
       color: color-mix(in srgb, var(--team-color, #58a6ff) 68%, white 32%) !important;
       text-shadow: 0 0 16px color-mix(in srgb, var(--team-color, #58a6ff) 30%, transparent);
     }
-
     .game-dialog .pick-results { display: none !important; }
     .result-badge.covered{background:#143f32;color:#43dfa4}
     .result-badge.missed{background:#482d32;color:#ff7a86}
@@ -37,179 +33,67 @@
 <body class="theme-light">
   <header class="topbar">
     <a class="brand" href="#"><span class="logo"><img src="assets/gridiron-edge-logo.png" alt="Gridiron Edge logo"></span><span><strong>Gridiron Edge</strong><small id="brandSubtitle">College Football Market Board</small></span></a>
-    <div class="league-tabs" role="tablist" aria-label="Football league">
-      <button class="league-tab active" type="button" role="tab" aria-selected="true" data-league="cfb">College Football</button>
-      <button class="league-tab" type="button" role="tab" aria-selected="false" data-league="nfl">NFL</button>
-    </div>
-    <nav class="side-nav" aria-label="Main navigation">
-      <a class="active" href="#top">⌂ <span>Home</span></a>
-      <a href="#market-board">◷ <span>Games</span></a>
-      <a href="#market-board">▦ <span>Best odds</span></a>
-      <a href="#market-board">⌁ <span>Predictions</span></a>
-      <a href="#model-performance">◎ <span>Model record</span></a>
-    </nav>
-    <button id="themeToggle" class="theme-toggle" type="button">☾ Dark mode</button>
-    <div id="sideLabel" class="side-label">COLLEGE FOOTBALL · 2026</div>
-    <div id="connectionStatus" class="status"><span class="dot"></span><span>Connecting to live feed</span></div>
+    <div class="league-tabs" role="tablist" aria-label="Football league"><button class="league-tab active" type="button" role="tab" aria-selected="true" data-league="cfb">College Football</button><button class="league-tab" type="button" role="tab" aria-selected="false" data-league="nfl">NFL</button></div>
+    <nav class="side-nav" aria-label="Main navigation"><a class="active" href="#top">⌂ <span>Home</span></a><a href="#market-board">◷ <span>Games</span></a><a href="#market-board">▦ <span>Best odds</span></a><a href="#market-board">⌁ <span>Predictions</span></a><a href="#model-performance">◎ <span>Model record</span></a></nav>
+    <button id="themeToggle" class="theme-toggle" type="button">☾ Dark mode</button><div id="sideLabel" class="side-label">COLLEGE FOOTBALL · 2026</div><div id="connectionStatus" class="status"><span class="dot"></span><span>Connecting to live feed</span></div>
   </header>
-
   <main id="top">
-    <section class="hero">
-      <div>
-        <p id="heroEyebrow" class="eyebrow">LIVE FBS ODDS</p>
-        <h1 id="heroTitle">Every game. Every move.<br><span>One clear board.</span></h1>
-        <p id="heroCopy" class="hero-copy">Real college-football schedules and sportsbook prices, refreshed automatically throughout the season.</p>
-      </div>
-      <div class="refresh-card"><span>Next refresh</span><strong id="countdown">60s</strong><button id="refreshBtn" type="button">Refresh now</button></div>
-    </section>
-
-    <section class="controls" aria-label="Game filters">
-      <label>Season <select id="season"></select></label>
-      <label>Week <select id="week"></select></label>
-      <label class="search">Find a team <input id="teamSearch" type="search" placeholder="Search Alabama, Michigan…"></label>
-      <label>Sportsbook <select id="bookFilter"><option value="all">Best available</option></select></label>
-    </section>
-
-    <section class="summary" aria-label="Market summary">
-      <article><span>Games</span><strong id="gameCount">—</strong></article>
-      <article><span>With odds</span><strong id="oddsCount">—</strong></article>
-      <article><span>Line moves</span><strong id="moveCount">—</strong></article>
-      <article><span>Last updated</span><strong id="lastUpdated">—</strong></article>
-    </section>
-
-    <section class="performance" id="model-performance" aria-labelledby="performanceTitle">
-      <div class="performance-head">
-        <div><p class="eyebrow">VERIFIED RESULTS</p><h2 id="performanceTitle">Model Performance</h2></div>
-        <p id="performanceNote">Only predictions saved before kickoff are graded.</p>
-      </div>
-      <div class="record-grid">
-        <article><span>Outright winners</span><strong id="outrightRecord">0–0</strong><b id="outrightPct">—</b><small id="outrightSample">0 graded picks</small></article>
-        <article><span>Model spread covers</span><strong id="spreadRecord">0–0</strong><b id="spreadPct">—</b><small id="spreadSample">0 graded picks</small></article>
-        <article><span>Total projection ±1 pt</span><strong id="totalRecord">0–0</strong><b id="totalPct">—</b><small id="totalSample">0 graded projections</small></article>
-      </div>
-    </section>
-
-    <section class="board" id="market-board">
-      <div class="board-head"><div><p class="eyebrow">MARKET BOARD</p><h2 id="boardTitle">College Football</h2></div><div class="legend"><span><i class="up"></i> moved up</span><span><i class="down"></i> moved down</span></div></div>
-      <div id="notice" class="notice hidden" role="status"></div>
-      <div id="loading" class="loading"><div class="spinner"></div><p>Loading real games and odds…</p></div>
-      <div id="games" class="games" aria-live="polite"></div>
-      <div id="empty" class="empty hidden"><strong>No games found</strong><p>Try another week or clear the team search.</p></div>
-    </section>
+    <section class="hero"><div><p id="heroEyebrow" class="eyebrow">LIVE FBS ODDS</p><h1 id="heroTitle">Every game. Every move.<br><span>One clear board.</span></h1><p id="heroCopy" class="hero-copy">Real college-football schedules and sportsbook prices, refreshed automatically throughout the season.</p></div><div class="refresh-card"><span>Next refresh</span><strong id="countdown">60s</strong><button id="refreshBtn" type="button">Refresh now</button></div></section>
+    <section class="controls" aria-label="Game filters"><label>Season <select id="season"></select></label><label>Week <select id="week"></select></label><label class="search">Find a team <input id="teamSearch" type="search" placeholder="Search Alabama, Michigan…"></label><label>Sportsbook <select id="bookFilter"><option value="all">Best available</option></select></label></section>
+    <section class="summary" aria-label="Market summary"><article><span>Games</span><strong id="gameCount">—</strong></article><article><span>With odds</span><strong id="oddsCount">—</strong></article><article><span>Line moves</span><strong id="moveCount">—</strong></article><article><span>Last updated</span><strong id="lastUpdated">—</strong></article></section>
+    <section class="performance" id="model-performance" aria-labelledby="performanceTitle"><div class="performance-head"><div><p class="eyebrow">VERIFIED RESULTS</p><h2 id="performanceTitle">Model Performance</h2></div><p id="performanceNote">Only predictions saved before kickoff are graded.</p></div><div class="record-grid"><article><span>Outright winners</span><strong id="outrightRecord">0–0</strong><b id="outrightPct">—</b><small id="outrightSample">0 graded picks</small></article><article><span>Model spread covers</span><strong id="spreadRecord">0–0</strong><b id="spreadPct">—</b><small id="spreadSample">0 graded picks</small></article><article><span>Over / Under picks</span><strong id="totalRecord">0–0</strong><b id="totalPct">—</b><small id="totalSample">0 graded picks</small></article></div></section>
+    <section class="board" id="market-board"><div class="board-head"><div><p class="eyebrow">MARKET BOARD</p><h2 id="boardTitle">College Football</h2></div><div class="legend"><span><i class="up"></i> moved up</span><span><i class="down"></i> moved down</span></div></div><div id="notice" class="notice hidden" role="status"></div><div id="loading" class="loading"><div class="spinner"></div><p>Loading real games and odds…</p></div><div id="games" class="games" aria-live="polite"></div><div id="empty" class="empty hidden"><strong>No games found</strong><p>Try another week or clear the team search.</p></div></section>
   </main>
-
-  <dialog id="gameDialog" class="game-dialog">
-    <div class="dialog-shell">
-      <button id="closeDialog" class="dialog-close" type="button" aria-label="Close game details">×</button>
-      <div id="detailBody" class="detail-body"></div>
-    </div>
-  </dialog>
-
+  <dialog id="gameDialog" class="game-dialog"><div class="dialog-shell"><button id="closeDialog" class="dialog-close" type="button" aria-label="Close game details">×</button><div id="detailBody" class="detail-body"></div></div></dialog>
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
   <script src="script.js?v=20260914-18"></script>
   <script>
-    /* NFL games on Sep 9 and Sep 10, plus games before 4:25 PM Eastern on Sep 13,
-       are excluded because those predictions were not verified from start to finish. */
     function excludeFromVerifiedResults(game){
       if(state.league!=="nfl" || !game?.date) return false;
       const kickoff=new Date(game.date);
-      const easternDate=new Intl.DateTimeFormat("en-CA",{
-        timeZone:"America/New_York",
-        year:"numeric",
-        month:"2-digit",
-        day:"2-digit"
-      }).format(kickoff);
+      const easternDate=new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit"}).format(kickoff);
       if(easternDate==="2026-09-09" || easternDate==="2026-09-10") return true;
-      const cutoff=new Date("2026-09-13T20:25:00Z");
-      return kickoff < cutoff;
+      return kickoff < new Date("2026-09-13T20:25:00Z");
     }
-
     gradeSpread = function(game,p){
       if(excludeFromVerifiedResults(game))return "";
       if(!/final/i.test(game?.status||""))return p?.spread!=null?"PENDING":"";
       const home=Number(game.homeScore),away=Number(game.awayScore),modelSpread=Number(p?.spread);
       if(!Number.isFinite(home)||!Number.isFinite(away)||!Number.isFinite(modelSpread))return "";
-      const adjusted=home+modelSpread-away;
-      if(Math.abs(adjusted)<0.0001)return "PUSH";
-      const homeCovered=adjusted>0;
-      const modelPickedHome=modelSpread<0;
-      return modelPickedHome===homeCovered?"COVERED":"MISSED";
+      const adjusted=home+modelSpread-away;if(Math.abs(adjusted)<0.0001)return "PUSH";
+      return (modelSpread<0)===(adjusted>0)?"COVERED":"MISSED";
     };
-
     function addOverUnderToCards(){
       document.querySelectorAll("article.game[data-game-id]").forEach(card=>{
-        const game=state.games.find(g=>String(g.id)===String(card.dataset.gameId)) || state.allGames.find(g=>String(g.id)===String(card.dataset.gameId));
-        if(!game)return;
-        const p=game.prediction||{};
-        const strip=card.querySelector(".model-strip");
-        if(!strip || strip.querySelector("[data-model-ou]"))return;
-        const market=p.market||{};
-        const projected=Number(p.total);
-        const line=Number(market.total);
-        let text="";
-        if(market.totalPick && Number.isFinite(line)){
-          text=`${market.totalPick} ${line}${Number.isFinite(projected)?` · Model ${projected.toFixed(1)}`:""}`;
-        }else if(Number.isFinite(projected)){
-          text=`Model ${projected.toFixed(1)} · Line unavailable`;
-        }else{
-          text="Unavailable";
-        }
-        const item=document.createElement("div");
-        item.setAttribute("data-model-ou","true");
-        item.innerHTML=`<span>Over / Under</span><strong>${esc(text)}</strong>`;
-        const probability=strip.querySelector(".probability");
-        if(probability)strip.insertBefore(item,probability);
-        else strip.appendChild(item);
+        const game=state.games.find(g=>String(g.id)===String(card.dataset.gameId)) || state.allGames.find(g=>String(g.id)===String(card.dataset.gameId));if(!game)return;
+        const p=game.prediction||{},strip=card.querySelector(".model-strip");if(!strip||strip.querySelector("[data-model-ou]"))return;
+        const market=p.market||{},projected=Number(p.total),line=Number(market.total);let text="";
+        if(market.totalPick&&Number.isFinite(line))text=`${market.totalPick} ${line}${Number.isFinite(projected)?` · Model ${projected.toFixed(1)}`:""}`;
+        else if(Number.isFinite(projected))text=`Model ${projected.toFixed(1)} · Line unavailable`;else text="Unavailable";
+        const item=document.createElement("div");item.setAttribute("data-model-ou","true");item.innerHTML=`<span>Over / Under</span><strong>${esc(text)}</strong>`;
+        const probability=strip.querySelector(".probability");if(probability)strip.insertBefore(item,probability);else strip.appendChild(item);
       });
     }
-
-    const baseRender=render;
-    render=function(){
-      baseRender();
-      addOverUnderToCards();
-    };
-
+    const baseRender=render;render=function(){baseRender();addOverUnderToCards();};
     modelRecords = function(){
       const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
       for(const game of state.allGames){
-        if(excludeFromVerifiedResults(game))continue;
-        if(!/final/i.test(game.status||""))continue;
-        const p=game.prediction||{};
-        if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
-        const home=Number(game.homeScore),away=Number(game.awayScore);
-        if(!Number.isFinite(home)||!Number.isFinite(away))continue;
-
-        if(home!==away&&p.winner){
-          const actual=home>away?game.home:game.away;
-          result.outright[p.winner===actual?"wins":"losses"]++;
-        }
-
-        const spreadGrade=gradeSpread(game,p);
-        if(spreadGrade==="PUSH")result.spread.pushes++;
-        else if(spreadGrade==="COVERED")result.spread.wins++;
-        else if(spreadGrade==="MISSED")result.spread.losses++;
-
-        const projectedTotal=Number(p.total);
-        if(Number.isFinite(projectedTotal)){
-          const actualTotal=home+away;
-          result.total[Math.abs(actualTotal-projectedTotal)<=1?"wins":"losses"]++;
+        if(excludeFromVerifiedResults(game)||!/final/i.test(game.status||""))continue;
+        const p=game.prediction||{},market=p.market||{};if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
+        const home=Number(game.homeScore),away=Number(game.awayScore);if(!Number.isFinite(home)||!Number.isFinite(away))continue;
+        if(home!==away&&p.winner){const actual=home>away?game.home:game.away;result.outright[p.winner===actual?"wins":"losses"]++;}
+        const spreadGrade=gradeSpread(game,p);if(spreadGrade==="PUSH")result.spread.pushes++;else if(spreadGrade==="COVERED")result.spread.wins++;else if(spreadGrade==="MISSED")result.spread.losses++;
+        const line=Number(market.total),pick=market.totalPick,actualTotal=home+away;
+        if((pick==="Over"||pick==="Under")&&Number.isFinite(line)){
+          if(actualTotal===line)result.total.pushes++;
+          else result.total[(pick==="Over")===(actualTotal>line)?"wins":"losses"]++;
         }
       }
       return result;
     };
-
     renderModelRecords = function(){
-      const records=modelRecords();
-      const put=(key,prefix)=>{
-        const r=records[key],decisions=r.wins+r.losses,total=decisions+r.pushes;
-        document.getElementById(prefix+"Record").textContent=`${r.wins}–${r.losses}${r.pushes?"–"+r.pushes+"P":""}`;
-        document.getElementById(prefix+"Pct").textContent=decisions?`${(r.wins/decisions*100).toFixed(1)}%`:"—";
-        document.getElementById(prefix+"Sample").textContent=`${total} graded ${key==="total"?"projection":"pick"}${total===1?"":"s"}`;
-      };
-      put("outright","outright");
-      put("spread","spread");
-      put("total","total");
-      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Sep 9, Sep 10, and Sep 13 before 4:25 PM ET excluded from verified grading`;
+      const records=modelRecords();const put=(key,prefix)=>{const r=records[key],decisions=r.wins+r.losses,total=decisions+r.pushes;document.getElementById(prefix+"Record").textContent=`${r.wins}–${r.losses}${r.pushes?"–"+r.pushes+"P":""}`;document.getElementById(prefix+"Pct").textContent=decisions?`${(r.wins/decisions*100).toFixed(1)}%`:"—";document.getElementById(prefix+"Sample").textContent=`${total} graded pick${total===1?"":"s"}`;};
+      put("outright","outright");put("spread","spread");put("total","total");document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Only verified pregame picks are graded`;
     };
   </script>
 </body>
