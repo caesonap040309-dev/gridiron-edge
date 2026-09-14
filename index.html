@@ -114,10 +114,23 @@
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
   <script src="script.js?v=20260914-15"></script>
   <script>
+    /* Week 1 NFL games that kicked off at 1:00 PM Eastern are excluded from
+       result grading because the model did not track them from start to finish. */
+    function excludeFromVerifiedResults(game){
+      if(state.league!=="nfl" || Number(game?.week)!==1 || !game?.date) return false;
+      const hourPart=new Intl.DateTimeFormat("en-US",{
+        timeZone:"America/New_York",
+        hour:"2-digit",
+        hour12:false
+      }).formatToParts(new Date(game.date)).find(part=>part.type==="hour");
+      return Number(hourPart?.value)===13;
+    }
+
     /* Grade the MODEL spread shown on the site from the spread itself.
        A negative home model spread means the model picked the home side;
        a positive home model spread means the model picked the away side. */
     gradeSpread = function(game,p){
+      if(excludeFromVerifiedResults(game))return "";
       if(!/final/i.test(game?.status||""))return p?.spread!=null?"PENDING":"";
       const home=Number(game.homeScore),away=Number(game.awayScore),modelSpread=Number(p?.spread);
       if(!Number.isFinite(home)||!Number.isFinite(away)||!Number.isFinite(modelSpread))return "";
@@ -134,6 +147,7 @@
     modelRecords = function(){
       const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
       for(const game of state.allGames){
+        if(excludeFromVerifiedResults(game))continue;
         if(!/final/i.test(game.status||""))continue;
         const p=game.prediction||{};
         if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
@@ -176,7 +190,7 @@
       put("outright","outright");
       put("spread","spread");
       put("total","total");
-      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Spread record grades the displayed model line · Total hit = within ±1.0 point`;
+      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Week 1 1 PM NFL games excluded from verified grading`;
     };
   </script>
 </body>
