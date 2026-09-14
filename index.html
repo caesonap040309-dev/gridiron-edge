@@ -35,6 +35,9 @@
     .game-dialog .pick-results {
       display: none !important;
     }
+
+    .result-badge.hit{background:#143f32;color:#43dfa4}
+    .result-badge.miss{background:#482d32;color:#ff7a86}
   </style>
 </head>
 <body class="theme-light">
@@ -87,7 +90,7 @@
       </div>
       <div class="record-grid">
         <article><span>Outright winners</span><strong id="outrightRecord">0–0</strong><b id="outrightPct">—</b><small id="outrightSample">0 graded picks</small></article>
-        <article><span>Spread picks</span><strong id="spreadRecord">0–0</strong><b id="spreadPct">—</b><small id="spreadSample">0 graded picks</small></article>
+        <article><span>Model spread covers</span><strong id="spreadRecord">0–0</strong><b id="spreadPct">—</b><small id="spreadSample">0 graded picks</small></article>
         <article><span>Total projection ±1 pt</span><strong id="totalRecord">0–0</strong><b id="totalPct">—</b><small id="totalSample">0 graded projections</small></article>
       </div>
     </section>
@@ -109,16 +112,30 @@
   </dialog>
 
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
-  <script src="script.js?v=20260913-14"></script>
+  <script src="script.js?v=20260914-15"></script>
   <script>
+    /* Grade the MODEL spread shown on the site. If the side favored by the model
+       covers that model spread, it is a HIT regardless of how far beyond the
+       required margin the team wins by. */
+    gradeSpread = function(game,p){
+      if(!/final/i.test(game?.status||""))return p?.spread!=null?"PENDING":"";
+      const home=Number(game.homeScore),away=Number(game.awayScore),modelSpread=Number(p?.spread);
+      if(!Number.isFinite(home)||!Number.isFinite(away)||!Number.isFinite(modelSpread))return "";
+      const adjusted=home+modelSpread-away;
+      if(Math.abs(adjusted)<0.0001)return "PUSH";
+      const homeCovered=adjusted>0;
+      const modelPickedHome=p?.winner===game.home || (!p?.winner&&modelSpread<0);
+      return modelPickedHome===homeCovered?"HIT":"MISS";
+    };
+
     /* Grade the displayed MODEL TOTAL itself, not a separate sportsbook O/U pick.
        A total projection is counted as a hit when it finishes within 1.0 point
-       of the actual final total. This makes a 48.2 projection vs. 48 actual a hit. */
+       of the actual final total. */
     modelRecords = function(){
       const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
       for(const game of state.allGames){
         if(!/final/i.test(game.status||""))continue;
-        const p=game.prediction||{},market=p.market;
+        const p=game.prediction||{};
         if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
         const home=Number(game.homeScore),away=Number(game.awayScore);
         if(!Number.isFinite(home)||!Number.isFinite(away))continue;
@@ -128,12 +145,14 @@
           result.outright[p.winner===actual?"wins":"losses"]++;
         }
 
-        if(market?.spreadPick&&market.homePoint!=null){
-          const adjusted=home+Number(market.homePoint)-away;
-          if(adjusted===0)result.spread.pushes++;
+        const modelSpread=Number(p.spread);
+        if(Number.isFinite(modelSpread)){
+          const adjusted=home+modelSpread-away;
+          if(Math.abs(adjusted)<0.0001)result.spread.pushes++;
           else{
             const homeCovered=adjusted>0;
-            result.spread[(market.spreadPick===game.home)===homeCovered?"wins":"losses"]++;
+            const modelPickedHome=p.winner===game.home || (!p.winner&&modelSpread<0);
+            result.spread[modelPickedHome===homeCovered?"wins":"losses"]++;
           }
         }
 
@@ -157,7 +176,7 @@
       put("outright","outright");
       put("spread","spread");
       put("total","total");
-      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Total projection = hit when within ±1.0 point of the final total`;
+      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Spread record grades the displayed model line · Total hit = within ±1.0 point`;
     };
   </script>
 </body>
