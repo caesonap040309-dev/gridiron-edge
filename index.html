@@ -36,8 +36,8 @@
       display: none !important;
     }
 
-    .result-badge.hit{background:#143f32;color:#43dfa4}
-    .result-badge.miss{background:#482d32;color:#ff7a86}
+    .result-badge.covered{background:#143f32;color:#43dfa4}
+    .result-badge.missed{background:#482d32;color:#ff7a86}
   </style>
 </head>
 <body class="theme-light">
@@ -114,9 +114,9 @@
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
   <script src="script.js?v=20260914-15"></script>
   <script>
-    /* Grade the MODEL spread shown on the site. If the side favored by the model
-       covers that model spread, it is a HIT regardless of how far beyond the
-       required margin the team wins by. */
+    /* Grade the MODEL spread shown on the site from the spread itself.
+       A negative home model spread means the model picked the home side;
+       a positive home model spread means the model picked the away side. */
     gradeSpread = function(game,p){
       if(!/final/i.test(game?.status||""))return p?.spread!=null?"PENDING":"";
       const home=Number(game.homeScore),away=Number(game.awayScore),modelSpread=Number(p?.spread);
@@ -124,8 +124,8 @@
       const adjusted=home+modelSpread-away;
       if(Math.abs(adjusted)<0.0001)return "PUSH";
       const homeCovered=adjusted>0;
-      const modelPickedHome=p?.winner===game.home || (!p?.winner&&modelSpread<0);
-      return modelPickedHome===homeCovered?"HIT":"MISS";
+      const modelPickedHome=modelSpread<0;
+      return modelPickedHome===homeCovered?"COVERED":"MISSED";
     };
 
     /* Grade the displayed MODEL TOTAL itself, not a separate sportsbook O/U pick.
@@ -151,7 +151,7 @@
           if(Math.abs(adjusted)<0.0001)result.spread.pushes++;
           else{
             const homeCovered=adjusted>0;
-            const modelPickedHome=p.winner===game.home || (!p.winner&&modelSpread<0);
+            const modelPickedHome=modelSpread<0;
             result.spread[modelPickedHome===homeCovered?"wins":"losses"]++;
           }
         }
