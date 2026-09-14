@@ -28,6 +28,9 @@
     .game-dialog .pick-results { display: none !important; }
     .result-badge.covered{background:#143f32;color:#43dfa4}
     .result-badge.missed{background:#482d32;color:#ff7a86}
+    .result-badge.high{background:#143f32;color:#43dfa4}
+    .result-badge.medium{background:#403a1f;color:#ffd76a}
+    .result-badge.low{background:#343a46;color:#b9c4d4}
 
     .market-mode-tabs{display:flex;gap:10px;align-items:center;justify-content:center;margin:20px 0 6px;padding:0 20px}
     .market-mode-tab{appearance:none;border:1px solid #283446;background:#111722;color:#aeb8c8;padding:11px 22px;border-radius:999px;font:inherit;font-weight:800;cursor:pointer;transition:.18s ease}
@@ -53,6 +56,8 @@
     .prop-empty-card{min-height:220px;display:grid;place-items:center;text-align:center}
     .prop-empty-card strong{display:block;font-size:1.25rem;margin-bottom:8px}
     .prop-empty-card p{margin:0;color:#8f9bad;max-width:600px;line-height:1.6}
+    .prop-card{cursor:pointer}
+    .prop-card:hover{transform:translateY(-2px)}
     body.theme-light .prop-record-grid article,body.theme-light .prop-empty-card,body.theme-light .prop-filter{background:#fff;border-color:#dfe6ee;color:#1b2430}
     body.theme-light .prop-record-grid span,body.theme-light .prop-record-grid small,body.theme-light .prop-empty-card p{color:#687386}
     @media(max-width:760px){.prop-record-grid{grid-template-columns:1fr}.props-head{display:block}.props-head p{margin-top:10px}.market-mode-tabs{justify-content:flex-start;overflow-x:auto}}
@@ -96,7 +101,7 @@
       <section class="props-shell">
         <div class="props-head">
           <div><p class="eyebrow">PLAYER PROPS</p><h2 id="propsTitle">College Football Player Props</h2></div>
-          <p id="propsDescription">Player prop projections will live here separately from game picks, with their own verified record.</p>
+          <p id="propsDescription">Live sportsbook and DFS player props with their own model view and record.</p>
         </div>
 
         <div class="prop-record-grid" aria-label="Player prop record">
@@ -114,7 +119,7 @@
         </div>
 
         <div class="prop-empty-card" id="propsEmpty">
-          <div><strong>Player props section is ready</strong><p id="propsEmptyCopy">Next we can connect sportsbook player-prop lines and start saving model picks before kickoff. Once those are connected, each prop will show the line, model projection, edge, confidence, and HIT / MISS result here.</p></div>
+          <div><strong>Loading player props</strong><p id="propsEmptyCopy">Checking the connected sportsbook and DFS feeds now.</p></div>
         </div>
         <div id="propCards" class="games" aria-live="polite"></div>
       </section>
@@ -125,6 +130,7 @@
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
 
   <script src="script.js?v=20260914-18"></script>
+  <script src="props.js?v=20260914-1"></script>
   <script>
     function excludeFromVerifiedResults(game){
       if(state.league!=="nfl" || !game?.date) return false;
@@ -187,10 +193,8 @@
       const leagueName=state.league==="nfl"?"NFL":"College Football";
       const title=document.getElementById("propsTitle");
       const activeLeague=document.getElementById("activePropLeague");
-      const copy=document.getElementById("propsEmptyCopy");
       if(title)title.textContent=`${leagueName} Player Props`;
       if(activeLeague)activeLeague.textContent=leagueName;
-      if(copy)copy.textContent=`Next we can connect ${leagueName} sportsbook player-prop lines and start saving model picks before kickoff. Once those are connected, each prop will show the line, model projection, edge, confidence, and HIT / MISS result here.`;
     }
 
     function setMarketView(view){
@@ -202,11 +206,11 @@
         btn.classList.toggle("active",active);
         btn.setAttribute("aria-selected",active?"true":"false");
       });
-      if(props)syncPropsLeagueLabel();
+      if(props){syncPropsLeagueLabel();window.gridironProps?.load?.(false)}
     }
 
     document.querySelectorAll("[data-market-view]").forEach(btn=>btn.addEventListener("click",()=>setMarketView(btn.dataset.marketView)));
-    document.querySelectorAll(".league-tab").forEach(btn=>btn.addEventListener("click",()=>setTimeout(syncPropsLeagueLabel,0)));
+    document.querySelectorAll(".league-tab").forEach(btn=>btn.addEventListener("click",()=>setTimeout(()=>{syncPropsLeagueLabel();window.gridironProps?.load?.(true)},0)));
     document.querySelectorAll(".prop-filter").forEach(btn=>btn.addEventListener("click",()=>{
       document.querySelectorAll(".prop-filter").forEach(x=>x.classList.remove("active"));
       btn.classList.add("active");
