@@ -29,6 +29,12 @@
       color: color-mix(in srgb, var(--team-color, #58a6ff) 68%, white 32%) !important;
       text-shadow: 0 0 16px color-mix(in srgb, var(--team-color, #58a6ff) 30%, transparent);
     }
+
+    /* The old spread/total result cards mixed market grades with model projections.
+       Hide those two cards so Matchup Room only shows the actual model outputs. */
+    .game-dialog .pick-results {
+      display: none !important;
+    }
   </style>
 </head>
 <body class="theme-light">
@@ -77,12 +83,12 @@
     <section class="performance" id="model-performance" aria-labelledby="performanceTitle">
       <div class="performance-head">
         <div><p class="eyebrow">VERIFIED RESULTS</p><h2 id="performanceTitle">Model Performance</h2></div>
-        <p id="performanceNote">Only predictions saved before kickoff are graded. Pushes do not count toward accuracy.</p>
+        <p id="performanceNote">Only predictions saved before kickoff are graded.</p>
       </div>
       <div class="record-grid">
         <article><span>Outright winners</span><strong id="outrightRecord">0–0</strong><b id="outrightPct">—</b><small id="outrightSample">0 graded picks</small></article>
         <article><span>Spread picks</span><strong id="spreadRecord">0–0</strong><b id="spreadPct">—</b><small id="spreadSample">0 graded picks</small></article>
-        <article><span>Over / Under</span><strong id="totalRecord">0–0</strong><b id="totalPct">—</b><small id="totalSample">0 graded picks</small></article>
+        <article><span>Total projection ±1 pt</span><strong id="totalRecord">0–0</strong><b id="totalPct">—</b><small id="totalSample">0 graded projections</small></article>
       </div>
     </section>
 
@@ -104,5 +110,55 @@
 
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
   <script src="script.js?v=20260913-14"></script>
+  <script>
+    /* Grade the displayed MODEL TOTAL itself, not a separate sportsbook O/U pick.
+       A total projection is counted as a hit when it finishes within 1.0 point
+       of the actual final total. This makes a 48.2 projection vs. 48 actual a hit. */
+    modelRecords = function(){
+      const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
+      for(const game of state.allGames){
+        if(!/final/i.test(game.status||""))continue;
+        const p=game.prediction||{},market=p.market;
+        if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
+        const home=Number(game.homeScore),away=Number(game.awayScore);
+        if(!Number.isFinite(home)||!Number.isFinite(away))continue;
+
+        if(home!==away&&p.winner){
+          const actual=home>away?game.home:game.away;
+          result.outright[p.winner===actual?"wins":"losses"]++;
+        }
+
+        if(market?.spreadPick&&market.homePoint!=null){
+          const adjusted=home+Number(market.homePoint)-away;
+          if(adjusted===0)result.spread.pushes++;
+          else{
+            const homeCovered=adjusted>0;
+            result.spread[(market.spreadPick===game.home)===homeCovered?"wins":"losses"]++;
+          }
+        }
+
+        const projectedTotal=Number(p.total);
+        if(Number.isFinite(projectedTotal)){
+          const actualTotal=home+away;
+          result.total[Math.abs(actualTotal-projectedTotal)<=1?"wins":"losses"]++;
+        }
+      }
+      return result;
+    };
+
+    renderModelRecords = function(){
+      const records=modelRecords();
+      const put=(key,prefix)=>{
+        const r=records[key],decisions=r.wins+r.losses,total=decisions+r.pushes;
+        document.getElementById(prefix+"Record").textContent=`${r.wins}–${r.losses}${r.pushes?"–"+r.pushes+"P":""}`;
+        document.getElementById(prefix+"Pct").textContent=decisions?`${(r.wins/decisions*100).toFixed(1)}%`:"—";
+        document.getElementById(prefix+"Sample").textContent=`${total} graded ${key==="total"?"projection":"pick"}${total===1?"":"s"}`;
+      };
+      put("outright","outright");
+      put("spread","spread");
+      put("total","total");
+      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Total projection = hit when within ±1.0 point of the final total`;
+    };
+  </script>
 </body>
 </html>
