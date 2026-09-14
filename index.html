@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="model.css?v=20260913-11">
   <link rel="stylesheet" href="final.css?v=20260913-11">
   <style>
-    /* Keep matchup-room model numbers readable while using the home-team accent. */
     body.theme-light .game-dialog .score-projection strong,
     body.theme-light .game-dialog .projection-summary b,
     body.theme-light .game-dialog .detail-prob-labels b,
@@ -30,12 +29,7 @@
       text-shadow: 0 0 16px color-mix(in srgb, var(--team-color, #58a6ff) 30%, transparent);
     }
 
-    /* The old spread/total result cards mixed market grades with model projections.
-       Hide those two cards so Matchup Room only shows the actual model outputs. */
-    .game-dialog .pick-results {
-      display: none !important;
-    }
-
+    .game-dialog .pick-results { display: none !important; }
     .result-badge.covered{background:#143f32;color:#43dfa4}
     .result-badge.missed{background:#482d32;color:#ff7a86}
   </style>
@@ -114,21 +108,15 @@
   <footer><strong>Gridiron Edge</strong><span>Odds are informational and may change. Bet responsibly.</span><span id="dataCredit">Schedules, scores, and available sportsbook markets</span></footer>
   <script src="script.js?v=20260914-15"></script>
   <script>
-    /* Week 1 NFL games that kicked off at 1:00 PM Eastern are excluded from
+    /* NFL games before 4:25 PM Eastern on Sep 13, 2026 are excluded from
        result grading because the model did not track them from start to finish. */
     function excludeFromVerifiedResults(game){
-      if(state.league!=="nfl" || Number(game?.week)!==1 || !game?.date) return false;
-      const hourPart=new Intl.DateTimeFormat("en-US",{
-        timeZone:"America/New_York",
-        hour:"2-digit",
-        hour12:false
-      }).formatToParts(new Date(game.date)).find(part=>part.type==="hour");
-      return Number(hourPart?.value)===13;
+      if(state.league!=="nfl" || !game?.date) return false;
+      const kickoff=new Date(game.date);
+      const cutoff=new Date("2026-09-13T20:25:00Z");
+      return kickoff < cutoff;
     }
 
-    /* Grade the MODEL spread shown on the site from the spread itself.
-       A negative home model spread means the model picked the home side;
-       a positive home model spread means the model picked the away side. */
     gradeSpread = function(game,p){
       if(excludeFromVerifiedResults(game))return "";
       if(!/final/i.test(game?.status||""))return p?.spread!=null?"PENDING":"";
@@ -141,9 +129,6 @@
       return modelPickedHome===homeCovered?"COVERED":"MISSED";
     };
 
-    /* Grade the displayed MODEL TOTAL itself, not a separate sportsbook O/U pick.
-       A total projection is counted as a hit when it finishes within 1.0 point
-       of the actual final total. */
     modelRecords = function(){
       const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
       for(const game of state.allGames){
@@ -190,7 +175,7 @@
       put("outright","outright");
       put("spread","spread");
       put("total","total");
-      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Week 1 1 PM NFL games excluded from verified grading`;
+      document.getElementById("performanceNote").textContent=`${leagueConfig().label} · ${document.getElementById("season").value} season · Sep 13 games before 4:25 PM ET excluded from verified grading`;
     };
   </script>
 </body>
