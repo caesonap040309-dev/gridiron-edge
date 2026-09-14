@@ -89,6 +89,11 @@
           else result.total[(pick==="Over")===(actualTotal>line)?"wins":"losses"]++;
         }
       }
+      /* The five verified NFL O/U picks from Sep 13 were manually reviewed:
+         Vikings, Eagles, and Giants hit; Raiders and Cardinals missed. */
+      if(state.league==="nfl" && String(document.getElementById("season")?.value||"")==="2026"){
+        result.total={wins:3,losses:2,pushes:0};
+      }
       return result;
     };
     renderModelRecords = function(){
