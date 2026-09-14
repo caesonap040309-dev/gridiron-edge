@@ -9,6 +9,7 @@ on:
     paths:
       - "scripts/update-data.mjs"
       - "scripts/update-nfl-data.mjs"
+      - "scripts/merge-nfl-books.mjs"
       - "scripts/update-props.mjs"
       - ".github/workflows/update-live-data.yml"
   schedule:
@@ -36,6 +37,7 @@ jobs:
         run: |
           node scripts/update-data.mjs
           node scripts/update-nfl-data.mjs
+          node scripts/merge-nfl-books.mjs
           node scripts/update-props.mjs
       - name: Publish changed data
         run: |
