@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 
-const key=process.env.ODDS_API_KEY?.trim();
+const key=(process.env.ODDS_API_KEY||process.env.THE_ODDS_API_KEY)?.trim();
 if(!key){
   console.log("ODDS_API_KEY is missing; skipping NFL multi-book merge.");
   process.exit(0);
@@ -49,5 +49,10 @@ if(eventsUpdated){
   data.oddsSource=data.oddsSource?.includes("The Odds API")?data.oddsSource:`${data.oddsSource||"NFL feed"} + The Odds API multi-book merge`;
   await writeFile(file,JSON.stringify(data,null,2)+"\n");
 }
+
+const sportsbookNames=[...new Set((data.events||[]).flatMap(event=>(event.bookmakers||[]).map(book=>book.title||book.key)))].sort();
+data.feedHealth={...(data.feedHealth||{}),multiBookLive:live.length>0&&sportsbookNames.length>1,usedCachedMultiBook:false,sportsbookCount:sportsbookNames.length,sportsbooks:sportsbookNames};
+data.multiBookUpdatedAt=new Date().toISOString();
+await writeFile(file,JSON.stringify(data,null,2)+"\n");
 
 console.log(`NFL sportsbook merge checked ${live.length} live events; added ${booksAdded} sportsbook entries across ${eventsUpdated} games.`);
