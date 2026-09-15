@@ -255,7 +255,7 @@ for(const game of games){
   const overProb=totalEdge==null?null:Math.round((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*1000)/10;
   const maxEdge=Math.max(Math.abs(spreadEdge||0),Math.abs(totalEdge||0));
   const marketStable=(market.spreadDeviation||0)<=1.25&&(market.totalDeviation||0)<=1.75;
-  const confidence=sample>=6&&market.bookCount>=3&&marketStable&&maxEdge>=3.5?"High":sample>=3&&market.bookCount>=2&&maxEdge>=1.5?"Medium":"Low";
+  // One available book should reduce certainty, but it should not force every\n  // otherwise meaningful model edge into the Low bucket.\n  const confidence=sample>=6&&market.bookCount>=2&&marketStable&&maxEdge>=3.5?"High":sample>=3&&market.bookCount>=1&&maxEdge>=1.5?"Medium":"Low";
   const prediction={
     version:MODEL_VERSION,winner:margin>=0?game.home:game.away,homeWin,
     spread:Math.round(-margin*10)/10,total:Math.round(projectedTotal*10)/10,
