@@ -199,13 +199,51 @@ async function load(){
 }
 function showError(message){$("loading").classList.add("hidden");$("notice").textContent=message+" The automatic updater will try again shortly.";$("notice").classList.remove("hidden");$("connectionStatus").className="status error";$("connectionStatus").lastElementChild.textContent="Feed is updating"}
 function tick(){state.seconds--;if(state.seconds<=0)load();$("countdown").textContent=state.seconds+"s"}
+const FEATURED_SPORTSBOOKS=[
+  {name:"FanDuel",keys:["fanduel"]},{name:"DraftKings",keys:["draftkings"]},
+  {name:"BetMGM",keys:["betmgm"]},{name:"Caesars",keys:["williamhill_us","caesars"]},
+  {name:"ESPN BET",keys:["espnbet","espn_bet","espn"]},
+  {name:"Hard Rock",keys:["hardrockbet","hardrockbet_fl","hardrockbet_oh","hard_rock_bet"]},
+  {name:"BetRivers",keys:["betrivers"]},{name:"bet365",keys:["bet365"]},
+  {name:"Fanatics",keys:["fanatics"]},{name:"Bally Bet",keys:["ballybet","bally_bet"]}
+];
+function sportsbookKey(value){return String(value||"").toLowerCase().replace(/[^a-z0-9]/g,"")}
+function orderedSportsbooks(event){
+  const available=[...(event?.bookmakers||[])],used=new Set();
+  const featured=FEATURED_SPORTSBOOKS.map(feature=>{
+    const aliases=new Set([sportsbookKey(feature.name),...feature.keys.map(sportsbookKey)]);
+    const index=available.findIndex((book,i)=>!used.has(i)&&(aliases.has(sportsbookKey(book.key))||aliases.has(sportsbookKey(book.title))));
+    if(index<0)return {key:feature.keys[0],title:feature.name,markets:[],unavailable:true};
+    used.add(index);return {...available[index],title:feature.name};
+  });
+  return [...featured,...available.filter((book,index)=>!used.has(index)).sort((a,b)=>String(a.title||a.key).localeCompare(String(b.title||b.key)))];
+}
+function bestOfferKeys(event){
+  const offers=[];
+  for(const book of event?.bookmakers||[])for(const market of book.markets||[])for(const outcome of market.outcomes||[])offers.push({book:book.key,market:market.key,...outcome});
+  const winners=new Set(),names=[...new Set(offers.map(o=>`${o.market}|${o.name}`))];
+  for(const group of names){
+    const [market,name]=group.split("|");
+    const candidates=offers.filter(o=>o.market===market&&o.name===name&&Number.isFinite(Number(o.price)));
+    candidates.sort((a,b)=>{
+      if(market==="spreads")return (Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price));
+      if(market==="totals")return (name==="Over"?Number(a.point)-Number(b.point):Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price));
+      return Number(b.price)-Number(a.price);
+    });
+    if(candidates[0])winners.add(`${candidates[0].book}|${market}|${name}`);
+  }
+  return winners;
+}
 function allBookRows(event){
-  return (event?.bookmakers||[]).map(book=>{
+  const best=bestOfferKeys(event);
+  return orderedSportsbooks(event).map(book=>{
     const markets=Object.fromEntries((book.markets||[]).map(m=>[m.key,m.outcomes||[]]));
-    const spread=markets.spreads?.map(o=>`${esc(o.name)} ${signed(o.point)} (${american(o.price)})`).join(" · ")||"—";
-    const total=markets.totals?.map(o=>`${esc(o.name)} ${o.point} (${american(o.price)})`).join(" · ")||"—";
-    const moneyline=markets.h2h?.map(o=>`${esc(o.name)} ${american(o.price)}`).join(" · ")||"—";
-    return `<tr><th>${esc(book.title)}</th><td>${spread}</td><td>${total}</td><td>${moneyline}</td></tr>`;
+    const render=(market,outcomes,format)=>(outcomes||[]).map(o=>{const top=best.has(`${book.key}|${market}|${o.name}`);return `<span class="line-offer${top?" best-line":""}">${format(o)}${top?'<b>BEST</b>':""}</span>`}).join("")||"—";
+    const spread=render("spreads",markets.spreads,o=>`${esc(o.name)} ${signed(o.point)} (${american(o.price)})`);
+    const total=render("totals",markets.totals,o=>`${esc(o.name)} ${o.point} (${american(o.price)})`);
+    const moneyline=render("h2h",markets.h2h,o=>`${esc(o.name)} ${american(o.price)}`);
+    const status=book.unavailable?'<small class="book-status">Line unavailable</small>':"";
+    return `<tr class="${book.unavailable?"book-unavailable":""}"><th>${esc(book.title||book.key)}${status}</th><td>${spread}</td><td>${total}</td><td>${moneyline}</td></tr>`;
   }).join("");
 }
 function playerTables(summary){
@@ -316,7 +354,7 @@ async function openGame(id){
     <section class="score-projection ${showActualScore?"showing-actual":"showing-prediction"}" id="model-pick"><div class="score-state-label ${detailIsLive?"live":detailIsFinal?"final":""}">${esc(scoreLabel)}${detailIsLive?` · ${esc(detailStatus)}`:""}</div><div>${logo(game.awayLogo,game.away)}<h3>${esc(game.away)}</h3><small>Rank ${ranks.get(game.away)?"#"+ranks.get(game.away):"—"} · Away</small><strong>${topAwayScore}</strong></div><span>VS</span><div>${logo(game.homeLogo,game.home)}<h3>${esc(game.home)}</h3><small>Rank ${ranks.get(game.home)?"#"+ranks.get(game.home):"—"} · Home</small><strong>${topHomeScore}</strong></div><div class="projection-summary"><div><span>Model spread</span><b>${esc(game.home)} ${signed(p.spread)}</b></div><div><span>Projected total</span><b>${Number(p.total).toFixed(1)}</b></div><div><span>Win outlook</span><b>${esc(p.winner||"Toss-up")}</b></div></div>${predictionComparison}<div class="detail-prob-labels"><b>${awayWin.toFixed(1)}%</b><span>WIN PROBABILITY</span><b>${homeWin.toFixed(1)}%</b></div><div class="detail-probability"><i style="width:${awayWin}%"></i><i style="width:${homeWin}%"></i></div></section>
     <section class="detail-section model-pick-card"><div class="section-title"><span class="eyebrow">OUR PICK · VS THE MARKET</span><h3>Model picks and results</h3></div><div class="pick-results">${pickResults(game,p)}</div>${sharpMetrics(game,p)}<div class="section-subtitle">Matchup advantages</div><div class="keys-grid">${keys.map(key=>`<div><span>${esc(key.text)}</span><b>${esc(key.team)}</b><strong>${key.edge>=0?"+":""}${key.edge.toFixed(1)}</strong></div>`).join("")}</div></section>
     <section class="detail-section" id="win-probability"><div class="section-title"><span class="eyebrow">WIN PROBABILITY · TALE OF THE TAPE</span><h3>Head-to-head numbers</h3></div><div class="comparison"><div class="comparison-head"><b>${esc(game.away)}</b><span>Metric</span><b>${esc(game.home)}</b></div>${metrics.map(row=>`<div><strong>${esc(row[1]??"—")}</strong><span>${esc(row[0])}</span><strong>${esc(row[2]??"—")}</strong></div>`).join("")}</div><div class="ratings">${ratingBar("Offense",awayOff,homeOff,game.away,game.home)}${ratingBar("Defense",awayDef,homeDef,game.away,game.home)}${ratingBar("Coverage proxy",awayCover,homeCover,game.away,game.home)}</div><p class="method-note">The model uses the current season plus two prior seasons, discounts older games, adjusts every result for opponent strength, and accounts for venue form, rest, neutral sites, weather when published, multi-book market consensus, and sportsbook disagreement. High confidence requires both a meaningful edge and enough independent evidence. Coverage proxy is not an official player-tracking grade.</p></section>
-    <section class="detail-section" id="team-stats"><div class="section-title"><span class="eyebrow">SPORTSBOOKS</span><h3>Every available line</h3></div><div class="table-scroll"><table class="odds-table"><thead><tr><th>Book</th><th>Spread</th><th>Total</th><th>Moneyline</th></tr></thead><tbody>${allBookRows(event)||'<tr><td colspan="4">No current markets</td></tr>'}</tbody></table></div></section>
+    <section class="detail-section" id="team-stats"><div class="section-title"><span class="eyebrow">SPORTSBOOK COMPARISON</span><h3>Every book. Best line highlighted.</h3><p>Live lines appear when supplied for this matchup; unavailable books remain visible instead of disappearing.</p></div><div class="table-scroll"><table class="odds-table"><thead><tr><th>Sportsbook</th><th>Spread</th><th>Total</th><th>Moneyline</th></tr></thead><tbody>${allBookRows(event)}</tbody></table></div></section>
     <section class="detail-section" id="scoring"><div class="section-title"><span class="eyebrow">GAME FLOW</span><h3>Scoring summary</h3></div>${scoringSummary(summary)}</section>
     ${espnTeamStats(summary,game.away,game.home)}
     <section class="detail-section" id="box-score"><div class="section-title"><span class="eyebrow">ESPN BOX SCORE</span><h3>Player statistics</h3></div>${playerTables(summary)}</section>`;
