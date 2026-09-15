@@ -9,6 +9,7 @@ const espn="https://site.api.espn.com/apis/site/v2/sports/football/college-footb
 const games=[];
 const events=[];
 const cleanTeam=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+const sportsbookIdentity=book=>String(book?.title||book?.key||"").toLowerCase().replace(/[^a-z0-9]/g,"");
 const num=value=>{const parsed=Number(String(value??"").replace("+",""));return Number.isFinite(parsed)?parsed:null};
 const teamName=(event,side)=>event.teams?.[side]?.names?.long||event.teams?.[side]?.name||event.teams?.[side]?.names?.medium||side;
 const marketPoint=(odd,quote)=>num(quote?.spread??quote?.overUnder??odd?.bookSpread??odd?.bookOverUnder);
@@ -115,6 +116,8 @@ const [sportsGameOdds,theOddsApi]=await Promise.all([
   fetchTheOddsApi().catch(error=>(console.error(error.message),[]))
 ]);
 const multiBookEvents=[...sportsGameOdds,...theOddsApi];
+const freshSportsbooks=new Set(multiBookEvents.flatMap(event=>(event.bookmakers||[]).map(sportsbookIdentity)));
+const hasFreshMultiBook=freshSportsbooks.size>1;
 if(multiBookEvents.length){
   const byMatch=new Map(events.map((event,index)=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,index]));
   for(const event of multiBookEvents){
@@ -125,6 +128,21 @@ if(multiBookEvents.length){
     const books=new Map((current.bookmakers||[]).map(book=>[book.key,book]));
     for(const book of event.bookmakers||[])books.set(book.key,book);
     events[index]={...current,bookmakers:[...books.values()]};
+  }
+}
+// Odds providers commonly remove a matchup once it starts. Preserve the last
+// successfully collected pregame prices instead of replacing them with a
+// single ESPN line on the next refresh.
+let usedCachedMultiBook=false;
+if(Array.isArray(previous.events)){
+  const previousByMatch=new Map(previous.events.map(event=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,event]));
+  for(let index=0;index<events.length;index++){
+    const event=events[index],cached=previousByMatch.get(`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`);
+    if(!cached?.bookmakers?.length)continue;
+    const books=new Map((event.bookmakers||[]).map(book=>[sportsbookIdentity(book),book]));
+    const before=books.size;
+    for(const book of cached.bookmakers)if(!books.has(sportsbookIdentity(book)))books.set(sportsbookIdentity(book),book);
+    if(books.size>before){events[index]={...event,bookmakers:[...books.values()]};usedCachedMultiBook=true}
   }
 }
 const eventByTeams=new Map(events.map(event=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,event]));
@@ -265,5 +283,7 @@ for(const game of games){
   game.prediction=prediction;
 }
 await mkdir("data",{recursive:true});
-await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),oddsSource:sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":theOddsApi.length?"The Odds API multi-book":"ESPN market fallback",games,events},null,2)+"\n");
+const sportsbookNames=[...new Set(events.flatMap(event=>(event.bookmakers||[]).map(book=>book.title||book.key)))].sort();
+const oddsSource=hasFreshMultiBook?(sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":"The Odds API multi-book"):usedCachedMultiBook?"Last available multi-book lines + ESPN fallback":"ESPN market fallback";
+await writeFile("data/live.json",JSON.stringify({updatedAt:new Date().toISOString(),multiBookUpdatedAt:hasFreshMultiBook?new Date().toISOString():(previous.multiBookUpdatedAt||previous.updatedAt||null),oddsSource,feedHealth:{multiBookLive:hasFreshMultiBook,usedCachedMultiBook,sportsbookCount:sportsbookNames.length,sportsbooks:sportsbookNames},games,events},null,2)+"\n");
 console.log(`Saved ${games.length} games and ${events.length} markets (${sportsGameOdds.length} SportsGameOdds + ${theOddsApi.length} The Odds API events)`);

@@ -131,17 +131,15 @@ if(multiBookEvents.length){
   }
 }
 let usedCachedMultiBook=false;
-if(!hasFreshMultiBook&&Array.isArray(previous.events)){
+if(Array.isArray(previous.events)){
   const previousByMatch=new Map(previous.events.map(event=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,event]));
   for(let index=0;index<events.length;index++){
     const event=events[index],cached=previousByMatch.get(`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`);
     if(!cached?.bookmakers?.length)continue;
-    const cachedBooks=cached.bookmakers.filter(book=>sportsbookIdentity(book)!=="draftkings");
-    if(!cachedBooks.length)continue;
-    const books=new Map((event.bookmakers||[]).map(book=>[book.key,book]));
-    for(const book of cachedBooks)books.set(book.key,book);
-    events[index]={...event,bookmakers:[...books.values()]};
-    usedCachedMultiBook=true;
+    const books=new Map((event.bookmakers||[]).map(book=>[sportsbookIdentity(book),book]));
+    const before=books.size;
+    for(const book of cached.bookmakers)if(!books.has(sportsbookIdentity(book)))books.set(sportsbookIdentity(book),book);
+    if(books.size>before){events[index]={...event,bookmakers:[...books.values()]};usedCachedMultiBook=true}
   }
 }
 const eventByTeams=new Map(events.map(event=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,event]));
@@ -283,6 +281,6 @@ for(const game of games){
 }
 await mkdir("data",{recursive:true});
 const sportsbookNames=[...new Set(events.flatMap(event=>(event.bookmakers||[]).map(book=>book.title||book.key)))].sort();
-const oddsSource=hasFreshMultiBook?(sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":"The Odds API multi-book"):usedCachedMultiBook?"Cached multi-book snapshot + ESPN fallback":"ESPN market fallback";
+const oddsSource=hasFreshMultiBook?(sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":"The Odds API multi-book"):usedCachedMultiBook?"Last available multi-book lines + ESPN fallback":"ESPN market fallback";
 await writeFile("data/nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),multiBookUpdatedAt:hasFreshMultiBook?new Date().toISOString():(previous.multiBookUpdatedAt||previous.updatedAt||null),oddsSource,feedHealth:{multiBookLive:hasFreshMultiBook,usedCachedMultiBook,sportsbookCount:sportsbookNames.length,sportsbooks:sportsbookNames},games,events},null,2)+"\n");
 console.log(`Saved NFL ${games.length} games and ${events.length} markets (${sportsGameOdds.length} SportsGameOdds + ${theOddsApi.length} The Odds API events)`);
