@@ -1,6 +1,7 @@
 (()=>{
   const cache={nfl:null,cfb:null};
   let currentCategory="Top Props";
+  let selectedPropWeek="all";
   let selectedLeague=(localStorage.getItem("gridiron-league")==="nfl"?"nfl":"cfb");
   const esc=value=>String(value??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
   const pct=value=>Number.isFinite(Number(value))?`${Number(value).toFixed(1)}%`:"—";
@@ -37,8 +38,9 @@
   }
 
   function activeRows(data){
-    const all=(data?.props||[]).filter(p=>new Date(p.commenceTime).getTime()>Date.now()-90*60000);
-    return currentCategory==="Top Props"?all:all.filter(p=>p.category===currentCategory);
+    const all=data?.props||[];
+    const weekRows=selectedPropWeek==="all"?all.filter(p=>new Date(p.commenceTime).getTime()>Date.now()-90*60000):all.filter(p=>String(p.week)===selectedPropWeek);
+    return currentCategory==="Top Props"?weekRows:weekRows.filter(p=>p.category===currentCategory);
   }
 
   function groupPlayers(rows){
@@ -53,13 +55,6 @@
       const bp=Math.max(...b.rows.map(r=>Number(r.hitProbability)||0));
       return bp-ap||a.player.localeCompare(b.player);
     });
-  }
-
-  function weeklyPlayers(data,rows){
-    const groups=groupPlayers(rows),seen=new Set(groups.map(g=>g.key));
-    if(currentCategory!=="Top Props")return groups;
-    for(const p of data?.players||[]){const key=`${p.eventId}|${p.player}`;if(!seen.has(key)){seen.add(key);groups.push({...p,key,rows:[]})}}
-    return groups.sort((a,b)=>b.rows.length-a.rows.length||a.player.localeCompare(b.player));
   }
 
   function marketGroups(rows){
@@ -83,7 +78,6 @@
   }
 
   function playerCard(group){
-    if(!group.rows.length)return `<article class="player-prop-card"><div class="player-prop-toggle"><span class="player-prop-left">${photoMarkup(group)}<span class="player-prop-copy"><small>${esc(group.position||"Player")} · ${esc(group.team||"")}</small><h3>${esc(group.player)}</h3><p>${esc(group.matchup)}</p></span></span><span class="player-prop-meta"><span class="prop-count-pill">No sportsbook line available</span></span></div></article>`;
     const markets=marketGroups(group.rows);
     const providers=new Set(group.rows.map(r=>r.provider).filter(Boolean));
     const top=Math.max(...group.rows.map(r=>Number(r.hitProbability)||0));
@@ -109,7 +103,9 @@
     try{
       const res=await fetch(`${dataUrl(key)}?v=${Date.now()}`,{cache:"no-store"});
       if(!res.ok)throw new Error(`HTTP ${res.status}`);
-      const data=await res.json();cache[key]=data;if(selectedLeague===key)renderProps(data,key);return data;
+      const data=await res.json();
+      try{const schedule=await (await fetch(`${key==="nfl"?"data/nfl.json":"data/live.json"}?v=${Date.now()}`,{cache:"no-store"})).json(),clean=x=>String(x||"").toLowerCase().replace(/[^a-z0-9]/g,"");const weeks=new Map((schedule.games||[]).map(g=>[`${clean(g.away)}|${clean(g.home)}`,g.week]));for(const p of data.props||[])p.week=weeks.get(`${clean(p.away)}|${clean(p.home)}`)??p.week??"Upcoming"}catch{}
+      cache[key]=data;if(selectedLeague===key)renderProps(data,key);return data;
     }catch{
       const empty={league:key==="nfl"?"NFL":"College Football",props:[],providers:[],notice:`No ${key==="nfl"?"NFL":"college football"} player props are available right now.`};
       if(selectedLeague===key)renderProps(empty,key);return empty;
@@ -119,11 +115,13 @@
   function renderProps(data,key=selectedLeague){
     if(key!==selectedLeague)return;
     installStyles();
-    const rows=activeRows(data),players=weeklyPlayers(data,rows),all=(data?.props||[]).filter(p=>new Date(p.commenceTime).getTime()>Date.now()-90*60000);
+    const stored=data?.props||[],all=stored.filter(p=>new Date(p.commenceTime).getTime()>Date.now()-90*60000),weeks=[...new Set(stored.map(p=>p.week).filter(Boolean))].sort((a,b)=>Number(a)-Number(b));
+    let weekSelect=document.getElementById("propWeek");if(!weekSelect){const row=document.querySelector(".prop-filter-row");row?.insertAdjacentHTML("beforebegin",'<label class="prop-week-control">Week <select id="propWeek"><option value="all">All available weeks</option></select></label>');weekSelect=document.getElementById("propWeek");weekSelect?.addEventListener("change",()=>{selectedPropWeek=weekSelect.value;renderProps(data,key)})}if(weekSelect){weekSelect.innerHTML='<option value="all">All available weeks</option>'+weeks.map(w=>`<option value="${esc(w)}">Week ${esc(w)}</option>`).join("");weekSelect.value=weeks.includes(Number(selectedPropWeek))||weeks.includes(selectedPropWeek)?selectedPropWeek:"all"}
+    const rows=activeRows(data),players=groupPlayers(rows);
     const holder=document.getElementById("propCards"),empty=document.getElementById("propsEmpty"),active=document.getElementById("activePropCount"),desc=document.getElementById("propsDescription"),topCat=document.getElementById("propTopCategory"),title=document.getElementById("propsTitle"),activeLeague=document.getElementById("activePropLeague");
     const leagueName=key==="nfl"?"NFL":"College Football";
     if(title)title.textContent=`${leagueName} Player Props`;if(activeLeague)activeLeague.textContent=leagueName;
-    if(active)active.textContent=weeklyPlayers(data,all).length;
+    if(active)active.textContent=players.length;
     if(desc)desc.textContent=`${leagueName} props are grouped by player. Open a player to compare every available prop and sportsbook in one place.`;
     if(topCat){const counts={};for(const p of all)counts[p.category]=(counts[p.category]||0)+1;topCat.textContent=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||"—"}
     if(!holder||!empty)return;
