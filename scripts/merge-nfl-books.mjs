@@ -22,7 +22,8 @@ const params=new URLSearchParams({
 const response=await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?${params}`);
 const live=await response.json().catch(()=>null);
 if(!response.ok||!Array.isArray(live)){
-  throw new Error(`The Odds API multi-book merge failed: ${response.status} ${live?.message||""}`);
+  console.error(`The Odds API multi-book merge skipped: ${response.status} ${live?.message||""}`);
+  process.exit(0);
 }
 
 const liveByMatch=new Map(live.map(event=>[matchKey(event.away_team,event.home_team),event]));
