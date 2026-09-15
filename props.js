@@ -2,6 +2,7 @@
   const cache={nfl:null,cfb:null};
   let currentCategory="Top Props";
   let selectedPropWeek="all";
+  let playerSearch="";
   let selectedLeague=(localStorage.getItem("gridiron-league")==="nfl"?"nfl":"cfb");
   const esc=value=>String(value??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
   const pct=value=>Number.isFinite(Number(value))?`${Number(value).toFixed(1)}%`:"—";
@@ -15,6 +16,7 @@
     style.id="gridiron-prop-polish";
     style.textContent=`
       #propCards{display:grid;gap:14px}
+      .prop-search-control{display:grid;gap:6px;margin:0 0 14px;color:#64748b;font-size:.78rem;font-weight:800}.prop-search-control input{width:100%;padding:12px 14px;border:1px solid #d8e0ea;border-radius:12px;background:#fff;color:#0f172a;font:inherit;outline:none}.prop-search-control input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
       .player-prop-card{border:1px solid #d8e0ea;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(15,23,42,.06)}
       .player-prop-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;border:0;background:transparent;text-align:left;cursor:pointer;color:#0f172a}
       .player-prop-toggle:hover{background:#f8fafc}.player-prop-left{display:flex;align-items:center;gap:13px;min-width:0}.player-prop-copy{min-width:0}.player-prop-copy h3{margin:1px 0 3px;font-size:1.05rem}.player-prop-copy p{margin:0;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.player-prop-copy small{color:#94a3b8;font-weight:700}
@@ -26,6 +28,7 @@
       .prop-detail-hero{--team-color:#2563eb!important;background:linear-gradient(135deg,#f8fafc,#eef3f9)!important;border:1px solid #dbe3ec!important}.prop-detail-identity{display:flex;gap:16px;align-items:center}.prop-detail-photo,.prop-detail-fallback{width:82px;height:82px;border-radius:18px;background:#e8edf4;border:1px solid #d7dee8}.prop-detail-photo{object-fit:cover;object-position:center top}.prop-detail-fallback{display:grid;place-items:center;color:#334155;font-weight:900;font-size:1.25rem}
       #propsView .prop-record-grid b,#propsView .prop-filter.active{color:#1d4ed8!important}#propsView .prop-filter.active{border-color:#93a8c4!important;background:#eef3f9!important}
       body.theme-dark .player-prop-card,body.theme-dark .prop-market-group,body.theme-dark .book-row{background:#111827;border-color:#263244;color:#f8fafc}body.theme-dark .player-prop-toggle{color:#f8fafc}body.theme-dark .player-prop-toggle:hover,body.theme-dark .book-row:hover{background:#162033}body.theme-dark .player-prop-body{background:#0b1220;border-color:#263244}body.theme-dark .prop-market-head{border-color:#263244}body.theme-dark .prop-market-head strong,body.theme-dark .book-row{color:#f8fafc}body.theme-dark .player-prop-copy p,body.theme-dark .prop-market-head span,body.theme-dark .book-row .book-price{color:#94a3b8}
+      body.theme-dark .prop-search-control input{background:#0b1220;border-color:#263244;color:#f8fafc}
       @media(max-width:700px){.player-prop-toggle{align-items:flex-start}.player-prop-meta{gap:6px}.book-row{grid-template-columns:1fr 1fr}.book-row .book-price{text-align:left}.prop-headshot,.prop-avatar-fallback{width:48px;height:48px;flex-basis:48px}}
     `;
     document.head.appendChild(style);
@@ -40,7 +43,9 @@
   function activeRows(data){
     const all=data?.props||[];
     const weekRows=selectedPropWeek==="all"?all.filter(p=>new Date(p.commenceTime).getTime()>Date.now()-90*60000):all.filter(p=>String(p.week)===selectedPropWeek);
-    return currentCategory==="Top Props"?weekRows:weekRows.filter(p=>p.category===currentCategory);
+    const categoryRows=currentCategory==="Top Props"?weekRows:weekRows.filter(p=>p.category===currentCategory);
+    const query=playerSearch.trim().toLowerCase();
+    return query?categoryRows.filter(p=>String(p.player||"").toLowerCase().includes(query)):categoryRows;
   }
 
   function groupPlayers(rows){
@@ -116,7 +121,7 @@
     if(key!==selectedLeague)return;
     installStyles();
     const stored=data?.props||[],all=stored.filter(p=>new Date(p.commenceTime).getTime()>Date.now()-90*60000),weeks=[...new Set(stored.map(p=>p.week).filter(Boolean))].sort((a,b)=>Number(a)-Number(b));
-    let weekSelect=document.getElementById("propWeek");if(!weekSelect){const row=document.querySelector(".prop-filter-row");row?.insertAdjacentHTML("beforebegin",'<label class="prop-week-control">Week <select id="propWeek"><option value="all">All available weeks</option></select></label>');weekSelect=document.getElementById("propWeek");weekSelect?.addEventListener("change",()=>{selectedPropWeek=weekSelect.value;renderProps(data,key)})}if(weekSelect){weekSelect.innerHTML='<option value="all">All available weeks</option>'+weeks.map(w=>`<option value="${esc(w)}">Week ${esc(w)}</option>`).join("");weekSelect.value=weeks.includes(Number(selectedPropWeek))||weeks.includes(selectedPropWeek)?selectedPropWeek:"all"}
+    let weekSelect=document.getElementById("propWeek");if(!weekSelect){const row=document.querySelector(".prop-filter-row");row?.insertAdjacentHTML("beforebegin",'<label class="prop-search-control">Search players <input id="propPlayerSearch" type="search" placeholder="Enter a player name" autocomplete="off"></label><label class="prop-week-control">Week <select id="propWeek"><option value="all">All available weeks</option></select></label>');weekSelect=document.getElementById("propWeek");weekSelect?.addEventListener("change",()=>{selectedPropWeek=weekSelect.value;renderProps(data,key)});document.getElementById("propPlayerSearch")?.addEventListener("input",event=>{playerSearch=event.target.value;renderProps(data,key)})}if(weekSelect){weekSelect.innerHTML='<option value="all">All available weeks</option>'+weeks.map(w=>`<option value="${esc(w)}">Week ${esc(w)}</option>`).join("");weekSelect.value=weeks.includes(Number(selectedPropWeek))||weeks.includes(selectedPropWeek)?selectedPropWeek:"all"}const searchInput=document.getElementById("propPlayerSearch");if(searchInput&&searchInput.value!==playerSearch)searchInput.value=playerSearch;
     const rows=activeRows(data),players=groupPlayers(rows);
     const holder=document.getElementById("propCards"),empty=document.getElementById("propsEmpty"),active=document.getElementById("activePropCount"),desc=document.getElementById("propsDescription"),topCat=document.getElementById("propTopCategory"),title=document.getElementById("propsTitle"),activeLeague=document.getElementById("activePropLeague"),recordEl=document.getElementById("propRecord"),pctEl=document.getElementById("propPct"),sampleEl=document.getElementById("propSample");
     const leagueName=key==="nfl"?"NFL":"College Football";
