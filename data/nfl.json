@@ -1,14 +1,23 @@
 {
-  "updatedAt": "2026-09-14T22:49:18.920Z",
+  "updatedAt": "2026-09-15T00:33:34.879Z",
+  "multiBookUpdatedAt": "2026-09-14T22:49:18.920Z",
   "oddsSource": "ESPN market fallback",
+  "feedHealth": {
+    "multiBookLive": false,
+    "usedCachedMultiBook": false,
+    "sportsbookCount": 1,
+    "sportsbooks": [
+      "Draft Kings"
+    ]
+  },
   "games": [
     {
       "id": "401872931",
       "season": 2026,
       "week": 1,
       "date": "2026-09-15T00:15Z",
-      "status": "9/14 - 8:15 PM EDT",
-      "statusState": "pre",
+      "status": "8:06 - 1st",
+      "statusState": "in",
       "statusCompleted": false,
       "home": "Kansas City Chiefs",
       "away": "Denver Broncos",
@@ -20,11 +29,17 @@
       "homeAltColor": "ffb612",
       "awayColor": "0a2343",
       "awayAltColor": "fc4c02",
-      "homeScore": "0",
+      "homeScore": "7",
       "awayScore": "0",
       "neutralSite": false,
       "weather": null,
-      "situation": null,
+      "situation": {
+        "possession": "7",
+        "downDistanceText": "1st & 10 at DEN 32",
+        "possessionText": "DEN 32",
+        "yardLine": 68,
+        "lastPlay": "Official Timeout at 08:06."
+      },
       "prediction": {
         "version": 4,
         "winner": "Kansas City Chiefs",
@@ -787,7 +802,7 @@
         "awayScore": 25,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 30.1,
         "awayDefense": 24.7,
@@ -870,7 +885,7 @@
         "winner": "Atlanta Falcons",
         "homeWin": 59.1,
         "spread": -3.1,
-        "total": 46.9,
+        "total": 46.7,
         "homeScore": 25,
         "awayScore": 22,
         "sample": 35,
@@ -886,12 +901,12 @@
           "awayDefense": -4.3
         },
         "marketMargin": -1.5,
-        "marketTotal": 44.5,
+        "marketTotal": 43.5,
         "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
         "spreadEdge": 4.6,
-        "totalEdge": 2.4,
+        "totalEdge": 3.2,
         "homeCover": 69.1,
         "adjustments": {
           "neutralSite": false,
@@ -901,8 +916,8 @@
           "weatherTotal": 0
         },
         "awayCover": 30.9,
-        "overProb": 58.3,
-        "underProb": 41.7,
+        "overProb": 60.9,
+        "underProb": 39.1,
         "fairHomeMoneyline": -144,
         "fairAwayMoneyline": 144,
         "confidence": "Low",
@@ -1046,8 +1061,8 @@
         "winner": "Philadelphia Eagles",
         "homeWin": 31.9,
         "spread": 6.4,
-        "total": 41.6,
-        "homeScore": 18,
+        "total": 41.4,
+        "homeScore": 17,
         "awayScore": 24,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
@@ -1062,12 +1077,12 @@
           "awayDefense": 1.5
         },
         "marketMargin": -7,
-        "marketTotal": 40.5,
+        "marketTotal": 39.5,
         "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
         "spreadEdge": 0.6,
-        "totalEdge": 1.1,
+        "totalEdge": 1.9,
         "homeCover": 52.6,
         "adjustments": {
           "neutralSite": false,
@@ -1077,8 +1092,8 @@
           "weatherTotal": 0
         },
         "awayCover": 47.4,
-        "overProb": 53.8,
-        "underProb": 46.2,
+        "overProb": 56.6,
+        "underProb": 43.4,
         "fairHomeMoneyline": 213,
         "fairAwayMoneyline": -213,
         "confidence": "Low",
@@ -1660,7 +1675,7 @@
       "prediction": {
         "version": 4,
         "winner": "Los Angeles Chargers",
-        "homeWin": 61.7,
+        "homeWin": 61.8,
         "spread": -4.1,
         "total": 41.4,
         "homeScore": 23,
@@ -1695,8 +1710,8 @@
         "awayCover": null,
         "overProb": 42.8,
         "underProb": 57.2,
-        "fairHomeMoneyline": -161,
-        "fairAwayMoneyline": 161,
+        "fairHomeMoneyline": -162,
+        "fairAwayMoneyline": 162,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -1837,7 +1852,7 @@
         "version": 4,
         "winner": "Seattle Seahawks",
         "homeWin": 40.3,
-        "spread": 3.3,
+        "spread": 3.4,
         "total": 42.6,
         "homeScore": 20,
         "awayScore": 23,
@@ -1858,9 +1873,9 @@
         "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
-        "spreadEdge": 1.2,
+        "spreadEdge": 1.1,
         "totalEdge": 1.1,
-        "homeCover": 55.2,
+        "homeCover": 54.8,
         "adjustments": {
           "neutralSite": false,
           "homeField": 1.7,
@@ -1868,7 +1883,7 @@
           "venue": -0.5,
           "weatherTotal": 0
         },
-        "awayCover": 44.8,
+        "awayCover": 45.2,
         "overProb": 53.8,
         "underProb": 46.2,
         "fairHomeMoneyline": 148,
@@ -2188,7 +2203,7 @@
       "prediction": {
         "version": 4,
         "winner": "Green Bay Packers",
-        "homeWin": 60.9,
+        "homeWin": 61,
         "spread": -3.8,
         "total": 45,
         "homeScore": 24,
@@ -2283,7 +2298,7 @@
         "awayScore": 21,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 20.3,
         "awayDefense": 20.9,
@@ -3779,7 +3794,7 @@
         "awayScore": 22,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 21.7,
         "awayDefense": 18.9,
@@ -5532,7 +5547,7 @@
       "prediction": {
         "version": 4,
         "winner": "New York Jets",
-        "homeWin": 63.5,
+        "homeWin": 63.4,
         "spread": -4.7,
         "total": 40.7,
         "homeScore": 23,
@@ -5567,8 +5582,8 @@
         "awayCover": null,
         "overProb": 54.2,
         "underProb": 45.8,
-        "fairHomeMoneyline": -174,
-        "fairAwayMoneyline": 174,
+        "fairHomeMoneyline": -173,
+        "fairAwayMoneyline": 173,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -6245,7 +6260,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 22.9,
         "homeDefense": 22.4,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": 0.6,
@@ -6854,7 +6869,7 @@
         "winner": "New York Giants",
         "homeWin": 57.3,
         "spread": -2.5,
-        "total": 44.5,
+        "total": 44.4,
         "homeScore": 23,
         "awayScore": 21,
         "sample": 35,
@@ -6875,7 +6890,7 @@
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
         "spreadEdge": null,
-        "totalEdge": 0,
+        "totalEdge": -0.1,
         "homeCover": null,
         "adjustments": {
           "neutralSite": false,
@@ -6885,8 +6900,8 @@
           "weatherTotal": 0
         },
         "awayCover": null,
-        "overProb": 50,
-        "underProb": 50,
+        "overProb": 49.7,
+        "underProb": 50.3,
         "fairHomeMoneyline": -134,
         "fairAwayMoneyline": 134,
         "confidence": "Low",
@@ -7301,7 +7316,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 18.2,
         "homeDefense": 22.5,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": -2,
@@ -7996,7 +8011,7 @@
       "prediction": {
         "version": 4,
         "winner": "New York Jets",
-        "homeWin": 57.8,
+        "homeWin": 57.7,
         "spread": -2.7,
         "total": 42.5,
         "homeScore": 23,
@@ -8031,8 +8046,8 @@
         "awayCover": null,
         "overProb": 53.5,
         "underProb": 46.5,
-        "fairHomeMoneyline": -137,
-        "fairAwayMoneyline": 137,
+        "fairHomeMoneyline": -136,
+        "fairAwayMoneyline": 136,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -8883,7 +8898,7 @@
         "awayScore": 25,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 30.1,
         "awayDefense": 22.8,
@@ -9052,7 +9067,7 @@
       "prediction": {
         "version": 4,
         "winner": "Dallas Cowboys",
-        "homeWin": 54.8,
+        "homeWin": 54.9,
         "spread": -1.7,
         "total": 48.7,
         "homeScore": 25,
@@ -9087,8 +9102,8 @@
         "awayCover": 82.4,
         "overProb": 54.2,
         "underProb": 45.8,
-        "fairHomeMoneyline": -121,
-        "fairAwayMoneyline": 121,
+        "fairHomeMoneyline": -122,
+        "fairAwayMoneyline": 122,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -10461,7 +10476,7 @@
         "version": 4,
         "winner": "New Orleans Saints",
         "homeWin": 66.3,
-        "spread": -5.8,
+        "spread": -5.7,
         "total": 41.8,
         "homeScore": 24,
         "awayScore": 18,
@@ -10637,7 +10652,7 @@
         "version": 4,
         "winner": "Los Angeles Rams",
         "homeWin": 48.4,
-        "spread": 0.5,
+        "spread": 0.6,
         "total": 47,
         "homeScore": 23,
         "awayScore": 24,
@@ -11165,7 +11180,7 @@
         "version": 4,
         "winner": "Chicago Bears",
         "homeWin": 61.7,
-        "spread": -4.1,
+        "spread": -4,
         "total": 51.4,
         "homeScore": 28,
         "awayScore": 24,
@@ -11186,9 +11201,9 @@
         "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
-        "spreadEdge": 0.6,
+        "spreadEdge": 0.5,
         "totalEdge": 2.9,
-        "homeCover": 52.6,
+        "homeCover": 52.2,
         "adjustments": {
           "neutralSite": false,
           "homeField": 1.7,
@@ -11196,7 +11211,7 @@
           "venue": 0.4,
           "weatherTotal": 0
         },
-        "awayCover": 47.4,
+        "awayCover": 47.8,
         "overProb": 59.9,
         "underProb": 40.1,
         "fairHomeMoneyline": -161,
@@ -11261,7 +11276,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 26,
         "homeDefense": 20.2,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": 1.6,
@@ -11781,7 +11796,7 @@
         "version": 4,
         "winner": "Jacksonville Jaguars",
         "homeWin": 29.4,
-        "spread": 7.5,
+        "spread": 7.4,
         "total": 44.2,
         "homeScore": 18,
         "awayScore": 26,
@@ -12053,7 +12068,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 19.5,
         "homeDefense": 23.5,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": -1.6,
@@ -12572,7 +12587,7 @@
       "prediction": {
         "version": 4,
         "winner": "Houston Texans",
-        "homeWin": 63.6,
+        "homeWin": 63.5,
         "spread": -4.7,
         "total": 48.4,
         "homeScore": 27,
@@ -12607,8 +12622,8 @@
         "awayCover": 53.5,
         "overProb": 59.9,
         "underProb": 40.1,
-        "fairHomeMoneyline": -175,
-        "fairAwayMoneyline": 175,
+        "fairHomeMoneyline": -174,
+        "fairAwayMoneyline": 174,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -12660,14 +12675,14 @@
       "prediction": {
         "version": 4,
         "winner": "Buffalo Bills",
-        "homeWin": 75.7,
+        "homeWin": 75.6,
         "spread": -9.6,
         "total": 48.1,
         "homeScore": 29,
         "awayScore": 19,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 18.6,
         "awayDefense": 24.6,
@@ -12695,8 +12710,8 @@
         "awayCover": 58.3,
         "overProb": 52.1,
         "underProb": 47.9,
-        "fairHomeMoneyline": -312,
-        "fairAwayMoneyline": 312,
+        "fairHomeMoneyline": -310,
+        "fairAwayMoneyline": 310,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -13540,7 +13555,7 @@
       "prediction": {
         "version": 4,
         "winner": "San Francisco 49ers",
-        "homeWin": 51.8,
+        "homeWin": 51.7,
         "spread": -0.6,
         "total": 44.6,
         "homeScore": 23,
@@ -13987,7 +14002,7 @@
         "awayScore": 22,
         "sample": 34,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 21.7,
         "awayDefense": 19.3,
@@ -14244,7 +14259,7 @@
       "prediction": {
         "version": 4,
         "winner": "Cleveland Browns",
-        "homeWin": 50.2,
+        "homeWin": 50.3,
         "spread": -0.1,
         "total": 40,
         "homeScore": 20,
@@ -15036,7 +15051,7 @@
       "prediction": {
         "version": 4,
         "winner": "Tampa Bay Buccaneers",
-        "homeWin": 66.4,
+        "homeWin": 66.3,
         "spread": -5.8,
         "total": 49.7,
         "homeScore": 28,
@@ -15071,8 +15086,8 @@
         "awayCover": null,
         "overProb": 67.3,
         "underProb": 32.7,
-        "fairHomeMoneyline": -198,
-        "fairAwayMoneyline": 198,
+        "fairHomeMoneyline": -197,
+        "fairAwayMoneyline": 197,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -15126,7 +15141,7 @@
         "winner": "Los Angeles Rams",
         "homeWin": 51.5,
         "spread": -0.5,
-        "total": 43.7,
+        "total": 43.8,
         "homeScore": 22,
         "awayScore": 22,
         "sample": 34,
@@ -15147,7 +15162,7 @@
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
         "spreadEdge": null,
-        "totalEdge": -3.8,
+        "totalEdge": -3.7,
         "homeCover": null,
         "adjustments": {
           "neutralSite": false,
@@ -15157,8 +15172,8 @@
           "weatherTotal": 0
         },
         "awayCover": null,
-        "overProb": 37.1,
-        "underProb": 62.9,
+        "overProb": 37.4,
+        "underProb": 62.6,
         "fairHomeMoneyline": -106,
         "fairAwayMoneyline": 106,
         "confidence": "Low",
@@ -16006,7 +16021,7 @@
         "winner": "Minnesota Vikings",
         "homeWin": 73,
         "spread": -8.5,
-        "total": 47.5,
+        "total": 47.4,
         "homeScore": 28,
         "awayScore": 19,
         "sample": 35,
@@ -16027,7 +16042,7 @@
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
         "spreadEdge": 5,
-        "totalEdge": 5,
+        "totalEdge": 4.9,
         "homeCover": 70.6,
         "adjustments": {
           "neutralSite": false,
@@ -16037,8 +16052,8 @@
           "weatherTotal": 0
         },
         "awayCover": 29.4,
-        "overProb": 66.7,
-        "underProb": 33.3,
+        "overProb": 66.4,
+        "underProb": 33.6,
         "fairHomeMoneyline": -270,
         "fairAwayMoneyline": 270,
         "confidence": "Low",
@@ -16101,7 +16116,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 21.7,
         "homeDefense": 18.9,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": -0.2,
@@ -17509,7 +17524,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 23.7,
         "homeDefense": 25.1,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": 0.8,
@@ -17859,7 +17874,7 @@
         "awayScore": 25,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 32,
         "awayDefense": 26.8,
@@ -19269,7 +19284,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 24,
         "homeDefense": 18.3,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": 0.6,
@@ -20844,7 +20859,7 @@
       "prediction": {
         "version": 4,
         "winner": "Jacksonville Jaguars",
-        "homeWin": 69,
+        "homeWin": 68.9,
         "spread": -6.8,
         "total": 47.1,
         "homeScore": 27,
@@ -20879,8 +20894,8 @@
         "awayCover": null,
         "overProb": 45.2,
         "underProb": 54.8,
-        "fairHomeMoneyline": -223,
-        "fairAwayMoneyline": 223,
+        "fairHomeMoneyline": -222,
+        "fairAwayMoneyline": 222,
         "confidence": "Low",
         "history": {
           "seasons": [
@@ -21293,7 +21308,7 @@
         "createdAt": "2026-09-13T19:54:46.200Z",
         "homeOffense": 18.6,
         "homeDefense": 24.6,
-        "awayOffense": 30.8,
+        "awayOffense": 30.7,
         "awayDefense": 23.8,
         "power": {
           "homeOffense": -1.9,
@@ -21907,7 +21922,7 @@
         "awayScore": 19,
         "sample": 35,
         "createdAt": "2026-09-13T19:54:46.200Z",
-        "homeOffense": 30.8,
+        "homeOffense": 30.7,
         "homeDefense": 23.8,
         "awayOffense": 19.5,
         "awayDefense": 23.5,
@@ -23285,48 +23300,6 @@
   ],
   "events": [
     {
-      "id": "401872931",
-      "commence_time": "2026-09-15T00:15Z",
-      "home_team": "Kansas City Chiefs",
-      "away_team": "Denver Broncos",
-      "bookmakers": [
-        {
-          "key": "espn",
-          "title": "DraftKings",
-          "markets": [
-            {
-              "key": "totals",
-              "outcomes": [
-                {
-                  "name": "Over",
-                  "point": 42.5,
-                  "price": -110
-                },
-                {
-                  "name": "Under",
-                  "point": 42.5,
-                  "price": -110
-                }
-              ]
-            },
-            {
-              "key": "h2h",
-              "outcomes": [
-                {
-                  "name": "Kansas City Chiefs",
-                  "price": -130
-                },
-                {
-                  "name": "Denver Broncos",
-                  "price": 110
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "401872932",
       "commence_time": "2026-09-18T00:15Z",
       "home_team": "Buffalo Bills",
@@ -23334,7 +23307,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23391,7 +23364,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23413,13 +23386,13 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "point": 44.5,
-                  "price": -105
+                  "point": 43.5,
+                  "price": -118
                 },
                 {
                   "name": "Under",
-                  "point": 44.5,
-                  "price": -115
+                  "point": 43.5,
+                  "price": -102
                 }
               ]
             },
@@ -23448,7 +23421,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23505,7 +23478,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23527,13 +23500,13 @@
               "outcomes": [
                 {
                   "name": "Over",
-                  "point": 40.5,
-                  "price": -105
+                  "point": 39.5,
+                  "price": -110
                 },
                 {
                   "name": "Under",
-                  "point": 40.5,
-                  "price": -115
+                  "point": 39.5,
+                  "price": -110
                 }
               ]
             },
@@ -23562,7 +23535,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23619,7 +23592,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -23661,7 +23634,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -23703,7 +23676,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23760,7 +23733,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23817,7 +23790,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23854,11 +23827,11 @@
               "outcomes": [
                 {
                   "name": "Denver Broncos",
-                  "price": -142
+                  "price": -148
                 },
                 {
                   "name": "Jacksonville Jaguars",
-                  "price": 120
+                  "price": 124
                 }
               ]
             }
@@ -23874,7 +23847,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -23916,7 +23889,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -23973,7 +23946,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24030,7 +24003,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24072,7 +24045,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24114,7 +24087,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24136,11 +24109,11 @@
               "outcomes": [
                 {
                   "name": "Los Angeles Rams",
-                  "price": -345
+                  "price": -355
                 },
                 {
                   "name": "New York Giants",
-                  "price": 275
+                  "price": 280
                 }
               ]
             }
@@ -24156,7 +24129,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24198,7 +24171,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24255,7 +24228,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24312,7 +24285,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24369,7 +24342,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24426,7 +24399,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24468,7 +24441,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24510,7 +24483,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24567,7 +24540,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24624,7 +24597,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24666,7 +24639,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24708,7 +24681,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24750,7 +24723,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24807,7 +24780,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24849,7 +24822,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -24891,7 +24864,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -24948,7 +24921,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25005,7 +24978,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -25047,7 +25020,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25104,7 +25077,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25161,7 +25134,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25218,7 +25191,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -25260,7 +25233,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -25302,7 +25275,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -25344,7 +25317,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25401,7 +25374,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25458,7 +25431,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25515,7 +25488,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -25557,7 +25530,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -25599,7 +25572,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25656,7 +25629,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25713,7 +25686,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -25755,7 +25728,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25812,7 +25785,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25869,7 +25842,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25926,7 +25899,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -25983,7 +25956,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26040,7 +26013,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26097,7 +26070,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -26139,7 +26112,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26196,7 +26169,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -26238,7 +26211,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -26280,7 +26253,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -26322,7 +26295,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26379,7 +26352,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26436,7 +26409,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26493,7 +26466,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -26535,7 +26508,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26592,7 +26565,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -26634,7 +26607,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26691,7 +26664,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26748,7 +26721,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26805,7 +26778,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26862,7 +26835,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -26904,7 +26877,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -26961,7 +26934,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27003,7 +26976,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27045,7 +27018,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27087,7 +27060,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27144,7 +27117,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27186,7 +27159,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27228,7 +27201,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27285,7 +27258,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27342,7 +27315,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27384,7 +27357,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27441,7 +27414,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27498,7 +27471,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27540,7 +27513,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27582,7 +27555,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27639,7 +27612,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27696,7 +27669,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27753,7 +27726,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27810,7 +27783,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -27852,7 +27825,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27909,7 +27882,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -27966,7 +27939,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -28008,7 +27981,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28065,7 +28038,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28122,7 +28095,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28179,7 +28152,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28236,7 +28209,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -28278,7 +28251,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28335,7 +28308,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -28377,7 +28350,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -28419,7 +28392,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -28461,7 +28434,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28518,7 +28491,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28575,7 +28548,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28632,7 +28605,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28689,7 +28662,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28746,7 +28719,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28803,7 +28776,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28860,7 +28833,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -28902,7 +28875,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -28959,7 +28932,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29001,7 +28974,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29058,7 +29031,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29100,7 +29073,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29157,7 +29130,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29199,7 +29172,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29241,7 +29214,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29298,7 +29271,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29355,7 +29328,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29412,7 +29385,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29469,7 +29442,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29511,7 +29484,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29568,7 +29541,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29610,7 +29583,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29667,7 +29640,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29709,7 +29682,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29751,7 +29724,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29808,7 +29781,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -29850,7 +29823,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29907,7 +29880,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -29964,7 +29937,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -30006,7 +29979,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30063,7 +30036,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30120,7 +30093,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30177,7 +30150,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30234,7 +30207,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30291,7 +30264,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30348,7 +30321,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30405,7 +30378,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30462,7 +30435,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -30504,7 +30477,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -30546,7 +30519,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30603,7 +30576,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -30645,7 +30618,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30702,7 +30675,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30759,7 +30732,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -30801,7 +30774,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30858,7 +30831,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -30900,7 +30873,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -30957,7 +30930,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31014,7 +30987,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31071,7 +31044,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31128,7 +31101,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31185,7 +31158,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31242,7 +31215,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31299,7 +31272,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31356,7 +31329,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31413,7 +31386,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31470,7 +31443,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -31512,7 +31485,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -31554,7 +31527,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31611,7 +31584,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -31653,7 +31626,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -31695,7 +31668,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -31737,7 +31710,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31794,7 +31767,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31851,7 +31824,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -31908,7 +31881,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -31950,7 +31923,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -31992,7 +31965,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -32034,7 +32007,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -32076,7 +32049,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32133,7 +32106,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32190,7 +32163,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32247,7 +32220,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32304,7 +32277,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32361,7 +32334,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32418,7 +32391,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32475,7 +32448,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32532,7 +32505,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32589,7 +32562,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32646,7 +32619,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32703,7 +32676,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32760,7 +32733,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32817,7 +32790,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32874,7 +32847,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -32931,7 +32904,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -32973,7 +32946,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33030,7 +33003,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33072,7 +33045,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33129,7 +33102,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33171,7 +33144,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33213,7 +33186,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33255,7 +33228,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33312,7 +33285,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33369,7 +33342,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33411,7 +33384,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33468,7 +33441,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33510,7 +33483,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33567,7 +33540,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33609,7 +33582,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33651,7 +33624,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33708,7 +33681,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33765,7 +33738,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33822,7 +33795,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33879,7 +33852,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -33921,7 +33894,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -33978,7 +33951,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -34020,7 +33993,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34077,7 +34050,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34134,7 +34107,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34191,7 +34164,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34248,7 +34221,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -34290,7 +34263,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34347,7 +34320,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34404,7 +34377,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34461,7 +34434,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -34503,7 +34476,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -34545,7 +34518,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34602,7 +34575,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34659,7 +34632,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -34701,7 +34674,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -34743,7 +34716,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34800,7 +34773,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34857,7 +34830,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34914,7 +34887,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -34971,7 +34944,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35013,7 +34986,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35055,7 +35028,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35097,7 +35070,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35154,7 +35127,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35211,7 +35184,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35268,7 +35241,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35325,7 +35298,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35382,7 +35355,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35439,7 +35412,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35496,7 +35469,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35538,7 +35511,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35595,7 +35568,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35637,7 +35610,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35679,7 +35652,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35736,7 +35709,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35793,7 +35766,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35850,7 +35823,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35892,7 +35865,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -35949,7 +35922,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -35991,7 +35964,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -36033,7 +36006,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -36090,7 +36063,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -36147,7 +36120,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -36189,7 +36162,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -36246,7 +36219,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "totals",
@@ -36288,7 +36261,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -36345,7 +36318,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -36402,7 +36375,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
@@ -36459,7 +36432,7 @@
       "bookmakers": [
         {
           "key": "espn",
-          "title": "DraftKings",
+          "title": "Draft Kings",
           "markets": [
             {
               "key": "spreads",
