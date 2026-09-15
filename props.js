@@ -139,6 +139,11 @@
     const league=e.target.closest?.(".league-tab");if(league){const requested=league.dataset.league;if(requested==="nfl"||requested==="cfb"){selectedLeague=requested;localStorage.setItem("gridiron-league",requested);const holder=document.getElementById("propCards");if(holder)holder.innerHTML="";setTimeout(()=>loadProps(true,requested),50)}}
   });
 
+  const filterRow=document.querySelector(".prop-filter-row");
+  if(filterRow&&![...filterRow.querySelectorAll(".prop-filter")].some(button=>button.textContent.trim()==="Kicking")){
+    const kicking=document.createElement("button");
+    kicking.className="prop-filter";kicking.type="button";kicking.textContent="Kicking";filterRow.appendChild(kicking);
+  }
   installStyles();
   window.gridironProps={load:loadProps,setLeague:league=>{if(league==="nfl"||league==="cfb"){selectedLeague=league;return loadProps(true,league)}}};
   setTimeout(()=>loadProps(false,selectedLeague),500);
