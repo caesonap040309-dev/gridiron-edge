@@ -157,6 +157,7 @@
     kicking.className="prop-filter";kicking.type="button";kicking.textContent="Kicking";filterRow.appendChild(kicking);
   }
   installStyles();
-  window.gridironProps={load:loadProps,setLeague:league=>{if(league==="nfl"||league==="cfb"){selectedLeague=league;return loadProps(true,league)}}};\n  import("./ai-plays.js?v=20260915-1").catch(error=>console.error("AI plays failed to load",error));
+  window.gridironProps={load:loadProps,setLeague:league=>{if(league==="nfl"||league==="cfb"){selectedLeague=league;return loadProps(true,league)}}};
+  import("./ai-plays.js?v=20260915-2").catch(error=>console.error("AI plays failed to load",error));
   setTimeout(()=>loadProps(false,selectedLeague),500);
 })();
