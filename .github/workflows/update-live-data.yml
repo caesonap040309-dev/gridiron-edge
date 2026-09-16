@@ -11,6 +11,7 @@ on:
       - "scripts/update-nfl-data.mjs"
       - "scripts/merge-nfl-books.mjs"
       - "scripts/update-props.mjs"
+      - "scripts/grade-props.mjs"
       - ".github/workflows/update-live-data.yml"
   schedule:
     - cron: "17 10 * * *"
@@ -41,6 +42,7 @@ jobs:
           node scripts/update-nfl-data.mjs
           node scripts/merge-nfl-books.mjs
           node scripts/update-props.mjs
+          node scripts/grade-props.mjs
       - name: Publish changed data
         run: |
           git config user.name "gridiron-edge-bot"
