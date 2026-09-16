@@ -14,11 +14,11 @@
       if(!upcoming(game.date))continue;
       const p=game.prediction||{},market=p.market||{},books=Number(p.marketBooks)||0,q=quality(books);
       const homeProb=probability(p.homeWin),winnerProb=homeProb==null?null:(p.winner===game.home?homeProb:100-homeProb);
-      if(p.winner&&winnerProb!=null)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,edge:Math.abs(winnerProb-50),books,q,why:`The model projects ${p.winner} to win with a ${pct(winnerProb)} probability after opponent-adjusted scoring, venue, rest and weather inputs.`});
+      if(p.winner&&winnerProb!=null)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,edge:Math.abs(winnerProb-50),books,q,tier:p.confidence||confidence(winnerProb),why:`The model projects ${p.winner} to win with a ${pct(winnerProb)} probability after opponent-adjusted scoring, venue, rest and weather inputs.`});
       const homeCover=probability(p.homeCover),cover=homeCover==null?null:(market.spreadPick===game.home?homeCover:100-homeCover);
-      if(market.spreadPick&&market.homePoint!=null&&cover!=null)rows.push({type:"Spread",pick:`${market.spreadPick} ${market.spreadPick===game.home?(Number(market.homePoint)>0?"+":"")+market.homePoint:(Number(market.homePoint)<0?"+":"")+(-Number(market.homePoint))}`,matchup:`${game.away} @ ${game.home}`,prob:cover,edge:Math.abs(Number(p.spreadEdge)||0),books,q,why:`The projected margin differs from the available spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points.`});
+      if(market.spreadPick&&market.homePoint!=null&&cover!=null)rows.push({type:"Spread",pick:`${market.spreadPick} ${market.spreadPick===game.home?(Number(market.homePoint)>0?"+":"")+market.homePoint:(Number(market.homePoint)<0?"+":"")+(-Number(market.homePoint))}`,matchup:`${game.away} @ ${game.home}`,prob:cover,edge:Math.abs(Number(p.spreadEdge)||0),books,q,tier:p.confidence||confidence(cover),why:`The projected margin differs from the available spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points.`});
       const overProb=probability(p.overProb),totalProb=overProb==null?null:(market.totalPick==="Over"?overProb:100-overProb);
-      if((market.totalPick==="Over"||market.totalPick==="Under")&&market.total!=null&&totalProb!=null)rows.push({type:"Total",pick:`${market.totalPick} ${market.total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,edge:Math.abs(Number(p.totalEdge)||0),books,q,why:`The scoring projection differs from the posted total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points.`});
+      if((market.totalPick==="Over"||market.totalPick==="Under")&&market.total!=null&&totalProb!=null)rows.push({type:"Total",pick:`${market.totalPick} ${market.total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:p.confidence||confidence(totalProb),why:`The scoring projection differs from the posted total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points.`});
     }
     return rows;
   }
@@ -29,7 +29,7 @@
       if(!upcoming(p.commenceTime)||!weeklyMatchups.has(matchupKey(p.away,p.home)))continue;
       const prob=probability(p.hitProbability);if(prob==null)continue;
       const key=`${p.eventId}|${p.player}|${p.market}|${p.pick}`;
-      const row={type:"Player Prop",pick:`${p.player} ${p.pick} ${p.line}`,matchup:p.matchup,prob,edge:Math.abs(prob-50),books:1,q:quality(1),why:`The no-vig market estimate gives this side a ${pct(prob)} hit probability at ${p.provider}.`};
+      const row={type:"Player Prop",pick:`${p.player} ${p.pick} ${p.line}`,matchup:p.matchup,prob,edge:Math.abs(prob-50),books:1,q:quality(1),tier:p.confidence||confidence(prob),why:`The no-vig market estimate gives this side a ${pct(prob)} hit probability at ${p.provider}.`};
       if(!best.has(key)||prob>best.get(key).prob)best.set(key,row);
     }
     return [...best.values()];
@@ -57,7 +57,7 @@
     const weeklyMatchups=new Set(weeklyGames.map(game=>matchupKey(game.away,game.home)));
     const plays=[...gameCandidates(weeklyGames),...propCandidates(props,weeklyMatchups)].map(row=>({...row,score:Math.max(row.edge,Math.abs(row.prob-50))*row.q.weight})).sort((a,b)=>b.score-a.score).slice(0,10);
     const title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 AI Plays`;if(note)note.textContent=`Ranked only from Week ${selectedWeek} ${label} games, totals, moneylines and player props. Market-data quality is shown separately from model confidence.`;if(!list)return;
-    list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${confidence(p.prob).toLowerCase()}">${confidence(p.prob)}</small></div><div class="ai-metric"><span>Model edge</span><strong>${Number(p.edge).toFixed(1)}${p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"}</strong><small class="ai-quality">${p.q.label} market data · ${p.books||1} book${(p.books||1)===1?"":"s"}</small></div></article>`).join(""):`<div class="ai-empty">No eligible pregame plays are available for ${esc(label)} right now.</div>`;
+    list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${String(p.tier||confidence(p.prob)).toLowerCase()}">${p.tier||confidence(p.prob)}</small></div><div class="ai-metric"><span>Model edge</span><strong>${Number(p.edge).toFixed(1)}${p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"}</strong><small class="ai-quality">${p.q.label} market data · ${p.books||1} book${(p.books||1)===1?"":"s"}</small></div></article>`).join(""):`<div class="ai-empty">No eligible pregame plays are available for ${esc(label)} right now.</div>`;
   }
   window.gridironAI={load};
   installStyles();ensureUi();
