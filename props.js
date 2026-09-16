@@ -158,6 +158,6 @@
   }
   installStyles();
   window.gridironProps={load:loadProps,setLeague:league=>{if(league==="nfl"||league==="cfb"){selectedLeague=league;return loadProps(true,league)}}};
-  import("./ai-plays.js?v=20260916-2").catch(error=>console.error("AI plays failed to load",error));
+  import("./ai-plays.js?v=20260916-3").catch(error=>console.error("AI plays failed to load",error));
   setTimeout(()=>loadProps(false,selectedLeague),500);
 })();
