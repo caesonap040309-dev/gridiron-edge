@@ -362,7 +362,9 @@ for(const game of games){
   game.prediction=prediction;
 }
 await mkdir("data",{recursive:true});
+const confidenceDistribution=games.reduce((counts,game)=>{const level=game.prediction?.confidence||"Missing";counts[level]=(counts[level]||0)+1;return counts},{High:0,Medium:0,Low:0,Missing:0});
+const confidenceSamples=games.filter(game=>game.prediction).slice(0,8).map(game=>({game:`${game.away} at ${game.home}`,confidence:game.prediction.confidence,confidenceScore:game.prediction.confidenceScore,sample:game.prediction.sample,reliability:game.prediction.reliability,homeWin:game.prediction.homeWin,marketBooks:game.prediction.marketBooks,spreadEdge:game.prediction.spreadEdge,totalEdge:game.prediction.totalEdge,injuryUncertainty:game.prediction.injuryImpact?.uncertainty??null}));
 const sportsbookNames=[...new Set(events.flatMap(event=>(event.bookmakers||[]).map(book=>book.title||book.key)))].sort();
 const oddsSource=hasFreshMultiBook?(sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":"The Odds API multi-book"):usedCachedMultiBook?"Last available multi-book lines + ESPN fallback":"ESPN market fallback";
-await writeFile("data/nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),multiBookUpdatedAt:hasFreshMultiBook?new Date().toISOString():(previous.multiBookUpdatedAt||previous.updatedAt||null),oddsSource,feedHealth:{multiBookLive:hasFreshMultiBook,usedCachedMultiBook,sportsbookCount:sportsbookNames.length,sportsbooks:sportsbookNames},games,events},null,2)+"\n");
+await writeFile("data/nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),modelHealth:{confidenceDistribution,confidenceSamples},multiBookUpdatedAt:hasFreshMultiBook?new Date().toISOString():(previous.multiBookUpdatedAt||previous.updatedAt||null),oddsSource,feedHealth:{multiBookLive:hasFreshMultiBook,usedCachedMultiBook,sportsbookCount:sportsbookNames.length,sportsbooks:sportsbookNames},games,events},null,2)+"\n");
 console.log(`Saved NFL ${games.length} games and ${events.length} markets (${sportsGameOdds.length} SportsGameOdds + ${theOddsApi.length} The Odds API events)`);
