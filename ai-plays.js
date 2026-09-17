@@ -25,11 +25,11 @@
       if(!upcoming(game.date))continue;
       const p=game.prediction||{},market=p.market||{},books=Number(p.marketBooks)||0,q=quality(books);
       const homeProb=probability(p.homeWin),winnerProb=homeProb==null?null:(p.winner===game.home?homeProb:100-homeProb);
-      if(p.winner&&winnerProb!=null)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,edge:Math.abs(winnerProb-50),books,q,tier:p.confidence||confidence(winnerProb),why:`The model projects ${p.winner} to win with a ${pct(winnerProb)} probability after opponent-adjusted scoring, venue, rest and weather inputs.${injuryContext(game,p)}`});
+      if(p.winner&&winnerProb!=null)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,edge:Math.abs(winnerProb-50),books,q,tier:confidence(winnerProb),why:`The model projects ${p.winner} to win with a ${pct(winnerProb)} probability after opponent-adjusted scoring, venue, rest and weather inputs.${injuryContext(game,p)}`});
       const homeCover=probability(p.homeCover),cover=homeCover==null?null:(market.spreadPick===game.home?homeCover:100-homeCover);
-      if(market.spreadPick&&market.homePoint!=null&&cover!=null)rows.push({type:"Spread",pick:`${market.spreadPick} ${market.spreadPick===game.home?(Number(market.homePoint)>0?"+":"")+market.homePoint:(Number(market.homePoint)<0?"+":"")+(-Number(market.homePoint))}`,matchup:`${game.away} @ ${game.home}`,prob:cover,edge:Math.abs(Number(p.spreadEdge)||0),books,q,tier:p.confidence||confidence(cover),why:`The projected margin differs from the available spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points.${injuryContext(game,p)}`});
+      if(market.spreadPick&&market.homePoint!=null&&cover!=null)rows.push({type:"Spread",pick:`${market.spreadPick} ${market.spreadPick===game.home?(Number(market.homePoint)>0?"+":"")+market.homePoint:(Number(market.homePoint)<0?"+":"")+(-Number(market.homePoint))}`,matchup:`${game.away} @ ${game.home}`,prob:cover,edge:Math.abs(Number(p.spreadEdge)||0),books,q,tier:confidence(cover),why:`The projected margin differs from the available spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points.${injuryContext(game,p)}`});
       const overProb=probability(p.overProb),totalProb=overProb==null?null:(market.totalPick==="Over"?overProb:100-overProb);
-      if((market.totalPick==="Over"||market.totalPick==="Under")&&market.total!=null&&totalProb!=null)rows.push({type:"Total",pick:`${market.totalPick} ${market.total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:p.confidence||confidence(totalProb),why:`The scoring projection differs from the posted total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points.${injuryContext(game,p)}`});
+      if((market.totalPick==="Over"||market.totalPick==="Under")&&market.total!=null&&totalProb!=null)rows.push({type:"Total",pick:`${market.totalPick} ${market.total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:confidence(totalProb),why:`The scoring projection differs from the posted total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points.${injuryContext(game,p)}`});
     }
     return rows;
   }
@@ -40,7 +40,7 @@
       if(!upcoming(p.commenceTime)||!weeklyMatchups.has(matchupKey(p.away,p.home)))continue;
       const prob=probability(p.hitProbability);if(prob==null)continue;
       const key=`${p.eventId}|${p.player}|${p.market}|${p.pick}`;
-      const row={type:"Player Prop",pick:`${p.player} ${p.pick} ${p.line}`,matchup:p.matchup,prob,edge:Math.abs(prob-50),books:1,q:quality(1),tier:p.confidence||confidence(prob),why:`The no-vig market estimate gives this side a ${pct(prob)} hit probability at ${p.provider}.`};
+      const row={type:"Player Prop",pick:`${p.player} ${p.pick} ${p.line}`,matchup:p.matchup,prob,edge:Math.abs(prob-50),books:1,q:quality(1),tier:confidence(prob),why:`The no-vig market estimate gives this side a ${pct(prob)} hit probability at ${p.provider}.`};
       if(!best.has(key)||prob>best.get(key).prob)best.set(key,row);
     }
     return [...best.values()];
