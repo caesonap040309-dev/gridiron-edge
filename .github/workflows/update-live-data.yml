@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name "gridiron-edge-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/live.json data/nfl.json data/props-nfl.json data/props-cfb.json data/model-calibration.json
+          git add data/live.json data/nfl.json data/props-nfl.json data/props-cfb.json data/model-calibration.json data/model-health-cfb.json data/model-health-nfl.json
           git diff --cached --quiet && exit 0
           git commit -m "Update live football data"
           git pull --rebase origin main
