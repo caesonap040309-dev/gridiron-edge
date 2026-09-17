@@ -43,7 +43,6 @@ jobs:
           node scripts/update-data.mjs
           node scripts/update-nfl-data.mjs
           node scripts/merge-nfl-books.mjs
-          node scripts/update-props.mjs
           node scripts/grade-props.mjs
       - name: Publish changed data
         run: |
