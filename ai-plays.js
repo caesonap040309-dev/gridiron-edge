@@ -8,6 +8,16 @@
   const probability=value=>value==null||value===""?null:(Number.isFinite(Number(value))&&Number(value)>0&&Number(value)<100?Number(value):null);
 
   const matchupKey=(away,home)=>`${String(away||"").trim()}|${String(home||"").trim()}`;
+  let selectedSource=localStorage.getItem("gridiron-ai-source")==="props"?"props":"games";
+  const sourceLabel=()=>selectedSource==="props"?"Player Prop":"Game";
+
+  function rememberSource(source){
+    if(source!=="games"&&source!=="props")return;
+    selectedSource=source;
+    localStorage.setItem("gridiron-ai-source",source);
+    const button=document.querySelector('[data-market-view="ai"]');
+    if(button)button.textContent=source==="props"?"Top 10 Prop Plays":"Top 10 Game Plays";
+  }
 
   function gameCandidates(games){
     const rows=[];
@@ -44,6 +54,8 @@
     if(!document.querySelector('[data-market-view="ai"]'))document.querySelector(".market-mode-tabs")?.insertAdjacentHTML("beforeend",'<button class="market-mode-tab" type="button" role="tab" aria-selected="false" data-market-view="ai">Top 10 AI Plays</button>');
     if(!document.getElementById("aiView"))document.getElementById("propsView")?.insertAdjacentHTML("afterend",'<div id="aiView" class="view-hidden"><section class="ai-shell"><div class="ai-head"><div><p class="eyebrow">GRIDIRON EDGE 2.0</p><h2 id="aiTitle">Top 10 AI Plays</h2></div><label class="ai-week-control"><span>Week</span><select id="aiWeek" aria-label="AI plays week"></select></label><p id="aiNote">Ranking the strongest eligible pregame plays.</p></div><div id="aiPlays" class="ai-list" aria-live="polite"><div class="ai-empty">Loading the strongest available plays…</div></div></section></div>');
     const week=document.getElementById("aiWeek");if(week&&!week.dataset.aiBound){week.dataset.aiBound="true";week.addEventListener("change",load)}
+    document.querySelectorAll('[data-market-view="games"],[data-market-view="props"]').forEach(sourceButton=>{if(sourceButton.dataset.aiSourceBound)return;sourceButton.dataset.aiSourceBound="true";sourceButton.addEventListener("click",()=>{rememberSource(sourceButton.dataset.marketView);document.getElementById("aiView")?.classList.add("view-hidden")})});
+    const activeSource=document.querySelector('[data-market-view="games"].active,[data-market-view="props"].active')?.dataset.marketView;if(activeSource)rememberSource(activeSource);else rememberSource(selectedSource);
     const button=document.querySelector('[data-market-view="ai"]');if(button&&!button.dataset.aiBound){button.dataset.aiBound="true";button.addEventListener("click",()=>{document.getElementById("gamesView")?.classList.add("view-hidden");document.getElementById("propsView")?.classList.add("view-hidden");document.getElementById("aiView")?.classList.remove("view-hidden");document.querySelectorAll("[data-market-view]").forEach(item=>{const active=item===button;item.classList.toggle("active",active);item.setAttribute("aria-selected",active?"true":"false")});load()})}
   }
 
@@ -57,9 +69,10 @@
     const selectedWeek=String(weekSelect?.value||availableWeeks[0]||""),weeklyGames=allGames.filter(game=>String(game.week)===selectedWeek&&upcoming(game.date));
     const weeklyMatchups=new Set(weeklyGames.map(game=>matchupKey(game.away,game.home)));
     const confidenceRank={High:3,Medium:2,Low:1};
-    const plays=[...gameCandidates(weeklyGames),...propCandidates(props,weeklyMatchups)].map(row=>({...row,score:Math.max(row.edge,Math.abs(row.prob-50))*row.q.weight})).sort((a,b)=>(confidenceRank[b.tier]||0)-(confidenceRank[a.tier]||0)||b.q.weight-a.q.weight||b.score-a.score).slice(0,10);
-    const title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 AI Plays`;if(note)note.textContent=`Ranked only from Week ${selectedWeek} ${label} plays. Model confidence ranks first, followed by market-data quality and model edge.`;if(!list)return;
-    list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${String(p.tier||confidence(p.prob)).toLowerCase()}">${p.tier||confidence(p.prob)}</small></div><div class="ai-metric"><span>Model edge</span><strong>${Number(p.edge).toFixed(1)}${p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"}</strong><small class="ai-quality">${p.q.label} market data · ${p.books||1} book${(p.books||1)===1?"":"s"}</small></div></article>`).join(""):`<div class="ai-empty">No eligible pregame plays are available for ${esc(label)} right now.</div>`;
+    const candidates=selectedSource==="props"?propCandidates(props,weeklyMatchups):gameCandidates(weeklyGames);
+    const plays=candidates.map(row=>({...row,score:Math.max(row.edge,Math.abs(row.prob-50))*row.q.weight})).sort((a,b)=>(confidenceRank[b.tier]||0)-(confidenceRank[a.tier]||0)||b.q.weight-a.q.weight||b.score-a.score).slice(0,10);
+    const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 ${source} Plays`;if(note)note.textContent=`Ranked only from Week ${selectedWeek} ${label} ${source.toLowerCase()} plays. Model confidence ranks first, followed by market-data quality and model edge.`;if(!list)return;
+    list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${String(p.tier||confidence(p.prob)).toLowerCase()}">${p.tier||confidence(p.prob)}</small></div><div class="ai-metric"><span>Model edge</span><strong>${Number(p.edge).toFixed(1)}${p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"}</strong><small class="ai-quality">${p.q.label} market data · ${p.books||1} book${(p.books||1)===1?"":"s"}</small></div></article>`).join(""):`<div class="ai-empty">No eligible ${esc(source.toLowerCase())} plays are available for ${esc(label)} Week ${esc(selectedWeek)} right now.</div>`;
   }
   window.gridironAI={load};
   installStyles();ensureUi();
