@@ -40,7 +40,8 @@
       if(!upcoming(p.commenceTime)||!weeklyMatchups.has(matchupKey(p.away,p.home)))continue;
       const prob=probability(p.hitProbability);if(prob==null)continue;
       const key=`${p.eventId}|${p.player}|${p.market}|${p.pick}`;
-      const row={type:"Player Prop",pick:`${p.player} ${p.pick} ${p.line}`,matchup:p.matchup,prob,edge:Math.abs(prob-50),books:1,q:quality(1),tier:confidence(prob),why:`The no-vig market estimate gives this side a ${pct(prob)} hit probability at ${p.provider}.`};
+      const propName=p.marketLabel||p.market||"Player Prop";
+      const row={type:"Player Prop",pick:`${p.player} — ${propName}: ${p.pick} ${p.line}`,matchup:p.matchup,prob,edge:Math.abs(prob-50),books:1,q:quality(1),tier:confidence(prob),why:`The no-vig market estimate gives ${p.pick} ${p.line} for ${propName} a ${pct(prob)} hit probability at ${p.provider}.`};
       if(!best.has(key)||prob>best.get(key).prob)best.set(key,row);
     }
     return [...best.values()];
