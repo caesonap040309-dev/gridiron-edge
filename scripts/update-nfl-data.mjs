@@ -155,7 +155,7 @@ function snapshotMarket(game,prediction){
   const projectedMargin=Number(prediction.homeScore)-Number(prediction.awayScore);
   return {capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
 }
-const MODEL_VERSION=7; // confidence evidence fix
+const MODEL_VERSION=8; // calibrated injury uncertainty and confidence
 const LEAGUE_MEAN=22;
 const HOME_FIELD=1.7;
 const PRIOR_GAMES=4.5;
@@ -285,7 +285,7 @@ async function refreshInjuries(game){
 function injuryAdjustment(game){
   const home=game.injuries?.home||[],away=game.injuries?.away||[];
   const loss=list=>Math.min(7,list.reduce((sum,item)=>sum+(Number(item.expectedLoss)||0),0));
-  const uncertainty=list=>list.reduce((sum,item)=>{const p=(Number(item.availability)||0)/100;return sum+(Number(item.impact)||.55)*4*p*(1-p)},0);
+  const uncertainty=list=>[...list].filter(item=>(Number(item.impact)||0)>=.45).sort((a,b)=>(Number(b.impact)||0)-(Number(a.impact)||0)).slice(0,6).reduce((sum,item)=>{const p=(Number(item.availability)||0)/100;return sum+(Number(item.impact)||.55)*1.5*p*(1-p)},0);
   const homeLoss=loss(home),awayLoss=loss(away);
   return {homeLoss,awayLoss,margin:cap(awayLoss-homeLoss,-7,7),total:cap(-(homeLoss+awayLoss)*.16,-2.5,0),uncertainty:cap(uncertainty(home)+uncertainty(away),0,5),homeCount:home.length,awayCount:away.length,updatedAt:game.injuries?.updatedAt||null};
 }
@@ -335,8 +335,8 @@ for(const game of games){
   const strongSignal=winSignal>=12||maxEdge>=3.5;
   const mediumSignal=winSignal>=6||maxEdge>=1.5;
   const marketEvidenceOkay=market.bookCount===0||marketStable;
-  const highMarketEvidence=market.bookCount===0||market.bookCount>=2;
-  const confidence=evidenceGames>=5&&reliability>=.76&&injury.uncertainty<2.5&&marketEvidenceOkay&&highMarketEvidence&&strongSignal?"High":evidenceGames>=2&&reliability>=.64&&injury.uncertainty<4&&marketEvidenceOkay&&mediumSignal?"Medium":"Low";
+  const highMarketEvidence=market.bookCount===0||market.bookCount>=1;
+  const confidence=evidenceGames>=5&&reliability>=.72&&injury.uncertainty<2&&marketEvidenceOkay&&highMarketEvidence&&strongSignal?"High":evidenceGames>=2&&reliability>=.62&&injury.uncertainty<3.5&&marketEvidenceOkay&&mediumSignal?"Medium":"Low";
   const signalScore=Math.max(Math.min(1,winSignal/18),Math.min(1,maxEdge/4));
   const evidenceScore=Math.min(1,evidenceGames/6)*.45+Math.min(1,(market.bookCount||0)/3)*.25+(marketStable?.15:0)+reliability*.15;
   const confidenceScore=Math.round(cap((signalScore*.58+evidenceScore*.42-Math.min(.25,injury.uncertainty*.05))*100,0,100));
