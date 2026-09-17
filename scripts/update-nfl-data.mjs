@@ -155,7 +155,7 @@ function snapshotMarket(game,prediction){
   const projectedMargin=Number(prediction.homeScore)-Number(prediction.awayScore);
   return {capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
 }
-const MODEL_VERSION=6;
+const MODEL_VERSION=6; // injury-weighted availability model
 const LEAGUE_MEAN=22;
 const HOME_FIELD=1.7;
 const PRIOR_GAMES=4.5;
