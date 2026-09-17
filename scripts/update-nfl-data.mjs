@@ -50,7 +50,7 @@ async function fetchSportsGameOdds(){
 async function fetchTheOddsApi(){
   const key=(process.env.ODDS_API_KEY||process.env.THE_ODDS_API_KEY)?.trim();
   if(!key)return [];
-  const params=new URLSearchParams({apiKey:key,regions:"us,us2",markets:"h2h,spreads,totals",oddsFormat:"american",dateFormat:"iso"});
+  const params=new URLSearchParams({apiKey:key,bookmakers:"fanduel,draftkings,betmgm,caesars,hardrockbet,betrivers,espnbet,fanatics,bovada,betonlineag",markets:"h2h,spreads,totals",oddsFormat:"american",dateFormat:"iso"});
   const response=await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?${params}`);
   const payload=await response.json().catch(()=>null);
   if(!response.ok||!Array.isArray(payload))throw new Error(`The Odds API failed: ${response.status} ${payload?.message||""}`);
