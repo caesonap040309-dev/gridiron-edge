@@ -326,9 +326,18 @@ for(const game of games){
   const overProb=totalEdge==null?null:Math.round((50+(((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*100)-50)*reliability)*10)/10;
   const maxEdge=Math.max(Math.abs(spreadEdge||0),Math.abs(totalEdge||0));
   const marketStable=(market.spreadDeviation||0)<=1.25&&(market.totalDeviation||0)<=1.75;
-  // One available book should reduce certainty, but it should not force every
-  // otherwise meaningful model edge into the Low bucket.
-  const confidence=sample>=6&&market.bookCount>=2&&marketStable&&maxEdge>=4&&reliability>=.82&&injury.uncertainty<1.4?"High":sample>=3&&market.bookCount>=1&&marketStable&&maxEdge>=2&&injury.uncertainty<3?"Medium":"Low";
+  // Overall matchup confidence is not the same as sportsbook edge. The model
+  // blends toward consensus prices, so requiring a large post-blend edge made
+  // nearly every refreshed game Low even when the winner signal was strong.
+  const winSignal=Math.abs(homeWin-50);
+  const strongSignal=winSignal>=12||maxEdge>=3.5;
+  const mediumSignal=winSignal>=6||maxEdge>=1.5;
+  const marketEvidenceOkay=market.bookCount===0||marketStable;
+  const highMarketEvidence=market.bookCount===0||market.bookCount>=2;
+  const confidence=sample>=5&&reliability>=.76&&injury.uncertainty<2.5&&marketEvidenceOkay&&highMarketEvidence&&strongSignal?"High":sample>=2&&reliability>=.64&&injury.uncertainty<4&&marketEvidenceOkay&&mediumSignal?"Medium":"Low";
+  const signalScore=Math.max(Math.min(1,winSignal/18),Math.min(1,maxEdge/4));
+  const evidenceScore=Math.min(1,sample/6)*.45+Math.min(1,(market.bookCount||0)/3)*.25+(marketStable?.15:0)+reliability*.15;
+  const confidenceScore=Math.round(cap((signalScore*.58+evidenceScore*.42-Math.min(.25,injury.uncertainty*.05))*100,0,100));
   const prediction={
     version:MODEL_VERSION,winner:margin>=0?game.home:game.away,homeWin,
     spread:Math.round(-margin*10)/10,total:Math.round(projectedTotal*10)/10,
@@ -341,7 +350,7 @@ for(const game of games){
     adjustments:{neutralSite:game.neutralSite===true,homeField:Math.round(homeField*10)/10,rest:Math.round(restAdjustment*10)/10,venue:Math.round(venueAdjustment*10)/10,recentForm:Math.round(formAdjustment*10)/10,headToHead:Math.round(matchup.margin*10)/10,weatherTotal:weatherTotalAdjustment,injuryMargin:Math.round(injury.margin*10)/10,injuryTotal:Math.round(injury.total*10)/10},injuryImpact:{homeLoss:Math.round(injury.homeLoss*10)/10,awayLoss:Math.round(injury.awayLoss*10)/10,uncertainty:Math.round(injury.uncertainty*10)/10,homeCount:injury.homeCount,awayCount:injury.awayCount,updatedAt:injury.updatedAt},calibration:{reliability:Math.round(reliability*1000)/10,effectiveSample:sample,dailyFactor:Number(dailyCalibration.probabilityFactor)||1},
     awayCover:homeCover==null?null:Math.round((100-homeCover)*10)/10,
     overProb,underProb:overProb==null?null:Math.round((100-overProb)*10)/10,
-    fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence
+    fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence,confidenceScore,reliability:Math.round(reliability*1000)/1000
   };
   const teamHistory=[...historicalGames,...games.filter(item=>item.id!==game.id&&/final/i.test(item.status||""))];
   const relevant=teamHistory.filter(item=>item.home===game.home||item.away===game.home||item.home===game.away||item.away===game.away);
