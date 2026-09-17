@@ -313,7 +313,9 @@ for(const game of games){
   const rawMargin=rawHome-rawAway+restAdjustment+venueAdjustment+formAdjustment+matchup.margin+injury.margin;
   const weatherTotalAdjustment=weatherAdjustment(game);
   const rawTotal=rawHome+rawAway+weatherTotalAdjustment+matchup.total+injury.total;
-  const market=consensusMarket(game),sample=Math.round(Math.min(home.effectiveGames,away.effectiveGames)*10)/10;\n  const observedGames=Math.min(home.games||0,away.games||0);\n  const evidenceGames=Math.round(Math.max(sample,Math.min(8,observedGames*.35))*10)/10;
+  const market=consensusMarket(game),sample=Math.round(Math.min(home.effectiveGames,away.effectiveGames)*10)/10;
+  const observedGames=Math.min(home.games||0,away.games||0);
+  const evidenceGames=Math.round(Math.max(sample,Math.min(8,observedGames*.35))*10)/10;
   const baseMarketWeight=sample<2?.55:sample<4?.42:sample<7?.30:.20;
   const marketWeight=Math.min(.62,baseMarketWeight+(market.bookCount>=4?.08:market.bookCount>=2?.04:0));
   const margin=market.margin==null?rawMargin:rawMargin*(1-marketWeight)+market.margin*marketWeight;
