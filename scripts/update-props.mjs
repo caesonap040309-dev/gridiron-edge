@@ -1,3 +1,4 @@
+// Controlled paid-plan verification refresh
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const apiKey=process.env.ODDS_API_KEY?.trim();
