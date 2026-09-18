@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "47 * * * *"
+  push:
+    paths:
+      - "data/manual-prop-picks.json"
+      - "scripts/grade-props.mjs"
 
 permissions:
   contents: write
