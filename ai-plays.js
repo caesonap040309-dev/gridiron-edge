@@ -71,12 +71,12 @@
   function propCandidates(data,weeklyMatchups){
     const best=new Map();
     for(const p of data?.props||[]){
-      if(!upcoming(p.commenceTime)||!weeklyMatchups.has(matchupKey(p.away,p.home)))continue;
+      if(!upcoming(p.commenceTime)||!weeklyMatchups.has(matchupKey(p.away,p.home))||p.projectionType!=="hybrid"||Number(p.modelSample)<3)continue;
       const prob=probability(p.hitProbability);if(prob==null)continue;
       const key=`${p.eventId}|${p.player}|${p.market}|${p.pick}`;
-      const propName=p.marketLabel||p.market||"Player Prop";
-      const row={type:"Player Prop",pick:`${p.player} — ${propName}: ${p.pick} ${p.line}`,matchup:p.matchup,prob,edge:Math.abs(prob-50),books:1,q:quality(1),tier:confidence(prob),why:`The no-vig market estimate gives ${p.pick} ${p.line} for ${propName} a ${pct(prob)} hit probability at ${p.provider}.`};
-      if(!best.has(key)||prob>best.get(key).prob)best.set(key,row);
+      const propName=p.marketLabel||p.market||"Player Prop",stat=probability(p.statisticalProbability),market=probability(p.marketProbability);
+      const valueEdge=Number(p.valueEdge),row={type:"Player Prop",pick:`${p.player} — ${propName}: ${p.pick} ${p.line}`,matchup:p.matchup,prob,valueEdge:Number.isFinite(valueEdge)?valueEdge:0,edge:Number.isFinite(valueEdge)?valueEdge:Math.abs(prob-50),books:1,q:quality(1),tier:confidence(prob),why:`The blended projection is ${pct(prob)}: 50% independent statistical model (${pct(stat)}) and 50% no-vig market consensus (${pct(market)}), using ${Number(p.modelSample)} recent game logs. Projected result: ${p.modelProjection??"—"}.`};
+      if(!best.has(key)||row.valueEdge>best.get(key).valueEdge)best.set(key,row);
     }
     return [...best.values()];
   }
@@ -106,7 +106,7 @@
     const confidenceRank={High:3,Medium:2,Low:1};
     const candidates=selectedSource==="props"?propCandidates(props,weeklyMatchups):gameCandidates(weeklyGames,games?.events||[]);
     const plays=candidates.map(row=>{const value=Number(row.valueEdge),base=Number.isFinite(value)?value:Math.max(Number(row.edge)||0,Math.abs(Number(row.prob)-50));return {...row,score:base*row.q.weight}}).sort((a,b)=>(confidenceRank[b.tier]||0)-(confidenceRank[a.tier]||0)||b.score-a.score||b.prob-a.prob||b.q.weight-a.q.weight).slice(0,10);
-    const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 ${source} Plays`;if(note)note.textContent=`Ranked by confidence first, then value versus the sportsbook price. Standard-priced spreads and totals are prioritized; expensive moneylines are excluded.`;if(!list)return;
+    const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 ${source} Plays`;if(note)note.textContent=selectedSource==="props"?"Ranked from a 50/50 blend of independent recent-game statistics and no-vig sportsbook consensus. Props without enough game-log data are excluded.":"Ranked by confidence first, then value versus the sportsbook price. Standard-priced spreads and totals are prioritized; expensive moneylines are excluded.";if(!list)return;
     list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}${p.price!=null?` (${esc(odds(p.price))})`:""}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${String(p.tier||confidence(p.prob)).toLowerCase()}">${p.tier||confidence(p.prob)}</small></div><div class="ai-metric"><span>${p.valueEdge!=null?"Market-value edge":"Model edge"}</span><strong>${Number(p.valueEdge??p.edge).toFixed(1)}${p.valueEdge!=null||p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"}</strong><small class="ai-quality">${p.q.label} market data · ${p.books||1} book${(p.books||1)===1?"":"s"}</small></div></article>`).join(""):`<div class="ai-empty">No eligible ${esc(source.toLowerCase())} plays are available for ${esc(label)} Week ${esc(selectedWeek)} right now.</div>`;
   }
   window.gridironAI={load};
