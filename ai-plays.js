@@ -8,6 +8,20 @@
   const probability=value=>value==null||value===""?null:(Number.isFinite(Number(value))&&Number(value)>0&&Number(value)<100?Number(value):null);
 
   const matchupKey=(away,home)=>`${String(away||"").trim()}|${String(home||"").trim()}`;
+  const clean=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+  const odds=value=>{const n=Number(value);return Number.isFinite(n)?(n>0?`+${n}`:`${n}`):"—"};
+  const impliedProbability=value=>{const n=Number(value);if(!Number.isFinite(n)||n===0)return null;return n<0?(-n)/(-n+100)*100:100/(n+100)*100};
+  const eventFor=(events,game)=>(events||[]).find(event=>clean(event.home_team)===clean(game.home)&&clean(event.away_team)===clean(game.away));
+  function bestPrice(events,game,key,name,point=null){
+    const event=eventFor(events,game),offers=[];
+    for(const book of event?.bookmakers||[])for(const market of book.markets||[])if(market.key===key)for(const outcome of market.outcomes||[]){
+      if(clean(outcome.name)!==clean(name)||!Number.isFinite(Number(outcome.price)))continue;
+      if(point!=null&&Number.isFinite(Number(outcome.point))&&Math.abs(Number(outcome.point)-Number(point))>.01)continue;
+      offers.push(Number(outcome.price));
+    }
+    return offers.length?Math.max(...offers):null;
+  }
+  const standardPrice=price=>Number.isFinite(Number(price))&&Number(price)>=-125&&Number(price)<=125;
   let selectedSource=localStorage.getItem("gridiron-ai-source")==="props"?"props":"games";
   const sourceLabel=()=>selectedSource==="props"?"Player Prop":"Game";
 
@@ -19,17 +33,26 @@
     if(button)button.textContent=source==="props"?"Top 10 Prop Plays":"Top 10 Game Plays";
   }
 
-  function gameCandidates(games){
+  function gameCandidates(games,events){
     const rows=[];
     for(const game of games||[]){
       if(!upcoming(game.date))continue;
       const p=game.prediction||{},market=p.market||{},books=Number(p.marketBooks)||0,q=quality(books);
       const homeProb=probability(p.homeWin),winnerProb=homeProb==null?null:(p.winner===game.home?homeProb:100-homeProb);
-      if(p.winner&&winnerProb!=null)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,edge:Math.abs(winnerProb-50),books,q,tier:confidence(winnerProb),why:`The model projects ${p.winner} to win with a ${pct(winnerProb)} probability after opponent-adjusted scoring, venue, rest and weather inputs.${injuryContext(game,p)}`});
+      if(p.winner&&winnerProb!=null){
+        const price=bestPrice(events,game,"h2h",p.winner),implied=impliedProbability(price),valueEdge=implied==null?null:winnerProb-implied;
+        if(Number.isFinite(valueEdge)&&price>=-180&&price<=300&&valueEdge>=3)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,price,valueEdge,edge:valueEdge,books,q,tier:confidence(winnerProb),why:`The model gives ${p.winner} a ${pct(winnerProb)} win probability versus ${pct(implied)} implied by the best available ${odds(price)} price.${injuryContext(game,p)}`});
+      }
       const homeCover=probability(p.homeCover),cover=homeCover==null?null:(market.spreadPick===game.home?homeCover:100-homeCover);
-      if(market.spreadPick&&market.homePoint!=null&&cover!=null)rows.push({type:"Spread",pick:`${market.spreadPick} ${market.spreadPick===game.home?(Number(market.homePoint)>0?"+":"")+market.homePoint:(Number(market.homePoint)<0?"+":"")+(-Number(market.homePoint))}`,matchup:`${game.away} @ ${game.home}`,prob:cover,edge:Math.abs(Number(p.spreadEdge)||0),books,q,tier:confidence(cover),why:`The projected margin differs from the available spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points.${injuryContext(game,p)}`});
+      if(market.spreadPick&&market.homePoint!=null&&cover!=null){
+        const point=market.spreadPick===game.home?Number(market.homePoint):-Number(market.homePoint),price=bestPrice(events,game,"spreads",market.spreadPick,point)??market.spreadPrice,implied=impliedProbability(price),valueEdge=implied==null?null:cover-implied;
+        if(standardPrice(price)&&Number.isFinite(valueEdge)&&valueEdge>=2)rows.push({type:"Spread",pick:`${market.spreadPick} ${point>0?"+":""}${point}`,matchup:`${game.away} @ ${game.home}`,prob:cover,price,valueEdge,edge:Math.abs(Number(p.spreadEdge)||0),books,q,tier:confidence(cover),why:`The projected margin differs from this spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
+      }
       const overProb=probability(p.overProb),totalProb=overProb==null?null:(market.totalPick==="Over"?overProb:100-overProb);
-      if((market.totalPick==="Over"||market.totalPick==="Under")&&market.total!=null&&totalProb!=null)rows.push({type:"Total",pick:`${market.totalPick} ${market.total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:confidence(totalProb),why:`The scoring projection differs from the posted total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points.${injuryContext(game,p)}`});
+      if((market.totalPick==="Over"||market.totalPick==="Under")&&market.total!=null&&totalProb!=null){
+        const price=bestPrice(events,game,"totals",market.totalPick,market.total)??market.totalPrice,implied=impliedProbability(price),valueEdge=implied==null?null:totalProb-implied;
+        if(standardPrice(price)&&Number.isFinite(valueEdge)&&valueEdge>=2)rows.push({type:"Total",pick:`${market.totalPick} ${market.total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,price,valueEdge,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:confidence(totalProb),why:`The scoring projection differs from this total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
+      }
     }
     return rows;
   }
@@ -70,10 +93,10 @@
     const selectedWeek=String(weekSelect?.value||availableWeeks[0]||""),weeklyGames=allGames.filter(game=>String(game.week)===selectedWeek&&upcoming(game.date));
     const weeklyMatchups=new Set(weeklyGames.map(game=>matchupKey(game.away,game.home)));
     const confidenceRank={High:3,Medium:2,Low:1};
-    const candidates=selectedSource==="props"?propCandidates(props,weeklyMatchups):gameCandidates(weeklyGames);
-    const plays=candidates.map(row=>({...row,score:Math.max(row.edge,Math.abs(row.prob-50))*row.q.weight})).sort((a,b)=>(confidenceRank[b.tier]||0)-(confidenceRank[a.tier]||0)||b.q.weight-a.q.weight||b.score-a.score).slice(0,10);
-    const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 ${source} Plays`;if(note)note.textContent=`Ranked only from Week ${selectedWeek} ${label} ${source.toLowerCase()} plays. Model confidence ranks first, followed by market-data quality and model edge.`;if(!list)return;
-    list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${String(p.tier||confidence(p.prob)).toLowerCase()}">${p.tier||confidence(p.prob)}</small></div><div class="ai-metric"><span>Model edge</span><strong>${Number(p.edge).toFixed(1)}${p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"}</strong><small class="ai-quality">${p.q.label} market data · ${p.books||1} book${(p.books||1)===1?"":"s"}</small></div></article>`).join(""):`<div class="ai-empty">No eligible ${esc(source.toLowerCase())} plays are available for ${esc(label)} Week ${esc(selectedWeek)} right now.</div>`;
+    const candidates=selectedSource==="props"?propCandidates(props,weeklyMatchups):gameCandidates(weeklyGames,games?.events||[]);
+    const plays=candidates.map(row=>({...row,score:(Number(row.valueEdge)??Math.max(row.edge,Math.abs(row.prob-50)))*row.q.weight})).sort((a,b)=>b.score-a.score||(confidenceRank[b.tier]||0)-(confidenceRank[a.tier]||0)||b.q.weight-a.q.weight).slice(0,10);
+    const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 ${source} Plays`;if(note)note.textContent=`Ranked by value versus the sportsbook price. Standard-priced spreads and totals are prioritized; expensive moneylines are excluded.`;if(!list)return;
+    list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}${p.price!=null?` (${esc(odds(p.price))})`:""}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${String(p.tier||confidence(p.prob)).toLowerCase()}">${p.tier||confidence(p.prob)}</small></div><div class="ai-metric"><span>${p.valueEdge!=null?"Market-value edge":"Model edge"}</span><strong>${Number(p.valueEdge??p.edge).toFixed(1)}${p.valueEdge!=null||p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"}</strong><small class="ai-quality">${p.q.label} market data · ${p.books||1} book${(p.books||1)===1?"":"s"}</small></div></article>`).join(""):`<div class="ai-empty">No eligible ${esc(source.toLowerCase())} plays are available for ${esc(label)} Week ${esc(selectedWeek)} right now.</div>`;
   }
   window.gridironAI={load};
   installStyles();ensureUi();
