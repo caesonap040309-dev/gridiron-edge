@@ -22,6 +22,17 @@
     return offers.length?Math.max(...offers):null;
   }
   const standardPrice=price=>Number.isFinite(Number(price))&&Number(price)>=-125&&Number(price)<=125;
+  function consensusOffer(events,game,key,name){
+    const event=eventFor(events,game),offers=[];
+    for(const book of event?.bookmakers||[])for(const market of book.markets||[])if(market.key===key)for(const outcome of market.outcomes||[]){
+      if(clean(outcome.name)!==clean(name)||!Number.isFinite(Number(outcome.point))||!Number.isFinite(Number(outcome.price)))continue;
+      offers.push({point:Number(outcome.point),price:Number(outcome.price),book:book.title||book.key});
+    }
+    if(!offers.length)return null;
+    const counts=new Map();for(const offer of offers)counts.set(offer.point,(counts.get(offer.point)||0)+1);
+    const consensus=[...counts.entries()].sort((a,b)=>b[1]-a[1]||Math.abs(a[0])-Math.abs(b[0]))[0]?.[0];
+    return offers.filter(offer=>offer.point===consensus).sort((a,b)=>b.price-a.price)[0]||null;
+  }
   let selectedSource=localStorage.getItem("gridiron-ai-source")==="props"?"props":"games";
   const sourceLabel=()=>selectedSource==="props"?"Player Prop":"Game";
 
@@ -44,14 +55,14 @@
         if(Number.isFinite(valueEdge)&&price>=-180&&price<=300&&valueEdge>=3)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,price,valueEdge,edge:valueEdge,books,q,tier:confidence(winnerProb),why:`The model gives ${p.winner} a ${pct(winnerProb)} win probability versus ${pct(implied)} implied by the best available ${odds(price)} price.${injuryContext(game,p)}`});
       }
       const homeCover=probability(p.homeCover),cover=homeCover==null?null:(market.spreadPick===game.home?homeCover:100-homeCover);
-      if(market.spreadPick&&market.homePoint!=null&&cover!=null){
-        const point=market.spreadPick===game.home?Number(market.homePoint):-Number(market.homePoint),price=bestPrice(events,game,"spreads",market.spreadPick,point)??market.spreadPrice,implied=impliedProbability(price),valueEdge=implied==null?null:cover-implied;
+      if(market.spreadPick&&cover!=null){
+        const offer=consensusOffer(events,game,"spreads",market.spreadPick),point=offer?.point,price=offer?.price,implied=impliedProbability(price),valueEdge=implied==null?null:cover-implied;
         if(standardPrice(price)&&Number.isFinite(valueEdge)&&valueEdge>=2)rows.push({type:"Spread",pick:`${market.spreadPick} ${point>0?"+":""}${point}`,matchup:`${game.away} @ ${game.home}`,prob:cover,price,valueEdge,edge:Math.abs(Number(p.spreadEdge)||0),books,q,tier:confidence(cover),why:`The projected margin differs from this spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
       }
       const overProb=probability(p.overProb),totalProb=overProb==null?null:(market.totalPick==="Over"?overProb:100-overProb);
-      if((market.totalPick==="Over"||market.totalPick==="Under")&&market.total!=null&&totalProb!=null){
-        const price=bestPrice(events,game,"totals",market.totalPick,market.total)??market.totalPrice,implied=impliedProbability(price),valueEdge=implied==null?null:totalProb-implied;
-        if(standardPrice(price)&&Number.isFinite(valueEdge)&&valueEdge>=2)rows.push({type:"Total",pick:`${market.totalPick} ${market.total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,price,valueEdge,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:confidence(totalProb),why:`The scoring projection differs from this total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
+      if((market.totalPick==="Over"||market.totalPick==="Under")&&totalProb!=null){
+        const offer=consensusOffer(events,game,"totals",market.totalPick),total=offer?.point,price=offer?.price,implied=impliedProbability(price),valueEdge=implied==null?null:totalProb-implied;
+        if(Number.isFinite(total)&&standardPrice(price)&&Number.isFinite(valueEdge)&&valueEdge>=2)rows.push({type:"Total",pick:`${market.totalPick} ${total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,price,valueEdge,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:confidence(totalProb),why:`The scoring projection differs from this total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
       }
     }
     return rows;
