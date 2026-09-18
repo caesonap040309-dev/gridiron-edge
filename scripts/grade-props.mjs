@@ -25,6 +25,21 @@ function freezePregamePicks(data){
   return picks;
 }
 
+
+function mergeManualPicks(data,manual,league){
+  if(!data||!Array.isArray(manual))return;
+  const picks=Array.isArray(data.picks)?data.picks:[];
+  const byId=new Map(picks.map(p=>[p.id,p]));
+  for(const item of manual.filter(p=>p.league===league)){
+    if(!item.id||byId.has(item.id))continue;
+    const pick={...item};
+    delete pick.league;
+    picks.push({status:"pending",actual:null,gradedAt:null,...pick});
+    byId.set(pick.id,pick);
+  }
+  data.picks=picks;
+}
+
 function playerStats(summary){
   const players=new Map();
   const ensure=name=>{const key=clean(name);if(!players.has(key))players.set(key,{name,pass:{},rush:{},receive:{},kick:{}});return players.get(key)};
@@ -97,7 +112,9 @@ async function grade(data,schedule,league){
   return data;
 }
 
-const [nfl,cfb,nflSchedule,cfbSchedule]=await Promise.all([read("data/props-nfl.json"),read("data/props-cfb.json"),read("data/nfl.json"),read("data/live.json")]);
+const [nfl,cfb,nflSchedule,cfbSchedule,manualPicks]=await Promise.all([read("data/props-nfl.json"),read("data/props-cfb.json"),read("data/nfl.json"),read("data/live.json"),read("data/manual-prop-picks.json")]);
+mergeManualPicks(nfl,manualPicks,"nfl");
+mergeManualPicks(cfb,manualPicks,"cfb");
 if(nfl){await writeFile("data/props-nfl.json",JSON.stringify(await grade(nfl,nflSchedule,"nfl"),null,2))}
 if(cfb){await writeFile("data/props-cfb.json",JSON.stringify(await grade(cfb,cfbSchedule,"cfb"),null,2))}
 console.log(`Prop grading complete: NFL ${nfl?.record?.graded||0}, CFB ${cfb?.record?.graded||0}`);
