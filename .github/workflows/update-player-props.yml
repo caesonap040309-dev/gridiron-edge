@@ -3,7 +3,7 @@ name: Refresh player props
 on:
   workflow_dispatch:
   schedule:
-    - cron: "20 13 * * 0,1,3,5"
+    # Keep NFL + CFB prop boards current throughout game weeks.\n    - cron: "20 */3 * * *"
 
 permissions:
   contents: write
