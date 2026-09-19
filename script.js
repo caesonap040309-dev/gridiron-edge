@@ -16,7 +16,7 @@ function setupFilters(){
 }
 function rebuildWeeks(){
   const selected=$("week").value||"0"; $("week").innerHTML="";
-  for(let w=0;w<=leagueConfig().weeks;w++) $("week").add(new Option(w===0?"Upcoming with odds":"Week "+w,w,false,String(w)===selected));
+  for(let w=0;w<=leagueConfig().weeks;w++) $("week").add(new Option(w===0?"All games · Live first":"Week "+w,w,false,String(w)===selected));
   if(!$("week").value)$("week").value="0";
 }
 function applyLeagueUI(){
@@ -189,8 +189,9 @@ async function load(){
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
     state.odds=live.events||[]; state.allGames=(live.games||[]).filter(g=>String(g.season)===String(year)); $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
-    state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?state.odds.some(o=>o.id===g.id):String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
+    state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?true:String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     await refreshLiveGames(year,week);
+    state.games.sort((a,b)=>{const rank=g=>isLiveGame(g)?0:(g.statusCompleted||/final/i.test(g.status||""))?2:1;return rank(a)-rank(b)||new Date(a.date)-new Date(b.date)});
     populateBooks();render();renderModelRecords();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Latest data loaded";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
