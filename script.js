@@ -15,9 +15,11 @@ function setupFilters(){
   rebuildWeeks();
 }
 function rebuildWeeks(){
-  const selected=$("week").value||"0"; $("week").innerHTML="";
-  for(let w=0;w<=leagueConfig().weeks;w++) $("week").add(new Option(w===0?"All games · Live first":"Week "+w,w,false,String(w)===selected));
-  if(!$("week").value)$("week").value="0";
+  // Always default to the live-first board when the page or league loads. A
+  // specific week remains available only when the visitor deliberately picks it.
+  $("week").innerHTML="";
+  for(let w=0;w<=leagueConfig().weeks;w++) $("week").add(new Option(w===0?"Live + Upcoming + Final":"Week "+w,w,w===0,w===0));
+  $("week").value="0";
 }
 function applyLeagueUI(){
   const config=leagueConfig(),year=$("season").value||new Date().getFullYear();
