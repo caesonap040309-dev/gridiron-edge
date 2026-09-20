@@ -152,8 +152,17 @@ function populateBooks(){
   if(books.has(current))$("bookFilter").value=current;
 }
 async function refreshLiveGames(year,week){
-  const params=new URLSearchParams({limit:"100",dates:String(year),seasontype:"2"});
-  if(String(week)!=="0")params.set("week",String(week));
+  const params=new URLSearchParams({limit:"1000",seasontype:"2"});
+  if(String(week)!=="0"){
+    params.set("dates",String(year));
+    params.set("week",String(week));
+  }else{
+    const ymd=date=>date.toISOString().slice(0,10).replace(/-/g,"");
+    const now=new Date(),start=new Date(now),end=new Date(now);
+    start.setUTCDate(start.getUTCDate()-7);
+    end.setUTCDate(end.getUTCDate()+1);
+    params.set("dates",ymd(start)+"-"+ymd(end));
+  }
   try{
     const url=`https://site.api.espn.com/apis/site/v2/sports/football/${leagueConfig().summary}/scoreboard?${params}`;
     const response=await fetch(url,{cache:"no-store"});
@@ -180,7 +189,7 @@ async function refreshLiveGames(year,week){
       });
     }
     const apply=game=>Object.assign(game,updates.get(String(game.id))||{});
-    state.allGames.forEach(apply);state.games.forEach(apply);
+    state.seasonGames?.forEach(apply);state.allGames.forEach(apply);state.games.forEach(apply);
   }catch{}
 }
 async function load(){
