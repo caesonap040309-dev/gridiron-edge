@@ -90,7 +90,7 @@ function oddsEventFor(game){
 }
 function modelRecords(){
   const result={outright:{wins:0,losses:0,pushes:0},spread:{wins:0,losses:0,pushes:0},total:{wins:0,losses:0,pushes:0}};
-  for(const game of state.allGames){
+  for(const game of (state.seasonGames||state.allGames)){
     if(!/final/i.test(game.status||""))continue;
     const p=game.prediction||{},market=p.market;
     if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
@@ -125,7 +125,7 @@ function renderModelRecords(){
     $(prefix+"Sample").textContent=`${total} graded pick${total===1?"":"s"}`;
   };
   put("outright","outright");put("spread","spread");put("total","total");
-  $("performanceNote").textContent=`${leagueConfig().label} · ${$("season").value} season · Only saved pregame predictions are graded`;
+  $("performanceNote").textContent=`${leagueConfig().label} · ${$("season").value} season · All weeks combined · Only saved pregame predictions are graded`;
 }
 function render(){
   const query=$("teamSearch").value.trim().toLowerCase(); let moves=0,withOdds=0;
@@ -190,7 +190,7 @@ async function load(){
     const response=await fetch(`${leagueConfig().data}?t=${Date.now()}`,{cache:"no-store"});
     if(!response.ok)throw new Error("The live feed has not been generated yet.");
     const live=await response.json();
-    state.odds=live.events||[]; state.allGames=(live.games||[]).filter(g=>String(g.season)===String(year)); $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
+    state.odds=live.events||[]; state.seasonGames=(live.games||[]).filter(g=>String(g.season)===String(year)); state.allGames=state.seasonGames.map(game=>({...game})); $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?true:String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     await refreshLiveGames(year,week);
     state.games.sort((a,b)=>{const rank=g=>isLiveGame(g)?0:(g.statusCompleted||/final/i.test(g.status||""))?2:1;return rank(a)-rank(b)||new Date(a.date)-new Date(b.date)});
