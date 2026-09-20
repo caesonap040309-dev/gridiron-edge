@@ -318,11 +318,23 @@ for(const game of games){
   const injury=injuryAdjustment(game);
   const rawMargin=rawHome-rawAway+restAdjustment+venueAdjustment+formAdjustment+matchup.margin+injury.margin;
   const weatherTotalAdjustment=weatherAdjustment(game);
-  // Totals need more regression than sides in CFB: scoring is volatile and blowouts can\n  // badly inflate simple points-per-game estimates. Regress the independent scoring\n  // projection toward the league environment before weather/injury adjustments.\n  const scoringTotal=rawHome+rawAway;\n  const regressedScoringTotal=scoringTotal*(1-TOTAL_REGRESSION)+(LEAGUE_MEAN*2)*TOTAL_REGRESSION;\n  const rawTotal=regressedScoringTotal+weatherTotalAdjustment+matchup.total+injury.total;
+  // Totals need more regression than sides in CFB: scoring is volatile and blowouts can
+  // badly inflate simple points-per-game estimates. Regress the independent scoring
+  // projection toward the league environment before weather/injury adjustments.
+  const scoringTotal=rawHome+rawAway;
+  const regressedScoringTotal=scoringTotal*(1-TOTAL_REGRESSION)+(LEAGUE_MEAN*2)*TOTAL_REGRESSION;
+  const rawTotal=regressedScoringTotal+weatherTotalAdjustment+matchup.total+injury.total;
   const market=consensusMarket(game),sample=Math.round(Math.min(home.effectiveGames,away.effectiveGames)*10)/10;
   const observedGames=Math.min(home.games||0,away.games||0);
   const evidenceGames=Math.round(Math.max(sample,Math.min(8,observedGames*.35))*10)/10;
-  const baseMarketWeight=sample<2?.55:sample<4?.42:sample<7?.30:.20;\n  const spreadMarketWeight=Math.min(.62,baseMarketWeight+(market.bookCount>=4?.08:market.bookCount>=2?.04:0));\n  // Keep spread and total calibration separate. Totals get a little more consensus\n  // anchoring while the model is still learning team scoring/pace profiles.\n  const totalBaseMarketWeight=sample<2?.62:sample<4?.50:sample<7?.38:.27;\n  const totalMarketWeight=Math.min(.68,totalBaseMarketWeight+(market.bookCount>=4?.08:market.bookCount>=2?.04:0));\n  const margin=market.margin==null?rawMargin:rawMargin*(1-spreadMarketWeight)+market.margin*spreadMarketWeight;\n  const projectedTotal=market.total==null?rawTotal:rawTotal*(1-totalMarketWeight)+market.total*totalMarketWeight;
+  const baseMarketWeight=sample<2?.55:sample<4?.42:sample<7?.30:.20;
+  const spreadMarketWeight=Math.min(.62,baseMarketWeight+(market.bookCount>=4?.08:market.bookCount>=2?.04:0));
+  // Keep spread and total calibration separate. Totals get a little more consensus
+  // anchoring while the model is still learning team scoring/pace profiles.
+  const totalBaseMarketWeight=sample<2?.62:sample<4?.50:sample<7?.38:.27;
+  const totalMarketWeight=Math.min(.68,totalBaseMarketWeight+(market.bookCount>=4?.08:market.bookCount>=2?.04:0));
+  const margin=market.margin==null?rawMargin:rawMargin*(1-spreadMarketWeight)+market.margin*spreadMarketWeight;
+  const projectedTotal=market.total==null?rawTotal:rawTotal*(1-totalMarketWeight)+market.total*totalMarketWeight;
   const homePoints=Math.max(3,(projectedTotal+margin)/2),awayPoints=Math.max(3,(projectedTotal-margin)/2);
   const injuryReliability=Math.max(.78,1-injury.uncertainty*.04);
   const reliability=cap((.55+Math.min(sample,8)*.04+Math.min(market.bookCount||0,4)*.03)*cap(Number(dailyCalibration.probabilityFactor)||1,.8,1.08)*injuryReliability,.5,.95);
