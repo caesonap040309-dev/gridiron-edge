@@ -44,15 +44,18 @@ function gameAccent(game){return /^[0-9a-f]{6}$/i.test(game?.homeColor||"")?"#"+
 function hasLiveStatus(game){
   return game?.statusState==="in"||(!game?.statusCompleted&&/quarter|qtr|half|halftime|in progress|end of/i.test(game?.status||""));
 }
-function isStaleLive(game){
+function isPastGameWindow(game){
   const kickoff=new Date(game?.date).getTime();
-  return hasLiveStatus(game)&&Number.isFinite(kickoff)&&Date.now()-kickoff>8*60*60*1000;
+  return !game?.statusCompleted&&!/final/i.test(game?.status||"")&&Number.isFinite(kickoff)&&Date.now()-kickoff>8*60*60*1000;
+}
+function isStaleLive(game){
+  return hasLiveStatus(game)&&isPastGameWindow(game);
 }
 function isLiveGame(game){
-  return hasLiveStatus(game)&&!isStaleLive(game);
+  return hasLiveStatus(game)&&!isPastGameWindow(game);
 }
 function displayGameStatus(game){
-  return isStaleLive(game)?"Final status updating":(game?.status||"Scheduled");
+  return isPastGameWindow(game)?"Game ended · final score updating":(game?.status||"Scheduled");
 }
 function liveGameTracker(game){
   if(!isLiveGame(game))return "";
@@ -66,7 +69,7 @@ function liveGameTracker(game){
   const down=situation.downDistanceText||situation.possessionText||"Live game in progress";
   return `<div class="live-game-tracker" aria-label="Live game feed"><div class="live-tracker-head"><span><i></i> LIVE · ${esc(game.status||"In progress")}</span><strong>${esc(game.away)} ${awayScore}–${homeScore} ${esc(game.home)}</strong></div><div class="mini-field"><span class="endzone left"></span><span class="yard y20"></span><span class="yard y40"></span><span class="yard y60"></span><span class="yard y80"></span><b class="football" style="left:${ballPosition}%" title="Approximate ball position">◆</b></div><div class="live-situation"><b>${possessionTeam?`${esc(possessionTeam)} ball · `:""}${esc(down)}</b>${situation.lastPlay?`<small>${esc(situation.lastPlay)}</small>`:"<small>Waiting for the latest play…</small>"}</div></div>`;
 }
-function gradeSpread(game,p){const m=p?.market;if(!m||!(/final/i.test(game.status||""))||m.homePoint==null)return m?"PENDING":"";const adjusted=Number(game.homeScore)+Number(m.homePoint)-Number(game.awayScore);if(adjusted===0)return"PUSH";const homeCovered=adjusted>0;return((m.spreadPick===game.home)===homeCovered)?"COVERED":"MISSED"}
+function gradeSpread(game,p){const m=p?.market;if(isPastGameWindow(game))return "";if(!m||!(/final/i.test(game.status||""))||m.homePoint==null)return m?"PENDING":"";const adjusted=Number(game.homeScore)+Number(m.homePoint)-Number(game.awayScore);if(adjusted===0)return"PUSH";const homeCovered=adjusted>0;return((m.spreadPick===game.home)===homeCovered)?"COVERED":"MISSED"}
 function logo(url,name){return url?`<img class="team-logo" src="${esc(url)}" alt="${esc(name)} logo" loading="lazy">`:`<span class="team-logo fallback">${esc(String(name||"?").slice(0,2))}</span>`}
 function bestMarkets(event){
   const chosen=$("bookFilter").value;
@@ -212,7 +215,7 @@ async function load(){
     state.odds=live.events||[]; state.seasonGames=(live.games||[]).filter(g=>String(g.season)===String(year)); state.allGames=state.seasonGames.map(game=>({...game})); $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?true:String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     await refreshLiveGames(year,week);
-    state.games.sort((a,b)=>{const rank=g=>isLiveGame(g)?0:(g.statusCompleted||/final/i.test(g.status||"")||isStaleLive(g))?2:1;return rank(a)-rank(b)||new Date(a.date)-new Date(b.date)});
+    state.games.sort((a,b)=>{const rank=g=>isLiveGame(g)?0:(g.statusCompleted||/final/i.test(g.status||"")||isPastGameWindow(g))?2:1;return rank(a)-rank(b)||new Date(a.date)-new Date(b.date)});
     populateBooks();render();renderModelRecords();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Latest data loaded";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
@@ -364,7 +367,7 @@ async function openGame(id){
   const actualAwayScore=Number.isFinite(summaryAwayScore)?summaryAwayScore:(Number.isFinite(feedAwayScore)?feedAwayScore:null);
   const actualHomeScore=Number.isFinite(summaryHomeScore)?summaryHomeScore:(Number.isFinite(feedHomeScore)?feedHomeScore:null);
   const detailIsFinal=liveStatus.completed===true||/final/i.test(detailStatus);
-  const detailIsLive=!isStaleLive(game)&&(liveStatus.state==="in"||(!detailIsFinal&&/quarter|qtr|half|halftime|in progress|end of/i.test(detailStatus)));
+  const detailIsLive=!isPastGameWindow(game)&&(liveStatus.state==="in"||(!detailIsFinal&&/quarter|qtr|half|halftime|in progress|end of/i.test(detailStatus)));
   const showActualScore=(detailIsLive||detailIsFinal)&&actualAwayScore!=null&&actualHomeScore!=null;
   const scoreLabel=detailIsFinal?"FINAL SCORE":detailIsLive?"LIVE SCORE":"MODEL PREDICTION";
   const topAwayScore=showActualScore?actualAwayScore:(Number(p.awayScore)||0);
