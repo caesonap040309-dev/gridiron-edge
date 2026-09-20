@@ -41,8 +41,18 @@ function fmtTime(value){return new Intl.DateTimeFormat(undefined,{weekday:"short
 function signed(n){if(n==null)return "—";return `${n>0?"+":""}${n}`}
 function american(n){if(n==null)return "—";return `${n>0?"+":""}${n}`}
 function gameAccent(game){return /^[0-9a-f]{6}$/i.test(game?.homeColor||"")?"#"+game.homeColor:"#3cff8f"}
-function isLiveGame(game){
+function hasLiveStatus(game){
   return game?.statusState==="in"||(!game?.statusCompleted&&/quarter|qtr|half|halftime|in progress|end of/i.test(game?.status||""));
+}
+function isStaleLive(game){
+  const kickoff=new Date(game?.date).getTime();
+  return hasLiveStatus(game)&&Number.isFinite(kickoff)&&Date.now()-kickoff>8*60*60*1000;
+}
+function isLiveGame(game){
+  return hasLiveStatus(game)&&!isStaleLive(game);
+}
+function displayGameStatus(game){
+  return isStaleLive(game)?"Final status updating":(game?.status||"Scheduled");
 }
 function liveGameTracker(game){
   if(!isLiveGame(game))return "";
@@ -141,7 +151,7 @@ function render(){
     const isFinal=/final/i.test(g.status||"");
     const wasPregame=p.createdAt&&new Date(p.createdAt)<new Date(g.date);
     const final=isFinal?`<div class="final-strip"><div><span>Actual final score</span><strong>${esc(g.away)} ${Number(g.awayScore)}–${esc(g.home)} ${Number(g.homeScore)}</strong></div><div><span>${wasPregame?"Pregame prediction":"Prediction comparison"}</span><strong>${wasPregame?`${esc(g.away)} ${Number(p.awayScore)}–${esc(g.home)} ${Number(p.homeScore)}`:"Available for games predicted before kickoff"}</strong></div></div>`:"";
-    return `<article class="game" style="--team-color:${gameAccent(g)}" role="button" tabindex="0" data-game-id="${esc(g.id)}" aria-label="Open ${esc(g.away)} at ${esc(g.home)} details"><div class="matchup"><div class="card-top"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(g.status||"Scheduled")}</span>${cardGrade?`<span class="result-badge ${cardGrade.toLowerCase()}">${cardGrade}</span>`:""}</div><div class="teams"><div class="team">${logo(g.awayLogo,g.away)}<span>${esc(g.away)}</span><small>${isFinal?esc(g.awayScore):awaySpread?signed(awaySpread.point):""}</small></div><div class="team">${logo(g.homeLogo,g.home)}<span>${esc(g.home)}</span><small>${isFinal?esc(g.homeScore):homeSpread?signed(homeSpread.point):""}</small></div></div></div>${liveGameTracker(g)}<div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${homeSpread?esc(homeSpread.book):"Line unavailable"}${awaySpread?` · ${esc(g.away)} ${signed(awaySpread.point)} (${american(awaySpread.price)}) · ${esc(awaySpread.book)}`:""}</small></div><div class="market"><span>Total</span><strong>${over?`Over ${Number(over.point)} (${american(over.price)})`:"—"}</strong><small>${over?esc(over.book):"Line unavailable"}${under?` · Under ${Number(under.point)} (${american(under.price)}) · ${esc(under.book)}`:""}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${esc(g.away)} ${american(awayMl.price)} / ${esc(g.home)} ${american(homeMl?.price)}`:"—"}</strong><small>${awayMl?esc(awayMl.book):"Line unavailable"}${homeMl?` / ${esc(homeMl.book)}`:""}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}${final}</article>`;
+    return `<article class="game" style="--team-color:${gameAccent(g)}" role="button" tabindex="0" data-game-id="${esc(g.id)}" aria-label="Open ${esc(g.away)} at ${esc(g.home)} details"><div class="matchup"><div class="card-top"><span class="kickoff">${esc(fmtTime(g.date))} · ${esc(displayGameStatus(g))}</span>${cardGrade?`<span class="result-badge ${cardGrade.toLowerCase()}">${cardGrade}</span>`:""}</div><div class="teams"><div class="team">${logo(g.awayLogo,g.away)}<span>${esc(g.away)}</span><small>${isFinal?esc(g.awayScore):awaySpread?signed(awaySpread.point):""}</small></div><div class="team">${logo(g.homeLogo,g.home)}<span>${esc(g.home)}</span><small>${isFinal?esc(g.homeScore):homeSpread?signed(homeSpread.point):""}</small></div></div></div>${liveGameTracker(g)}<div class="market"><span>Spread</span><strong>${homeSpread?`${esc(g.home)} ${signed(homeSpread.point)} (${american(homeSpread.price)})`:"—"}</strong><small>${homeSpread?esc(homeSpread.book):"Line unavailable"}${awaySpread?` · ${esc(g.away)} ${signed(awaySpread.point)} (${american(awaySpread.price)}) · ${esc(awaySpread.book)}`:""}</small></div><div class="market"><span>Total</span><strong>${over?`Over ${Number(over.point)} (${american(over.price)})`:"—"}</strong><small>${over?esc(over.book):"Line unavailable"}${under?` · Under ${Number(under.point)} (${american(under.price)}) · ${esc(under.book)}`:""}</small></div><div class="market"><span>Moneyline</span><strong>${awayMl?`${esc(g.away)} ${american(awayMl.price)} / ${esc(g.home)} ${american(homeMl?.price)}`:"—"}</strong><small>${awayMl?esc(awayMl.book):"Line unavailable"}${homeMl?` / ${esc(homeMl.book)}`:""}</small></div><div class="movement"><span>Since last refresh</span><strong class="${move.cls}">${esc(move.text)}</strong><small class="pill">60 sec</small></div>${prediction}${final}</article>`;
   }).join("");
   $("gameCount").textContent=list.length; $("oddsCount").textContent=withOdds; $("moveCount").textContent=moves;
   $("empty").classList.toggle("hidden",list.length>0);
@@ -202,7 +212,7 @@ async function load(){
     state.odds=live.events||[]; state.seasonGames=(live.games||[]).filter(g=>String(g.season)===String(year)); state.allGames=state.seasonGames.map(game=>({...game})); $("dataCredit").textContent=`${leagueConfig().label} schedules and scores · Odds: ${live.oddsSource||"available sportsbook markets"}`;
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?true:String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     await refreshLiveGames(year,week);
-    state.games.sort((a,b)=>{const rank=g=>isLiveGame(g)?0:(g.statusCompleted||/final/i.test(g.status||""))?2:1;return rank(a)-rank(b)||new Date(a.date)-new Date(b.date)});
+    state.games.sort((a,b)=>{const rank=g=>isLiveGame(g)?0:(g.statusCompleted||/final/i.test(g.status||"")||isStaleLive(g))?2:1;return rank(a)-rank(b)||new Date(a.date)-new Date(b.date)});
     populateBooks();render();renderModelRecords();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Latest data loaded";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
@@ -354,7 +364,7 @@ async function openGame(id){
   const actualAwayScore=Number.isFinite(summaryAwayScore)?summaryAwayScore:(Number.isFinite(feedAwayScore)?feedAwayScore:null);
   const actualHomeScore=Number.isFinite(summaryHomeScore)?summaryHomeScore:(Number.isFinite(feedHomeScore)?feedHomeScore:null);
   const detailIsFinal=liveStatus.completed===true||/final/i.test(detailStatus);
-  const detailIsLive=liveStatus.state==="in"||(!detailIsFinal&&/quarter|qtr|half|halftime|in progress|end of/i.test(detailStatus));
+  const detailIsLive=!isStaleLive(game)&&(liveStatus.state==="in"||(!detailIsFinal&&/quarter|qtr|half|halftime|in progress|end of/i.test(detailStatus)));
   const showActualScore=(detailIsLive||detailIsFinal)&&actualAwayScore!=null&&actualHomeScore!=null;
   const scoreLabel=detailIsFinal?"FINAL SCORE":detailIsLive?"LIVE SCORE":"MODEL PREDICTION";
   const topAwayScore=showActualScore?actualAwayScore:(Number(p.awayScore)||0);
