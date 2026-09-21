@@ -1,26 +1,28 @@
 (()=>{
   const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const pct=value=>Number.isFinite(Number(value))?`${Number(value).toFixed(1)}%`:"—";
-  const confidence=prob=>prob>=60?"High":prob>=55?"Medium":"Low";
+  const confidence=prob=>prob>=62?"High":prob>=56?"Medium":"Low";
   const unitLabel=row=>row.units===3?"3 Units · Strongest":row.units===2?"2 Units · Strong":row.units===1?"1 Unit · Lean":"NO BET · Pass";
   function stakeFor(row){
     const prob=Number(row.prob)||0,value=Number(row.valueEdge)||0,edge=Math.abs(Number(row.edge)||0),books=Number(row.books)||0;
+    const uncertainty=Number(row.uncertainty)||0,disagreement=Number(row.disagreement)||0;
+    if(uncertainty>=2.75||disagreement>=2.25)return 0;
     if(row.type==="Spread"||row.type==="Total"){
-      if(books<2||prob<54||value<2||edge<2)return 0;
-      if(books>=3&&prob>=61&&value>=6&&edge>=4.5)return 3;
-      if(prob>=57&&value>=4&&edge>=3)return 2;
+      if(books<3||prob<55.5||value<3.5||edge<2.5)return 0;
+      if(books>=4&&prob>=62&&value>=7&&edge>=5)return 3;
+      if(prob>=58.5&&value>=5&&edge>=3.5)return 2;
       return 1;
     }
     if(row.type==="Moneyline"){
-      if(books<2||prob<56||value<3)return 0;
-      if(books>=3&&prob>=65&&value>=7)return 3;
-      if(prob>=60&&value>=5)return 2;
+      if(books<3||prob<57||value<4)return 0;
+      if(books>=4&&prob>=66&&value>=8)return 3;
+      if(prob>=61&&value>=6)return 2;
       return 1;
     }
     if(row.type==="Player Prop"){
-      if(Number(row.modelSample||0)<3||prob<55||value<2)return 0;
-      if(prob>=64&&value>=7&&Number(row.modelSample||0)>=5)return 3;
-      if(prob>=59&&value>=4)return 2;
+      if(Number(row.modelSample||0)<5||prob<57||value<3.5)return 0;
+      if(prob>=65&&value>=8&&Number(row.modelSample||0)>=7)return 3;
+      if(prob>=61&&value>=5&&Number(row.modelSample||0)>=6)return 2;
       return 1;
     }
     return 0;
@@ -75,17 +77,17 @@
       const homeProb=probability(p.homeWin),winnerProb=homeProb==null?null:(p.winner===game.home?homeProb:100-homeProb);
       if(p.winner&&winnerProb!=null){
         const price=bestPrice(events,game,"h2h",p.winner),implied=impliedProbability(price),valueEdge=implied==null?null:winnerProb-implied;
-        if(Number.isFinite(valueEdge)&&price>=-180&&price<=300&&valueEdge>=3)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,price,valueEdge,edge:valueEdge,books,q,tier:confidence(winnerProb),why:`The model gives ${p.winner} a ${pct(winnerProb)} win probability versus ${pct(implied)} implied by the best available ${odds(price)} price.${injuryContext(game,p)}`});
+        if(Number.isFinite(valueEdge)&&price>=-180&&price<=300)rows.push({type:"Moneyline",pick:p.winner,matchup:`${game.away} @ ${game.home}`,prob:winnerProb,price,valueEdge,edge:valueEdge,books,q,uncertainty:Number(p.injuryImpact?.uncertainty)||0,disagreement:Number(p.marketSpreadDeviation)||0,tier:p.confidence||confidence(winnerProb),why:`The model gives ${p.winner} a ${pct(winnerProb)} win probability versus ${pct(implied)} implied by the best available ${odds(price)} price.${injuryContext(game,p)}`});
       }
       const homeCover=probability(p.homeCover),cover=homeCover==null?null:(market.spreadPick===game.home?homeCover:100-homeCover);
       if(market.spreadPick&&cover!=null){
         const offer=consensusOffer(events,game,"spreads",market.spreadPick),point=offer?.point,price=offer?.price,implied=impliedProbability(price),valueEdge=implied==null?null:cover-implied;
-        if(standardPrice(price)&&Number.isFinite(valueEdge)&&valueEdge>=2)rows.push({type:"Spread",pick:`${market.spreadPick} ${point>0?"+":""}${point}`,matchup:`${game.away} @ ${game.home}`,prob:cover,price,valueEdge,edge:Math.abs(Number(p.spreadEdge)||0),books,q,tier:confidence(cover),why:`The projected margin differs from this spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
+        if(standardPrice(price)&&Number.isFinite(valueEdge))rows.push({type:"Spread",pick:`${market.spreadPick} ${point>0?"+":""}${point}`,matchup:`${game.away} @ ${game.home}`,prob:cover,price,valueEdge,edge:Math.abs(Number(p.spreadEdge)||0),books,q,uncertainty:Number(p.injuryImpact?.uncertainty)||0,disagreement:Number(p.marketSpreadDeviation)||0,tier:p.confidence||confidence(cover),why:`The projected margin differs from this spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
       }
       const overProb=probability(p.overProb),totalProb=overProb==null?null:(market.totalPick==="Over"?overProb:100-overProb);
       if((market.totalPick==="Over"||market.totalPick==="Under")&&totalProb!=null){
         const offer=consensusOffer(events,game,"totals",market.totalPick),total=offer?.point,price=offer?.price,implied=impliedProbability(price),valueEdge=implied==null?null:totalProb-implied;
-        if(Number.isFinite(total)&&standardPrice(price)&&Number.isFinite(valueEdge)&&valueEdge>=2)rows.push({type:"Total",pick:`${market.totalPick} ${total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,price,valueEdge,edge:Math.abs(Number(p.totalEdge)||0),books,q,tier:confidence(totalProb),why:`The scoring projection differs from this total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
+        if(Number.isFinite(total)&&standardPrice(price)&&Number.isFinite(valueEdge))rows.push({type:"Total",pick:`${market.totalPick} ${total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,price,valueEdge,edge:Math.abs(Number(p.totalEdge)||0),books,q,uncertainty:Number(p.injuryImpact?.uncertainty)||0,disagreement:Number(p.marketTotalDeviation)||0,tier:p.confidence||confidence(totalProb),why:`The scoring projection differs from this total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
       }
     }
     return rows;
@@ -126,10 +128,10 @@
     if(weekSelect){const previous=weekSelect.value,preferred=previous||((mainWeek&&mainWeek!=="0")?mainWeek:String(availableWeeks[0]??""));weekSelect.innerHTML=availableWeeks.map(week=>`<option value="${week}">Week ${week}</option>`).join("");if(availableWeeks.some(week=>String(week)===String(preferred)))weekSelect.value=String(preferred)}
     const selectedWeek=String(weekSelect?.value||availableWeeks[0]||""),weeklyGames=allGames.filter(game=>String(game.week)===selectedWeek&&upcoming(game.date));
     const weeklyMatchups=new Set(weeklyGames.map(game=>matchupKey(game.away,game.home)));
-    const confidenceRank={High:3,Medium:2,Low:1};
     const candidates=selectedSource==="props"?propCandidates(props,weeklyMatchups):selectedSource==="games"?gameCandidates(weeklyGames,games?.events||[]): [...gameCandidates(weeklyGames,games?.events||[]),...propCandidates(props,weeklyMatchups)];
-    const plays=candidates.map(row=>{const value=Number(row.valueEdge),base=Number.isFinite(value)?value:Math.max(Number(row.edge)||0,Math.abs(Number(row.prob)-50));const units=stakeFor(row);return {...row,units,score:base*row.q.weight}}).sort((a,b)=>(confidenceRank[b.tier]||0)-(confidenceRank[a.tier]||0)||b.score-a.score||b.prob-a.prob||b.q.weight-a.q.weight).slice(0,10);
-    const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Top 10 ${source} Plays`;if(note)note.textContent=selectedSource==="props"?"Ranked from a 50/50 blend of independent recent-game statistics and no-vig sportsbook consensus. Props without enough game-log data are excluded.":selectedSource==="games"?"Ranked by confidence first, then value versus the sportsbook price. Standard-priced spreads and totals are prioritized; expensive moneylines are excluded.":"One Top 10 board combining the strongest eligible plays. Model Confidence is independent of the Unit Rating. Confidence reflects the underlying football projection; units reflect current market value and stake guidance. Weak or noisy market spots are marked NO BET without changing model confidence.";if(!list)return;
+    const ranked=candidates.map(row=>{const value=Number(row.valueEdge),base=Number.isFinite(value)?value:Math.max(Number(row.edge)||0,Math.abs(Number(row.prob)-50));const units=stakeFor(row),riskPenalty=(Number(row.uncertainty)||0)*.7+(Number(row.disagreement)||0)*.6;return {...row,units,score:base*row.q.weight-riskPenalty}}).filter(row=>row.units>0).sort((a,b)=>b.units-a.units||b.score-a.score||b.prob-a.prob);
+    const plays=[];const usedGames=new Set();for(const row of ranked){if(row.type!=="Player Prop"&&usedGames.has(row.matchup))continue;plays.push(row);if(row.type!=="Player Prop")usedGames.add(row.matchup);if(plays.length===10)break}
+    const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Qualified ${source} Plays (${plays.length})`;if(note)note.textContent=selectedSource==="props"?"Only player props that clear the minimum sample, probability, and value thresholds are shown.":selectedSource==="games"?"Only games that clear probability, edge, multi-book, stability, and injury-uncertainty thresholds are shown. At most one play per matchup qualifies.":"A selective board of plays that clear every betting threshold. The board may contain fewer than 10 plays; weak spots are withheld instead of being promoted.";if(!list)return;
     list.innerHTML=plays.length?plays.map((p,i)=>`<article class="ai-play"><div class="ai-rank">#${i+1}</div><div class="ai-copy"><small>${esc(p.type)} · ${esc(p.matchup)}</small><h3>${esc(p.pick)}${p.price!=null?` (${esc(odds(p.price))})`:""}</h3><p>${esc(p.why)}</p></div><div class="ai-metric"><span>Estimated probability</span><strong>${pct(p.prob)}</strong><small class="result-badge ${String(p.tier||confidence(p.prob)).toLowerCase()}">${p.tier||confidence(p.prob)}</small></div><div class="ai-metric"><span>Bet rating</span><strong>${unitLabel(p)}</strong><small class="ai-quality">${p.units===0?"Model edge is below the bet threshold":`${p.valueEdge!=null?"Value":"Edge"} ${Number(p.valueEdge??p.edge).toFixed(1)}${p.valueEdge!=null||p.type==="Player Prop"||p.type==="Moneyline"?"%":" pts"} · ${p.q.label} data`}</small></div></article>`).join(""):`<div class="ai-empty">No eligible ${esc(source.toLowerCase())} plays are available for ${esc(label)} Week ${esc(selectedWeek)} right now.</div>`;
   }
   window.gridironAI={load};
