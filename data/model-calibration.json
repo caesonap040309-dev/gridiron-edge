@@ -1,61 +1,68 @@
 {
-  "updatedAt": "2026-09-21T21:12:37.174Z",
-  "method": "out-of-sample Brier shrinkage by market",
-  "minimumSample": 25,
+  "updatedAt": "2026-09-21T21:22:22.188Z",
+  "method": "recency-weighted Brier shrinkage by market",
+  "minimumSample": 12,
+  "recencyDecayDays": 70,
   "cfb": {
     "win": {
       "factor": 1.04,
       "sampleSize": 75,
-      "brierScore": 0.1181,
+      "effectiveSample": 72.8,
+      "brierScore": 0.1182,
       "calibratedBrierScore": 0.1112,
-      "status": "active"
+      "status": "active-shrunk"
     },
     "spread": {
-      "factor": 0.75,
+      "factor": 0.786,
       "sampleSize": 75,
-      "brierScore": 0.2608,
+      "effectiveSample": 72.8,
+      "brierScore": 0.2607,
       "calibratedBrierScore": 0.2468,
-      "status": "active"
+      "status": "active-shrunk"
     },
     "total": {
-      "factor": 0.792,
+      "factor": 0.821,
       "sampleSize": 75,
-      "brierScore": 0.2496,
+      "effectiveSample": 72.8,
+      "brierScore": 0.2495,
       "calibratedBrierScore": 0.2493,
-      "status": "active"
+      "status": "active-shrunk"
     },
     "probabilityFactor": 1.04,
-    "spreadProbabilityFactor": 0.75,
-    "totalProbabilityFactor": 0.792,
+    "spreadProbabilityFactor": 0.786,
+    "totalProbabilityFactor": 0.821,
     "sampleSize": 75,
-    "status": "active"
+    "status": "active-shrunk"
   },
   "nfl": {
     "win": {
-      "factor": 1,
+      "factor": 1.02,
       "sampleSize": 21,
-      "brierScore": 0.2331,
-      "calibratedBrierScore": 0.2331,
-      "status": "collecting-data"
+      "effectiveSample": 20.1,
+      "brierScore": 0.2333,
+      "calibratedBrierScore": 0.233,
+      "status": "active-shrunk"
     },
     "spread": {
-      "factor": 1,
+      "factor": 0.923,
       "sampleSize": 17,
-      "brierScore": 0.29,
-      "calibratedBrierScore": 0.29,
-      "status": "collecting-data"
+      "effectiveSample": 16.5,
+      "brierScore": 0.2877,
+      "calibratedBrierScore": 0.2677,
+      "status": "active-shrunk"
     },
     "total": {
-      "factor": 1,
+      "factor": 0.923,
       "sampleSize": 17,
-      "brierScore": 0.2527,
-      "calibratedBrierScore": 0.2527,
-      "status": "collecting-data"
+      "effectiveSample": 16.5,
+      "brierScore": 0.2529,
+      "calibratedBrierScore": 0.2513,
+      "status": "active-shrunk"
     },
-    "probabilityFactor": 1,
-    "spreadProbabilityFactor": 1,
-    "totalProbabilityFactor": 1,
+    "probabilityFactor": 1.02,
+    "spreadProbabilityFactor": 0.923,
+    "totalProbabilityFactor": 0.923,
     "sampleSize": 21,
-    "status": "collecting-data"
+    "status": "active-shrunk"
   }
 }
