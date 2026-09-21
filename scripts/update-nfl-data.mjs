@@ -119,6 +119,12 @@ const [sportsGameOdds,theOddsApi]=await Promise.all([
 ]);
 const multiBookEvents=[...sportsGameOdds,...theOddsApi];
 const freshSportsbooks=new Set(multiBookEvents.flatMap(event=>(event.bookmakers||[]).map(sportsbookIdentity)));
+const freshBooksByMatch=new Map();
+for(const event of multiBookEvents){
+  const match=`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`;
+  if(!freshBooksByMatch.has(match))freshBooksByMatch.set(match,new Set());
+  for(const book of event.bookmakers||[])freshBooksByMatch.get(match).add(sportsbookIdentity(book));
+}
 const hasFreshMultiBook=freshSportsbooks.size>1;
 if(multiBookEvents.length){
   const byMatch=new Map(events.map((event,index)=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,index]));
@@ -145,6 +151,9 @@ if(Array.isArray(previous.events)){
   }
 }
 const eventByTeams=new Map(events.map(event=>[`${cleanTeam(event.away_team)}|${cleanTeam(event.home_team)}`,event]));
+for(const [match,event] of eventByTeams){
+  event.freshBookmakers=[...(freshBooksByMatch.get(match)||[])];
+}
 function snapshotMarket(game,prediction){
   const event=eventByTeams.get(`${cleanTeam(game.away)}|${cleanTeam(game.home)}`);if(!event)return null;
   const offers=[];
@@ -228,13 +237,19 @@ function weatherAdjustment(game){
 function consensusMarket(game){
   const event=eventByTeams.get(`${cleanTeam(game.away)}|${cleanTeam(game.home)}`);
   if(!event)return {margin:null,total:null};
+  const fresh=new Set(event.freshBookmakers||[]);
+  const nonEspn=(event.bookmakers||[]).filter(book=>sportsbookIdentity(book)!=="espn"&&!sportsbookIdentity(book).includes("espnmarket"));
+  const freshBooks=nonEspn.filter(book=>fresh.has(sportsbookIdentity(book)));
+  const books=freshBooks.length>=2?freshBooks:(nonEspn.length?nonEspn:(event.bookmakers||[]));
   const homePoints=[],totals=[];
-  for(const book of event.bookmakers||[])for(const market of book.markets||[])for(const outcome of market.outcomes||[]){
+  const contributingBooks=new Set();
+  for(const book of books)for(const market of book.markets||[])for(const outcome of market.outcomes||[]){
     if(market.key==="spreads"&&outcome.name===game.home&&Number.isFinite(Number(outcome.point)))homePoints.push(Number(outcome.point));
     if(market.key==="totals"&&outcome.name==="Over"&&Number.isFinite(Number(outcome.point)))totals.push(Number(outcome.point));
+    if((market.key==="spreads"||market.key==="totals")&&Number.isFinite(Number(outcome.point)))contributingBooks.add(sportsbookIdentity(book));
   }
   const homePoint=median(homePoints);
-  return {margin:homePoint==null?null:-homePoint,total:median(totals),spreadDeviation:deviation(homePoints),totalDeviation:deviation(totals),bookCount:new Set((event.bookmakers||[]).map(book=>book.key)).size};
+  return {margin:homePoint==null?null:-homePoint,total:median(totals),spreadDeviation:deviation(homePoints),totalDeviation:deviation(totals),bookCount:contributingBooks.size};
 }
 
 const INJURY_POSITION_POINTS={QB:5.5,LT:1.15,RT:1.0,OL:0.85,G:0.75,C:0.8,WR:1.25,RB:0.85,TE:0.7,DE:0.75,DT:0.65,DL:0.65,LB:0.7,CB:0.95,S:0.8,DB:0.8,K:0.35,P:0.15};
