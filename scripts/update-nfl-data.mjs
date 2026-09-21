@@ -155,7 +155,7 @@ function snapshotMarket(game,prediction){
   const projectedMargin=Number(prediction.homeScore)-Number(prediction.awayScore);
   return {capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
 }
-const MODEL_VERSION=8; // calibrated injury uncertainty and confidence
+const MODEL_VERSION=9; // market-specific calibration and stricter uncertainty caps
 const LEAGUE_MEAN=22;
 const HOME_FIELD=1.7;
 const PRIOR_GAMES=4.5;
@@ -319,13 +319,15 @@ for(const game of games){
   const projectedTotal=market.total==null?rawTotal:rawTotal*(1-marketWeight)+market.total*marketWeight;
   const homePoints=Math.max(3,(projectedTotal+margin)/2),awayPoints=Math.max(3,(projectedTotal-margin)/2);
   const injuryReliability=Math.max(.78,1-injury.uncertainty*.04);
-  const reliability=cap((.55+Math.min(sample,8)*.04+Math.min(market.bookCount||0,4)*.03)*cap(Number(dailyCalibration.probabilityFactor)||1,.8,1.08)*injuryReliability,.5,.95);
+  const reliability=cap((.55+Math.min(sample,8)*.04+Math.min(market.bookCount||0,4)*.03)*cap(Number(dailyCalibration.probabilityFactor)||1,.68,1.04)*injuryReliability,.5,.92);
   const rawHomeWin=(1/(1+Math.exp(-margin/8.5)))*100;
   const homeWin=Math.round((50+(rawHomeWin-50)*reliability)*10)/10;
   const spreadEdge=market.margin==null?null:Math.round((margin-market.margin)*10)/10;
   const totalEdge=market.total==null?null:Math.round((projectedTotal-market.total)*10)/10;
-  const homeCover=spreadEdge==null?null:Math.round((50+(((1/(1+Math.exp(-spreadEdge/SPREAD_SCALE)))*100)-50)*reliability)*10)/10;
-  const overProb=totalEdge==null?null:Math.round((50+(((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*100)-50)*reliability)*10)/10;
+  const spreadCalibration=cap(Number(dailyCalibration.spreadProbabilityFactor)||1,.68,1.04);
+  const totalCalibration=cap(Number(dailyCalibration.totalProbabilityFactor)||1,.68,1.04);
+  const homeCover=spreadEdge==null?null:Math.round((50+(((1/(1+Math.exp(-spreadEdge/SPREAD_SCALE)))*100)-50)*reliability*spreadCalibration)*10)/10;
+  const overProb=totalEdge==null?null:Math.round((50+(((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*100)-50)*reliability*totalCalibration)*10)/10;
   const maxEdge=Math.max(Math.abs(spreadEdge||0),Math.abs(totalEdge||0));
   const marketStable=(market.spreadDeviation||0)<=1.25&&(market.totalDeviation||0)<=1.75;
   // Overall matchup confidence is not the same as sportsbook edge. The model
