@@ -73,19 +73,28 @@ function gradeSpread(game,p){const m=p?.market;if(isPastGameWindow(game))return 
 function logo(url,name){return url?`<img class="team-logo" src="${esc(url)}" alt="${esc(name)} logo" loading="lazy">`:`<span class="team-logo fallback">${esc(String(name||"?").slice(0,2))}</span>`}
 function bestMarkets(event){
   const chosen=$("bookFilter").value;
-  const books=(event?.bookmakers||[]).filter(book=>chosen==="all"||book.key===chosen);
+  const identity=book=>String(book?.title||book?.key||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+  const allBooks=event?.bookmakers||[];
+  const fresh=new Set(event?.freshBookmakers||[]);
+  const nonEspn=allBooks.filter(book=>identity(book)!=="espn"&&!identity(book).includes("espnmarket"));
+  const freshBooks=nonEspn.filter(book=>fresh.has(identity(book)));
+  const consensusBooks=freshBooks.length>=2?freshBooks:(nonEspn.length?nonEspn:allBooks);
+  const books=chosen==="all"?consensusBooks:allBooks.filter(book=>book.key===chosen);
   const offers={spreads:[],totals:[],h2h:[]};
   books.forEach(book=>(book.markets||[]).forEach(m=>(m.outcomes||[]).forEach(outcome=>{
     if(offers[m.key])offers[m.key].push({...outcome,book:book.title,bookKey:book.key});
   })));
   if(chosen!=="all")return Object.fromEntries(Object.entries(offers).map(([key,outcomes])=>[key,{outcomes}]));
+  const median=values=>{const clean=values.filter(value=>value!=null&&value!=="").map(Number).filter(Number.isFinite).sort((a,b)=>a-b);if(!clean.length)return null;const mid=Math.floor(clean.length/2);return clean.length%2?clean[mid]:(clean[mid-1]+clean[mid])/2};
+  const consensus=(outcomes,name,includePoint=true)=>{
+    const matching=outcomes.filter(o=>o.name===name);
+    if(!matching.length)return null;
+    const count=new Set(matching.map(o=>o.bookKey)).size;
+    return {name,point:includePoint?median(matching.map(o=>o.point)):undefined,price:median(matching.map(o=>o.price)),book:`Consensus · ${count} book${count===1?"":"s"}`};
+  };
   const names=[...new Set(offers.spreads.map(o=>o.name))];
-  const bestSpread=names.map(name=>offers.spreads.filter(o=>o.name===name).sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0]).filter(Boolean);
   const mlNames=[...new Set(offers.h2h.map(o=>o.name))];
-  const bestMoneyline=mlNames.map(name=>offers.h2h.filter(o=>o.name===name).sort((a,b)=>Number(b.price)-Number(a.price))[0]).filter(Boolean);
-  const over=offers.totals.filter(o=>o.name==="Over").sort((a,b)=>(Number(a.point)-Number(b.point))||(Number(b.price)-Number(a.price)))[0];
-  const under=offers.totals.filter(o=>o.name==="Under").sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0];
-  return {spreads:{outcomes:bestSpread},h2h:{outcomes:bestMoneyline},totals:{outcomes:[over,under].filter(Boolean)}};
+  return {spreads:{outcomes:names.map(name=>consensus(offers.spreads,name)).filter(Boolean)},h2h:{outcomes:mlNames.map(name=>consensus(offers.h2h,name,false)).filter(Boolean)},totals:{outcomes:[consensus(offers.totals,"Over"),consensus(offers.totals,"Under")].filter(Boolean)}};
 }
 function movementFor(id,markets){
   const spread=markets.spreads?.outcomes?.find(o=>o.name)?.point??null;
@@ -161,7 +170,7 @@ function render(){
 }
 function populateBooks(){
   const current=$("bookFilter").value; const books=new Map(); state.odds.forEach(e=>(e.bookmakers||[]).forEach(b=>books.set(b.key,b.title)));
-  $("bookFilter").innerHTML='<option value="all">Best available</option>'+[...books].sort((a,b)=>a[1].localeCompare(b[1])).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+  $("bookFilter").innerHTML='<option value="all">Consensus (current books)</option>'+[...books].sort((a,b)=>a[1].localeCompare(b[1])).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
   if(books.has(current))$("bookFilter").value=current;
 }
 async function refreshLiveGames(year,week){
