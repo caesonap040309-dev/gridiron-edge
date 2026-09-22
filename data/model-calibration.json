@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T02:28:44.742Z",
+  "updatedAt": "2026-09-22T03:28:49.089Z",
   "method": "recency-weighted Brier shrinkage by market",
   "minimumSample": 12,
   "recencyDecayDays": 70,
@@ -36,33 +36,33 @@
   },
   "nfl": {
     "win": {
-      "factor": 1.02,
-      "sampleSize": 21,
-      "effectiveSample": 20,
-      "brierScore": 0.2333,
-      "calibratedBrierScore": 0.233,
+      "factor": 1.021,
+      "sampleSize": 22,
+      "effectiveSample": 21,
+      "brierScore": 0.2303,
+      "calibratedBrierScore": 0.2297,
       "status": "active-shrunk"
     },
     "spread": {
-      "factor": 0.923,
-      "sampleSize": 17,
-      "effectiveSample": 16.5,
-      "brierScore": 0.2877,
-      "calibratedBrierScore": 0.2677,
+      "factor": 0.919,
+      "sampleSize": 18,
+      "effectiveSample": 17.5,
+      "brierScore": 0.2918,
+      "calibratedBrierScore": 0.27,
       "status": "active-shrunk"
     },
     "total": {
-      "factor": 0.923,
-      "sampleSize": 17,
-      "effectiveSample": 16.5,
-      "brierScore": 0.2529,
-      "calibratedBrierScore": 0.2513,
+      "factor": 0.919,
+      "sampleSize": 18,
+      "effectiveSample": 17.5,
+      "brierScore": 0.25,
+      "calibratedBrierScore": 0.2497,
       "status": "active-shrunk"
     },
-    "probabilityFactor": 1.02,
-    "spreadProbabilityFactor": 0.923,
-    "totalProbabilityFactor": 0.923,
-    "sampleSize": 21,
+    "probabilityFactor": 1.021,
+    "spreadProbabilityFactor": 0.919,
+    "totalProbabilityFactor": 0.919,
+    "sampleSize": 22,
     "status": "active-shrunk"
   }
 }
