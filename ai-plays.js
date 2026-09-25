@@ -7,6 +7,7 @@
     const prob=Number(row.prob)||0,value=Number(row.valueEdge)||0,edge=Math.abs(Number(row.edge)||0),books=Number(row.books)||0;
     const uncertainty=Number(row.uncertainty)||0,disagreement=Number(row.disagreement)||0;
     if(uncertainty>=2.75||disagreement>=2.25)return 0;
+    if((row.type==="Moneyline"||row.type==="Spread"||row.type==="Total")&&row.tier==="Low")return 0;
     if(row.type==="Spread"||row.type==="Total"){
       if(books<3||prob<55.5||value<3.5||edge<2.5)return 0;
       if(books>=4&&prob>=62&&value>=7&&edge>=5)return 3;
