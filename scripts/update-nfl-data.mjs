@@ -164,7 +164,7 @@ function snapshotMarket(game,prediction){
   const projectedMargin=Number(prediction.homeScore)-Number(prediction.awayScore);
   return {capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
 }
-const MODEL_VERSION=9; // market-specific calibration and stricter uncertainty caps
+const MODEL_VERSION=10; // market-specific confidence and calibration
 const LEAGUE_MEAN=22;
 const HOME_FIELD=1.7;
 const PRIOR_GAMES=4.5;
@@ -349,11 +349,15 @@ for(const game of games){
   // blends toward consensus prices, so requiring a large post-blend edge made
   // nearly every refreshed game Low even when the winner signal was strong.
   const winSignal=Math.abs(homeWin-50);
-  const strongSignal=winSignal>=12||maxEdge>=3.5;
-  const mediumSignal=winSignal>=6||maxEdge>=1.5;
+  const strongSignal=winSignal>=16;
+  const mediumSignal=winSignal>=8;
   const marketEvidenceOkay=market.bookCount===0||marketStable;
   const highMarketEvidence=market.bookCount===0||market.bookCount>=1;
-  const confidence=evidenceGames>=5&&reliability>=.72&&injury.uncertainty<2&&marketEvidenceOkay&&highMarketEvidence&&strongSignal?"High":evidenceGames>=2&&reliability>=.62&&injury.uncertainty<3.5&&marketEvidenceOkay&&mediumSignal?"Medium":"Low";
+  const moneylineConfidence=evidenceGames>=5&&reliability>=.75&&injury.uncertainty<1.5&&marketEvidenceOkay&&strongSignal?"High":evidenceGames>=2&&reliability>=.62&&injury.uncertainty<3.5&&marketEvidenceOkay&&mediumSignal?"Medium":"Low";
+  const spreadSignal=Math.abs((homeCover??50)-50),totalSignal=Math.abs((overProb??50)-50);
+  const spreadConfidence=spreadEdge!=null&&market.bookCount>=3&&marketStable&&evidenceGames>=6&&reliability>=.75&&injury.uncertainty<1.5&&Math.abs(spreadEdge)>=4&&spreadSignal>=5?"High":spreadEdge!=null&&market.bookCount>=2&&marketStable&&evidenceGames>=3&&reliability>=.64&&injury.uncertainty<3&&Math.abs(spreadEdge)>=2.5&&spreadSignal>=3?"Medium":"Low";
+  const totalConfidence=totalEdge!=null&&market.bookCount>=3&&marketStable&&evidenceGames>=6&&reliability>=.75&&injury.uncertainty<1.5&&Math.abs(totalEdge)>=4&&totalSignal>=5?"High":totalEdge!=null&&market.bookCount>=2&&marketStable&&evidenceGames>=3&&reliability>=.64&&injury.uncertainty<3&&Math.abs(totalEdge)>=2.5&&totalSignal>=3?"Medium":"Low";
+  const confidence=moneylineConfidence;
   const signalScore=Math.max(Math.min(1,winSignal/18),Math.min(1,maxEdge/4));
   const evidenceScore=Math.min(1,evidenceGames/6)*.45+Math.min(1,(market.bookCount||0)/3)*.25+(marketStable?.15:0)+reliability*.15;
   const confidenceScore=Math.round(cap((signalScore*.58+evidenceScore*.42-Math.min(.25,injury.uncertainty*.05))*100,0,100));
@@ -369,7 +373,7 @@ for(const game of games){
     adjustments:{neutralSite:game.neutralSite===true,homeField:Math.round(homeField*10)/10,rest:Math.round(restAdjustment*10)/10,venue:Math.round(venueAdjustment*10)/10,recentForm:Math.round(formAdjustment*10)/10,headToHead:Math.round(matchup.margin*10)/10,weatherTotal:weatherTotalAdjustment,injuryMargin:Math.round(injury.margin*10)/10,injuryTotal:Math.round(injury.total*10)/10},injuryImpact:{homeLoss:Math.round(injury.homeLoss*10)/10,awayLoss:Math.round(injury.awayLoss*10)/10,uncertainty:Math.round(injury.uncertainty*10)/10,homeCount:injury.homeCount,awayCount:injury.awayCount,updatedAt:injury.updatedAt},calibration:{reliability:Math.round(reliability*1000)/10,effectiveSample:sample,dailyFactor:Number(dailyCalibration.probabilityFactor)||1},
     awayCover:homeCover==null?null:Math.round((100-homeCover)*10)/10,
     overProb,underProb:overProb==null?null:Math.round((100-overProb)*10)/10,
-    fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence,confidenceScore,reliability:Math.round(reliability*1000)/1000
+    fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence,confidenceByMarket:{moneyline:moneylineConfidence,spread:spreadConfidence,total:totalConfidence},confidenceScore,reliability:Math.round(reliability*1000)/1000
   };
   const teamHistory=[...historicalGames,...games.filter(item=>item.id!==game.id&&/final/i.test(item.status||""))];
   const relevant=teamHistory.filter(item=>item.home===game.home||item.away===game.home||item.home===game.away||item.away===game.away);
@@ -382,7 +386,7 @@ for(const game of games){
 }
 await mkdir("data",{recursive:true});
 const confidenceDistribution=games.reduce((counts,game)=>{const level=game.prediction?.confidence||"Missing";counts[level]=(counts[level]||0)+1;return counts},{High:0,Medium:0,Low:0,Missing:0});
-const confidenceSamples=games.filter(game=>game.prediction&&new Date(game.date)>now).slice(0,12).map(game=>({game:`${game.away} at ${game.home}`,confidence:game.prediction.confidence,confidenceScore:game.prediction.confidenceScore,sample:game.prediction.sample,evidenceGames:game.prediction.evidenceGames,observedGames:game.prediction.observedGames,reliability:game.prediction.reliability,homeWin:game.prediction.homeWin,marketBooks:game.prediction.marketBooks,spreadEdge:game.prediction.spreadEdge,totalEdge:game.prediction.totalEdge,injuryUncertainty:game.prediction.injuryImpact?.uncertainty??null}));
+const confidenceSamples=games.filter(game=>game.prediction&&new Date(game.date)>now).slice(0,12).map(game=>({game:`${game.away} at ${game.home}`,confidence:game.prediction.confidence,confidenceByMarket:game.prediction.confidenceByMarket,confidenceScore:game.prediction.confidenceScore,sample:game.prediction.sample,evidenceGames:game.prediction.evidenceGames,observedGames:game.prediction.observedGames,reliability:game.prediction.reliability,homeWin:game.prediction.homeWin,marketBooks:game.prediction.marketBooks,spreadEdge:game.prediction.spreadEdge,totalEdge:game.prediction.totalEdge,injuryUncertainty:game.prediction.injuryImpact?.uncertainty??null}));
 const sportsbookNames=[...new Set(events.flatMap(event=>(event.bookmakers||[]).map(book=>book.title||book.key)))].sort();
 const oddsSource=hasFreshMultiBook?(sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":"The Odds API multi-book"):usedCachedMultiBook?"Last available multi-book lines + ESPN fallback":"ESPN market fallback";
 await writeFile("data/model-health-nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),confidenceDistribution,confidenceSamples},null,2)+"\n");
