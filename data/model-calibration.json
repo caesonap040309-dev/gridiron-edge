@@ -1,44 +1,44 @@
 {
-  "updatedAt": "2026-09-26T01:26:35.043Z",
+  "updatedAt": "2026-09-26T02:27:52.965Z",
   "method": "recency-weighted Brier shrinkage by market",
   "minimumSample": 12,
   "recencyDecayDays": 70,
   "cfb": {
     "win": {
       "factor": 1.04,
-      "sampleSize": 77,
-      "effectiveSample": 70.6,
-      "brierScore": 0.1208,
-      "calibratedBrierScore": 0.114,
+      "sampleSize": 79,
+      "effectiveSample": 72.5,
+      "brierScore": 0.1234,
+      "calibratedBrierScore": 0.1168,
       "status": "active-shrunk"
     },
     "spread": {
-      "factor": 0.789,
-      "sampleSize": 77,
-      "effectiveSample": 70.6,
-      "brierScore": 0.2611,
-      "calibratedBrierScore": 0.2472,
+      "factor": 0.786,
+      "sampleSize": 79,
+      "effectiveSample": 72.5,
+      "brierScore": 0.2642,
+      "calibratedBrierScore": 0.249,
       "status": "active-shrunk"
     },
     "total": {
-      "factor": 0.789,
-      "sampleSize": 77,
-      "effectiveSample": 70.6,
-      "brierScore": 0.2504,
-      "calibratedBrierScore": 0.2498,
+      "factor": 0.786,
+      "sampleSize": 79,
+      "effectiveSample": 72.5,
+      "brierScore": 0.251,
+      "calibratedBrierScore": 0.2501,
       "status": "active-shrunk"
     },
     "probabilityFactor": 1.04,
-    "spreadProbabilityFactor": 0.789,
-    "totalProbabilityFactor": 0.789,
-    "sampleSize": 77,
+    "spreadProbabilityFactor": 0.786,
+    "totalProbabilityFactor": 0.786,
+    "sampleSize": 79,
     "status": "active-shrunk"
   },
   "nfl": {
     "win": {
       "factor": 0.953,
       "sampleSize": 23,
-      "effectiveSample": 20.9,
+      "effectiveSample": 20.8,
       "brierScore": 0.2423,
       "calibratedBrierScore": 0.2417,
       "status": "active-shrunk"
