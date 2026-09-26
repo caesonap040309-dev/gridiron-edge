@@ -1,5 +1,5 @@
 (()=>{
-  const cache={nfl:null,cfb:null};
+  const cache={nfl:null,cfb:null},cacheTime={nfl:0,cfb:0};
   let currentCategory="Top Props";
   let selectedPropWeek="all";
   let playerSearch="";
@@ -104,13 +104,13 @@
     installStyles();
     if(requestedLeague==="nfl"||requestedLeague==="cfb")selectedLeague=requestedLeague;
     const key=selectedLeague;
-    if(cache[key]&&!force){renderProps(cache[key],key);return cache[key]}
+    if(cache[key]&&!force&&Date.now()-cacheTime[key]<10*60*1000){renderProps(cache[key],key);return cache[key]}
     try{
       const res=await fetch(`${dataUrl(key)}?v=${Date.now()}`,{cache:"no-store"});
       if(!res.ok)throw new Error(`HTTP ${res.status}`);
       const data=await res.json();
       try{const schedule=await (await fetch(`${key==="nfl"?"data/nfl.json":"data/live.json"}?v=${Date.now()}`,{cache:"no-store"})).json(),clean=x=>String(x||"").toLowerCase().replace(/[^a-z0-9]/g,"");const weeks=new Map((schedule.games||[]).map(g=>[`${clean(g.away)}|${clean(g.home)}`,g.week]));for(const p of data.props||[])p.week=weeks.get(`${clean(p.away)}|${clean(p.home)}`)??p.week??"Upcoming"}catch{}
-      cache[key]=data;if(selectedLeague===key)renderProps(data,key);return data;
+      cache[key]=data;cacheTime[key]=Date.now();if(selectedLeague===key)renderProps(data,key);return data;
     }catch{
       const empty={league:key==="nfl"?"NFL":"College Football",props:[],providers:[],notice:`No ${key==="nfl"?"NFL":"college football"} player props are available right now.`};
       if(selectedLeague===key)renderProps(empty,key);return empty;
@@ -132,7 +132,7 @@
     if(topCat){const counts={};for(const p of all)counts[p.category]=(counts[p.category]||0)+1;topCat.textContent=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||"—"}
     if(!holder||!empty)return;
     empty.classList.toggle("view-hidden",players.length>0);
-    if(!players.length){holder.innerHTML="";const copy=document.getElementById("propsEmptyCopy");if(copy)copy.textContent=data?.notice||`No ${leagueName} ${currentCategory.toLowerCase()} are available right now.`;return}
+    if(!players.length){holder.innerHTML="";const copy=document.getElementById("propsEmptyCopy");if(copy)copy.textContent=all.length? `No ${leagueName} ${currentCategory.toLowerCase()} match these filters.` : `No current ${leagueName} player props are available. Last feed: ${data?.updatedAt?new Date(data.updatedAt).toLocaleString():"unknown"}.`;return}
     holder.innerHTML=players.map(playerCard).join("");
     holder.querySelectorAll(".player-prop-toggle").forEach(btn=>btn.addEventListener("click",()=>{const card=btn.closest(".player-prop-card"),open=!card.classList.contains("open");card.classList.toggle("open",open);btn.setAttribute("aria-expanded",open?"true":"false")}));
     holder.querySelectorAll("[data-prop-id]").forEach(btn=>btn.addEventListener("click",e=>{e.stopPropagation();const p=(data.props||[]).find(x=>x.id===btn.dataset.propId);openProp(p)}));
