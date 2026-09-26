@@ -2,8 +2,15 @@ name: Refresh player props
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update-props.mjs"
+      - ".github/workflows/update-player-props.yml"
   schedule:
-    # Keep NFL + CFB prop boards current throughout game weeks.\n    - cron: "20 */3 * * *"
+    # Refresh daily, plus a second time on game days, within the monthly odds budget.
+    - cron: "20 13 * * *"
+    - cron: "20 17 * * 0,6"
 
 permissions:
   contents: write
