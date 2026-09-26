@@ -157,7 +157,9 @@ for(const [match,event] of eventByTeams){
 function snapshotMarket(game,prediction){
   const event=eventByTeams.get(`${cleanTeam(game.away)}|${cleanTeam(game.home)}`);if(!event)return null;
   const offers=[];
-  for(const book of event.bookmakers||[])for(const market of book.markets||[])for(const outcome of market.outcomes||[])offers.push({...outcome,key:market.key,book:book.title});
+  const fresh=new Set(event.freshBookmakers||[]);
+  const books=fresh.size>=2?(event.bookmakers||[]).filter(book=>fresh.has(sportsbookIdentity(book))):(event.bookmakers||[]);
+  for(const book of books)for(const market of book.markets||[])for(const outcome of market.outcomes||[])offers.push({...outcome,key:market.key,book:book.title});
   const homeSpread=offers.filter(o=>o.key==="spreads"&&o.name===game.home).sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0];
   const over=offers.filter(o=>o.key==="totals"&&o.name==="Over").sort((a,b)=>(Number(a.point)-Number(b.point))||(Number(b.price)-Number(a.price)))[0];
   if(!homeSpread&&!over)return null;
@@ -401,7 +403,9 @@ for(const game of games){
   const homeHistoricalGames=relevant.filter(item=>item.home===game.home||item.away===game.home).length;
   const awayHistoricalGames=relevant.filter(item=>item.home===game.away||item.away===game.away).length;
   prediction.history={seasons:[season-2,season-1,season],homeGames:homeHistoricalGames,awayGames:awayHistoricalGames,headToHead:headToHead.length,headToHeadAverageTotal:headToHead.length?Math.round(headToHead.reduce((sum,item)=>sum+Number(item.homeScore)+Number(item.awayScore),0)/headToHead.length*10)/10:null};
-  prediction.market=stored?.market||snapshotMarket(game,prediction);
+  prediction.market=new Date(game.date)>now&&eventByTeams.get(`${cleanTeam(game.away)}|${cleanTeam(game.home)}`)?.freshBookmakers?.length>=2
+    ? snapshotMarket(game,prediction)||stored?.market
+    : stored?.market||snapshotMarket(game,prediction);
   game.prediction=prediction;
 }
 await mkdir("data",{recursive:true});
