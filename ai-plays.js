@@ -40,7 +40,8 @@
   const eventFor=(events,game)=>(events||[]).find(event=>clean(event.home_team)===clean(game.home)&&clean(event.away_team)===clean(game.away));
   function bestPrice(events,game,key,name,point=null){
     const event=eventFor(events,game),offers=[];
-    for(const book of event?.bookmakers||[])for(const market of book.markets||[])if(market.key===key)for(const outcome of market.outcomes||[]){
+    const fresh=new Set(event?.freshBookmakers||[]);
+    for(const book of event?.bookmakers||[])if(fresh.has(clean(book.title||book.key)))for(const market of book.markets||[])if(market.key===key)for(const outcome of market.outcomes||[]){
       if(clean(outcome.name)!==clean(name)||!Number.isFinite(Number(outcome.price)))continue;
       if(point!=null&&Number.isFinite(Number(outcome.point))&&Math.abs(Number(outcome.point)-Number(point))>.01)continue;
       offers.push(Number(outcome.price));
@@ -50,11 +51,12 @@
   const standardPrice=price=>Number.isFinite(Number(price))&&Number(price)>=-125&&Number(price)<=125;
   function consensusOffer(events,game,key,name){
     const event=eventFor(events,game),offers=[];
-    for(const book of event?.bookmakers||[])for(const market of book.markets||[])if(market.key===key)for(const outcome of market.outcomes||[]){
+    const fresh=new Set(event?.freshBookmakers||[]);
+    for(const book of event?.bookmakers||[])if(fresh.has(clean(book.title||book.key)))for(const market of book.markets||[])if(market.key===key)for(const outcome of market.outcomes||[]){
       if(clean(outcome.name)!==clean(name)||!Number.isFinite(Number(outcome.point))||!Number.isFinite(Number(outcome.price)))continue;
       offers.push({point:Number(outcome.point),price:Number(outcome.price),book:book.title||book.key});
     }
-    if(!offers.length)return null;
+    if(new Set(offers.map(offer=>offer.book)).size<2)return null;
     const counts=new Map();for(const offer of offers)counts.set(offer.point,(counts.get(offer.point)||0)+1);
     const consensus=[...counts.entries()].sort((a,b)=>b[1]-a[1]||Math.abs(a[0])-Math.abs(b[0]))[0]?.[0];
     return offers.filter(offer=>offer.point===consensus).sort((a,b)=>b.price-a.price)[0]||null;
@@ -70,8 +72,10 @@
     if(button)button.textContent=source==="props"?"Top 10 Prop Plays":source==="games"?"Top 10 Game Plays":"Top 10 AI Plays";
   }
 
-  function gameCandidates(games,events){
+  function gameCandidates(games,events,updatedAt){
     const rows=[];
+    const feedTime=new Date(updatedAt).getTime();
+    if(!Number.isFinite(feedTime)||Date.now()-feedTime>2*60*60*1000)return rows;
     for(const game of games||[]){
       if(!upcoming(game.date))continue;
       const p=game.prediction||{},market=p.market||{},books=Number(p.marketBooks)||0,q=quality(books);
@@ -83,12 +87,15 @@
       const homeCover=probability(p.homeCover),cover=homeCover==null?null:(market.spreadPick===game.home?homeCover:100-homeCover);
       if(market.spreadPick&&cover!=null){
         const offer=consensusOffer(events,game,"spreads",market.spreadPick),point=offer?.point,price=offer?.price,implied=impliedProbability(price),valueEdge=implied==null?null:cover-implied;
-        if(standardPrice(price)&&Number.isFinite(valueEdge))rows.push({type:"Spread",pick:`${market.spreadPick} ${point>0?"+":""}${point}`,matchup:`${game.away} @ ${game.home}`,prob:cover,price,valueEdge,edge:Math.abs(Number(p.spreadEdge)||0),books,q,uncertainty:Number(p.injuryImpact?.uncertainty)||0,disagreement:Number(p.marketSpreadDeviation)||0,tier:p.confidenceByMarket?.spread||p.confidence||confidence(cover),why:`The projected margin differs from this spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
+        // The saved probability and edge belong to the line used by the model.
+        // A moved or missing line must be recalculated by the next data run.
+        const modeledPoint=market.spreadPick===game.home?Number(p.marketMargin)*-1:Number(p.marketMargin);
+        if(p.marketMargin!=null&&Number.isFinite(point)&&Number.isFinite(modeledPoint)&&Math.abs(point-modeledPoint)<=0.5&&standardPrice(price)&&Number.isFinite(valueEdge))rows.push({type:"Spread",pick:`${market.spreadPick} ${point>0?"+":""}${point}`,matchup:`${game.away} @ ${game.home}`,prob:cover,price,valueEdge,edge:Math.abs(Number(p.spreadEdge)||0),books,q,uncertainty:Number(p.injuryImpact?.uncertainty)||0,disagreement:Number(p.marketSpreadDeviation)||0,tier:p.confidenceByMarket?.spread||p.confidence||confidence(cover),why:`The projected margin differs from this spread by ${Math.abs(Number(p.spreadEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
       }
       const overProb=probability(p.overProb),totalProb=overProb==null?null:(market.totalPick==="Over"?overProb:100-overProb);
       if((market.totalPick==="Over"||market.totalPick==="Under")&&totalProb!=null){
         const offer=consensusOffer(events,game,"totals",market.totalPick),total=offer?.point,price=offer?.price,implied=impliedProbability(price),valueEdge=implied==null?null:totalProb-implied;
-        if(Number.isFinite(total)&&standardPrice(price)&&Number.isFinite(valueEdge))rows.push({type:"Total",pick:`${market.totalPick} ${total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,price,valueEdge,edge:Math.abs(Number(p.totalEdge)||0),books,q,uncertainty:Number(p.injuryImpact?.uncertainty)||0,disagreement:Number(p.marketTotalDeviation)||0,tier:p.confidenceByMarket?.total||p.confidence||confidence(totalProb),why:`The scoring projection differs from this total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
+        if(Number.isFinite(total)&&Number.isFinite(Number(p.marketTotal))&&Math.abs(total-Number(p.marketTotal))<=0.5&&standardPrice(price)&&Number.isFinite(valueEdge))rows.push({type:"Total",pick:`${market.totalPick} ${total}`,matchup:`${game.away} @ ${game.home}`,prob:totalProb,price,valueEdge,edge:Math.abs(Number(p.totalEdge)||0),books,q,uncertainty:Number(p.injuryImpact?.uncertainty)||0,disagreement:Number(p.marketTotalDeviation)||0,tier:p.confidenceByMarket?.total||p.confidence||confidence(totalProb),why:`The scoring projection differs from this total by ${Math.abs(Number(p.totalEdge)||0).toFixed(1)} points, with ${pct(valueEdge)} estimated value above the market-implied probability.${injuryContext(game,p)}`});
       }
     }
     return rows;
@@ -129,7 +136,7 @@
     if(weekSelect){const previous=weekSelect.value,preferred=previous||((mainWeek&&mainWeek!=="0")?mainWeek:String(availableWeeks[0]??""));weekSelect.innerHTML=availableWeeks.map(week=>`<option value="${week}">Week ${week}</option>`).join("");if(availableWeeks.some(week=>String(week)===String(preferred)))weekSelect.value=String(preferred)}
     const selectedWeek=String(weekSelect?.value||availableWeeks[0]||""),weeklyGames=allGames.filter(game=>String(game.week)===selectedWeek&&upcoming(game.date));
     const weeklyMatchups=new Set(weeklyGames.map(game=>matchupKey(game.away,game.home)));
-    const candidates=selectedSource==="props"?propCandidates(props,weeklyMatchups):selectedSource==="games"?gameCandidates(weeklyGames,games?.events||[]): [...gameCandidates(weeklyGames,games?.events||[]),...propCandidates(props,weeklyMatchups)];
+    const candidates=selectedSource==="props"?propCandidates(props,weeklyMatchups):selectedSource==="games"?gameCandidates(weeklyGames,games?.events||[],games?.multiBookUpdatedAt): [...gameCandidates(weeklyGames,games?.events||[],games?.multiBookUpdatedAt),...propCandidates(props,weeklyMatchups)];
     const ranked=candidates.map(row=>{const value=Number(row.valueEdge),base=Number.isFinite(value)?value:Math.max(Number(row.edge)||0,Math.abs(Number(row.prob)-50));const units=stakeFor(row),riskPenalty=(Number(row.uncertainty)||0)*.7+(Number(row.disagreement)||0)*.6;return {...row,units,score:base*row.q.weight-riskPenalty}}).filter(row=>row.units>0).sort((a,b)=>b.units-a.units||b.score-a.score||b.prob-a.prob);
     const plays=[];const usedGames=new Set();for(const row of ranked){if(row.type!=="Player Prop"&&usedGames.has(row.matchup))continue;plays.push(row);if(row.type!=="Player Prop")usedGames.add(row.matchup);if(plays.length===10)break}
     const source=sourceLabel(),title=document.getElementById("aiTitle"),list=document.getElementById("aiPlays"),note=document.getElementById("aiNote");if(title)title.textContent=`${label} Week ${selectedWeek} Qualified ${source} Plays (${plays.length})`;if(note)note.textContent=selectedSource==="props"?"Only player props that clear the minimum sample, probability, and value thresholds are shown.":selectedSource==="games"?"Only games that clear probability, edge, multi-book, stability, and injury-uncertainty thresholds are shown. At most one play per matchup qualifies.":"A selective board of plays that clear every betting threshold. The board may contain fewer than 10 plays; weak spots are withheld instead of being promoted.";if(!list)return;
