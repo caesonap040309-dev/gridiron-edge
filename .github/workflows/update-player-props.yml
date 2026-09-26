@@ -8,7 +8,9 @@ on:
       - "scripts/update-props.mjs"
       - ".github/workflows/update-player-props.yml"
   schedule:
-    # Refresh daily, plus a second time on game days, within the monthly odds budget.
+    # Refresh after Saturday ends in Eastern time (00:20 EST / 01:20 EDT Sunday).
+    - cron: "20 5 * * 0"
+    # Check again daily as sportsbooks release the coming week's markets.
     - cron: "20 13 * * *"
     - cron: "20 17 * * 0,6"
 
