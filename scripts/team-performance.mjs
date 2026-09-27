@@ -84,7 +84,7 @@ export function performanceAdjustment(home,away){
   // Modest regularization: rate differences are shrunk and capped until out-of-sample calibration.
   const homeExplosive=(home.explosiveFor-away.explosiveAgainst)/2;
   const awayExplosive=(away.explosiveFor-home.explosiveAgainst)/2;
-  const turnoverEdge=(away.turnovers-home.takeaways-home.turnovers+away.takeaways)/2;
+  const turnoverEdge=away.turnovers-home.turnovers;
   const margin=limit(((homeExplosive-awayExplosive)*18+turnoverEdge*.35)*credibility,-1.5,1.5);
   const total=limit((homeExplosive+awayExplosive)*10*credibility,-1,1);
   return {margin:Math.round(margin*100)/100,total:Math.round(total*100)/100,games};
