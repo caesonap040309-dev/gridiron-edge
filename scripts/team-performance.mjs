@@ -1,6 +1,11 @@
 // Derived only from completed games. A missing or partial play log is never treated as zero production.
 const number=value=>{const n=Number(value);return Number.isFinite(n)?n:null};
 const limit=(value,min,max)=>Math.max(min,Math.min(max,value));
+const ratio=(team,name)=>{
+  const raw=(team?.statistics||[]).find(item=>item.name===name)?.displayValue||"";
+  const match=String(raw).match(/^(\d+)-(\d+)$/);
+  return match?{made:Number(match[1]),attempts:Number(match[2])}:null;
+};
 const stat=(team,name)=>{
   const row=(team?.statistics||[]).find(item=>item.name===name);
   return number(row?.value)??number(row?.displayValue);
@@ -29,13 +34,14 @@ export function extractPerformance(summary,game){
     }
     if(!snaps)return null;
     const turnovers=stat(team,"turnovers")??((stat(team,"interceptions")??0)+(stat(team,"fumblesLost")??0));
-    result[side]={snaps,explosivePasses,explosiveRuns,explosivePlays:explosivePasses+explosiveRuns,turnovers};
+    result[side]={snaps,explosivePasses,explosiveRuns,explosivePlays:explosivePasses+explosiveRuns,turnovers,thirdDown:ratio(team,"thirdDownEff"),fourthDown:ratio(team,"fourthDownEff"),yardsPerPlay:stat(team,"yardsPerPlay")};
   }
   for(const side of ["home","away"]){
     const opponent=result[side==="home"?"away":"home"];
     result[side].explosiveAllowed=opponent.explosivePlays;
     result[side].takeaways=opponent.turnovers;
   }
+  result.schemaVersion=2;
   return result;
 }
 export async function loadPerformance(games,previous,sport){
@@ -45,13 +51,14 @@ export async function loadPerformance(games,previous,sport){
   await Promise.all(Array.from({length:Math.min(6,finals.length)},async()=>{
     while(cursor<finals.length){
       const game=finals[cursor++];
-      if(old.has(String(game.id))){game.performance=old.get(String(game.id));continue}
+      if(old.get(String(game.id))?.schemaVersion===2){game.performance=old.get(String(game.id));continue}
       try{
         const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${sport}/summary?event=${encodeURIComponent(game.id)}`);
-        if(!response.ok)continue;
+        if(!response.ok)throw new Error(`ESPN summary ${response.status}`);
         const result=extractPerformance(await response.json(),game);
         if(result)game.performance=result;
       }catch{} // Missing detail must not erase cached metrics or change a projection.
+      if(!game.performance&&old.has(String(game.id)))game.performance=old.get(String(game.id));
     }
   }));
   const observations=new Map();
@@ -60,7 +67,8 @@ export async function loadPerformance(games,previous,sport){
     for(const side of ["home","away"]){
       const row=game.performance[side],opponent=game.performance[side==="home"?"away":"home"];
       if(!row?.snaps||!opponent?.snaps)continue;
-      const entry={date:new Date(game.date),season:game.season,explosiveFor:row.explosivePlays/row.snaps,explosiveAgainst:opponent.explosivePlays/opponent.snaps,turnovers:row.turnovers,takeaways:opponent.turnovers};
+      const scored=Number(game[`${side}Score`]),allowed=Number(game[`${side==="home"?"away":"home"}Score`]);
+      const entry={date:new Date(game.date),season:game.season,explosiveFor:row.explosivePlays/row.snaps,explosiveAgainst:opponent.explosivePlays/opponent.snaps,turnovers:row.turnovers,takeaways:opponent.turnovers,pointsFor:scored,pointsAgainst:allowed,thirdMade:row.thirdDown?.made??null,thirdAttempts:row.thirdDown?.attempts??null,fourthMade:row.fourthDown?.made??null,fourthAttempts:row.fourthDown?.attempts??null,yardsPerPlay:row.yardsPerPlay??null};
       const name=game[side];
       if(!observations.has(name))observations.set(name,[]);
       observations.get(name).push(entry);
@@ -74,7 +82,11 @@ export async function loadPerformance(games,previous,sport){
     const last3=sample.slice(0,3);
     const mean=(rows,key)=>rows.reduce((sum,row)=>sum+row[key],0)/rows.length;
     const blend=key=>.7*mean(sample,key)+.3*mean(last3,key);
-    return {games:sample.length,explosiveFor:blend("explosiveFor"),explosiveAgainst:blend("explosiveAgainst"),turnovers:blend("turnovers"),takeaways:blend("takeaways")};
+    const conversion=(rows,made,attempts)=>{const valid=rows.filter(row=>row[made]!=null&&row[attempts]>0);return valid.length?valid.reduce((sum,row)=>sum+row[made],0)/valid.reduce((sum,row)=>sum+row[attempts],0):null};
+    const thirdSeason=conversion(sample,"thirdMade","thirdAttempts"),thirdRecent=conversion(last3,"thirdMade","thirdAttempts");
+    const thirdDown=thirdSeason==null?thirdRecent:thirdRecent==null?thirdSeason:.7*thirdSeason+.3*thirdRecent;
+    const validYards=sample.filter(row=>row.yardsPerPlay!=null);
+    return {games:sample.length,explosiveFor:blend("explosiveFor"),explosiveAgainst:blend("explosiveAgainst"),turnovers:blend("turnovers"),takeaways:blend("takeaways"),pointsFor:blend("pointsFor"),pointsAgainst:blend("pointsAgainst"),pointDifferential:blend("pointsFor")-blend("pointsAgainst"),thirdDown,thirdDownAttempts:sample.reduce((sum,row)=>sum+(row.thirdAttempts||0),0),fourthDown:conversion(sample,"fourthMade","fourthAttempts"),yardsPerPlay:validYards.length?mean(validYards,"yardsPerPlay"):null};
   };
 }
 export function performanceAdjustment(home,away){
@@ -85,7 +97,9 @@ export function performanceAdjustment(home,away){
   const homeExplosive=(home.explosiveFor-away.explosiveAgainst)/2;
   const awayExplosive=(away.explosiveFor-home.explosiveAgainst)/2;
   const turnoverEdge=away.turnovers-home.turnovers;
-  const margin=limit(((homeExplosive-awayExplosive)*18+turnoverEdge*.35)*credibility,-1.5,1.5);
+  const thirdEdge=home.thirdDown!=null&&away.thirdDown!=null&&Math.min(home.thirdDownAttempts,away.thirdDownAttempts)>=12?limit((home.thirdDown-away.thirdDown)*3,-.6,.6):0;
+  // Points per game and differential are exposed as evidence; scoring ratings already include them.
+  const margin=limit(((homeExplosive-awayExplosive)*18+turnoverEdge*.35+thirdEdge)*credibility,-1.75,1.75);
   const total=limit((homeExplosive+awayExplosive)*10*credibility,-1,1);
   return {margin:Math.round(margin*100)/100,total:Math.round(total*100)/100,games};
 }
