@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T08:28:51.066Z",
+  "updatedAt": "2026-09-27T09:27:42.359Z",
   "modelHealth": {
     "confidenceDistribution": {
       "High": 192,
@@ -35,15 +35,15 @@
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 46,
+        "confidenceScore": 92,
         "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
-        "reliability": 0.759,
-        "homeWin": 45,
-        "marketBooks": 0,
-        "spreadEdge": null,
-        "totalEdge": null,
+        "reliability": 0.79,
+        "homeWin": 48.3,
+        "marketBooks": 1,
+        "spreadEdge": -4.4,
+        "totalEdge": 1.3,
         "injuryUncertainty": 0
       },
       {
@@ -93,10 +93,10 @@
           "total": "Low"
         },
         "confidenceScore": 60,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
-        "reliability": 0.849,
+        "reliability": 0.844,
         "homeWin": 44.2,
         "marketBooks": 3,
         "spreadEdge": 1.1,
@@ -176,7 +176,7 @@
         "homeWin": 76.1,
         "marketBooks": 1,
         "spreadEdge": -4.7,
-        "totalEdge": -2.8,
+        "totalEdge": -2.7,
         "injuryUncertainty": 0
       },
       {
@@ -238,17 +238,18 @@
       }
     ]
   },
-  "multiBookUpdatedAt": "2026-09-27T08:28:51.066Z",
+  "multiBookUpdatedAt": "2026-09-27T09:27:42.359Z",
   "oddsSource": "The Odds API multi-book",
   "feedHealth": {
     "multiBookLive": true,
     "usedCachedMultiBook": false,
-    "sportsbookCount": 4,
+    "sportsbookCount": 5,
     "sportsbooks": [
       "BetMGM",
       "Draft Kings",
       "DraftKings",
-      "FanDuel"
+      "FanDuel",
+      "theScore Bet"
     ]
   },
   "games": [
@@ -23719,11 +23720,11 @@
       "prediction": {
         "version": 10,
         "winner": "North Texas Mean Green",
-        "homeWin": 45,
-        "spread": 2.8,
-        "total": 58.6,
+        "homeWin": 48.3,
+        "spread": 0.9,
+        "total": 57.8,
         "homeScore": 28,
-        "awayScore": 31,
+        "awayScore": 29,
         "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
@@ -23738,14 +23739,14 @@
           "awayOffense": 7.8,
           "awayDefense": -1.2
         },
-        "marketMargin": null,
-        "marketTotal": null,
-        "marketBooks": 0,
+        "marketMargin": 3.5,
+        "marketTotal": 56.5,
+        "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
-        "spreadEdge": null,
-        "totalEdge": null,
-        "homeCover": null,
+        "spreadEdge": -4.4,
+        "totalEdge": 1.3,
+        "homeCover": 41.2,
         "adjustments": {
           "neutralSite": false,
           "homeField": 2.7,
@@ -23769,23 +23770,23 @@
           "updatedAt": "2026-09-17T13:40:01.709Z"
         },
         "calibration": {
-          "reliability": 75.9,
+          "reliability": 79,
           "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
-        "awayCover": null,
-        "overProb": null,
-        "underProb": null,
-        "fairHomeMoneyline": 122,
-        "fairAwayMoneyline": -122,
+        "awayCover": 58.8,
+        "overProb": 52.2,
+        "underProb": 47.8,
+        "fairHomeMoneyline": 107,
+        "fairAwayMoneyline": -107,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 46,
-        "reliability": 0.759,
+        "confidenceScore": 92,
+        "reliability": 0.79,
         "history": {
           "seasons": [
             2024,
@@ -23797,7 +23798,17 @@
           "headToHead": 1,
           "headToHeadAverageTotal": 72
         },
-        "market": null
+        "market": {
+          "capturedAt": "2026-09-27T09:27:37.056Z",
+          "homePoint": -3.5,
+          "spreadPrice": -104,
+          "spreadBook": "FanDuel",
+          "spreadPick": "North Texas Mean Green",
+          "total": 56.5,
+          "totalPrice": -110,
+          "totalBook": "FanDuel",
+          "totalPick": "Over"
+        }
       }
     },
     {
@@ -23841,7 +23852,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 32.5,
+        "homeOffense": 32.4,
         "homeDefense": 22,
         "awayOffense": 34.2,
         "awayDefense": 15.8,
@@ -23911,7 +23922,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": -5.5,
           "spreadPrice": -108,
           "spreadBook": "FanDuel",
@@ -23965,7 +23976,7 @@
         "observedGames": 16,
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 24.5,
-        "homeDefense": 27.1,
+        "homeDefense": 27.2,
         "awayOffense": 28.2,
         "awayDefense": 21.6,
         "power": {
@@ -24073,7 +24084,7 @@
         "total": 48.4,
         "homeScore": 23,
         "awayScore": 26,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -24083,7 +24094,7 @@
         "awayDefense": 16.9,
         "power": {
           "homeOffense": 1.3,
-          "homeDefense": 4.7,
+          "homeDefense": 4.6,
           "awayOffense": 4.3,
           "awayDefense": 6.9
         },
@@ -24099,7 +24110,7 @@
           "neutralSite": false,
           "homeField": 2.7,
           "rest": 0.1,
-          "venue": 0.6,
+          "venue": 0.5,
           "recentForm": -0.5,
           "headToHead": 0.1,
           "weatherTotal": 0,
@@ -24118,8 +24129,8 @@
           "updatedAt": "2026-09-17T13:40:01.676Z"
         },
         "calibration": {
-          "reliability": 84.9,
-          "effectiveSample": 4.4,
+          "reliability": 84.4,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": 47.6,
@@ -24134,7 +24145,7 @@
           "total": "Low"
         },
         "confidenceScore": 60,
-        "reliability": 0.849,
+        "reliability": 0.844,
         "history": {
           "seasons": [
             2024,
@@ -24147,7 +24158,7 @@
           "headToHeadAverageTotal": 43
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 4.5,
           "spreadPrice": -115,
           "spreadBook": "DraftKings",
@@ -24270,7 +24281,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 21.5,
           "spreadPrice": -110,
           "spreadBook": "DraftKings",
@@ -24393,7 +24404,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 4.5,
           "spreadPrice": -105,
           "spreadBook": "FanDuel",
@@ -24562,7 +24573,7 @@
         "winner": "SMU Mustangs",
         "homeWin": 76.1,
         "spread": -15.8,
-        "total": 54.7,
+        "total": 54.8,
         "homeScore": 35,
         "awayScore": 19,
         "sample": 5.2,
@@ -24585,7 +24596,7 @@
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
         "spreadEdge": -4.7,
-        "totalEdge": -2.8,
+        "totalEdge": -2.7,
         "homeCover": 40.3,
         "adjustments": {
           "neutralSite": false,
@@ -24615,8 +24626,8 @@
           "dailyFactor": 1.04
         },
         "awayCover": 59.7,
-        "overProb": 45.2,
-        "underProb": 54.8,
+        "overProb": 45.4,
+        "underProb": 54.6,
         "fairHomeMoneyline": -318,
         "fairAwayMoneyline": 318,
         "confidence": "High",
@@ -24692,7 +24703,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 34.2,
+        "homeOffense": 34.1,
         "homeDefense": 22.3,
         "awayOffense": 28.6,
         "awayDefense": 20,
@@ -25288,8 +25299,8 @@
       "prediction": {
         "version": 10,
         "winner": "Air Force Falcons",
-        "homeWin": 51,
-        "spread": -0.5,
+        "homeWin": 52.7,
+        "spread": -1.4,
         "total": 55.1,
         "homeScore": 28,
         "awayScore": 27,
@@ -25307,14 +25318,14 @@
           "awayOffense": 1.7,
           "awayDefense": 1
         },
-        "marketMargin": -1.5,
+        "marketMargin": 1.5,
         "marketTotal": 50.5,
         "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
-        "spreadEdge": 2,
+        "spreadEdge": -0.1,
         "totalEdge": 4.6,
-        "homeCover": 54.1,
+        "homeCover": 49.8,
         "adjustments": {
           "neutralSite": false,
           "homeField": 2.7,
@@ -25342,11 +25353,11 @@
           "effectiveSample": 4.4,
           "dailyFactor": 1.04
         },
-        "awayCover": 45.9,
+        "awayCover": 50.2,
         "overProb": 57.4,
         "underProb": 42.6,
-        "fairHomeMoneyline": -104,
-        "fairAwayMoneyline": 104,
+        "fairHomeMoneyline": -111,
+        "fairAwayMoneyline": 111,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
@@ -25490,7 +25501,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": -9.5,
           "spreadPrice": -112,
           "spreadBook": "FanDuel",
@@ -25613,7 +25624,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": -24.5,
           "spreadPrice": -110,
           "spreadBook": "DraftKings",
@@ -25972,7 +25983,7 @@
           "headToHeadAverageTotal": 42
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 14,
           "spreadPrice": -110,
           "spreadBook": "DraftKings",
@@ -26016,9 +26027,9 @@
       "prediction": {
         "version": 10,
         "winner": "Tennessee Volunteers",
-        "homeWin": 67.7,
-        "spread": -9.1,
-        "total": 54.8,
+        "homeWin": 68.5,
+        "spread": -9.2,
+        "total": 54.7,
         "homeScore": 32,
         "awayScore": 23,
         "sample": 4.8,
@@ -26035,14 +26046,14 @@
           "awayOffense": 2,
           "awayDefense": 5.2
         },
-        "marketMargin": 7.5,
-        "marketTotal": 56.5,
-        "marketBooks": 3,
+        "marketMargin": 8,
+        "marketTotal": 56,
+        "marketBooks": 4,
         "marketSpreadDeviation": 0.5,
         "marketTotalDeviation": 0.5,
-        "spreadEdge": 1.6,
-        "totalEdge": -1.7,
-        "homeCover": 53.6,
+        "spreadEdge": 1.2,
+        "totalEdge": -1.3,
+        "homeCover": 52.8,
         "adjustments": {
           "neutralSite": false,
           "homeField": 2.7,
@@ -26054,8 +26065,8 @@
           "injuryMargin": 0,
           "injuryTotal": 0,
           "totalRegression": 0.14,
-          "spreadMarketWeight": 0.34,
-          "totalMarketWeight": 0.42
+          "spreadMarketWeight": 0.38,
+          "totalMarketWeight": 0.46
         },
         "injuryImpact": {
           "homeLoss": 0,
@@ -26066,23 +26077,23 @@
           "updatedAt": "2026-09-17T13:40:01.658Z"
         },
         "calibration": {
-          "reliability": 86.5,
+          "reliability": 89.6,
           "effectiveSample": 4.8,
           "dailyFactor": 1.04
         },
-        "awayCover": 46.4,
-        "overProb": 46.9,
-        "underProb": 53.1,
-        "fairHomeMoneyline": -210,
-        "fairAwayMoneyline": 210,
+        "awayCover": 47.2,
+        "overProb": 47.6,
+        "underProb": 52.4,
+        "fairHomeMoneyline": -217,
+        "fairAwayMoneyline": 217,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 98,
-        "reliability": 0.865,
+        "confidenceScore": 99,
+        "reliability": 0.896,
         "history": {
           "seasons": [
             2024,
@@ -26095,7 +26106,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": -7.5,
           "spreadPrice": -110,
           "spreadBook": "Draft Kings",
@@ -26218,7 +26229,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 6.5,
           "spreadPrice": -110,
           "spreadBook": "Draft Kings",
@@ -26341,7 +26352,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 5.5,
           "spreadPrice": -110,
           "spreadBook": "DraftKings",
@@ -26587,7 +26598,7 @@
           "headToHeadAverageTotal": 84
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 1.5,
           "spreadPrice": -110,
           "spreadBook": "FanDuel",
@@ -27206,11 +27217,11 @@
       "prediction": {
         "version": 10,
         "winner": "Ohio Bobcats",
-        "homeWin": 37.2,
-        "spread": 7.3,
-        "total": 54.1,
+        "homeWin": 38.6,
+        "spread": 6.2,
+        "total": 52.7,
         "homeScore": 23,
-        "awayScore": 31,
+        "awayScore": 29,
         "sample": 4.6,
         "evidenceGames": 8,
         "observedGames": 28,
@@ -27225,14 +27236,14 @@
           "awayOffense": 2,
           "awayDefense": 0.3
         },
-        "marketMargin": null,
-        "marketTotal": null,
-        "marketBooks": 0,
+        "marketMargin": -3.5,
+        "marketTotal": 50.5,
+        "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
-        "spreadEdge": null,
-        "totalEdge": null,
-        "homeCover": null,
+        "spreadEdge": -2.7,
+        "totalEdge": 2.2,
+        "homeCover": 44.4,
         "adjustments": {
           "neutralSite": false,
           "homeField": 2.7,
@@ -27256,23 +27267,23 @@
           "updatedAt": "2026-09-17T13:40:01.716Z"
         },
         "calibration": {
-          "reliability": 76.3,
+          "reliability": 79.5,
           "effectiveSample": 4.6,
           "dailyFactor": 1.04
         },
-        "awayCover": null,
-        "overProb": null,
-        "underProb": null,
-        "fairHomeMoneyline": 169,
-        "fairAwayMoneyline": -169,
+        "awayCover": 55.6,
+        "overProb": 53.7,
+        "underProb": 46.3,
+        "fairHomeMoneyline": 159,
+        "fairAwayMoneyline": -159,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 71,
-        "reliability": 0.763,
+        "confidenceScore": 73,
+        "reliability": 0.795,
         "history": {
           "seasons": [
             2024,
@@ -27284,7 +27295,17 @@
           "headToHead": 1,
           "headToHeadAverageTotal": 41
         },
-        "market": null
+        "market": {
+          "capturedAt": "2026-09-27T09:27:37.056Z",
+          "homePoint": 3.5,
+          "spreadPrice": -110,
+          "spreadBook": "FanDuel",
+          "spreadPick": "Ohio Bobcats",
+          "total": 50.5,
+          "totalPrice": -110,
+          "totalBook": "FanDuel",
+          "totalPick": "Over"
+        }
       }
     },
     {
@@ -27993,7 +28014,7 @@
           "headToHeadAverageTotal": 42.5
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": -3.5,
           "spreadPrice": -120,
           "spreadBook": "DraftKings",
@@ -28037,12 +28058,12 @@
       "prediction": {
         "version": 10,
         "winner": "Illinois Fighting Illini",
-        "homeWin": 72.5,
+        "homeWin": 72.3,
         "spread": -13.1,
         "total": 61.2,
         "homeScore": 37,
         "awayScore": 24,
-        "sample": 5,
+        "sample": 4.9,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -28087,15 +28108,15 @@
           "updatedAt": "2026-09-17T13:40:01.637Z"
         },
         "calibration": {
-          "reliability": 81.1,
-          "effectiveSample": 5,
+          "reliability": 80.7,
+          "effectiveSample": 4.9,
           "dailyFactor": 1.04
         },
         "awayCover": 42.5,
         "overProb": 52.9,
         "underProb": 47.1,
-        "fairHomeMoneyline": -264,
-        "fairAwayMoneyline": 264,
+        "fairHomeMoneyline": -261,
+        "fairAwayMoneyline": 261,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
@@ -28103,7 +28124,7 @@
           "total": "Low"
         },
         "confidenceScore": 92,
-        "reliability": 0.811,
+        "reliability": 0.807,
         "history": {
           "seasons": [
             2024,
@@ -28475,7 +28496,7 @@
           "headToHeadAverageTotal": 57
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 7.5,
           "spreadPrice": -110,
           "spreadBook": "FanDuel",
@@ -28642,11 +28663,11 @@
       "prediction": {
         "version": 10,
         "winner": "UTSA Roadrunners",
-        "homeWin": 37.7,
-        "spread": 6.9,
-        "total": 58.4,
-        "homeScore": 26,
-        "awayScore": 33,
+        "homeWin": 35.4,
+        "spread": 8,
+        "total": 56.1,
+        "homeScore": 24,
+        "awayScore": 32,
         "sample": 4.9,
         "evidenceGames": 8,
         "observedGames": 28,
@@ -28661,14 +28682,14 @@
           "awayOffense": 4.7,
           "awayDefense": -0.7
         },
-        "marketMargin": null,
-        "marketTotal": null,
-        "marketBooks": 0,
+        "marketMargin": -10.5,
+        "marketTotal": 52.5,
+        "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
-        "spreadEdge": null,
-        "totalEdge": null,
-        "homeCover": null,
+        "spreadEdge": 2.5,
+        "totalEdge": 3.6,
+        "homeCover": 55.2,
         "adjustments": {
           "neutralSite": false,
           "homeField": 2.7,
@@ -28692,23 +28713,23 @@
           "updatedAt": "2026-09-17T13:40:01.705Z"
         },
         "calibration": {
-          "reliability": 77.6,
+          "reliability": 80.7,
           "effectiveSample": 4.9,
           "dailyFactor": 1.04
         },
-        "awayCover": null,
-        "overProb": null,
-        "underProb": null,
-        "fairHomeMoneyline": 165,
-        "fairAwayMoneyline": -165,
+        "awayCover": 44.8,
+        "overProb": 56,
+        "underProb": 44,
+        "fairHomeMoneyline": 182,
+        "fairAwayMoneyline": -182,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 70,
-        "reliability": 0.776,
+        "confidenceScore": 86,
+        "reliability": 0.807,
         "history": {
           "seasons": [
             2024,
@@ -28720,7 +28741,17 @@
           "headToHead": 2,
           "headToHeadAverageTotal": 65
         },
-        "market": null
+        "market": {
+          "capturedAt": "2026-09-27T09:27:37.056Z",
+          "homePoint": 10.5,
+          "spreadPrice": -110,
+          "spreadBook": "FanDuel",
+          "spreadPick": "Rice Owls",
+          "total": 52.5,
+          "totalPrice": -110,
+          "totalBook": "FanDuel",
+          "totalPick": "Over"
+        }
       }
     },
     {
@@ -28868,10 +28899,10 @@
       "prediction": {
         "version": 10,
         "winner": "South Alabama Jaguars",
-        "homeWin": 73.8,
-        "spread": -15.2,
-        "total": 58,
-        "homeScore": 37,
+        "homeWin": 74.8,
+        "spread": -15.3,
+        "total": 56.7,
+        "homeScore": 36,
         "awayScore": 21,
         "sample": 4.7,
         "evidenceGames": 8,
@@ -28887,14 +28918,14 @@
           "awayOffense": -3.6,
           "awayDefense": -4.6
         },
-        "marketMargin": null,
-        "marketTotal": null,
-        "marketBooks": 0,
+        "marketMargin": 15.5,
+        "marketTotal": 54.5,
+        "marketBooks": 1,
         "marketSpreadDeviation": 0,
         "marketTotalDeviation": 0,
-        "spreadEdge": null,
-        "totalEdge": null,
-        "homeCover": null,
+        "spreadEdge": -0.2,
+        "totalEdge": 2.2,
+        "homeCover": 49.6,
         "adjustments": {
           "neutralSite": false,
           "homeField": 2.7,
@@ -28918,23 +28949,23 @@
           "updatedAt": "2026-09-17T13:40:01.701Z"
         },
         "calibration": {
-          "reliability": 76.8,
+          "reliability": 79.9,
           "effectiveSample": 4.7,
           "dailyFactor": 1.04
         },
-        "awayCover": null,
-        "overProb": null,
-        "underProb": null,
-        "fairHomeMoneyline": -282,
-        "fairAwayMoneyline": 282,
+        "awayCover": 50.4,
+        "overProb": 53.7,
+        "underProb": 46.3,
+        "fairHomeMoneyline": -297,
+        "fairAwayMoneyline": 297,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 88,
-        "reliability": 0.768,
+        "confidenceScore": 92,
+        "reliability": 0.799,
         "history": {
           "seasons": [
             2024,
@@ -28946,7 +28977,17 @@
           "headToHead": 2,
           "headToHeadAverageTotal": 51.5
         },
-        "market": null
+        "market": {
+          "capturedAt": "2026-09-27T09:27:37.056Z",
+          "homePoint": -15.5,
+          "spreadPrice": -110,
+          "spreadBook": "FanDuel",
+          "spreadPick": "UL Monroe Warhawks",
+          "total": 54.5,
+          "totalPrice": -110,
+          "totalBook": "FanDuel",
+          "totalPick": "Over"
+        }
       }
     },
     {
@@ -29060,7 +29101,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 18.5,
           "spreadPrice": -110,
           "spreadBook": "Draft Kings",
@@ -29474,7 +29515,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 30.9,
         "homeDefense": 17.8,
-        "awayOffense": 26.8,
+        "awayOffense": 26.7,
         "awayDefense": 29.5,
         "power": {
           "homeOffense": 3.1,
@@ -29891,7 +29932,7 @@
           "headToHeadAverageTotal": null
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": 23.5,
           "spreadPrice": -105,
           "spreadBook": "DraftKings",
@@ -30476,7 +30517,7 @@
           "headToHeadAverageTotal": 54
         },
         "market": {
-          "capturedAt": "2026-09-27T08:28:39.532Z",
+          "capturedAt": "2026-09-27T09:27:37.056Z",
           "homePoint": -7.5,
           "spreadPrice": -110,
           "spreadBook": "FanDuel",
@@ -30633,12 +30674,12 @@
       "prediction": {
         "version": 10,
         "winner": "Troy Trojans",
-        "homeWin": 62.9,
+        "homeWin": 62.8,
         "spread": -7.4,
         "total": 50.1,
         "homeScore": 29,
         "awayScore": 21,
-        "sample": 4.6,
+        "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -30683,23 +30724,23 @@
           "updatedAt": "2026-09-17T13:40:01.707Z"
         },
         "calibration": {
-          "reliability": 76.3,
-          "effectiveSample": 4.6,
+          "reliability": 75.9,
+          "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -170,
-        "fairAwayMoneyline": 170,
+        "fairHomeMoneyline": -169,
+        "fairAwayMoneyline": 169,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 72,
-        "reliability": 0.763,
+        "confidenceScore": 71,
+        "reliability": 0.759,
         "history": {
           "seasons": [
             2024,
@@ -31086,7 +31127,7 @@
         "version": 10,
         "winner": "Western Kentucky Hilltoppers",
         "homeWin": 59.1,
-        "spread": -5.2,
+        "spread": -5.3,
         "total": 55.1,
         "homeScore": 30,
         "awayScore": 25,
@@ -33263,7 +33304,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 33.4,
         "homeDefense": 20.7,
-        "awayOffense": 34.2,
+        "awayOffense": 34.1,
         "awayDefense": 22.3,
         "power": {
           "homeOffense": 5.1,
@@ -34054,7 +34095,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 24.2,
         "homeDefense": 24.8,
-        "awayOffense": 32.5,
+        "awayOffense": 32.4,
         "awayDefense": 22,
         "power": {
           "homeOffense": -0.5,
@@ -34382,12 +34423,12 @@
       "prediction": {
         "version": 10,
         "winner": "Northwestern Wildcats",
-        "homeWin": 77.8,
+        "homeWin": 77.7,
         "spread": -19.8,
         "total": 50.9,
         "homeScore": 35,
         "awayScore": 16,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -34397,7 +34438,7 @@
         "awayDefense": 32.6,
         "power": {
           "homeOffense": 1.3,
-          "homeDefense": 4.7,
+          "homeDefense": 4.6,
           "awayOffense": -4,
           "awayDefense": -3.7
         },
@@ -34432,15 +34473,15 @@
           "updatedAt": "2026-09-19T04:27:27.739Z"
         },
         "calibration": {
-          "reliability": 75.5,
-          "effectiveSample": 4.4,
+          "reliability": 75.1,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -350,
-        "fairAwayMoneyline": 350,
+        "fairHomeMoneyline": -348,
+        "fairAwayMoneyline": 348,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
@@ -34448,7 +34489,7 @@
           "total": "Low"
         },
         "confidenceScore": 88,
-        "reliability": 0.755,
+        "reliability": 0.751,
         "history": {
           "seasons": [
             2024,
@@ -34496,7 +34537,7 @@
         "version": 10,
         "winner": "Minnesota Golden Gophers",
         "homeWin": 37,
-        "spread": 7.4,
+        "spread": 7.3,
         "total": 57.1,
         "homeScore": 25,
         "awayScore": 32,
@@ -34617,7 +34658,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 26.8,
+        "homeOffense": 26.7,
         "homeDefense": 29.5,
         "awayOffense": 31.8,
         "awayDefense": 25.1,
@@ -35060,7 +35101,7 @@
       "prediction": {
         "version": 10,
         "winner": "Nevada Wolf Pack",
-        "homeWin": 44.9,
+        "homeWin": 45,
         "spread": 2.8,
         "total": 52.4,
         "homeScore": 25,
@@ -35117,8 +35158,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 123,
-        "fairAwayMoneyline": -123,
+        "fairHomeMoneyline": 122,
+        "fairAwayMoneyline": -122,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
@@ -36191,7 +36232,7 @@
         "version": 10,
         "winner": "Army Black Knights",
         "homeWin": 63.5,
-        "spread": -7.9,
+        "spread": -7.8,
         "total": 45.3,
         "homeScore": 27,
         "awayScore": 19,
@@ -37229,7 +37270,7 @@
         "homeOffense": 23.8,
         "homeDefense": 25.1,
         "awayOffense": 24.5,
-        "awayDefense": 27.1,
+        "awayDefense": 27.2,
         "power": {
           "homeOffense": -2.3,
           "homeDefense": 0.5,
@@ -38121,12 +38162,12 @@
       "prediction": {
         "version": 10,
         "winner": "Washington Huskies",
-        "homeWin": 34.4,
+        "homeWin": 34.5,
         "spread": 8.9,
         "total": 56.2,
         "homeScore": 24,
         "awayScore": 33,
-        "sample": 5,
+        "sample": 4.9,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -38171,15 +38212,15 @@
           "updatedAt": "2026-09-26T00:34:28.470Z"
         },
         "calibration": {
-          "reliability": 78,
-          "effectiveSample": 5,
+          "reliability": 77.6,
+          "effectiveSample": 4.9,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 191,
-        "fairAwayMoneyline": -191,
+        "fairHomeMoneyline": 190,
+        "fairAwayMoneyline": -190,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
@@ -38187,7 +38228,7 @@
           "total": "Low"
         },
         "confidenceScore": 80,
-        "reliability": 0.78,
+        "reliability": 0.776,
         "history": {
           "seasons": [
             2024,
@@ -40008,7 +40049,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 34.2,
+        "homeOffense": 34.1,
         "homeDefense": 22.3,
         "awayOffense": 29.7,
         "awayDefense": 25.8,
@@ -40576,7 +40617,7 @@
         "winner": "Baylor Bears",
         "homeWin": 56.2,
         "spread": -3.3,
-        "total": 50.7,
+        "total": 50.8,
         "homeScore": 27,
         "awayScore": 24,
         "sample": 5.1,
@@ -40809,7 +40850,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 32.5,
+        "homeOffense": 32.4,
         "homeDefense": 22,
         "awayOffense": 28,
         "awayDefense": 27,
@@ -41375,12 +41416,12 @@
       "prediction": {
         "version": 10,
         "winner": "Northwestern Wildcats",
-        "homeWin": 47.9,
+        "homeWin": 48,
         "spread": 1.1,
         "total": 47.5,
         "homeScore": 23,
         "awayScore": 24,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -41392,7 +41433,7 @@
           "homeOffense": -1,
           "homeDefense": 3.2,
           "awayOffense": 1.3,
-          "awayDefense": 4.7
+          "awayDefense": 4.6
         },
         "marketMargin": null,
         "marketTotal": null,
@@ -41425,23 +41466,23 @@
           "updatedAt": "2026-09-26T04:28:19.544Z"
         },
         "calibration": {
-          "reliability": 75.5,
-          "effectiveSample": 4.4,
+          "reliability": 75.1,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 109,
-        "fairAwayMoneyline": -109,
+        "fairHomeMoneyline": 108,
+        "fairAwayMoneyline": -108,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 37,
-        "reliability": 0.755,
+        "confidenceScore": 36,
+        "reliability": 0.751,
         "history": {
           "seasons": [
             2024,
@@ -41610,7 +41651,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 26.8,
+        "homeOffense": 26.7,
         "homeDefense": 29.5,
         "awayOffense": 18.5,
         "awayDefense": 34.7,
@@ -41714,7 +41755,7 @@
       "prediction": {
         "version": 10,
         "winner": "UTSA Roadrunners",
-        "homeWin": 59.7,
+        "homeWin": 59.6,
         "spread": -5.5,
         "total": 59.2,
         "homeScore": 32,
@@ -42849,7 +42890,7 @@
         "total": 52.3,
         "homeScore": 27,
         "awayScore": 25,
-        "sample": 4.6,
+        "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -42894,8 +42935,8 @@
           "updatedAt": "2026-09-26T04:28:19.536Z"
         },
         "calibration": {
-          "reliability": 76.3,
-          "effectiveSample": 4.6,
+          "reliability": 75.9,
+          "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -42910,7 +42951,7 @@
           "total": "Low"
         },
         "confidenceScore": 44,
-        "reliability": 0.763,
+        "reliability": 0.759,
         "history": {
           "seasons": [
             2024,
@@ -44424,7 +44465,7 @@
         "observedGames": 16,
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 24.5,
-        "homeDefense": 27.1,
+        "homeDefense": 27.2,
         "awayOffense": 24.8,
         "awayDefense": 30.5,
         "power": {
@@ -46498,7 +46539,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 37.2,
         "homeDefense": 15.4,
-        "awayOffense": 34.2,
+        "awayOffense": 34.1,
         "awayDefense": 22.3,
         "power": {
           "homeOffense": 7.3,
@@ -47246,7 +47287,7 @@
       "prediction": {
         "version": 10,
         "winner": "Oklahoma State Cowboys",
-        "homeWin": 64.3,
+        "homeWin": 64.2,
         "spread": -8.1,
         "total": 51.1,
         "homeScore": 30,
@@ -47303,8 +47344,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -180,
-        "fairAwayMoneyline": 180,
+        "fairHomeMoneyline": -179,
+        "fairAwayMoneyline": 179,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
@@ -47899,7 +47940,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 25.4,
         "homeDefense": 19.5,
-        "awayOffense": 32.5,
+        "awayOffense": 32.4,
         "awayDefense": 22,
         "power": {
           "homeOffense": 0.6,
@@ -47995,12 +48036,12 @@
       "prediction": {
         "version": 10,
         "winner": "Northwestern Wildcats",
-        "homeWin": 63.7,
+        "homeWin": 63.6,
         "spread": -8,
         "total": 54.4,
         "homeScore": 31,
         "awayScore": 23,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -48010,7 +48051,7 @@
         "awayDefense": 29.8,
         "power": {
           "homeOffense": 1.3,
-          "homeDefense": 4.7,
+          "homeDefense": 4.6,
           "awayOffense": 3,
           "awayDefense": -0.7
         },
@@ -48045,8 +48086,8 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 75.5,
-          "effectiveSample": 4.4,
+          "reliability": 75.1,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -48061,7 +48102,7 @@
           "total": "Low"
         },
         "confidenceScore": 74,
-        "reliability": 0.755,
+        "reliability": 0.751,
         "history": {
           "seasons": [
             2024,
@@ -48851,12 +48892,12 @@
       "prediction": {
         "version": 10,
         "winner": "Ohio Bobcats",
-        "homeWin": 70.1,
+        "homeWin": 70,
         "spread": -12,
         "total": 53.4,
         "homeScore": 33,
         "awayScore": 21,
-        "sample": 4.9,
+        "sample": 4.8,
         "evidenceGames": 8,
         "observedGames": 29,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -48901,15 +48942,15 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 77.6,
-          "effectiveSample": 4.9,
+          "reliability": 77.2,
+          "effectiveSample": 4.8,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -234,
-        "fairAwayMoneyline": 234,
+        "fairHomeMoneyline": -233,
+        "fairAwayMoneyline": 233,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
@@ -48917,7 +48958,7 @@
           "total": "Low"
         },
         "confidenceScore": 88,
-        "reliability": 0.776,
+        "reliability": 0.772,
         "history": {
           "seasons": [
             2024,
@@ -49172,12 +49213,12 @@
       "prediction": {
         "version": 10,
         "winner": "Louisiana Ragin' Cajuns",
-        "homeWin": 44,
+        "homeWin": 44.1,
         "spread": 3.3,
         "total": 52.8,
         "homeScore": 25,
         "awayScore": 28,
-        "sample": 4.6,
+        "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -49222,8 +49263,8 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 76.3,
-          "effectiveSample": 4.6,
+          "reliability": 75.9,
+          "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -49238,7 +49279,7 @@
           "total": "Low"
         },
         "confidenceScore": 49,
-        "reliability": 0.763,
+        "reliability": 0.759,
         "history": {
           "seasons": [
             2024,
@@ -50361,7 +50402,7 @@
         "homeOffense": 25.4,
         "homeDefense": 31.4,
         "awayOffense": 24.5,
-        "awayDefense": 27.1,
+        "awayDefense": 27.2,
         "power": {
           "homeOffense": -0.3,
           "homeDefense": -1.6,
@@ -50884,7 +50925,7 @@
       "prediction": {
         "version": 10,
         "winner": "James Madison Dukes",
-        "homeWin": 78.7,
+        "homeWin": 78.6,
         "spread": -19.5,
         "total": 48.1,
         "homeScore": 34,
@@ -50941,8 +50982,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -369,
-        "fairAwayMoneyline": 369,
+        "fairHomeMoneyline": -367,
+        "fairAwayMoneyline": 367,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
@@ -50992,7 +51033,7 @@
         "version": 10,
         "winner": "Tulane Green Wave",
         "homeWin": 31.6,
-        "spread": 10.8,
+        "spread": 10.7,
         "total": 47.9,
         "homeScore": 19,
         "awayScore": 29,
@@ -52713,12 +52754,12 @@
       "prediction": {
         "version": 10,
         "winner": "Oregon Ducks",
-        "homeWin": 71.6,
+        "homeWin": 71.5,
         "spread": -13.7,
         "total": 53.7,
         "homeScore": 34,
         "awayScore": 20,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -52730,7 +52771,7 @@
           "homeOffense": 8.3,
           "homeDefense": 4.9,
           "awayOffense": 1.3,
-          "awayDefense": 4.7
+          "awayDefense": 4.6
         },
         "marketMargin": null,
         "marketTotal": null,
@@ -52763,15 +52804,15 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 75.5,
-          "effectiveSample": 4.4,
+          "reliability": 75.1,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -252,
-        "fairAwayMoneyline": 252,
+        "fairHomeMoneyline": -251,
+        "fairAwayMoneyline": 251,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
@@ -52779,7 +52820,7 @@
           "total": "Low"
         },
         "confidenceScore": 88,
-        "reliability": 0.755,
+        "reliability": 0.751,
         "history": {
           "seasons": [
             2024,
@@ -54446,7 +54487,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 27.5,
         "homeDefense": 23.3,
-        "awayOffense": 26.8,
+        "awayOffense": 26.7,
         "awayDefense": 29.5,
         "power": {
           "homeOffense": 0.6,
@@ -54975,7 +55016,7 @@
         "total": 56.1,
         "homeScore": 26,
         "awayScore": 31,
-        "sample": 4.6,
+        "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -55020,8 +55061,8 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 76.3,
-          "effectiveSample": 4.6,
+          "reliability": 75.9,
+          "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -55036,7 +55077,7 @@
           "total": "Low"
         },
         "confidenceScore": 59,
-        "reliability": 0.763,
+        "reliability": 0.759,
         "history": {
           "seasons": [
             2024,
@@ -57013,12 +57054,12 @@
       "prediction": {
         "version": 10,
         "winner": "James Madison Dukes",
-        "homeWin": 26.7,
+        "homeWin": 26.8,
         "spread": 14.9,
         "total": 53.1,
         "homeScore": 19,
         "awayScore": 34,
-        "sample": 4.6,
+        "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -57063,15 +57104,15 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 76.3,
-          "effectiveSample": 4.6,
+          "reliability": 75.9,
+          "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 275,
-        "fairAwayMoneyline": -275,
+        "fairHomeMoneyline": 273,
+        "fairAwayMoneyline": -273,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
@@ -57079,7 +57120,7 @@
           "total": "Low"
         },
         "confidenceScore": 88,
-        "reliability": 0.763,
+        "reliability": 0.759,
         "history": {
           "seasons": [
             2024,
@@ -57131,7 +57172,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 34.6,
         "homeDefense": 24.7,
-        "awayOffense": 32.5,
+        "awayOffense": 32.4,
         "awayDefense": 22,
         "power": {
           "homeOffense": 5.2,
@@ -58658,12 +58699,12 @@
       "prediction": {
         "version": 10,
         "winner": "Iowa Hawkeyes",
-        "homeWin": 43.3,
+        "homeWin": 43.4,
         "spread": 3.8,
         "total": 46.2,
         "homeScore": 21,
         "awayScore": 25,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -58673,7 +58714,7 @@
         "awayDefense": 13,
         "power": {
           "homeOffense": 1.3,
-          "homeDefense": 4.7,
+          "homeDefense": 4.6,
           "awayOffense": 2.8,
           "awayDefense": 8.6
         },
@@ -58708,23 +58749,23 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 75.5,
-          "effectiveSample": 4.4,
+          "reliability": 75.1,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 131,
-        "fairAwayMoneyline": -131,
+        "fairHomeMoneyline": 130,
+        "fairAwayMoneyline": -130,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 52,
-        "reliability": 0.755,
+        "confidenceScore": 51,
+        "reliability": 0.751,
         "history": {
           "seasons": [
             2024,
@@ -59212,7 +59253,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 34.2,
+        "homeOffense": 34.1,
         "homeDefense": 22.3,
         "awayOffense": 34.2,
         "awayDefense": 23.5,
@@ -59310,7 +59351,7 @@
       "prediction": {
         "version": 10,
         "winner": "Auburn Tigers",
-        "homeWin": 65.1,
+        "homeWin": 65,
         "spread": -8.9,
         "total": 52,
         "homeScore": 30,
@@ -59367,15 +59408,15 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -187,
-        "fairAwayMoneyline": 187,
+        "fairHomeMoneyline": -186,
+        "fairAwayMoneyline": 186,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 79,
+        "confidenceScore": 78,
         "reliability": 0.755,
         "history": {
           "seasons": [
@@ -60380,7 +60421,7 @@
       "prediction": {
         "version": 10,
         "winner": "Maryland Terrapins",
-        "homeWin": 43.5,
+        "homeWin": 43.6,
         "spread": 3.5,
         "total": 59.6,
         "homeScore": 28,
@@ -60437,8 +60478,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 130,
-        "fairAwayMoneyline": -130,
+        "fairHomeMoneyline": 129,
+        "fairAwayMoneyline": -129,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
@@ -61236,7 +61277,7 @@
       "prediction": {
         "version": 10,
         "winner": "Coastal Carolina Chanticleers",
-        "homeWin": 51.9,
+        "homeWin": 51.8,
         "spread": -1,
         "total": 53,
         "homeScore": 27,
@@ -61293,8 +61334,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -108,
-        "fairAwayMoneyline": 108,
+        "fairHomeMoneyline": -107,
+        "fairAwayMoneyline": 107,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
@@ -61890,7 +61931,7 @@
         "homeOffense": 21.8,
         "homeDefense": 24.4,
         "awayOffense": 24.5,
-        "awayDefense": 27.1,
+        "awayDefense": 27.2,
         "power": {
           "homeOffense": -2.9,
           "homeDefense": 1.7,
@@ -61996,7 +62037,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 30.5,
         "homeDefense": 25.3,
-        "awayOffense": 26.8,
+        "awayOffense": 26.7,
         "awayDefense": 29.5,
         "power": {
           "homeOffense": 1.7,
@@ -62413,7 +62454,7 @@
       "prediction": {
         "version": 10,
         "winner": "Boise State Broncos",
-        "homeWin": 35.5,
+        "homeWin": 35.6,
         "spread": 8.1,
         "total": 61.4,
         "homeScore": 27,
@@ -62470,8 +62511,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 182,
-        "fairAwayMoneyline": -182,
+        "fairHomeMoneyline": 181,
+        "fairAwayMoneyline": -181,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
@@ -63386,12 +63427,12 @@
       "prediction": {
         "version": 10,
         "winner": "Miami (OH) RedHawks",
-        "homeWin": 56.1,
+        "homeWin": 56,
         "spread": -3.3,
         "total": 53.8,
         "homeScore": 29,
         "awayScore": 25,
-        "sample": 4.9,
+        "sample": 4.8,
         "evidenceGames": 8,
         "observedGames": 29,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -63436,23 +63477,23 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 77.6,
-          "effectiveSample": 4.9,
+          "reliability": 77.2,
+          "effectiveSample": 4.8,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -128,
-        "fairAwayMoneyline": 128,
+        "fairHomeMoneyline": -127,
+        "fairAwayMoneyline": 127,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 50,
-        "reliability": 0.776,
+        "confidenceScore": 49,
+        "reliability": 0.772,
         "history": {
           "seasons": [
             2024,
@@ -64253,7 +64294,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 21.9,
         "homeDefense": 25.1,
-        "awayOffense": 34.2,
+        "awayOffense": 34.1,
         "awayDefense": 22.3,
         "power": {
           "homeOffense": -1.4,
@@ -64924,12 +64965,12 @@
       "prediction": {
         "version": 10,
         "winner": "Ohio State Buckeyes",
-        "homeWin": 76.5,
+        "homeWin": 76.3,
         "spread": -18.3,
         "total": 49.5,
         "homeScore": 34,
         "awayScore": 16,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -64941,7 +64982,7 @@
           "homeOffense": 8.2,
           "homeDefense": 9.2,
           "awayOffense": 1.3,
-          "awayDefense": 4.7
+          "awayDefense": 4.6
         },
         "marketMargin": null,
         "marketTotal": null,
@@ -64974,15 +65015,15 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 75.5,
-          "effectiveSample": 4.4,
+          "reliability": 75.1,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -326,
-        "fairAwayMoneyline": 326,
+        "fairHomeMoneyline": -322,
+        "fairAwayMoneyline": 322,
         "confidence": "High",
         "confidenceByMarket": {
           "moneyline": "High",
@@ -64990,7 +65031,7 @@
           "total": "Low"
         },
         "confidenceScore": 88,
-        "reliability": 0.755,
+        "reliability": 0.751,
         "history": {
           "seasons": [
             2024,
@@ -67103,7 +67144,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 32.5,
+        "homeOffense": 32.4,
         "homeDefense": 22,
         "awayOffense": 22.7,
         "awayDefense": 30.6,
@@ -68066,7 +68107,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 26.8,
+        "homeOffense": 26.7,
         "homeDefense": 29.5,
         "awayOffense": 23.4,
         "awayDefense": 28.8,
@@ -68303,7 +68344,7 @@
           "homeField": 2.7,
           "rest": 0,
           "venue": 1,
-          "recentForm": -0.8,
+          "recentForm": -0.7,
           "headToHead": 0,
           "weatherTotal": 0,
           "injuryMargin": 0,
@@ -69244,7 +69285,7 @@
         "observedGames": 16,
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 24.5,
-        "homeDefense": 27.1,
+        "homeDefense": 27.2,
         "awayOffense": 21.8,
         "awayDefense": 18.7,
         "power": {
@@ -70955,7 +70996,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 26.8,
+        "homeOffense": 26.7,
         "homeDefense": 29.5,
         "awayOffense": 20.2,
         "awayDefense": 30.4,
@@ -71590,7 +71631,7 @@
         "winner": "Texas Longhorns",
         "homeWin": 75.3,
         "spread": -17,
-        "total": 50,
+        "total": 50.1,
         "homeScore": 34,
         "awayScore": 17,
         "sample": 4.4,
@@ -71920,7 +71961,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 43.2,
         "homeDefense": 14,
-        "awayOffense": 32.5,
+        "awayOffense": 32.4,
         "awayDefense": 22,
         "power": {
           "homeOffense": 8.9,
@@ -73448,7 +73489,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 30.5,
         "homeDefense": 28.5,
-        "awayOffense": 34.2,
+        "awayOffense": 34.1,
         "awayDefense": 22.3,
         "power": {
           "homeOffense": 3.5,
@@ -74405,7 +74446,7 @@
         "total": 50,
         "homeScore": 27,
         "awayScore": 23,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -74417,7 +74458,7 @@
           "homeOffense": 1.8,
           "homeDefense": 4.1,
           "awayOffense": 1.3,
-          "awayDefense": 4.7
+          "awayDefense": 4.6
         },
         "marketMargin": null,
         "marketTotal": null,
@@ -74450,8 +74491,8 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 75.5,
-          "effectiveSample": 4.4,
+          "reliability": 75.1,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -74465,8 +74506,8 @@
           "spread": "Low",
           "total": "Low"
         },
-        "confidenceScore": 53,
-        "reliability": 0.755,
+        "confidenceScore": 52,
+        "reliability": 0.751,
         "history": {
           "seasons": [
             2024,
@@ -75689,7 +75730,7 @@
         "total": 58.8,
         "homeScore": 30,
         "awayScore": 29,
-        "sample": 4.6,
+        "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -75734,8 +75775,8 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 76.3,
-          "effectiveSample": 4.6,
+          "reliability": 75.9,
+          "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -75750,7 +75791,7 @@
           "total": "Low"
         },
         "confidenceScore": 31,
-        "reliability": 0.763,
+        "reliability": 0.759,
         "history": {
           "seasons": [
             2024,
@@ -75791,7 +75832,7 @@
       "prediction": {
         "version": 10,
         "winner": "Ole Miss Rebels",
-        "homeWin": 71.6,
+        "homeWin": 71.5,
         "spread": -18.5,
         "total": 57.5,
         "homeScore": 38,
@@ -75848,8 +75889,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": -252,
-        "fairAwayMoneyline": 252,
+        "fairHomeMoneyline": -251,
+        "fairAwayMoneyline": 251,
         "confidence": "Low",
         "confidenceByMarket": {
           "moneyline": "Low",
@@ -76659,7 +76700,7 @@
         "homeOffense": 22.9,
         "homeDefense": 30.9,
         "awayOffense": 24.5,
-        "awayDefense": 27.1,
+        "awayDefense": 27.2,
         "power": {
           "homeOffense": -2,
           "homeDefense": -2.4,
@@ -76862,7 +76903,7 @@
         "version": 10,
         "winner": "Auburn Tigers",
         "homeWin": 65.9,
-        "spread": -13,
+        "spread": -12.9,
         "total": 51,
         "homeScore": 32,
         "awayScore": 19,
@@ -78390,7 +78431,7 @@
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 33.8,
         "homeDefense": 25.1,
-        "awayOffense": 26.8,
+        "awayOffense": 26.7,
         "awayDefense": 29.5,
         "power": {
           "homeOffense": 4.5,
@@ -78929,7 +78970,7 @@
         "total": 58.6,
         "homeScore": 29,
         "awayScore": 30,
-        "sample": 4.9,
+        "sample": 4.8,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -78974,8 +79015,8 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 77.6,
-          "effectiveSample": 4.9,
+          "reliability": 77.2,
+          "effectiveSample": 4.8,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -78990,7 +79031,7 @@
           "total": "Low"
         },
         "confidenceScore": 34,
-        "reliability": 0.776,
+        "reliability": 0.772,
         "history": {
           "seasons": [
             2024,
@@ -81240,7 +81281,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 34.2,
+        "homeOffense": 34.1,
         "homeDefense": 22.3,
         "awayOffense": 29.8,
         "awayDefense": 21,
@@ -82117,7 +82158,7 @@
       "prediction": {
         "version": 10,
         "winner": "Pittsburgh Panthers",
-        "homeWin": 34.4,
+        "homeWin": 34.5,
         "spread": 9,
         "total": 49.4,
         "homeScore": 20,
@@ -82174,8 +82215,8 @@
         "awayCover": null,
         "overProb": null,
         "underProb": null,
-        "fairHomeMoneyline": 191,
-        "fairAwayMoneyline": -191,
+        "fairHomeMoneyline": 190,
+        "fairAwayMoneyline": -190,
         "confidence": "Medium",
         "confidenceByMarket": {
           "moneyline": "Medium",
@@ -82233,7 +82274,7 @@
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
-        "homeOffense": 32.5,
+        "homeOffense": 32.4,
         "homeDefense": 22,
         "awayOffense": 33.6,
         "awayDefense": 19.4,
@@ -82346,7 +82387,7 @@
         "total": 52.5,
         "homeScore": 27,
         "awayScore": 25,
-        "sample": 4.4,
+        "sample": 4.3,
         "evidenceGames": 8,
         "observedGames": 27,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -82356,7 +82397,7 @@
         "awayDefense": 26.6,
         "power": {
           "homeOffense": 1.3,
-          "homeDefense": 4.7,
+          "homeDefense": 4.6,
           "awayOffense": 4.2,
           "awayDefense": 1.9
         },
@@ -82367,7 +82408,7 @@
         "marketTotalDeviation": 0,
         "spreadEdge": 5.2,
         "totalEdge": 0,
-        "homeCover": 60.3,
+        "homeCover": 60.2,
         "adjustments": {
           "neutralSite": false,
           "homeField": 2.7,
@@ -82391,11 +82432,11 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 78.6,
-          "effectiveSample": 4.4,
+          "reliability": 78.2,
+          "effectiveSample": 4.3,
           "dailyFactor": 1.04
         },
-        "awayCover": 39.7,
+        "awayCover": 39.8,
         "overProb": 50,
         "underProb": 50,
         "fairHomeMoneyline": -114,
@@ -82407,7 +82448,7 @@
           "total": "Low"
         },
         "confidenceScore": 92,
-        "reliability": 0.786,
+        "reliability": 0.782,
         "history": {
           "seasons": [
             2024,
@@ -84068,7 +84109,7 @@
         "total": 54.1,
         "homeScore": 30,
         "awayScore": 24,
-        "sample": 4.6,
+        "sample": 4.5,
         "evidenceGames": 8,
         "observedGames": 28,
         "createdAt": "2026-09-13T06:41:21.107Z",
@@ -84113,8 +84154,8 @@
           "updatedAt": null
         },
         "calibration": {
-          "reliability": 76.3,
-          "effectiveSample": 4.6,
+          "reliability": 75.9,
+          "effectiveSample": 4.5,
           "dailyFactor": 1.04
         },
         "awayCover": null,
@@ -84129,7 +84170,7 @@
           "total": "Low"
         },
         "confidenceScore": 63,
-        "reliability": 0.763,
+        "reliability": 0.759,
         "history": {
           "seasons": [
             2024,
@@ -85046,7 +85087,7 @@
         "observedGames": 16,
         "createdAt": "2026-09-13T06:41:21.107Z",
         "homeOffense": 24.5,
-        "homeDefense": 27.1,
+        "homeDefense": 27.2,
         "awayOffense": 27.7,
         "awayDefense": 23.9,
         "power": {
@@ -86670,11 +86711,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Pittsburgh Panthers",
@@ -86688,7 +86729,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Pittsburgh Panthers",
@@ -86704,7 +86745,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -86723,11 +86764,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Pittsburgh Panthers",
@@ -86741,7 +86782,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Pittsburgh Panthers",
@@ -86757,7 +86798,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -86822,11 +86863,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Northwestern Wildcats",
@@ -86840,7 +86881,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Northwestern Wildcats",
@@ -86856,7 +86897,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -86875,11 +86916,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Northwestern Wildcats",
@@ -86893,7 +86934,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Northwestern Wildcats",
@@ -86909,7 +86950,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -86974,11 +87015,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "North Carolina Tar Heels",
@@ -86992,7 +87033,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "North Carolina Tar Heels",
@@ -87008,7 +87049,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87027,11 +87068,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "North Carolina Tar Heels",
@@ -87045,7 +87086,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "North Carolina Tar Heels",
@@ -87061,7 +87102,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87141,11 +87182,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Alabama Crimson Tide",
@@ -87159,7 +87200,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Alabama Crimson Tide",
@@ -87175,7 +87216,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87194,11 +87235,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Alabama Crimson Tide",
@@ -87212,7 +87253,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Alabama Crimson Tide",
@@ -87228,7 +87269,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87247,11 +87288,11 @@
         {
           "key": "betmgm",
           "title": "BetMGM",
-          "last_update": "2026-09-27T08:27:58Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Alabama Crimson Tide",
@@ -87265,7 +87306,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Alabama Crimson Tide",
@@ -87281,7 +87322,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87362,11 +87403,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Michigan Wolverines",
@@ -87380,7 +87421,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Michigan Wolverines",
@@ -87396,7 +87437,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87475,11 +87516,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Michigan State Spartans",
@@ -87493,7 +87534,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Michigan State Spartans",
@@ -87509,7 +87550,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87528,11 +87569,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Michigan State Spartans",
@@ -87546,7 +87587,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Michigan State Spartans",
@@ -87562,7 +87603,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87627,11 +87668,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Georgia Bulldogs",
@@ -87645,7 +87686,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Georgia Bulldogs",
@@ -87661,7 +87702,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87680,11 +87721,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Georgia Bulldogs",
@@ -87698,7 +87739,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Georgia Bulldogs",
@@ -87714,7 +87755,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87779,11 +87820,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Iowa Hawkeyes",
@@ -87797,7 +87838,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Iowa Hawkeyes",
@@ -87813,7 +87854,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87832,11 +87873,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Iowa Hawkeyes",
@@ -87850,7 +87891,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Iowa Hawkeyes",
@@ -87866,7 +87907,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -87885,11 +87926,11 @@
         {
           "key": "betmgm",
           "title": "BetMGM",
-          "last_update": "2026-09-27T08:27:58Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Iowa Hawkeyes",
@@ -87903,7 +87944,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Iowa Hawkeyes",
@@ -87919,7 +87960,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88000,11 +88041,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Auburn Tigers",
@@ -88018,7 +88059,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Auburn Tigers",
@@ -88034,7 +88075,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88053,11 +88094,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Auburn Tigers",
@@ -88071,7 +88112,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Auburn Tigers",
@@ -88087,7 +88128,60 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -110,
+                  "point": 55.5
+                },
+                {
+                  "name": "Under",
+                  "price": -110,
+                  "point": 55.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "espnbet",
+          "title": "theScore Bet",
+          "last_update": "2026-09-27T09:27:07Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-09-27T09:27:07Z",
+              "outcomes": [
+                {
+                  "name": "Auburn Tigers",
+                  "price": 260
+                },
+                {
+                  "name": "Tennessee Volunteers",
+                  "price": -320
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-09-27T09:27:07Z",
+              "outcomes": [
+                {
+                  "name": "Auburn Tigers",
+                  "price": -115,
+                  "point": 8.5
+                },
+                {
+                  "name": "Tennessee Volunteers",
+                  "price": -105,
+                  "point": -8.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88106,7 +88200,8 @@
       ],
       "freshBookmakers": [
         "draftkings",
-        "fanduel"
+        "fanduel",
+        "thescorebet"
       ]
     },
     {
@@ -88167,11 +88262,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Louisville Cardinals",
@@ -88185,7 +88280,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Louisville Cardinals",
@@ -88201,7 +88296,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88220,11 +88315,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Louisville Cardinals",
@@ -88238,7 +88333,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Louisville Cardinals",
@@ -88254,7 +88349,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88319,11 +88414,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Florida Gators",
@@ -88337,7 +88432,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Florida Gators",
@@ -88353,7 +88448,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88372,11 +88467,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Florida Gators",
@@ -88390,7 +88485,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Florida Gators",
@@ -88406,7 +88501,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88471,11 +88566,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Florida State Seminoles",
@@ -88489,7 +88584,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Florida State Seminoles",
@@ -88505,7 +88600,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88524,11 +88619,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Florida State Seminoles",
@@ -88542,7 +88637,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Florida State Seminoles",
@@ -88558,7 +88653,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88623,11 +88718,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Kentucky Wildcats",
@@ -88641,7 +88736,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Kentucky Wildcats",
@@ -88657,7 +88752,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88676,11 +88771,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Kentucky Wildcats",
@@ -88694,7 +88789,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Kentucky Wildcats",
@@ -88710,7 +88805,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88790,11 +88885,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "BYU Cougars",
@@ -88808,7 +88903,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "BYU Cougars",
@@ -88824,7 +88919,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88843,25 +88938,25 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "BYU Cougars",
-                  "price": -310
+                  "price": -295
                 },
                 {
                   "name": "TCU Horned Frogs",
-                  "price": 245
+                  "price": 235
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "BYU Cougars",
@@ -88877,7 +88972,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -88957,11 +89052,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Clemson Tigers",
@@ -88975,7 +89070,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Clemson Tigers",
@@ -88991,7 +89086,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -89010,11 +89105,11 @@
         {
           "key": "betmgm",
           "title": "BetMGM",
-          "last_update": "2026-09-27T08:27:58Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Clemson Tigers",
@@ -89028,7 +89123,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Clemson Tigers",
@@ -89044,7 +89139,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:27:58Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -89063,11 +89158,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Clemson Tigers",
@@ -89081,7 +89176,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Clemson Tigers",
@@ -89097,7 +89192,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -89178,11 +89273,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "USC Trojans",
@@ -89196,7 +89291,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "USC Trojans",
@@ -89212,7 +89307,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -89276,11 +89371,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Indiana Hoosiers",
@@ -89294,7 +89389,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Indiana Hoosiers",
@@ -89310,7 +89405,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -89329,11 +89424,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Indiana Hoosiers",
@@ -89347,7 +89442,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Indiana Hoosiers",
@@ -89363,7 +89458,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -89443,11 +89538,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Arizona Wildcats",
@@ -89461,7 +89556,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Arizona Wildcats",
@@ -89477,7 +89572,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -89496,11 +89591,11 @@
         {
           "key": "draftkings",
           "title": "DraftKings",
-          "last_update": "2026-09-27T08:28:46Z",
+          "last_update": "2026-09-27T09:27:07Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Arizona Wildcats",
@@ -89514,7 +89609,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Arizona Wildcats",
@@ -89530,7 +89625,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:46Z",
+              "last_update": "2026-09-27T09:27:07Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92209,6 +92304,72 @@
       "freshBookmakers": []
     },
     {
+      "id": "3c64f3dd8efd756a90f09303e5517006",
+      "sport_key": "americanfootball_ncaaf",
+      "sport_title": "NCAAF",
+      "commence_time": "2026-10-02T01:00:00Z",
+      "home_team": "Tulsa Golden Hurricane",
+      "away_team": "North Texas Mean Green",
+      "bookmakers": [
+        {
+          "key": "fanduel",
+          "title": "FanDuel",
+          "last_update": "2026-09-27T09:27:10Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-09-27T09:27:09Z",
+              "outcomes": [
+                {
+                  "name": "North Texas Mean Green",
+                  "price": 130
+                },
+                {
+                  "name": "Tulsa Golden Hurricane",
+                  "price": -156
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-09-27T09:27:09Z",
+              "outcomes": [
+                {
+                  "name": "North Texas Mean Green",
+                  "price": -118,
+                  "point": 3.5
+                },
+                {
+                  "name": "Tulsa Golden Hurricane",
+                  "price": -104,
+                  "point": -3.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-09-27T09:27:09Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -110,
+                  "point": 56.5
+                },
+                {
+                  "name": "Under",
+                  "price": -110,
+                  "point": 56.5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "freshBookmakers": [
+        "fanduel"
+      ]
+    },
+    {
       "id": "4fcb5b7ec04cad7acc5d048bdd24be4c",
       "sport_key": "americanfootball_ncaaf",
       "sport_title": "NCAAF",
@@ -92219,41 +92380,41 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Air Force Falcons",
-                  "price": -106
+                  "price": -114
                 },
                 {
                   "name": "Navy Midshipmen",
-                  "price": -113
+                  "price": -105
                 }
               ]
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Air Force Falcons",
-                  "price": -115,
-                  "point": 1.5
+                  "price": -106,
+                  "point": -1.5
                 },
                 {
                   "name": "Navy Midshipmen",
-                  "price": -105,
-                  "point": -1.5
+                  "price": -114,
+                  "point": 1.5
                 }
               ]
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92285,11 +92446,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Boston College Eagles",
@@ -92303,7 +92464,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Boston College Eagles",
@@ -92319,7 +92480,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92351,11 +92512,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Houston Cougars",
@@ -92369,7 +92530,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Houston Cougars",
@@ -92385,7 +92546,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92417,11 +92578,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Iowa State Cyclones",
@@ -92435,7 +92596,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Iowa State Cyclones",
@@ -92451,7 +92612,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92483,11 +92644,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Stanford Cardinal",
@@ -92501,7 +92662,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Stanford Cardinal",
@@ -92517,7 +92678,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92549,11 +92710,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Syracuse Orange",
@@ -92567,7 +92728,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Syracuse Orange",
@@ -92583,7 +92744,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92615,11 +92776,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Ball State Cardinals",
@@ -92633,7 +92794,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Ball State Cardinals",
@@ -92649,7 +92810,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92681,11 +92842,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Akron Zips",
@@ -92699,7 +92860,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Akron Zips",
@@ -92715,7 +92876,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92747,11 +92908,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "California Golden Bears",
@@ -92765,7 +92926,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "California Golden Bears",
@@ -92781,7 +92942,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92813,11 +92974,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Georgia State Panthers",
@@ -92831,7 +92992,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Georgia State Panthers",
@@ -92847,7 +93008,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92869,6 +93030,72 @@
       ]
     },
     {
+      "id": "c1c548c80e674e3a37dcc2551beba599",
+      "sport_key": "americanfootball_ncaaf",
+      "sport_title": "NCAAF",
+      "commence_time": "2026-10-03T19:30:00Z",
+      "home_team": "Kent State Golden Flashes",
+      "away_team": "Ohio Bobcats",
+      "bookmakers": [
+        {
+          "key": "fanduel",
+          "title": "FanDuel",
+          "last_update": "2026-09-27T09:27:10Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "Kent State Golden Flashes",
+                  "price": 142
+                },
+                {
+                  "name": "Ohio Bobcats",
+                  "price": -172
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "Kent State Golden Flashes",
+                  "price": -110,
+                  "point": 3.5
+                },
+                {
+                  "name": "Ohio Bobcats",
+                  "price": -110,
+                  "point": -3.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -110,
+                  "point": 50.5
+                },
+                {
+                  "name": "Under",
+                  "price": -110,
+                  "point": 50.5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "freshBookmakers": [
+        "fanduel"
+      ]
+    },
+    {
       "id": "7e365956ef23823565a044a5af18736a",
       "sport_key": "americanfootball_ncaaf",
       "sport_title": "NCAAF",
@@ -92879,11 +93106,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "James Madison Dukes",
@@ -92897,7 +93124,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "James Madison Dukes",
@@ -92913,7 +93140,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -92945,11 +93172,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Maryland Terrapins",
@@ -92963,7 +93190,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Maryland Terrapins",
@@ -92979,7 +93206,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:09Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -93011,11 +93238,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Illinois Fighting Illini",
@@ -93029,7 +93256,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Illinois Fighting Illini",
@@ -93045,7 +93272,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -93077,11 +93304,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Colorado State Rams",
@@ -93095,7 +93322,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Colorado State Rams",
@@ -93111,7 +93338,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -93143,11 +93370,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Arkansas Razorbacks",
@@ -93161,7 +93388,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Arkansas Razorbacks",
@@ -93177,7 +93404,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -93199,6 +93426,138 @@
       ]
     },
     {
+      "id": "279230b2d38c4e97187c3f065501a4cf",
+      "sport_key": "americanfootball_ncaaf",
+      "sport_title": "NCAAF",
+      "commence_time": "2026-10-03T23:00:00Z",
+      "home_team": "Rice Owls",
+      "away_team": "UTSA Roadrunners",
+      "bookmakers": [
+        {
+          "key": "fanduel",
+          "title": "FanDuel",
+          "last_update": "2026-09-27T09:27:10Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "Rice Owls",
+                  "price": 340
+                },
+                {
+                  "name": "UTSA Roadrunners",
+                  "price": -450
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "Rice Owls",
+                  "price": -110,
+                  "point": 10.5
+                },
+                {
+                  "name": "UTSA Roadrunners",
+                  "price": -110,
+                  "point": -10.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -110,
+                  "point": 52.5
+                },
+                {
+                  "name": "Under",
+                  "price": -110,
+                  "point": 52.5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "freshBookmakers": [
+        "fanduel"
+      ]
+    },
+    {
+      "id": "4c84a699496b71ee1e626e3c7f5689c9",
+      "sport_key": "americanfootball_ncaaf",
+      "sport_title": "NCAAF",
+      "commence_time": "2026-10-03T23:00:00Z",
+      "home_team": "South Alabama Jaguars",
+      "away_team": "UL Monroe Warhawks",
+      "bookmakers": [
+        {
+          "key": "fanduel",
+          "title": "FanDuel",
+          "last_update": "2026-09-27T09:27:10Z",
+          "markets": [
+            {
+              "key": "h2h",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "South Alabama Jaguars",
+                  "price": -820
+                },
+                {
+                  "name": "UL Monroe Warhawks",
+                  "price": 540
+                }
+              ]
+            },
+            {
+              "key": "spreads",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "South Alabama Jaguars",
+                  "price": -110,
+                  "point": -15.5
+                },
+                {
+                  "name": "UL Monroe Warhawks",
+                  "price": -110,
+                  "point": 15.5
+                }
+              ]
+            },
+            {
+              "key": "totals",
+              "last_update": "2026-09-27T09:27:10Z",
+              "outcomes": [
+                {
+                  "name": "Over",
+                  "price": -110,
+                  "point": 54.5
+                },
+                {
+                  "name": "Under",
+                  "price": -110,
+                  "point": 54.5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "freshBookmakers": [
+        "fanduel"
+      ]
+    },
+    {
       "id": "253e389201e449a2984a194e3eebf7f8",
       "sport_key": "americanfootball_ncaaf",
       "sport_title": "NCAAF",
@@ -93209,11 +93568,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Colorado Buffaloes",
@@ -93227,7 +93586,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Colorado Buffaloes",
@@ -93243,7 +93602,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -93275,11 +93634,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "South Florida Bulls",
@@ -93293,7 +93652,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "South Florida Bulls",
@@ -93309,7 +93668,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -93341,11 +93700,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Arizona State Sun Devils",
@@ -93359,7 +93718,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Arizona State Sun Devils",
@@ -93375,7 +93734,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
@@ -93407,11 +93766,11 @@
         {
           "key": "fanduel",
           "title": "FanDuel",
-          "last_update": "2026-09-27T08:28:14Z",
+          "last_update": "2026-09-27T09:27:10Z",
           "markets": [
             {
               "key": "h2h",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Hawaii Rainbow Warriors",
@@ -93425,7 +93784,7 @@
             },
             {
               "key": "spreads",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Hawaii Rainbow Warriors",
@@ -93441,7 +93800,7 @@
             },
             {
               "key": "totals",
-              "last_update": "2026-09-27T08:28:14Z",
+              "last_update": "2026-09-27T09:27:10Z",
               "outcomes": [
                 {
                   "name": "Over",
