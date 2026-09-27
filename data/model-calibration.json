@@ -1,44 +1,44 @@
 {
-  "updatedAt": "2026-09-27T01:27:38.275Z",
+  "updatedAt": "2026-09-27T02:29:08.315Z",
   "method": "recency-weighted Brier shrinkage by market",
   "minimumSample": 12,
   "recencyDecayDays": 70,
   "cfb": {
     "win": {
       "factor": 1.04,
-      "sampleSize": 119,
-      "effectiveSample": 111.4,
-      "brierScore": 0.1309,
-      "calibratedBrierScore": 0.1245,
+      "sampleSize": 126,
+      "effectiveSample": 118.3,
+      "brierScore": 0.1285,
+      "calibratedBrierScore": 0.122,
       "status": "active-shrunk"
     },
     "spread": {
-      "factor": 0.738,
-      "sampleSize": 119,
-      "effectiveSample": 111.4,
-      "brierScore": 0.2755,
-      "calibratedBrierScore": 0.2564,
+      "factor": 0.732,
+      "sampleSize": 126,
+      "effectiveSample": 118.3,
+      "brierScore": 0.2797,
+      "calibratedBrierScore": 0.259,
       "status": "active-shrunk"
     },
     "total": {
-      "factor": 0.738,
-      "sampleSize": 119,
-      "effectiveSample": 111.4,
-      "brierScore": 0.2535,
-      "calibratedBrierScore": 0.2516,
+      "factor": 0.732,
+      "sampleSize": 126,
+      "effectiveSample": 118.3,
+      "brierScore": 0.2539,
+      "calibratedBrierScore": 0.2518,
       "status": "active-shrunk"
     },
     "probabilityFactor": 1.04,
-    "spreadProbabilityFactor": 0.738,
-    "totalProbabilityFactor": 0.738,
-    "sampleSize": 119,
+    "spreadProbabilityFactor": 0.732,
+    "totalProbabilityFactor": 0.732,
+    "sampleSize": 126,
     "status": "active-shrunk"
   },
   "nfl": {
     "win": {
       "factor": 0.954,
       "sampleSize": 23,
-      "effectiveSample": 20.6,
+      "effectiveSample": 20.5,
       "brierScore": 0.2423,
       "calibratedBrierScore": 0.2417,
       "status": "active-shrunk"
@@ -46,7 +46,7 @@
     "spread": {
       "factor": 0.92,
       "sampleSize": 19,
-      "effectiveSample": 17.3,
+      "effectiveSample": 17.2,
       "brierScore": 0.2973,
       "calibratedBrierScore": 0.273,
       "status": "active-shrunk"
@@ -54,7 +54,7 @@
     "total": {
       "factor": 0.92,
       "sampleSize": 19,
-      "effectiveSample": 17.3,
+      "effectiveSample": 17.2,
       "brierScore": 0.251,
       "calibratedBrierScore": 0.2502,
       "status": "active-shrunk"
