@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T03:31:20.733Z",
+  "updatedAt": "2026-09-28T04:31:28.159Z",
   "method": "recency-weighted Brier shrinkage by market",
   "minimumSample": 12,
   "recencyDecayDays": 70,
@@ -7,7 +7,7 @@
     "win": {
       "factor": 1.04,
       "sampleSize": 146,
-      "effectiveSample": 136.2,
+      "effectiveSample": 136.1,
       "brierScore": 0.1381,
       "calibratedBrierScore": 0.132,
       "status": "active-shrunk"
@@ -15,7 +15,7 @@
     "spread": {
       "factor": 0.717,
       "sampleSize": 146,
-      "effectiveSample": 136.2,
+      "effectiveSample": 136.1,
       "brierScore": 0.2937,
       "calibratedBrierScore": 0.2666,
       "status": "active-shrunk"
@@ -23,7 +23,7 @@
     "total": {
       "factor": 0.717,
       "sampleSize": 146,
-      "effectiveSample": 136.2,
+      "effectiveSample": 136.1,
       "brierScore": 0.2528,
       "calibratedBrierScore": 0.2512,
       "status": "active-shrunk"
@@ -36,33 +36,33 @@
   },
   "nfl": {
     "win": {
-      "factor": 1.029,
-      "sampleSize": 36,
-      "effectiveSample": 33.2,
-      "brierScore": 0.2335,
-      "calibratedBrierScore": 0.2334,
+      "factor": 1.022,
+      "sampleSize": 37,
+      "effectiveSample": 34.2,
+      "brierScore": 0.2345,
+      "calibratedBrierScore": 0.2344,
       "status": "active-shrunk"
     },
     "spread": {
-      "factor": 0.878,
-      "sampleSize": 32,
-      "effectiveSample": 29.9,
-      "brierScore": 0.2737,
-      "calibratedBrierScore": 0.2612,
+      "factor": 0.875,
+      "sampleSize": 33,
+      "effectiveSample": 30.9,
+      "brierScore": 0.2725,
+      "calibratedBrierScore": 0.2606,
       "status": "active-shrunk"
     },
     "total": {
-      "factor": 0.878,
-      "sampleSize": 32,
-      "effectiveSample": 29.9,
-      "brierScore": 0.2525,
-      "calibratedBrierScore": 0.2511,
+      "factor": 0.875,
+      "sampleSize": 33,
+      "effectiveSample": 30.9,
+      "brierScore": 0.254,
+      "calibratedBrierScore": 0.2519,
       "status": "active-shrunk"
     },
-    "probabilityFactor": 1.029,
-    "spreadProbabilityFactor": 0.878,
-    "totalProbabilityFactor": 0.878,
-    "sampleSize": 36,
+    "probabilityFactor": 1.022,
+    "spreadProbabilityFactor": 0.875,
+    "totalProbabilityFactor": 0.875,
+    "sampleSize": 37,
     "status": "active-shrunk"
   }
 }
