@@ -46,9 +46,15 @@ jobs:
           node scripts/update-data.mjs
           node scripts/update-nfl-data.mjs
           node scripts/merge-nfl-books.mjs
-          node scripts/grade-props.mjs
           node scripts/audit-model.mjs
           node scripts/calibrate-model.mjs
+      - name: Fetch newly available player props on requested updates
+        if: github.event_name != 'schedule'
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: node scripts/update-props.mjs
+      - name: Grade player props against final results
+        run: node scripts/grade-props.mjs
       - name: Publish changed data
         run: |
           git config user.name "gridiron-edge-bot"
