@@ -18,8 +18,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: player-props
-  cancel-in-progress: true
+  group: live-data
+  cancel-in-progress: false
 
 jobs:
   refresh:
