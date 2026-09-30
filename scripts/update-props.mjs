@@ -21,8 +21,8 @@ function fairPairProbability(overPrice,underPrice){const o=implied(overPrice),u=
 function confidence(prob){if(prob>=0.60)return "High";if(prob>=0.55)return "Medium";return "Low"}
 function summarizeEvent(event){return `${event.away_team} @ ${event.home_team}`}
 
-const sk=v=>String(v||"").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^a-z0-9]/g,"");
-const sn=v=>{const m=String(v??"").replace(/,/g,"").match(/-?\\d+(?:\\.\\d+)?/);return m?Number(m[0]):null};
+const sk=v=>String(v||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
+const sn=v=>{const m=String(v??"").replace(/,/g,"").match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):null};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const erf=x=>{const s=x<0?-1:1,a=Math.abs(x),t=1/(1+.3275911*a);return s*(1-(((((1.061405429*t-1.453152027)*t+1.421413741)*t-.284496736)*t+.254829592)*t)*Math.exp(-a*a))};
 const cdf=z=>.5*(1+erf(z/Math.SQRT2));
