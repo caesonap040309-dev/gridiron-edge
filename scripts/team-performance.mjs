@@ -72,6 +72,10 @@ export function extractPerformance(summary,game){
 }
 export async function loadPerformance(games,previous,sport){
   const old=new Map((previous.games||[]).filter(game=>game.performance).map(game=>[String(game.id),game.performance]));
+  for(const game of games){
+    const cached=(previous.games||[]).find(item=>String(item.id)===String(game.id))?.injuries;
+    if(!game.injuries&&cached)game.injuries=cached;
+  }
   const finals=games.filter(game=>game.statusCompleted||/final/i.test(game.status||""));
   let cursor=0;
   await Promise.all(Array.from({length:Math.min(6,finals.length)},async()=>{
@@ -207,7 +211,15 @@ export function rosterGameWeights(games){
           }
         }
       }
-      entries[side]={offenseWeight:limit(1-missing,.35,1),evidence,coverage:players?.length?"skill-position production":"unknown"};
+      const snapshot=game.injuries;
+      const age=new Date(game.date)-new Date(snapshot?.updatedAt);
+      const defensivePositions=new Set(["DE","DT","DL","NT","LB","ILB","OLB","CB","S","FS","SS","DB","EDGE"]);
+      // A tackle-free box score is not evidence that a defender missed the game.
+      // Require a dated, pregame injury snapshot with a definitive absence.
+      const absences=Number.isFinite(age)&&age>=0&&age<=7*86400000?(snapshot?.[side]||[]).filter(item=>defensivePositions.has(String(item.position).toUpperCase())&&/^(out|ir|injured reserve|suspended|pup)$/i.test(String(item.status).trim())):[];
+      const defensiveLoss=absences.reduce((sum,item)=>sum+Math.max(0,Number(item.expectedLoss)||Number(item.impact)||.55),0);
+      const defenseWeight=limit(1-defensiveLoss*.08,.35,1);
+      entries[side]={defenseWeight,defenseEvidence:absences.map(item=>({name:item.name,position:item.position,status:item.status,source:snapshot.source,asOf:snapshot.updatedAt})),defenseCoverage:absences.length?"confirmed pregame absences":"unknown",offenseWeight:limit(1-missing,.35,1),evidence,coverage:players?.length?"skill-position production":"unknown"};
       if(players?.length){
         if(!history.has(key))history.set(key,[]);
         history.get(key).push({date:new Date(game.date),players});
@@ -216,5 +228,5 @@ export function rosterGameWeights(games){
     output.set(String(game.id),entries);
     game.rosterContext=entries;
   }
-  return (game,side)=>output.get(String(game.id))?.[side]?.offenseWeight??1;
+  return (game,side,unit="offense")=>output.get(String(game.id))?.[side]?.[unit+"Weight"]??1;
 }
