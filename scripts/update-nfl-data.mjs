@@ -185,25 +185,27 @@ for(const game of [...games,...historicalGames]){
   const ageDays=Math.max(0,(now-new Date(game.date))/86400000);
   const seasonWeight=Math.pow(.45,Math.max(0,season-Number(game.season||season)));
   const weight=Math.max(.28,Math.exp(-ageDays/RECENCY_DAYS))*seasonWeight;
-  recordFor(game.home).push({opponent:game.away,scored:homeScore,allowed:awayScore,offenseWeight:rosterWeight(game,"home"),defenseWeight:rosterWeight(game,"away"),weight:weight*Math.min(rosterWeight(game,"home"),rosterWeight(game,"away")),date:game.date,site:"home"});
-  recordFor(game.away).push({opponent:game.home,scored:awayScore,allowed:homeScore,offenseWeight:rosterWeight(game,"away"),defenseWeight:rosterWeight(game,"home"),weight:weight*Math.min(rosterWeight(game,"home"),rosterWeight(game,"away")),date:game.date,site:"away"});
+  recordFor(game.home).push({opponent:game.away,scored:homeScore,allowed:awayScore,offenseWeight:Math.min(rosterWeight(game,"home"),rosterWeight(game,"away","defense")),defenseWeight:Math.min(rosterWeight(game,"home","defense"),rosterWeight(game,"away")),baseWeight:weight,weight:weight*Math.min(rosterWeight(game,"home"),rosterWeight(game,"away"),rosterWeight(game,"home","defense"),rosterWeight(game,"away","defense")),date:game.date,site:"home"});
+  recordFor(game.away).push({opponent:game.home,scored:awayScore,allowed:homeScore,offenseWeight:Math.min(rosterWeight(game,"away"),rosterWeight(game,"home","defense")),defenseWeight:Math.min(rosterWeight(game,"away","defense"),rosterWeight(game,"home")),baseWeight:weight,weight:weight*Math.min(rosterWeight(game,"home"),rosterWeight(game,"away"),rosterWeight(game,"home","defense"),rosterWeight(game,"away","defense")),date:game.date,site:"away"});
 }
 const ratings=new Map([...records.keys()].map(name=>[name,{offense:0,defense:0,games:records.get(name).length,effectiveGames:0,for:LEAGUE_MEAN,against:LEAGUE_MEAN}]));
 for(let pass=0;pass<10;pass++){
   const next=new Map();
   for(const [name,teamGames] of records){
-    let off=0,def=0,weights=0,pointsFor=0,pointsAgainst=0;
+    let off=0,def=0,weights=0,offWeights=0,defWeights=0,pointsFor=0,pointsAgainst=0;
     for(const result of teamGames){
       const opponent=ratings.get(result.opponent)||{offense:0,defense:0};
       const scored=Math.min(LEAGUE_MEAN*2.45,Math.max(0,result.scored));
       const allowed=Math.min(LEAGUE_MEAN*2.45,Math.max(0,result.allowed));
-      off+=result.weight*((scored-LEAGUE_MEAN)+opponent.defense);
-      def+=result.weight*((LEAGUE_MEAN-allowed)+opponent.offense);
-      pointsFor+=result.weight*result.scored;
-      pointsAgainst+=result.weight*result.allowed;
-      weights+=result.weight;
+      const offenseWeight=(result.baseWeight??result.weight)*(result.offenseWeight??1),defenseWeight=(result.baseWeight??result.weight)*(result.defenseWeight??1);
+      off+=offenseWeight*((scored-LEAGUE_MEAN)+opponent.defense);
+      def+=defenseWeight*((LEAGUE_MEAN-allowed)+opponent.offense);
+      pointsFor+=offenseWeight*result.scored;
+      pointsAgainst+=defenseWeight*result.allowed;
+      weights+=Math.min(offenseWeight,defenseWeight);
+      offWeights+=offenseWeight;defWeights+=defenseWeight;
     }
-    next.set(name,{offense:off/(weights+PRIOR_GAMES),defense:def/(weights+PRIOR_GAMES),games:teamGames.length,effectiveGames:weights,for:weights?pointsFor/weights:LEAGUE_MEAN,against:weights?pointsAgainst/weights:LEAGUE_MEAN});
+    next.set(name,{offense:off/(offWeights+PRIOR_GAMES),defense:def/(defWeights+PRIOR_GAMES),games:teamGames.length,effectiveGames:weights,for:offWeights?pointsFor/offWeights:LEAGUE_MEAN,against:defWeights?pointsAgainst/defWeights:LEAGUE_MEAN});
   }
   ratings.clear();
   for(const [name,rating] of next)ratings.set(name,rating);
