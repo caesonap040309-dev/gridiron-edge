@@ -1,4 +1,4 @@
-import {loadPerformance,performanceAdjustment} from "./team-performance.mjs";
+import {loadPerformance,performanceAdjustment,rosterGameWeights} from "./team-performance.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const now=new Date();
@@ -175,6 +175,7 @@ const RECENCY_DAYS=56;
 const SPREAD_SCALE=5.7;
 const TOTAL_SCALE=7.2;
 const performanceFor=await loadPerformance(games,previous,"nfl");
+const rosterWeight=rosterGameWeights(games);
 const records=new Map();
 const recordFor=name=>{if(!records.has(name))records.set(name,[]);return records.get(name)};
 for(const game of [...games,...historicalGames]){
@@ -184,8 +185,8 @@ for(const game of [...games,...historicalGames]){
   const ageDays=Math.max(0,(now-new Date(game.date))/86400000);
   const seasonWeight=Math.pow(.45,Math.max(0,season-Number(game.season||season)));
   const weight=Math.max(.28,Math.exp(-ageDays/RECENCY_DAYS))*seasonWeight;
-  recordFor(game.home).push({opponent:game.away,scored:homeScore,allowed:awayScore,weight,date:game.date,site:"home"});
-  recordFor(game.away).push({opponent:game.home,scored:awayScore,allowed:homeScore,weight,date:game.date,site:"away"});
+  recordFor(game.home).push({opponent:game.away,scored:homeScore,allowed:awayScore,offenseWeight:rosterWeight(game,"home"),defenseWeight:rosterWeight(game,"away"),weight:weight*Math.min(rosterWeight(game,"home"),rosterWeight(game,"away")),date:game.date,site:"home"});
+  recordFor(game.away).push({opponent:game.home,scored:awayScore,allowed:homeScore,offenseWeight:rosterWeight(game,"away"),defenseWeight:rosterWeight(game,"home"),weight:weight*Math.min(rosterWeight(game,"home"),rosterWeight(game,"away")),date:game.date,site:"away"});
 }
 const ratings=new Map([...records.keys()].map(name=>[name,{offense:0,defense:0,games:records.get(name).length,effectiveGames:0,for:LEAGUE_MEAN,against:LEAGUE_MEAN}]));
 for(let pass=0;pass<10;pass++){
@@ -289,7 +290,12 @@ function normalizeInjuries(summary,game){
 }
 async function refreshInjuries(game){
   const kickoff=new Date(game.date);
-  if(game.statusCompleted||kickoff<new Date(now.getTime()-86400000)||kickoff>new Date(now.getTime()+21*86400000))return;
+  if(game.statusCompleted){
+    const cached=(previous.games||[]).find(old=>String(old.id)===String(game.id))?.injuries;
+    if(cached)game.injuries=cached;
+    return;
+  }
+  if(kickoff<new Date(now.getTime()-86400000)||kickoff>new Date(now.getTime()+21*86400000))return;
   try{
     const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=${encodeURIComponent(game.id)}`);
     if(!response.ok)throw new Error(`injury feed ${response.status}`);
