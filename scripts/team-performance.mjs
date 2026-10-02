@@ -1,5 +1,5 @@
 // Derived only from completed games. A missing or partial play log is never treated as zero production.
-const number=value=>{const n=Number(value);return Number.isFinite(n)?n:null};
+const number=value=>{if(value==null||value==="")return null;const n=Number(value);return Number.isFinite(n)?n:null};
 const limit=(value,min,max)=>Math.max(min,Math.min(max,value));
 const ratio=(team,name)=>{
   const raw=(team?.statistics||[]).find(item=>item.name===name)?.displayValue||"";
@@ -20,7 +20,8 @@ export function extractPerformance(summary,game){
     const id=String(game[`${side}Id`]||"");
     const team=teams.find(entry=>String(entry.team?.id)===id);
     if(!team)return null;
-    let snaps=0,explosivePasses=0,explosiveRuns=0;
+    let snaps=0,passSnaps=0,runSnaps=0,explosivePasses=0,explosiveRuns=0;
+    const creators={};
     for(const play of plays){
       if(String(play.start?.team?.id||"")!==id||play.isPenalty)continue;
       const type=String(play.type?.text||"").toLowerCase();
@@ -28,20 +29,31 @@ export function extractPerformance(summary,game){
       const run=/^rush$|rushing touchdown/.test(type);
       if(!pass&&!run)continue;
       snaps++;
+      if(pass)passSnaps++;else runSnaps++;
+      // Use the runner or receiver, not the passer, to attribute explosive gains.
+      const role=pass?"receiver":"rusher";
+      const participant=(play.participants||[]).find(item=>String(item.type||"").toLowerCase()===role);
+      const athleteId=participant?.athlete?.id;
+      if(athleteId){
+        const key=String(athleteId)+":"+(pass?"pass":"run");
+        const creator=creators[key]||(creators[key]={id:String(athleteId),name:participant.athlete.displayName||null,kind:pass?"pass":"run",opportunities:0,explosives:0});
+        creator.opportunities++;
+        if((run||/pass reception|passing touchdown/.test(type))&&number(play.statYardage)>=(pass?20:10))creator.explosives++;
+      }
       // ESPN's statYardage on a return is return yardage; count only completed offensive plays.
       if(/pass reception|passing touchdown/.test(type)&&number(play.statYardage)>=20)explosivePasses++;
       if(run&&number(play.statYardage)>=10)explosiveRuns++;
     }
     if(!snaps)return null;
     const turnovers=stat(team,"turnovers")??((stat(team,"interceptions")??0)+(stat(team,"fumblesLost")??0));
-    result[side]={snaps,explosivePasses,explosiveRuns,explosivePlays:explosivePasses+explosiveRuns,turnovers,thirdDown:ratio(team,"thirdDownEff"),fourthDown:ratio(team,"fourthDownEff"),yardsPerPlay:stat(team,"yardsPerPlay")};
+    result[side]={snaps,passSnaps,runSnaps,creators:Object.values(creators),explosivePasses,explosiveRuns,explosivePlays:explosivePasses+explosiveRuns,turnovers,thirdDown:ratio(team,"thirdDownEff"),fourthDown:ratio(team,"fourthDownEff"),yardsPerPlay:stat(team,"yardsPerPlay")};
   }
   for(const side of ["home","away"]){
     const opponent=result[side==="home"?"away":"home"];
     result[side].explosiveAllowed=opponent.explosivePlays;
     result[side].takeaways=opponent.turnovers;
   }
-  result.schemaVersion=2;
+  result.schemaVersion=3;
   return result;
 }
 export async function loadPerformance(games,previous,sport){
@@ -51,7 +63,7 @@ export async function loadPerformance(games,previous,sport){
   await Promise.all(Array.from({length:Math.min(6,finals.length)},async()=>{
     while(cursor<finals.length){
       const game=finals[cursor++];
-      if(old.get(String(game.id))?.schemaVersion===2){game.performance=old.get(String(game.id));continue}
+      if(old.get(String(game.id))?.schemaVersion===3){game.performance=old.get(String(game.id));continue}
       try{
         const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${sport}/summary?event=${encodeURIComponent(game.id)}`);
         if(!response.ok)throw new Error(`ESPN summary ${response.status}`);
@@ -62,16 +74,58 @@ export async function loadPerformance(games,previous,sport){
     }
   }));
   const observations=new Map();
+  const athleteHistory=new Map();
+  const teamHistory=new Map();
+  // Chronological baselines ensure a game never supplies its own opponent-strength estimate.
+  finals.sort((a,b)=>new Date(a.date)-new Date(b.date));
   for(const game of finals){
     if(!game.performance)continue;
     for(const side of ["home","away"]){
       const row=game.performance[side],opponent=game.performance[side==="home"?"away":"home"];
       if(!row?.snaps||!opponent?.snaps)continue;
       const scored=Number(game[`${side}Score`]),allowed=Number(game[`${side==="home"?"away":"home"}Score`]);
-      const entry={date:new Date(game.date),season:game.season,explosiveFor:row.explosivePlays/row.snaps,explosiveAgainst:opponent.explosivePlays/opponent.snaps,turnovers:row.turnovers,takeaways:opponent.turnovers,pointsFor:scored,pointsAgainst:allowed,thirdMade:row.thirdDown?.made??null,thirdAttempts:row.thirdDown?.attempts??null,fourthMade:row.fourthDown?.made??null,fourthAttempts:row.fourthDown?.attempts??null,yardsPerPlay:row.yardsPerPlay??null};
+      const priorBefore=(history,key)=> (history.get(key)||[]).filter(item=>item.date<new Date(game.date)&&item.season===game.season);
+      const baseline=(kind)=>{
+        const snaps=opponent[kind==="run"?"runSnaps":"passSnaps"];
+        const count=opponent[kind==="run"?"explosiveRuns":"explosivePasses"];
+        if(!snaps)return null;
+        const prior=priorBefore(teamHistory,game[side==="home"?"away":"home"]+":"+kind);
+        if(!prior.length)return null;
+        const attempts=prior.reduce((sum,item)=>sum+item.snaps,0);
+        if(!attempts)return null;
+        const priorRate=prior.reduce((sum,item)=>sum+item.count,0)/attempts;
+        let expected=priorRate*snaps,covered=0;
+        for(const creator of opponent.creators||[]){
+          if(creator.kind!==kind)continue;
+          const history=priorBefore(athleteHistory,creator.id+":"+kind);
+          const opportunities=history.reduce((sum,item)=>sum+item.opportunities,0);
+          if(opportunities<10)continue;
+          const explosives=history.reduce((sum,item)=>sum+item.explosives,0);
+          // Shrink individual rates toward their team's prior rate; cap extreme corrections.
+          const rate=(explosives+20*priorRate)/(opportunities+20);
+          expected+=limit(rate-priorRate,-.1,.1)*creator.opportunities;
+          covered+=creator.opportunities;
+        }
+        return {residual:count/snaps-expected/snaps,coverage:Math.min(covered/snaps,1)};
+      };
+      const runDefense=baseline("run"),passDefense=baseline("pass");
+      const entry={runDefense:runDefense?.residual??null,passDefense:passDefense?.residual??null,creatorCoverage:Math.max(runDefense?.coverage||0,passDefense?.coverage||0),date:new Date(game.date),season:game.season,explosiveFor:row.explosivePlays/row.snaps,explosiveAgainst:opponent.explosivePlays/opponent.snaps,turnovers:row.turnovers,takeaways:opponent.turnovers,pointsFor:scored,pointsAgainst:allowed,thirdMade:row.thirdDown?.made??null,thirdAttempts:row.thirdDown?.attempts??null,fourthMade:row.fourthDown?.made??null,fourthAttempts:row.fourthDown?.attempts??null,yardsPerPlay:row.yardsPerPlay??null};
       const name=game[side];
       if(!observations.has(name))observations.set(name,[]);
       observations.get(name).push(entry);
+    }
+    for(const side of ["home","away"]){
+      const row=game.performance[side];
+      for(const kind of ["run","pass"]){
+        const key=game[side]+":"+kind;
+        if(!teamHistory.has(key))teamHistory.set(key,[]);
+        teamHistory.get(key).push({date:new Date(game.date),season:game.season,snaps:row[kind==="run"?"runSnaps":"passSnaps"]||0,count:row[kind==="run"?"explosiveRuns":"explosivePasses"]||0});
+      }
+      for(const creator of row.creators||[]){
+        const key=creator.id+":"+creator.kind;
+        if(!athleteHistory.has(key))athleteHistory.set(key,[]);
+        athleteHistory.get(key).push({...creator,date:new Date(game.date),season:game.season});
+      }
     }
   }
   return function performanceFor(name,before){
@@ -86,7 +140,8 @@ export async function loadPerformance(games,previous,sport){
     const thirdSeason=conversion(sample,"thirdMade","thirdAttempts"),thirdRecent=conversion(last3,"thirdMade","thirdAttempts");
     const thirdDown=thirdSeason==null?thirdRecent:thirdRecent==null?thirdSeason:.7*thirdSeason+.3*thirdRecent;
     const validYards=sample.filter(row=>row.yardsPerPlay!=null);
-    return {games:sample.length,explosiveFor:blend("explosiveFor"),explosiveAgainst:blend("explosiveAgainst"),turnovers:blend("turnovers"),takeaways:blend("takeaways"),pointsFor:blend("pointsFor"),pointsAgainst:blend("pointsAgainst"),pointDifferential:blend("pointsFor")-blend("pointsAgainst"),thirdDown,thirdDownAttempts:sample.reduce((sum,row)=>sum+(row.thirdAttempts||0),0),fourthDown:conversion(sample,"fourthMade","fourthAttempts"),yardsPerPlay:validYards.length?mean(validYards,"yardsPerPlay"):null};
+    const defense=(key)=>{const valid=sample.filter(row=>row[key]!=null);return valid.length>=2?{value:mean(valid,key),games:valid.length}:null};
+    return {runDefense: defense("runDefense"),passDefense: defense("passDefense"),creatorCoverage:mean(sample,"creatorCoverage"),games:sample.length,explosiveFor:blend("explosiveFor"),explosiveAgainst:blend("explosiveAgainst"),turnovers:blend("turnovers"),takeaways:blend("takeaways"),pointsFor:blend("pointsFor"),pointsAgainst:blend("pointsAgainst"),pointDifferential:blend("pointsFor")-blend("pointsAgainst"),thirdDown,thirdDownAttempts:sample.reduce((sum,row)=>sum+(row.thirdAttempts||0),0),fourthDown:conversion(sample,"fourthMade","fourthAttempts"),yardsPerPlay:validYards.length?mean(validYards,"yardsPerPlay"):null};
   };
 }
 export function performanceAdjustment(home,away){
@@ -96,10 +151,13 @@ export function performanceAdjustment(home,away){
   // Modest regularization: rate differences are shrunk and capped until out-of-sample calibration.
   const homeExplosive=(home.explosiveFor-away.explosiveAgainst)/2;
   const awayExplosive=(away.explosiveFor-home.explosiveAgainst)/2;
+  // Positive residual means allowing more explosives than the opponent normally generates.
+  const defenseEdge=(key)=>home[key]&&away[key]?limit((away[key].value-home[key].value)*4,-.4,.4):0;
+  const opponentAdjustedDefense=defenseEdge("runDefense")+defenseEdge("passDefense");
   const turnoverEdge=away.turnovers-home.turnovers;
   const thirdEdge=home.thirdDown!=null&&away.thirdDown!=null&&Math.min(home.thirdDownAttempts,away.thirdDownAttempts)>=12?limit((home.thirdDown-away.thirdDown)*3,-.6,.6):0;
   // Points per game and differential are exposed as evidence; scoring ratings already include them.
-  const margin=limit(((homeExplosive-awayExplosive)*18+turnoverEdge*.35+thirdEdge)*credibility,-1.75,1.75);
+  const margin=limit(((homeExplosive-awayExplosive)*18+turnoverEdge*.35+thirdEdge+opponentAdjustedDefense)*credibility,-1.75,1.75);
   const total=limit((homeExplosive+awayExplosive)*10*credibility,-1,1);
   return {margin:Math.round(margin*100)/100,total:Math.round(total*100)/100,games};
 }
