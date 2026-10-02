@@ -1,3 +1,4 @@
+import {numeric} from "./model-context.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const now=new Date();
@@ -16,15 +17,15 @@ function fit(samples){
 function calibrationFor(data){
   const win=[],spread=[],total=[];
   for(const game of data?.games||[]){
-    const p=game.prediction||{},kickoff=new Date(game.date),created=new Date(p.createdAt),homeScore=Number(game.homeScore),awayScore=Number(game.awayScore);
+    const p=game.prediction||{},kickoff=new Date(game.date),created=new Date(p.asOf||p.createdAt),homeScore=Number(game.homeScore),awayScore=Number(game.awayScore);
     if(!/final/i.test(game.status||"")||!Number.isFinite(homeScore)||!Number.isFinite(awayScore)||!Number.isFinite(kickoff.getTime())||!Number.isFinite(created.getTime())||created>=kickoff)continue;
     const ageDays=Math.max(0,(now-kickoff)/86400000);
     const weight=Math.max(.35,Math.exp(-ageDays/70));
     if(homeScore!==awayScore&&Number.isFinite(Number(p.homeWin)))win.push({prob:Number(p.homeWin)/100,outcome:homeScore>awayScore?1:0,weight});
-    const homePoint=Number(p.market?.homePoint),homeCover=Number(p.homeCover),coverMargin=homeScore-awayScore+homePoint;
-    if(Number.isFinite(homePoint)&&Number.isFinite(homeCover)&&coverMargin!==0)spread.push({prob:homeCover/100,outcome:coverMargin>0?1:0,weight});
-    const marketTotal=Number(p.market?.total),overProb=Number(p.overProb),actualTotal=homeScore+awayScore;
-    if(Number.isFinite(marketTotal)&&Number.isFinite(overProb)&&actualTotal!==marketTotal)total.push({prob:overProb/100,outcome:actualTotal>marketTotal?1:0,weight});
+    const homePoint=numeric(p.market?.homePoint),homeCover=numeric(p.homeCover),coverMargin=homeScore-awayScore+homePoint;
+    if(homePoint!=null&&homeCover!=null&&coverMargin!==0)spread.push({prob:homeCover/100,outcome:coverMargin>0?1:0,weight});
+    const marketTotal=numeric(p.market?.total),overProb=numeric(p.overProb),actualTotal=homeScore+awayScore;
+    if(marketTotal!=null&&overProb!=null&&actualTotal!==marketTotal)total.push({prob:overProb/100,outcome:actualTotal>marketTotal?1:0,weight});
   }
   const fitted={win:fit(win),spread:fit(spread),total:fit(total)};
   return {...fitted,probabilityFactor:fitted.win.factor,spreadProbabilityFactor:fitted.spread.factor,totalProbabilityFactor:fitted.total.factor,sampleSize:fitted.win.sampleSize,status:fitted.win.status};

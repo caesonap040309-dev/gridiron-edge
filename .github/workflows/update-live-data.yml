@@ -16,6 +16,9 @@ on:
       - "scripts/grade-props.mjs"
       - "scripts/calibrate-model.mjs"
       - "scripts/audit-model.mjs"
+      - "scripts/model-context.mjs"
+      - "scripts/validate-model.mjs"
+      - "tests/**"
       - ".github/workflows/update-live-data.yml"
   schedule:
     - cron: "17 * * * *"
@@ -37,6 +40,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate model feature logic
+        run: node --test tests/model-context.test.mjs
       - name: Refresh schedules scores and live game lines
         env:
           SPORTSGAMEODDS_API_KEY: ${{ secrets.SPORTSGAMEODDS_API_KEY }}
@@ -48,6 +53,7 @@ jobs:
           node scripts/update-data.mjs
           node scripts/update-nfl-data.mjs
           node scripts/merge-nfl-books.mjs
+          node scripts/validate-model.mjs
           node scripts/audit-model.mjs
           node scripts/calibrate-model.mjs
       - name: Fetch newly available player props on requested updates
@@ -61,7 +67,7 @@ jobs:
         run: |
           git config user.name "gridiron-edge-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/live.json data/nfl.json data/props-nfl.json data/props-cfb.json data/model-calibration.json data/model-audit.json data/model-health-cfb.json data/model-health-nfl.json
+          git add data/live.json data/nfl.json data/props-nfl.json data/props-cfb.json data/model-calibration.json data/model-audit.json data/model-health-cfb.json data/model-health-nfl.json data/model-snapshots.json data/model-validation.json
           git diff --cached --quiet && exit 0
           git commit -m "Update live football data"
           git pull --rebase origin main

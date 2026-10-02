@@ -1,3 +1,4 @@
+import {extractContext,playerProduction,playCreator} from "./model-context.mjs";
 // Derived only from completed games. A missing or partial play log is never treated as zero production.
 const number=value=>{if(value==null||value==="")return null;const n=Number(value);return Number.isFinite(n)?n:null};
 const limit=(value,min,max)=>Math.max(min,Math.min(max,value));
@@ -16,12 +17,14 @@ export function extractPerformance(summary,game){
   const plays=[...new Map(drives.flatMap(drive=>drive.plays||[]).map(play=>[String(play.id),play])).values()];
   if(!plays.length||teams.length<2)return null;
   const result={};
+  const context=extractContext(summary,game);
   for(const side of ["home","away"]){
     const id=String(game[`${side}Id`]||"");
     const team=teams.find(entry=>String(entry.team?.id)===id);
     if(!team)return null;
     let snaps=0,passSnaps=0,runSnaps=0,explosivePasses=0,explosiveRuns=0;
     const creators={};
+    const playerRows=playerProduction(summary,id);
     for(const play of plays){
       if(String(play.start?.team?.id||"")!==id||play.isPenalty)continue;
       const type=String(play.type?.text||"").toLowerCase();
@@ -33,10 +36,11 @@ export function extractPerformance(summary,game){
       // Use the runner or receiver, not the passer, to attribute explosive gains.
       const role=pass?"receiver":"rusher";
       const participant=(play.participants||[]).find(item=>String(item.type||"").toLowerCase()===role);
-      const athleteId=participant?.athlete?.id;
+      const creatorPlayer=participant?.athlete||playCreator(play,playerRows,pass?"pass":"run");
+      const athleteId=creatorPlayer?.id;
       if(athleteId){
         const key=String(athleteId)+":"+(pass?"pass":"run");
-        const creator=creators[key]||(creators[key]={id:String(athleteId),name:participant.athlete.displayName||null,kind:pass?"pass":"run",opportunities:0,explosives:0});
+        const creator=creators[key]||(creators[key]={id:String(athleteId),name:creatorPlayer.displayName||creatorPlayer.name||null,kind:pass?"pass":"run",opportunities:0,explosives:0});
         creator.opportunities++;
         if((run||/pass reception|passing touchdown/.test(type))&&number(play.statYardage)>=(pass?20:10))creator.explosives++;
       }
@@ -45,29 +49,19 @@ export function extractPerformance(summary,game){
       if(run&&number(play.statYardage)>=10)explosiveRuns++;
     }
     if(!snaps)return null;
+    const expectedSnaps=stat(team,"totalOffensivePlays");
+    if(expectedSnaps>=20&&snaps/expectedSnaps<.8)return null;
+    context[side].coverage.offensivePlayCoverage=expectedSnaps>0?Math.min(1,snaps/expectedSnaps):null;
     const turnovers=stat(team,"turnovers")??((stat(team,"interceptions")??0)+(stat(team,"fumblesLost")??0));
-    const players=[];
-    const playerTeam=(summary?.boxscore?.players||[]).find(entry=>String(entry.team?.id)===id);
-    for(const group of playerTeam?.statistics||[]){
-      const kind=String(group.name||"").toLowerCase();
-      if(!["passing","rushing","receiving"].includes(kind))continue;
-      const labels=group.labels||[];
-      const index=labels.findIndex(label=>kind==="passing"?/^(C\/ATT|ATT)$/i.test(label):kind==="rushing"?/^ATT$/i.test(label):/^REC$/i.test(label));
-      if(index<0)continue;
-      for(const item of group.athletes||[]){
-        const raw=String(item.stats?.[index]??"");
-        const usage=number(raw.includes("/")?raw.split("/")[1]:raw);
-        if(item.athlete?.id&&usage>0)players.push({id:String(item.athlete.id),name:item.athlete.displayName||null,kind,usage});
-      }
-    }
-    result[side]={players,snaps,passSnaps,runSnaps,creators:Object.values(creators),explosivePasses,explosiveRuns,explosivePlays:explosivePasses+explosiveRuns,turnovers,thirdDown:ratio(team,"thirdDownEff"),fourthDown:ratio(team,"fourthDownEff"),yardsPerPlay:stat(team,"yardsPerPlay")};
+    const players=playerRows;
+    result[side]={context:context[side],players,snaps,passSnaps,runSnaps,creators:Object.values(creators),explosivePasses,explosiveRuns,explosivePlays:explosivePasses+explosiveRuns,turnovers,thirdDown:ratio(team,"thirdDownEff"),fourthDown:ratio(team,"fourthDownEff"),yardsPerPlay:stat(team,"yardsPerPlay")};
   }
   for(const side of ["home","away"]){
     const opponent=result[side==="home"?"away":"home"];
     result[side].explosiveAllowed=opponent.explosivePlays;
     result[side].takeaways=opponent.turnovers;
   }
-  result.schemaVersion=4;
+  result.schemaVersion=5;
   return result;
 }
 export async function loadPerformance(games,previous,sport){
@@ -81,7 +75,7 @@ export async function loadPerformance(games,previous,sport){
   await Promise.all(Array.from({length:Math.min(6,finals.length)},async()=>{
     while(cursor<finals.length){
       const game=finals[cursor++];
-      if(old.get(String(game.id))?.schemaVersion===4){game.performance=old.get(String(game.id));continue}
+      if(old.get(String(game.id))?.schemaVersion===5){game.performance=old.get(String(game.id));continue}
       try{
         const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${sport}/summary?event=${encodeURIComponent(game.id)}`);
         if(!response.ok)throw new Error(`ESPN summary ${response.status}`);
@@ -212,14 +206,15 @@ export function rosterGameWeights(games){
         }
       }
       const snapshot=game.injuries;
-      const age=new Date(game.date)-new Date(snapshot?.updatedAt);
+      const age=snapshot?.updatedAt?new Date(game.date)-new Date(snapshot.updatedAt):NaN;
       const defensivePositions=new Set(["DE","DT","DL","NT","LB","ILB","OLB","CB","S","FS","SS","DB","EDGE"]);
       // A tackle-free box score is not evidence that a defender missed the game.
       // Require a dated, pregame injury snapshot with a definitive absence.
       const absences=Number.isFinite(age)&&age>=0&&age<=7*86400000?(snapshot?.[side]||[]).filter(item=>defensivePositions.has(String(item.position).toUpperCase())&&/^(out|ir|injured reserve|suspended|pup)$/i.test(String(item.status).trim())):[];
-      const defensiveLoss=absences.reduce((sum,item)=>sum+Math.max(0,Number(item.expectedLoss)||Number(item.impact)||.55),0);
+      const verifiedAbsences=absences.filter(item=>!(players||[]).some(p=>p.kind==="defensive"&&p.usage>0&&(item.athleteId?String(item.athleteId)===p.id:String(item.name).toLowerCase()===String(p.name).toLowerCase())));
+      const defensiveLoss=verifiedAbsences.reduce((sum,item)=>sum+Math.max(0,Number(item.expectedLoss)||Number(item.impact)||.55),0);
       const defenseWeight=limit(1-defensiveLoss*.08,.35,1);
-      entries[side]={defenseWeight,defenseEvidence:absences.map(item=>({name:item.name,position:item.position,status:item.status,source:snapshot.source,asOf:snapshot.updatedAt})),defenseCoverage:absences.length?"confirmed pregame absences":"unknown",offenseWeight:limit(1-missing,.35,1),evidence,coverage:players?.length?"skill-position production":"unknown"};
+      entries[side]={defenseWeight,defenseEvidence:verifiedAbsences.map(item=>({name:item.name,position:item.position,status:item.status,source:snapshot.source,asOf:snapshot.updatedAt})),defenseCoverage:verifiedAbsences.length?"confirmed pregame absences":"unknown",offenseWeight:limit(1-missing,.35,1),evidence,coverage:players?.length?"skill-position production":"unknown"};
       if(players?.length){
         if(!history.has(key))history.set(key,[]);
         history.get(key).push({date:new Date(game.date),players});
