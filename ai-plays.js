@@ -77,7 +77,7 @@
     const feedTime=new Date(updatedAt).getTime();
     if(!Number.isFinite(feedTime)||Date.now()-feedTime>2*60*60*1000)return rows;
     for(const game of games||[]){
-      if(!upcoming(game.date))continue;
+      if(!upcoming(game.date)||new Date(game.date)<=new Date()||game.prediction?.dataQuality?.eligible===false||!game.prediction?.asOf||Date.now()-new Date(game.prediction.asOf)>2*3600000)continue;
       const p=game.prediction||{},market=p.market||{},books=Number(p.marketBooks)||0,q=quality(books);
       const homeProb=probability(p.homeWin),winnerProb=homeProb==null?null:(p.winner===game.home?homeProb:100-homeProb);
       if(p.winner&&winnerProb!=null){
@@ -104,7 +104,7 @@
   function propCandidates(data,weeklyMatchups){
     const best=new Map();
     for(const p of data?.props||[]){
-      if(!upcoming(p.commenceTime)||!weeklyMatchups.has(matchupKey(p.away,p.home))||p.projectionType!=="hybrid"||Number(p.modelSample)<3)continue;
+      if(!upcoming(p.commenceTime)||!weeklyMatchups.has(matchupKey(p.away,p.home))||p.projectionType!=="hybrid"||p.dataQuality?.eligible===false||!p.capturedAt||Date.now()-new Date(p.capturedAt)>2*3600000||Number(p.modelSample)<3)continue;
       const prob=probability(p.hitProbability);if(prob==null)continue;
       const key=`${p.eventId}|${p.player}|${p.market}|${p.pick}`;
       const propName=p.marketLabel||p.market||"Player Prop",stat=probability(p.statisticalProbability),market=probability(p.marketProbability);

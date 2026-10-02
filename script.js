@@ -334,6 +334,12 @@ function injuryReport(game,p){
   const summary=impact?`<p class="method-note">Expected roster loss: ${esc(game.away)} ${Number(impact.awayLoss||0).toFixed(1)} pts · ${esc(game.home)} ${Number(impact.homeLoss||0).toFixed(1)} pts. Net margin adjustment: ${signed(p.adjustments?.injuryMargin||0)} points toward the home team. Questionable-player uncertainty can lower confidence.</p>`:"";
   return cards.length?`<div class="keys-grid">${cards.join("")}</div>${summary}`:`<div class="detail-empty">No reportable injuries were returned for this matchup. The model will recheck on every data update.</div>${summary}`;
 }
+function qualityNote(p){
+  const quality=p?.dataQuality;if(!quality)return "";
+  const messages=[...(quality.reasons||[]),...(quality.warnings||[])];
+  const attribution=p.enrichmentEvidence?.home?.coverage?.epa||p.enrichmentEvidence?.away?.coverage?.epa?" NFL snaps/advanced stats: Pro Football Reference and nflfastR via nflverse. Charting: FTN Data via nflverse (CC-BY-SA 4.0).":"";
+  return `<p class="method-note">${quality.eligible?"Data checked":"NO BET · Data check"}: ${esc(messages.length?messages.join("; "):"Current quotes and available injury evidence")}.${esc(attribution)}</p>`;
+}
 function sharpMetrics(game,p){
   if(!p||!p.version)return "";
   const coverSide=p.homeCover==null?"—":p.homeCover>=50?game.home:game.away;
@@ -341,13 +347,14 @@ function sharpMetrics(game,p){
   const totalSide=p.overProb==null?"—":p.overProb>=50?"Over":"Under";
   const totalProb=p.overProb==null?null:Math.max(Number(p.overProb),Number(p.underProb));
   const homeWin=Number(p.homeWin),winnerProb=Number.isFinite(homeWin)&&p.winner?(p.winner===game.home?homeWin:100-homeWin):null;
-  const winnerConfidence=winnerProb==null?"Unrated":winnerProb>=60?"High":winnerProb>=55?"Medium":"Low";
+  const winnerConfidence=p.confidenceByMarket?.moneyline||p.confidence||"Unrated";
   const spreadEdge=Math.abs(Number(p.spreadEdge)||0),totalEdge=Math.abs(Number(p.totalEdge)||0),books=Number(p.marketBooks)||0;
   const spreadProb=coverProb==null?0:Number(coverProb),totalP=totalProb==null?0:Number(totalProb);
-  const units=(edge,prob)=>books<2||edge<2||prob<54?0:(books>=3&&edge>=4.5&&prob>=61?3:(edge>=3&&prob>=57?2:1));
+  const stalePrediction=!p.asOf||Date.now()-new Date(p.asOf)>2*3600000;
+  const units=(edge,prob)=>p.dataQuality?.eligible===false||stalePrediction||books<2||edge<2||prob<54?0:(books>=3&&edge>=4.5&&prob>=61?3:(edge>=3&&prob>=57?2:1));
   const spreadUnits=units(spreadEdge,spreadProb),totalUnits=units(totalEdge,totalP);
   const unitText=n=>n===3?"3 Units · Strongest":n===2?"2 Units · Strong":n===1?"1 Unit · Lean":"NO BET · Pass";
-  return `<div class="sharp-metrics"><div><span>Spread bet rating</span><b>${unitText(spreadUnits)}</b><small>${spreadUnits?"Qualified model edge":"Edge/data quality below threshold"}</small></div><div><span>Total bet rating</span><b>${unitText(totalUnits)}</b><small>${totalUnits?"Qualified model edge":"Edge/data quality below threshold"}</small></div><div><span>Spread edge</span><b>${p.spreadEdge==null?"—":signed(p.spreadEdge)+" pts"}</b><small>${coverProb==null?"Waiting for market":esc(coverSide)+" "+coverProb.toFixed(1)+"%"}</small></div><div><span>Total edge</span><b>${p.totalEdge==null?"—":signed(p.totalEdge)+" pts"}</b><small>${totalProb==null?"Waiting for market":totalSide+" "+totalProb.toFixed(1)+"%"}</small></div><div><span>Fair moneyline</span><b>${esc(game.home)} ${american(p.fairHomeMoneyline)}</b><small>${esc(game.away)} ${american(p.fairAwayMoneyline)}</small></div><div><span>Model confidence</span><b>${winnerConfidence}</b><small>${winnerProb==null?"Win probability unavailable":esc(p.winner)+" "+winnerProb.toFixed(1)+"%"} · ${Number(p.sample)||0} games · ${Number(p.marketBooks)||0} books</small></div></div>${p.adjustments?`<div class="model-factors"><span>Model v${Number(p.version)||"—"}</span><span>${p.adjustments.neutralSite?"Neutral site":"Home field "+signed(p.adjustments.homeField)}</span><span>Rest ${signed(p.adjustments.rest)}</span><span>Venue form ${signed(p.adjustments.venue)}</span><span>Weather total ${signed(p.adjustments.weatherTotal)}</span><span>Injuries ${signed(p.adjustments.injuryMargin||0)} margin</span></div>`:""}`;
+  return qualityNote(p)+`<div class="sharp-metrics"><div><span>Spread bet rating</span><b>${unitText(spreadUnits)}</b><small>${spreadUnits?"Qualified model edge":"Edge/data quality below threshold"}</small></div><div><span>Total bet rating</span><b>${unitText(totalUnits)}</b><small>${totalUnits?"Qualified model edge":"Edge/data quality below threshold"}</small></div><div><span>Spread edge</span><b>${p.spreadEdge==null?"—":signed(p.spreadEdge)+" pts"}</b><small>${coverProb==null?"Waiting for market":esc(coverSide)+" "+coverProb.toFixed(1)+"%"}</small></div><div><span>Total edge</span><b>${p.totalEdge==null?"—":signed(p.totalEdge)+" pts"}</b><small>${totalProb==null?"Waiting for market":totalSide+" "+totalProb.toFixed(1)+"%"}</small></div><div><span>Fair moneyline</span><b>${esc(game.home)} ${american(p.fairHomeMoneyline)}</b><small>${esc(game.away)} ${american(p.fairAwayMoneyline)}</small></div><div><span>Model confidence</span><b>${winnerConfidence}</b><small>${winnerProb==null?"Win probability unavailable":esc(p.winner)+" "+winnerProb.toFixed(1)+"%"} · ${Number(p.sample)||0} games · ${Number(p.marketBooks)||0} books</small></div></div>${p.adjustments?`<div class="model-factors"><span>Model v${Number(p.version)||"—"}</span><span>${p.adjustments.neutralSite?"Neutral site":"Home field "+signed(p.adjustments.homeField)}</span><span>Rest ${signed(p.adjustments.rest)}</span><span>Venue form ${signed(p.adjustments.venue)}</span><span>Weather total ${signed(p.adjustments.weatherTotal)}</span><span>Injuries ${signed(p.adjustments.injuryMargin||0)} margin</span></div>`:""}`;
 }
 function scoringSummary(summary){
   const plays=summary?.scoringPlays||[];

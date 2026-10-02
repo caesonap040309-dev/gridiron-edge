@@ -1,0 +1,248 @@
+import {readFile,writeFile,mkdir} from "node:fs/promises";
+import {gunzipSync} from "node:zlib";
+import {numeric} from "./model-context.mjs";
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+export const identity=v=>String(v||"").toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\.?$/g,"").replace(/[^a-z0-9]/g,"");
+const code=v=>({WSH:"WAS",JAC:"JAX",LA:"LAR"}[String(v).toUpperCase()]||String(v||"").toUpperCase());
+export function parseCSV(text){
+  const rows=[];let row=[],field="",quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(c==='"'){if(quoted&&text[i+1]==='"'){field+='"';i++}else quoted=!quoted}
+    else if(!quoted&&(c===","||c==="\n")){row.push(field.replace(/\r$/,""));field="";if(c==="\n"){rows.push(row);row=[]}}
+    else field+=c;
+  }
+  if(field||row.length){row.push(field.replace(/\r$/,""));rows.push(row)}
+  const headers=rows.shift()||[];
+  return rows.filter(r=>r.length===headers.length).map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]])));
+}
+async function json(url){const r=await fetch(url,{signal:AbortSignal.timeout(25000)});if(!r.ok)throw Error("feed "+r.status);return r.json()}
+async function csv(url){const r=await fetch(url,{signal:AbortSignal.timeout(40000)});if(!r.ok)throw Error("feed "+r.status);const b=Buffer.from(await r.arrayBuffer());return parseCSV(url.endsWith(".gz")?gunzipSync(b).toString():b.toString())}
+async function read(path,fallback){try{return JSON.parse(await readFile(path,"utf8"))}catch{return fallback}}
+const complete=g=>g.statusCompleted||/final/i.test(g.status||"");
+const bool=v=>v==="TRUE"||v==="true"||v==="1";
+export function normalizeProfiles(depth,roster,asOf){
+  const all=(roster?.athletes||[]).flatMap(group=>group.items||[]);
+  const charts=depth?.depthchart||[],starters=[];
+  for(const chart of charts)for(const [slot,value] of Object.entries(chart.positions||{})){
+    const athlete=value.athletes?.[0];if(!athlete?.id)continue;
+    const position=value.position?.parent?.abbreviation||value.position?.abbreviation||slot.toUpperCase();
+    if(!starters.some(p=>p.id===String(athlete.id)&&p.position===position))starters.push({id:String(athlete.id),name:athlete.displayName,position,slot,
+      replacements:(value.athletes||[]).slice(1,4).map(p=>({id:String(p.id),name:p.displayName}))});
+  }
+  return {asOf,season:Number(depth?.season?.year||roster?.season?.year),coach:(Array.isArray(roster?.coach)?roster.coach:[]).map(c=>({id:String(c.id),name:[c.firstName,c.lastName].filter(Boolean).join(" ")})),
+    schemes:charts.map(c=>c.name),starters,rosterIds:all.map(a=>String(a.id)),coverage:{depthChart:starters.length?"available":"unavailable",routes:"unavailable",manZone:"unavailable"}};
+}
+export function aggregateNFL(datasets){
+  const games={};
+  const team=(gameId,teamCode)=>{if(!games[gameId])games[gameId]={};const key=code(teamCode);return games[gameId][key]||(games[gameId][key]={snaps:[],pressure:{pressures:0,dropbacks:0,known:false,pbpDropbacks:0},contact:{carries:0,before:0,after:0},epa:{run:{sum:0,n:0},pass:{sum:0,n:0}},chart:{passes:0,blitzes:0,blitzEPA:0,blitzPlays:0,motion:0,playAction:0,plays:0},special:{fgMade:0,fgExpected:0,fgAttempts:0,punts:0,puntNetSum:0,returns:0,returnYards:0}})};
+  for(const r of datasets.snaps||[]){
+    if(r.game_type!=="REG")continue;
+    team(r.game_id,r.team).snaps.push({id:r.pfr_player_id,name:r.player,position:r.position,offense:numeric(r.offense_pct),defense:numeric(r.defense_pct),special:numeric(r.st_pct),
+      offenseSnaps:numeric(r.offense_snaps),defenseSnaps:numeric(r.defense_snaps)});
+  }
+  for(const r of datasets.passing||[]){
+    const pressures=numeric(r.times_pressured),pct=numeric(r.times_pressured_pct);
+    if(pressures==null)continue;
+    const t=team(r.game_id,r.team);t.pressure.known=true;t.pressure.pressures+=pressures;if(pct>0)t.pressure.dropbacks+=pressures/pct;
+  }
+  for(const r of datasets.rushing||[]){
+    const carries=numeric(r.carries),before=numeric(r.rushing_yards_before_contact),after=numeric(r.rushing_yards_after_contact);
+    if(!carries||before==null||after==null)continue;
+    const t=team(r.game_id,r.team);t.contact.carries+=carries;t.contact.before+=before;t.contact.after+=after;
+  }
+  const chartRows=new Map((datasets.charting||[]).map(r=>[r.nflverse_game_id+":"+Number(r.nflverse_play_id),r]));
+  for(const r of datasets.pbp||[]){
+    if(!r.posteam||!r.defteam)continue;
+    const t=team(r.game_id,r.posteam),epa=numeric(r.epa);
+    const eligible=!bool(r.qb_kneel)&&!bool(r.qb_spike)&&r.play_type!=="no_play";
+    if(bool(r.qb_dropback))t.pressure.pbpDropbacks++;
+    const kind=bool(r.qb_dropback)?"pass":bool(r.rush_attempt)?"run":null;
+    const wp=numeric(r.wp),competitive=wp==null||(wp>=.05&&wp<=.95);
+    if(eligible&&kind&&epa!=null&&competitive){t.epa[kind].sum+=epa;t.epa[kind].n++}
+    const chart=chartRows.get(r.game_id+":"+Number(r.play_id));
+    if(chart&&eligible&&kind&&competitive){
+      t.chart.plays++;if(bool(chart.is_motion))t.chart.motion++;if(bool(chart.is_play_action))t.chart.playAction++;
+      if(kind==="pass"){t.chart.passes++;if(numeric(chart.n_blitzers)>0){t.chart.blitzes++;if(epa!=null){t.chart.blitzEPA+=epa;t.chart.blitzPlays++}}}
+    }
+    if(bool(r.field_goal_attempt)){
+      const expected=numeric(r.fg_prob);
+      if(expected!=null){t.special.fgAttempts++;t.special.fgExpected+=expected;if(r.field_goal_result==="made")t.special.fgMade++}
+    }
+    if(bool(r.punt_attempt)&&numeric(r.kick_distance)!=null){t.special.punts++;t.special.puntNetSum+=numeric(r.kick_distance)-(numeric(r.return_yards)||0)-(bool(r.touchback)?20:0)}
+    if((bool(r.kickoff_attempt)||bool(r.punt_attempt))&&numeric(r.return_yards)!=null){
+      const returnTeam=team(r.game_id,r.defteam);returnTeam.special.returns++;returnTeam.special.returnYards+=numeric(r.return_yards);
+    }
+  }
+  for(const teams of Object.values(games))for(const t of Object.values(teams))if(t.pressure.known&&!t.pressure.dropbacks)t.pressure.dropbacks=t.pressure.pbpDropbacks;
+  return games;
+}
+export async function loadNFLData(season,now=new Date()){
+  const path="data/nfl-enrichment.json",cached=await read(path,{games:{},sourceHealth:{}});
+  if(cached.season===season&&now-new Date(cached.updatedAt)<(Object.values(cached.sourceHealth||{}).every(h=>h.status==="available")?6*3600000:30*60000))return cached;
+  const base="https://github.com/nflverse/nflverse-data/releases/download/";
+  const sources={snaps:"snap_counts/snap_counts_"+season+".csv",passing:"pfr_advstats/advstats_week_pass_"+season+".csv",rushing:"pfr_advstats/advstats_week_rush_"+season+".csv",
+    charting:"ftn_charting/ftn_charting_"+season+".csv",pbp:"pbp/play_by_play_"+season+".csv.gz"};
+  const data={},health={};
+  await Promise.all(Object.entries(sources).map(async([name,path])=>{try{data[name]=await csv(base+path);health[name]={status:"available",rows:data[name].length,fetchedAt:now.toISOString()}}catch{health[name]={status:"unavailable",fetchedAt:now.toISOString()}}}));
+  const fresh=aggregateNFL(data),merged={...cached.games};
+  for(const [id,teams] of Object.entries(fresh)){
+    merged[id]||={};
+    for(const [name,row] of Object.entries(teams)){
+      const old=merged[id][name];if(old){
+        if(!health.snaps?.rows)row.snaps=old.snaps;
+        if(!health.passing?.rows)row.pressure=old.pressure;
+        if(!health.rushing?.rows)row.contact=old.contact;
+        if(!health.pbp?.rows){row.epa=old.epa;row.special=old.special}
+        if(!health.charting?.rows||!health.pbp?.rows)row.chart=old.chart;
+      }
+      merged[id][name]=row;
+    }
+  }
+  const result={season,updatedAt:now.toISOString(),games:merged,sourceHealth:health,
+    attribution:"NFL EPA: nflfastR via nflverse. Snap counts and advanced stats: Pro Football Reference via nflverse. Charting: FTN Data via nflverse (CC-BY-SA 4.0).",
+    license:"https://creativecommons.org/licenses/by-sa/4.0/"};
+  await mkdir("data",{recursive:true});await writeFile(path,JSON.stringify(result)+"\n");return result;
+}
+export function attachNFLData(games,data){
+  for(const game of games){
+    const id=[game.season,String(game.week).padStart(2,"0"),code(game.awayAbbreviation),code(game.homeAbbreviation)].join("_");
+    for(const side of ["home","away"]){
+      const row=data.games?.[id]?.[code(game[side+"Abbreviation"])];
+      if(!row)continue;
+      if(!game.enrichment)game.enrichment={};game.enrichment[side]=row;
+    }
+  }
+}
+export async function loadTeamProfiles(games,sport,now=new Date()){
+  const league=sport==="nfl"?"nfl":"cfb",path="data/team-profiles-"+league+".json",cached=await read(path,{teams:{}});
+  const needed=new Map();
+  for(const g of games)if(!complete(g)&&new Date(g.date)>=now&&new Date(g.date)-now<=8*86400000)for(const side of ["home","away"])if(g[side+"Id"])needed.set(g[side],g[side+"Id"]);
+  const entries=[...needed];let cursor=0;
+  await Promise.all(Array.from({length:Math.min(6,entries.length)},async()=>{
+    while(cursor<entries.length){
+      const [name,id]=entries[cursor++],history=cached.teams[name]||[],last=history.at(-1);
+      if(last&&now-new Date(last.asOf)<6*3600000)continue;
+      const base="https://site.api.espn.com/apis/site/v2/sports/football/"+sport+"/teams/"+encodeURIComponent(id);
+      const responses=await Promise.allSettled([json(base+"/depthcharts"),json(base+"/roster")]);
+      const depth=responses[0].status==="fulfilled"?responses[0].value:null,roster=responses[1].status==="fulfilled"?responses[1].value:null;
+      if(!depth&&!roster)continue;
+      const profile=normalizeProfiles(depth,roster,now.toISOString());
+      if(!profile.starters.length&&last?.starters?.length){profile.starters=last.starters;profile.coverage.depthChart="cached";profile.depthAsOf=last.depthAsOf||last.asOf}
+      history.push(profile);cached.teams[name]=history.slice(-12);
+    }
+  }));
+  cached.updatedAt=now.toISOString();await mkdir("data",{recursive:true});await writeFile(path,JSON.stringify(cached)+"\n");
+  const profileFor=(name,before)=>(cached.teams[name]||[]).filter(p=>new Date(p.asOf)<=new Date(before)).at(-1)||null;
+  return {profileFor,eraWeight(name,resultDate,before){
+    const prior=(cached.teams[name]||[]).filter(p=>new Date(p.asOf)<=new Date(before));
+    const current=prior.at(-1),older=prior.at(-2);if(!current||!older)return 1;
+    const changed=JSON.stringify(current.coach.map(p=>p.id))!==JSON.stringify(older.coach.map(p=>p.id));
+    const oldStarters=new Set(older.starters.map(p=>p.id)),currentStarters=current.starters.map(p=>p.id);
+    const continuity=currentStarters.length&&oldStarters.size?currentStarters.filter(id=>oldStarters.has(id)).length/currentStarters.length:null;
+    const schemeChanged=JSON.stringify(current.schemes)!==JSON.stringify(older.schemes);
+    if(new Date(resultDate)>=new Date(current.asOf))return 1;
+    if(changed)return .7;
+    return schemeChanged||(continuity!=null&&continuity<.65)?.85:1;
+  }};
+}
+export function enrichmentFor(games,name,before){
+  const date=new Date(before),rows=games.filter(g=>complete(g)&&new Date(g.date)<date&&Number(g.season)===date.getUTCFullYear()&&(g.home===name||g.away===name)).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
+  const valid=rows.filter(g=>g.enrichment?.[g.home===name?"home":"away"]);if(!valid.length)return null;
+  const sum=(fn)=>valid.reduce((sum,g)=>{const s=g.home===name?"home":"away";return sum+fn(g.enrichment[s],g.enrichment[s==="home"?"away":"home"],g)},0);
+  const ratio=(fn,den)=>{const d=sum(den);return d>0?sum(fn)/d:null};
+  const latest=valid[0],side=latest.home===name?"home":"away";
+  return {games:valid.length,lastGameDate:latest.date,snaps:latest.enrichment[side].snaps,
+    pressureAllowed:ratio(t=>t.pressure.pressures,t=>t.pressure.dropbacks),
+    pressureGenerated:ratio((t,o)=>o?.pressure.pressures||0,(t,o)=>o?.pressure.dropbacks||0),
+    yardsBeforeContact:ratio(t=>t.contact.before,t=>t.contact.carries),yardsAfterContact:ratio(t=>t.contact.after,t=>t.contact.carries),
+    runEPA:ratio(t=>t.epa.run.sum,t=>t.epa.run.n),passEPA:ratio(t=>t.epa.pass.sum,t=>t.epa.pass.n),
+    runEPAAllowed:ratio((t,o)=>o?.epa.run.sum||0,(t,o)=>o?.epa.run.n||0),passEPAAllowed:ratio((t,o)=>o?.epa.pass.sum||0,(t,o)=>o?.epa.pass.n||0),
+    blitzRate:ratio((t,o)=>o?.chart.blitzes||0,(t,o)=>o?.chart.passes||0),
+    passEPAAgainstBlitz:sum(t=>t.chart.blitzPlays)>=20?ratio(t=>t.chart.blitzEPA,t=>t.chart.blitzPlays):null,
+    motionRate:ratio(t=>t.chart.motion,t=>t.chart.plays),playActionRate:ratio(t=>t.chart.playAction,t=>t.chart.plays),
+    kickingAboveExpected:ratio(t=>t.special.fgMade-t.special.fgExpected,t=>t.special.fgAttempts),
+    puntNet:ratio(t=>t.special.puntNetSum,t=>t.special.punts),returnAverage:ratio(t=>t.special.returnYards,t=>t.special.returns),
+    coverage:{routes:"unavailable",manZone:"unavailable",blockingGrades:"unavailable",runBlocking:"yards before contact; not a blocking grade",epa:"nflfastR via nflverse"}};
+}
+export function enrichmentAdjustment(home,away){
+  if(!home||!away)return {margin:0,total:0,components:{},status:"insufficient history"};
+  const diff=(a,b)=>a!=null&&b!=null?a-b:0,credibility=clamp(Math.min(home.games,away.games)/6,0,1);
+  const pressure=clamp((diff(away.pressureAllowed,home.pressureAllowed)+diff(home.pressureGenerated,away.pressureGenerated))*.8,-.35,.35);
+  const contact=clamp(diff(home.yardsBeforeContact,away.yardsBeforeContact)*.12,-.2,.2);
+  const epa=clamp((diff(home.runEPA,away.runEPA)+diff(home.passEPA,away.passEPA)+diff(away.runEPAAllowed,home.runEPAAllowed)+diff(away.passEPAAllowed,home.passEPAAllowed))*.3,-.4,.4);
+  const blitz=(team,opponent)=>team.passEPAAgainstBlitz!=null&&team.passEPA!=null&&opponent.blitzRate!=null?clamp((team.passEPAAgainstBlitz-team.passEPA)*opponent.blitzRate*.25,-.12,.12):0;
+  const matchup=blitz(home,away)-blitz(away,home);
+  const special=clamp(diff(home.kickingAboveExpected,away.kickingAboveExpected)*.6+diff(home.puntNet,away.puntNet)*.015,-.3,.3);
+  return {margin:Math.round(clamp((pressure+contact+epa+matchup+special)*credibility,-1,1)*100)/100,total:0,
+    components:{pressure,contact,epa,blitzMatchup:matchup,specialTeams:special,credibility},status:"conservative evidence adjustment; not a trained coefficient claim"};
+}
+export function roleFactor(item,profile,enrichment){
+  const starters=profile?.starters||[],starter=starters.find(p=>item.athleteId?String(item.athleteId)===p.id:identity(p.name)===identity(item.name));
+  const normalized=identity(item.name),snap=enrichment?.snaps?.filter(p=>identity(p.name)===normalized);
+  if(snap?.length===1){
+    const defensive=/DE|DT|NT|DL|LB|CB|DB|FS|SS|S|EDGE/.test(String(item.position||"").toUpperCase());
+    const share=defensive?snap[0].defense:snap[0].offense;
+    if(share!=null)return {factor:clamp(.35+.9*share,starter?.95:.35,1.25),source:"last-game actual snap share",snapShare:share};
+  }
+  if(starter)return {factor:1,source:"published depth-chart starter",replacement:starter.replacements?.[0]||null};
+  const backup=starters.some(p=>p.replacements?.some(r=>item.athleteId?String(item.athleteId)===r.id:identity(r.name)===normalized));
+  return backup?{factor:.55,source:"published depth-chart backup"}:{factor:1,source:"position prior; role unknown"};
+}
+export function dataQuality(game,event,now=new Date()){
+  const near=new Date(game.date)-now<=6*3600000,maxOddsAge=near?90*60000:2*3600000;
+  const fresh=new Set(event?.freshBookmakers||[]),times=[];
+  for(const b of event?.bookmakers||[]){
+    if(!fresh.has(identity(b.title||b.key)))continue;
+    const raw=b.last_update||b.lastUpdate||event?.oddsFetchedAt;
+    const time=new Date(raw).getTime();if(raw&&Number.isFinite(time)&&time<=now.getTime()+60000)times.push(time);
+  }
+  const oddsAge=times.length?now.getTime()-Math.max(...times):null;
+  const injuryTime=game.injuries?.updatedAt?new Date(game.injuries.updatedAt).getTime():NaN;
+  const injuryAge=Number.isFinite(injuryTime)?now.getTime()-injuryTime:null,reasons=[],warnings=[];
+  if(oddsAge==null||oddsAge>maxOddsAge)reasons.push("Fresh sportsbook lines unavailable");
+  if(injuryAge==null||game.injuries?.source==="Unavailable")warnings.push("Injury coverage unavailable");
+  else if(injuryAge>(near?24:72)*3600000)reasons.push("Injury report is stale");
+  const coverage=game.prediction?.contextEvidence;
+  if(!coverage?.home||!coverage?.away)warnings.push("Limited independent play-by-play history");
+  return {eligible:!reasons.length,reasons,warnings,oddsAgeMinutes:oddsAge==null?null:Math.round(oddsAge/60000),injuryAgeHours:injuryAge==null?null:Math.round(injuryAge/3600000),
+    reliabilityFactor:clamp(1-reasons.length*.12-warnings.length*.05,.65,1),checkedAt:now.toISOString()};
+}
+
+export async function loadCollegeAdvanced(season,now=new Date()){
+  const path="data/college-enrichment.json",cached=await read(path,{rows:[]}),apiKey=process.env.CFBD_API_KEY?.trim();
+  if(!apiKey)return {...cached,sourceStatus:cached.rows?.length?"cached; credentials unavailable":"not connected"};
+  if(cached.season===season&&now-new Date(cached.updatedAt)<6*3600000)return cached;
+  try{
+    const q=new URLSearchParams({year:String(season),seasonType:"regular",excludeGarbageTime:"true"});
+    const response=await fetch("https://api.collegefootballdata.com/stats/game/advanced?"+q,{headers:{Authorization:"Bearer "+apiKey},signal:AbortSignal.timeout(30000)});
+    if(!response.ok)throw Error("College feed "+response.status);
+    const rows=await response.json();if(!Array.isArray(rows))throw Error("Invalid college feed");
+    const result={season,updatedAt:now.toISOString(),sourceStatus:"connected",source:"CollegeFootballData advanced game PPA and line yards",rows};
+    await mkdir("data",{recursive:true});await writeFile(path,JSON.stringify(result)+"\n");return result;
+  }catch{return {...cached,sourceStatus:"unavailable; retained prior metrics"}}
+}
+export function attachCollegeAdvanced(games,data){
+  const byId=new Map(games.map(g=>[String(g.id),g]));
+  for(const row of data.rows||[]){
+    const g=byId.get(String(row.gameId));if(!g)continue;
+    const sides=["home","away"].filter(side=>identity(g[side]).startsWith(identity(row.team)));
+    if(sides.length!==1)continue;
+    const side=sides[0];g.collegeAdvanced||={};g.collegeAdvanced[side]=row;
+  }
+}
+export function collegeFor(games,name,before){
+  const date=new Date(before),rows=games.filter(g=>complete(g)&&new Date(g.date)<date&&Number(g.season)===date.getUTCFullYear()&&(g.home===name||g.away===name))
+    .sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8).map(g=>g.collegeAdvanced?.[g.home===name?"home":"away"]).filter(Boolean);
+  if(!rows.length)return null;
+  const average=(unit,key)=>{const values=rows.map(r=>numeric(r[unit]?.[key])).filter(v=>v!=null);return values.length?values.reduce((a,b)=>a+b,0)/values.length:null};
+  return {games:rows.length,offensePPA:average("offense","ppa"),defensePPA:average("defense","ppa"),lineYards:average("offense","lineYards"),lineYardsAllowed:average("defense","lineYards"),
+    stuffRate:average("offense","stuffRate"),stuffRateGenerated:average("defense","stuffRate"),source:"CollegeFootballData PPA and line yards; not player blocking grades"};
+}
+export function collegeAdjustment(home,away){
+  if(!home||!away)return {margin:0,total:0,status:"college advanced feed not connected or insufficient history"};
+  const diff=(a,b)=>a!=null&&b!=null?a-b:0;
+  const value=(diff(home.offensePPA,away.offensePPA)+diff(away.defensePPA,home.defensePPA))*.3+
+    (diff(home.lineYards,away.lineYards)+diff(away.lineYardsAllowed,home.lineYardsAllowed))*.04;
+  return {margin:Math.round(clamp(value,-.5,.5)*clamp(Math.min(home.games,away.games)/6,0,1)*100)/100,total:0,status:"supported college PPA/line-yards context"};
+}

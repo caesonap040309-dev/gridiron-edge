@@ -98,7 +98,24 @@ export function extractContext(summary,game){
     const playerRows=playerProduction(summary,id);
     const defensiveRows=playerRows.filter(p=>p.kind==="defensive");
     const qbHits=defensiveRows.length&&defensiveRows.some(p=>p.qbHits!=null)?defensiveRows.reduce((sum,p)=>sum+(p.qbHits||0),0):null;
-    result[side]={run:counters.run,pass:counters.pass,sacks,dropbacks,earlyPasses,earlyPlays,competitivePlays,garbagePlays,
+    const special={fgMade:0,fgAttempts:0,xpMade:0,xpAttempts:0,puntAverage:null,returnAverage:null};
+    const specialTeam=(summary?.boxscore?.players||[]).find(t=>String(t.team?.id)===id);
+    const values=[];
+    for(const group of specialTeam?.statistics||[]){
+      const labels=group.labels||[];
+      if(group.name==="kicking")for(const row of group.athletes||[]){
+        for(const [tag,prefix] of [["FG","fg"],["XP","xp"]]){
+          const index=labels.indexOf(tag),split=String(row.stats?.[index]||"").split("/").map(numeric);
+          if(split.length===2&&split.every(v=>v!=null)){special[prefix+"Made"]+=split[0];special[prefix+"Attempts"]+=split[1]}
+        }
+      }
+      if(group.name==="punting")for(const row of group.athletes||[]){
+        const count=numeric(row.stats?.[labels.indexOf("NO")]),yards=numeric(row.stats?.[labels.indexOf("YDS")]);
+        if(count>0&&yards!=null)values.push({count,yards});
+      }
+    }
+    if(values.length)special.puntAverage=values.reduce((sum,v)=>sum+v.yards,0)/values.reduce((sum,v)=>sum+v.count,0);
+    result[side]={specialTeams:special,run:counters.run,pass:counters.pass,sacks,dropbacks,earlyPasses,earlyPlays,competitivePlays,garbagePlays,
       paceSeconds,paceIntervals,possessions:possessions||null,scripts,redZoneTrips,redZoneTDs,shortFieldPoints,nonOffensivePoints,qbHits,
       coverage:{epa:"unavailable",snapCounts:"unavailable",pressureRate:"unavailable",lineEvidence:"sacks and quarterback hits; not true pressures",playerUsage:"box-score opportunities; not snaps"}};
   }
@@ -131,7 +148,11 @@ export function buildContextLookup(games){
     const leaguePossessions=leagueRows.length>=8?leagueRows.reduce((a,b)=>a+b,0)/leagueRows.length:null;
     const rzRows=completed.filter(g=>new Date(g.date)<date&&Number(g.season)===season).flatMap(g=>["home","away"].map(s=>g.performance?.[s]?.context)).filter(c=>c?.redZoneTrips>0);
     const rzTrips=rzRows.reduce((sum,c)=>sum+c.redZoneTrips,0),leagueRedZoneRate=rzTrips>=20?rzRows.reduce((sum,c)=>sum+c.redZoneTDs,0)/rzTrips:null;
+    const fgAttempts=sum((g,s)=>ctx(g,s).specialTeams?.fgAttempts||0),fgMade=sum((g,s)=>ctx(g,s).specialTeams?.fgMade||0);
+    const leagueFG=completed.filter(g=>new Date(g.date)<date&&Number(g.season)===season).flatMap(g=>["home","away"].map(s=>g.performance?.[s]?.context?.specialTeams)).filter(Boolean);
+    const totalAttempts=leagueFG.reduce((sum,c)=>sum+c.fgAttempts,0),leagueFGRate=totalAttempts>=20?leagueFG.reduce((sum,c)=>sum+c.fgMade,0)/totalAttempts:null;
     return {games:valid.length,leaguePossessions,leagueRedZoneRate,
+      specialTeams:{fgAttempts,fgRate:fgAttempts?fgMade/fgAttempts:null,leagueFGRate,puntAverage:rate((g,s)=>ctx(g,s).specialTeams?.puntAverage||0,(g,s)=>ctx(g,s).specialTeams?.puntAverage==null?0:1)},
       redZoneTrips:sum((g,s)=>ctx(g,s).redZoneTrips),redZoneTDs:sum((g,s)=>ctx(g,s).redZoneTDs),
       runSuccess:rate((g,s)=>ctx(g,s).run.success,(g,s)=>ctx(g,s).run.plays),
       passSuccess:rate((g,s)=>ctx(g,s).pass.success,(g,s)=>ctx(g,s).pass.plays),
@@ -151,7 +172,7 @@ export function buildContextLookup(games){
   };
 }
 
-export function contextAdjustment(home,away){
+export function contextAdjustment(home,away,{specialTeams=true}={}){
   if(!home||!away)return {margin:0,total:0,coverage:"insufficient history",components:{}};
   const credibility=clamp(Math.min(home.games,away.games)/6,0,1);
   const diff=(a,b)=>a!=null&&b!=null?a-b:0;
@@ -165,8 +186,10 @@ export function contextAdjustment(home,away){
     return clamp((shrunk-rate)*(team.redZoneTrips/team.games)*6*.15,-.35,.35);
   };
   const homeRedZone=rzRegression(home),awayRedZone=rzRegression(away);
-  return {margin:Math.round(clamp((efficiency+line+homeRedZone-awayRedZone)*credibility,-1.25,1.25)*100)/100,total:Math.round(clamp((pace+homeRedZone+awayRedZone)*credibility,-1,1)*100)/100,
-    coverage:"supported evidence; conservative uncalibrated caps",components:{efficiency,line,pace,redZoneRegression:{home:homeRedZone,away:awayRedZone},credibility}};
+  const kicking=t=>t.specialTeams?.fgRate!=null&&t.specialTeams.leagueFGRate!=null?(t.specialTeams.fgRate-t.specialTeams.leagueFGRate)*t.specialTeams.fgAttempts/(t.specialTeams.fgAttempts+12):0;
+  const special=specialTeams?clamp((kicking(home)-kicking(away))*.8+diff(home.specialTeams?.puntAverage,away.specialTeams?.puntAverage)*.01,-.25,.25):0;
+  return {margin:Math.round(clamp((efficiency+line+special+homeRedZone-awayRedZone)*credibility,-1.25,1.25)*100)/100,total:Math.round(clamp((pace+homeRedZone+awayRedZone)*credibility,-1,1)*100)/100,
+    coverage:"supported evidence; conservative uncalibrated caps",components:{efficiency,line,pace,specialTeams:special,redZoneRegression:{home:homeRedZone,away:awayRedZone},credibility}};
 }
 
 export function sustainablePoints(game,side){
@@ -201,7 +224,7 @@ export function playerInjuryValue(games,game,side,item){
 }
 
 // Fit the same opponent-adjusted scoring model for paired baseline/candidate snapshots.
-export function fitRatings(records,{leagueMean,priorGames,blowoutMargin=Infinity,blowoutDiscount=1,sustainable=false}){
+export function fitRatings(records,{leagueMean,priorGames,blowoutMargin=Infinity,blowoutDiscount=1,sustainable=false,eraAdjustment=false}){
   let ratings=new Map([...records].map(([name,rows])=>[name,{offense:0,defense:0,games:rows.length,effectiveGames:0,for:leagueMean,against:leagueMean}]));
   for(let pass=0;pass<10;pass++){
     const next=new Map();
@@ -209,7 +232,7 @@ export function fitRatings(records,{leagueMean,priorGames,blowoutMargin=Infinity
       let off=0,def=0,ow=0,dw=0,forPoints=0,againstPoints=0;
       for(const r of rows){
         const opponent=ratings.get(r.opponent)||{offense:0,defense:0};
-        const w=(r.baseWeight??r.weight)*(Math.abs(r.scored-r.allowed)>=blowoutMargin?blowoutDiscount:1);
+        const w=(r.baseWeight??r.weight)*(eraAdjustment?(r.eraWeight??1):1)*(Math.abs(r.scored-r.allowed)>=blowoutMargin?blowoutDiscount:1);
         const offenseWeight=w*(r.offenseWeight??1),defenseWeight=w*(r.defenseWeight??1);
         const scored=sustainable?(r.sustainableScored??r.scored):r.scored,allowed=sustainable?(r.sustainableAllowed??r.allowed):r.allowed;
         off+=offenseWeight*(clamp(scored,0,leagueMean*2.45)-leagueMean+opponent.defense);

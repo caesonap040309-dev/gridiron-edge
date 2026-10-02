@@ -17,6 +17,7 @@ on:
       - "scripts/calibrate-model.mjs"
       - "scripts/audit-model.mjs"
       - "scripts/model-context.mjs"
+      - "scripts/team-enrichment.mjs"
       - "scripts/validate-model.mjs"
       - "tests/**"
       - ".github/workflows/update-live-data.yml"
@@ -41,12 +42,13 @@ jobs:
         with:
           node-version: 22
       - name: Validate model feature logic
-        run: node --test tests/model-context.test.mjs
+        run: node --test tests/*.test.mjs
       - name: Refresh schedules scores and live game lines
         env:
           SPORTSGAMEODDS_API_KEY: ${{ secrets.SPORTSGAMEODDS_API_KEY }}
           SPORTS_GAME_ODDS_API_KEY: ${{ secrets.SPORTS_GAME_ODDS_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
         run: |
           node scripts/calibrate-model.mjs
@@ -57,7 +59,7 @@ jobs:
           node scripts/audit-model.mjs
           node scripts/calibrate-model.mjs
       - name: Fetch newly available player props on requested updates
-        if: github.event_name != 'schedule'
+        if: github.event_name == 'workflow_dispatch'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: node scripts/update-props.mjs
@@ -67,7 +69,8 @@ jobs:
         run: |
           git config user.name "gridiron-edge-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/live.json data/nfl.json data/props-nfl.json data/props-cfb.json data/model-calibration.json data/model-audit.json data/model-health-cfb.json data/model-health-nfl.json data/model-snapshots.json data/model-validation.json
+          git add data/live.json data/nfl.json data/props-nfl.json data/props-cfb.json data/model-calibration.json data/model-audit.json data/model-health-cfb.json data/model-health-nfl.json data/model-snapshots.json data/model-validation.json data/nfl-enrichment.json data/team-profiles-nfl.json data/team-profiles-cfb.json
+          [ ! -f data/college-enrichment.json ] || git add data/college-enrichment.json
           git diff --cached --quiet && exit 0
           git commit -m "Update live football data"
           git pull --rebase origin main

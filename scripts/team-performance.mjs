@@ -1,3 +1,4 @@
+import {identity} from "./team-enrichment.mjs";
 import {extractContext,playerProduction,playCreator} from "./model-context.mjs";
 // Derived only from completed games. A missing or partial play log is never treated as zero production.
 const number=value=>{if(value==null||value==="")return null;const n=Number(value);return Number.isFinite(n)?n:null};
@@ -61,7 +62,7 @@ export function extractPerformance(summary,game){
     result[side].explosiveAllowed=opponent.explosivePlays;
     result[side].takeaways=opponent.turnovers;
   }
-  result.schemaVersion=5;
+  result.schemaVersion=6;
   return result;
 }
 export async function loadPerformance(games,previous,sport){
@@ -75,7 +76,7 @@ export async function loadPerformance(games,previous,sport){
   await Promise.all(Array.from({length:Math.min(6,finals.length)},async()=>{
     while(cursor<finals.length){
       const game=finals[cursor++];
-      if(old.get(String(game.id))?.schemaVersion===5){game.performance=old.get(String(game.id));continue}
+      if(old.get(String(game.id))?.schemaVersion===6){game.performance=old.get(String(game.id));continue}
       try{
         const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${sport}/summary?event=${encodeURIComponent(game.id)}`);
         if(!response.ok)throw new Error(`ESPN summary ${response.status}`);
@@ -184,6 +185,7 @@ export function rosterGameWeights(games){
     for(const side of ["home","away"]){
       const key=String(game.season)+":"+game[side],prior=(history.get(key)||[]).filter(item=>item.date<new Date(game.date)).slice(-6);
       const players=game.performance?.[side]?.players;
+      const snapPlayers=game.enrichment?.[side]?.snaps||[];
       let missing=0;
       const evidence=[];
       if(players?.length&&prior.length>=2){
@@ -213,11 +215,30 @@ export function rosterGameWeights(games){
       const absences=Number.isFinite(age)&&age>=0&&age<=7*86400000?(snapshot?.[side]||[]).filter(item=>defensivePositions.has(String(item.position).toUpperCase())&&/^(out|ir|injured reserve|suspended|pup)$/i.test(String(item.status).trim())):[];
       const verifiedAbsences=absences.filter(item=>!(players||[]).some(p=>p.kind==="defensive"&&p.usage>0&&(item.athleteId?String(item.athleteId)===p.id:String(item.name).toLowerCase()===String(p.name).toLowerCase())));
       const defensiveLoss=verifiedAbsences.reduce((sum,item)=>sum+Math.max(0,Number(item.expectedLoss)||Number(item.impact)||.55),0);
-      const defenseWeight=limit(1-defensiveLoss*.08,.35,1);
-      entries[side]={defenseWeight,defenseEvidence:verifiedAbsences.map(item=>({name:item.name,position:item.position,status:item.status,source:snapshot.source,asOf:snapshot.updatedAt})),defenseCoverage:verifiedAbsences.length?"confirmed pregame absences":"unknown",offenseWeight:limit(1-missing,.35,1),evidence,coverage:players?.length?"skill-position production":"unknown"};
+      let defenseWeight=limit(1-defensiveLoss*.08,.35,1);
+      const snapEvidence=[];
+      const snapWeight=(unit)=>{
+        const total=snapPlayers.reduce((sum,p)=>sum+(p[unit]||0),0);
+        const valid=prior.filter(row=>(row.snaps||[]).reduce((sum,p)=>sum+(p[unit]||0),0)>=8);
+        if(total<8||valid.length<2)return 1;
+        const ids=new Map();
+        for(const row of valid)for(const p of row.snaps||[])if(p[unit]>0){
+          const e=ids.get(p.id)||{name:p.name,share:0,games:0};e.share+=p[unit];e.games++;ids.set(p.id,e);
+        }
+        let loss=0;
+        for(const [id,p] of ids){
+          const normal=p.share/valid.length;if(p.games<2||normal<.55)continue;
+          const current=snapPlayers.find(p=>p.id===id)?.[unit]??0;
+          if(current<normal*.5){loss+=(normal-current)*.08;snapEvidence.push({name:p.name,unit,priorShare:normal,actualShare:current,source:"recorded NFL snaps"})}
+        }
+        return limit(1-loss,.45,1);
+      };
+      const snapOffenseWeight=snapWeight("offense");
+      defenseWeight=Math.min(defenseWeight,snapWeight("defense"));
+      entries[side]={snapEvidence,defenseWeight,defenseEvidence:verifiedAbsences.map(item=>({name:item.name,position:item.position,status:item.status,source:snapshot.source,asOf:snapshot.updatedAt})),defenseCoverage:verifiedAbsences.length?"confirmed pregame absences":"unknown",offenseWeight:Math.min(limit(1-missing,.35,1),snapOffenseWeight),evidence,coverage:players?.length?"skill-position production":"unknown"};
       if(players?.length){
         if(!history.has(key))history.set(key,[]);
-        history.get(key).push({date:new Date(game.date),players});
+        history.get(key).push({date:new Date(game.date),players,snaps:snapPlayers});
       }
     }
     output.set(String(game.id),entries);
