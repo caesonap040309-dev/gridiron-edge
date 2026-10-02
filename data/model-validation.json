@@ -1,0 +1,126 @@
+{
+  "updatedAt": "2026-10-02T20:22:48.896Z",
+  "coefficientStatus": "Conservative fixed caps; not fitted or claimed validated by this report",
+  "cfb": {
+    "forward": {
+      "status": "awaiting completed paired pregame forecasts",
+      "pairedGames": 0,
+      "marginError": null,
+      "baselineMarginError": null,
+      "totalError": null,
+      "baselineTotalError": null,
+      "brier": null,
+      "baselineBrier": null,
+      "byVersion": {},
+      "byMarket": {
+        "spread": {
+          "forecasts": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "winRate": null,
+          "pricedForecasts": 0,
+          "profitUnits": 0,
+          "roi": null,
+          "closingLineSamples": 0,
+          "meanClosingLineValuePoints": null
+        },
+        "total": {
+          "forecasts": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "winRate": null,
+          "pricedForecasts": 0,
+          "profitUnits": 0,
+          "roi": null,
+          "closingLineSamples": 0,
+          "meanClosingLineValuePoints": null
+        },
+        "moneyline": {
+          "forecasts": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "winRate": null,
+          "pricedForecasts": 0,
+          "profitUnits": 0,
+          "roi": null,
+          "closingLineSamples": 0,
+          "meanClosingLineValuePoints": null
+        }
+      },
+      "note": "All paired forecasts, not a selected betting card. Profit uses recorded side-specific prices only. Missing prices and closing lines are excluded."
+    },
+    "historical": {
+      "method": "Chronological scoring-feature experiment; every game uses strictly earlier results. Excludes sportsbook, weather and live injury adjustments.",
+      "games": 118,
+      "baselineMarginMAE": 14.1598,
+      "candidateMarginMAE": 14.1477,
+      "baselineTotalMAE": 12.3051,
+      "candidateTotalMAE": 12.191,
+      "limitation": "Historical feature-development evidence, not an independent betting-profit claim or a full replay of the production forecast."
+    }
+  },
+  "nfl": {
+    "forward": {
+      "status": "awaiting completed paired pregame forecasts",
+      "pairedGames": 0,
+      "marginError": null,
+      "baselineMarginError": null,
+      "totalError": null,
+      "baselineTotalError": null,
+      "brier": null,
+      "baselineBrier": null,
+      "byVersion": {},
+      "byMarket": {
+        "spread": {
+          "forecasts": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "winRate": null,
+          "pricedForecasts": 0,
+          "profitUnits": 0,
+          "roi": null,
+          "closingLineSamples": 0,
+          "meanClosingLineValuePoints": null
+        },
+        "total": {
+          "forecasts": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "winRate": null,
+          "pricedForecasts": 0,
+          "profitUnits": 0,
+          "roi": null,
+          "closingLineSamples": 0,
+          "meanClosingLineValuePoints": null
+        },
+        "moneyline": {
+          "forecasts": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "winRate": null,
+          "pricedForecasts": 0,
+          "profitUnits": 0,
+          "roi": null,
+          "closingLineSamples": 0,
+          "meanClosingLineValuePoints": null
+        }
+      },
+      "note": "All paired forecasts, not a selected betting card. Profit uses recorded side-specific prices only. Missing prices and closing lines are excluded."
+    },
+    "historical": {
+      "method": "Chronological scoring-feature experiment; every game uses strictly earlier results. Excludes sportsbook, weather and live injury adjustments.",
+      "games": 17,
+      "baselineMarginMAE": 7.9333,
+      "candidateMarginMAE": 7.8651,
+      "baselineTotalMAE": 13.348,
+      "candidateTotalMAE": 13.558,
+      "limitation": "Historical feature-development evidence, not an independent betting-profit claim or a full replay of the production forecast."
+    }
+  }
+}
