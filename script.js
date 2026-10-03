@@ -329,10 +329,12 @@ function pickResults(game,p){
 }
 function injuryReport(game,p){
   const groups=[["away",game.away],["home",game.home]];
-  const cards=groups.flatMap(([side,team])=>(game.injuries?.[side]||[]).sort((a,b)=>(Number(b.expectedLoss)||0)-(Number(a.expectedLoss)||0)).map(item=>`<div><span>${esc(team)} · ${esc(item.position||"—")} · ${esc(item.status||"Unknown")}</span><b>${esc(item.name)}</b><strong>${Math.round(Number(item.availability)||0)}% available</strong></div>`));
+  const cards=groups.flatMap(([side,team])=>(game.injuries?.[side]||[]).sort((a,b)=>(Number(b.expectedLoss)||0)-(Number(a.expectedLoss)||0)).map(item=>`<div><span>${esc(team)} · ${esc(item.position||"—")} · ${esc(item.status||"Unknown")}</span><b>${esc(item.name)}</b><strong>${Math.round(Number(item.availability)||0)}% estimated availability${item.reportedAt?" · Status dated "+esc(item.reportedAt.slice(0,10)):""}</strong></div>`));
+  const coverage=game.injuries?.coverage;
+  const note=`<p class="method-note">${coverage==="unavailable"?"Injury coverage unavailable. Retained entries may be outdated; availability is unverified.":esc(game.injuries?.coverageNote||"Injury statuses as listed by the source.")} Source: ${esc(game.injuries?.source||"Unavailable")} · Last checked: ${esc(game.injuries?.checkedAt||game.injuries?.updatedAt||"Unknown")}</p>`;
   const impact=p?.injuryImpact;
   const summary=impact?`<p class="method-note">Expected roster loss: ${esc(game.away)} ${Number(impact.awayLoss||0).toFixed(1)} pts · ${esc(game.home)} ${Number(impact.homeLoss||0).toFixed(1)} pts. Net margin adjustment: ${signed(p.adjustments?.injuryMargin||0)} points toward the home team. Questionable-player uncertainty can lower confidence.</p>`:"";
-  return cards.length?`<div class="keys-grid">${cards.join("")}</div>${summary}`:`<div class="detail-empty">No reportable injuries were returned for this matchup. The model will recheck on every data update.</div>${summary}`;
+  return cards.length?`${note}<div class="keys-grid">${cards.join("")}</div>${summary}`:`${note}<div class="detail-empty">${coverage==="unavailable"?"No verified current report is available. This does not mean every player is healthy.":"The source lists no injuries for this matchup. Game-day availability can change."}</div>${summary}`;
 }
 function qualityNote(p){
   const quality=p?.dataQuality;if(!quality)return "";

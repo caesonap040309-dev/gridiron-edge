@@ -201,8 +201,12 @@ export function dataQuality(game,event,now=new Date()){
   const injuryTime=game.injuries?.updatedAt?new Date(game.injuries.updatedAt).getTime():NaN;
   const injuryAge=Number.isFinite(injuryTime)?now.getTime()-injuryTime:null,reasons=[],warnings=[];
   if(oddsAge==null||oddsAge>maxOddsAge)reasons.push("Fresh sportsbook lines unavailable");
-  if(injuryAge==null||game.injuries?.source==="Unavailable")warnings.push("Injury coverage unavailable");
+  if(game.injuries?.coverage==="unavailable")reasons.push("Current injury coverage unavailable");
+  else if(injuryAge==null||game.injuries?.source==="Unavailable")warnings.push("Injury coverage unavailable");
   else if(injuryAge>(near?24:72)*3600000)reasons.push("Injury report is stale");
+  if(game.injuries?.source==="Covers")warnings.push("Public injury listing; official game-day availability unverified");
+  const listed=[...(game.injuries?.home||[]),...(game.injuries?.away||[])];
+  if(listed.some(item=>/questionable|doubtful|probable/i.test(item.status||"")&&(!item.reportedAt||now-new Date(item.reportedAt)>7*86400000)))reasons.push("Listed injury status needs confirmation");
   const coverage=game.prediction?.contextEvidence;
   if(!coverage?.home||!coverage?.away)warnings.push("Limited independent play-by-play history");
   return {eligible:!reasons.length,reasons,warnings,oddsAgeMinutes:oddsAge==null?null:Math.round(oddsAge/60000),injuryAgeHours:injuryAge==null?null:Math.round(injuryAge/3600000),

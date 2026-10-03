@@ -1,3 +1,4 @@
+import {loadInjuryFallback,fallbackSummary,selectInjuryReport} from "./injury-feed.mjs";
 import {loadNFLData,attachNFLData,loadTeamProfiles,enrichmentFor,enrichmentAdjustment,roleFactor,dataQuality} from "./team-enrichment.mjs";
 import {buildContextLookup,contextAdjustment,sustainablePoints,playerInjuryValue,fitRatings} from "./model-context.mjs";
 import {loadPerformance,performanceAdjustment,rosterGameWeights} from "./team-performance.mjs";
@@ -275,11 +276,12 @@ function normalizeInjuries(summary,game){
       const base=INJURY_POSITION_POINTS[position]??.55;
       const availability=availabilityFor(status);
       const expectedLoss=Math.round(base*(1-availability)*100)/100;
-      output[side].push({athleteId:athlete.id?String(athlete.id):null,name:athlete.displayName||athlete.fullName||item?.displayName||"Unknown player",position:position||"—",status:item?.status||item?.type?.description||item?.details?.type||"Unknown",detail:item?.details?.detail||item?.longComment||null,availability:Math.round(availability*100),impact:base,expectedLoss});
+      output[side].push({athleteId:athlete.id?String(athlete.id):null,name:athlete.displayName||athlete.fullName||item?.displayName||"Unknown player",position:position||"—",status:item?.status||item?.type?.description||item?.details?.type||"Unknown",detail:item?.details?.detail||item?.longComment||null,reportedAt:item?.reportedAt||item?.date||null,availability:Math.round(availability*100),impact:base,expectedLoss});
     }
   }
   return output;
 }
+const injuryFallback=await loadInjuryFallback("nfl",now);
 async function refreshInjuries(game){
   const kickoff=new Date(game.date);
   if(game.statusCompleted){
@@ -292,11 +294,18 @@ async function refreshInjuries(game){
     const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=${encodeURIComponent(game.id)}`);
     if(!response.ok)throw new Error(`injury feed ${response.status}`);
     const summary=await response.json();
-    const injuries=normalizeInjuries(summary,game);
-    const count=injuries.home.length+injuries.away.length;
-    game.injuries=count?injuries:((previous.games||[]).find(old=>String(old.id)===String(game.id))?.injuries||injuries);
+    const cached=(previous.games||[]).find(old=>String(old.id)===String(game.id))?.injuries;
+    const fallback=!Array.isArray(summary.injuries)?fallbackSummary(injuryFallback,game,games):null;
+    const report=fallback||summary;
+    const injuries=normalizeInjuries(report,game);
+    if(fallback){injuries.source="Covers";injuries.sourceUrl=injuryFallback.url;injuries.coverageNote="Public injury listing; not an official game-day availability report";}
+    game.injuries=selectInjuryReport(report,injuries,cached,now.toISOString());
   }catch{
-    game.injuries=(previous.games||[]).find(old=>String(old.id)===String(game.id))?.injuries||{home:[],away:[],updatedAt:null,source:"Unavailable"};
+    const fallback=fallbackSummary(injuryFallback,game,games);
+    const cached=(previous.games||[]).find(old=>String(old.id)===String(game.id))?.injuries;
+    const normalized=normalizeInjuries(fallback,game);
+    if(fallback){normalized.source="Covers";normalized.sourceUrl=injuryFallback.url;normalized.coverageNote="Public injury listing; not an official game-day availability report";}
+    game.injuries=selectInjuryReport(fallback,normalized,cached,now.toISOString());
   }
 }
 function injuryAdjustment(game){
