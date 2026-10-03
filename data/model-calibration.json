@@ -1,29 +1,29 @@
 {
-  "updatedAt": "2026-10-03T03:37:38.866Z",
+  "updatedAt": "2026-10-03T04:32:31.004Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
     "win": {
       "factor": 1.04,
-      "sampleSize": 149,
-      "effectiveSample": 149,
-      "brierScore": 0.140149711409396,
-      "calibratedBrierScore": 0.1615529381647059,
+      "sampleSize": 150,
+      "effectiveSample": 150,
+      "brierScore": 0.1411022066666667,
+      "calibratedBrierScore": 0.16391514240000002,
       "status": "held-out-improvement",
       "trainingSamples": 98,
-      "holdoutSamples": 51,
-      "holdoutBrier": 0.16372949019607844,
-      "holdoutCandidateBrier": 0.1615529381647059,
+      "holdoutSamples": 52,
+      "holdoutBrier": 0.16602361538461535,
+      "holdoutCandidateBrier": 0.16391514240000002,
       "holdoutDifference95Interval": [
-        -0.003163225471540165,
-        -0.001189878591204937
+        -0.0030851529419522418,
+        -0.0011317930272785341
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 29,
-      "effectiveSample": 29,
-      "brierScore": 0.26685062068965515,
+      "sampleSize": 30,
+      "effectiveSample": 30,
+      "brierScore": 0.26573189999999997,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -31,9 +31,9 @@
     },
     "total": {
       "factor": 1,
-      "sampleSize": 23,
-      "effectiveSample": 23,
-      "brierScore": 0.24241573913043482,
+      "sampleSize": 24,
+      "effectiveSample": 24,
+      "brierScore": 0.242197125,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -42,7 +42,7 @@
     "probabilityFactor": 1.04,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 149,
+    "sampleSize": 150,
     "status": "held-out-improvement"
   },
   "nfl": {
