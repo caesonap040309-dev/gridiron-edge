@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-03T20:03:26.813Z",
+  "updatedAt": "2026-10-03T20:48:35.367Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1622,22 +1622,19 @@
     },
     "props": {
       "allTracked": {
-        "plays": 8,
-        "wins": 3,
-        "losses": 5,
+        "plays": 0,
+        "wins": 0,
+        "losses": 0,
         "pushes": 0,
-        "winRate": 0.375,
-        "winRate95Interval": [
-          0.1368,
-          0.6943
-        ],
-        "pricedPlays": 8,
-        "profitUnits": 2.1091,
-        "roi": 0.2636,
-        "brierScore": 0.2768,
-        "marketComparisonSamples": 8,
-        "modelBrierOnMatchedSamples": 0.2768,
-        "marketBrierOnMatchedSamples": 0.2754,
+        "winRate": null,
+        "winRate95Interval": null,
+        "pricedPlays": 0,
+        "profitUnits": 0,
+        "roi": null,
+        "brierScore": null,
+        "marketComparisonSamples": 0,
+        "modelBrierOnMatchedSamples": null,
+        "marketBrierOnMatchedSamples": null,
         "calibration": [
           {
             "lower": 0.5,
@@ -1663,9 +1660,9 @@
           {
             "lower": 0.65,
             "upper": 0.7,
-            "samples": 1,
-            "predicted": 0.684,
-            "observed": 1
+            "samples": 0,
+            "predicted": null,
+            "observed": null
           },
           {
             "lower": 0.7,
@@ -1677,9 +1674,9 @@
           {
             "lower": 0.8,
             "upper": 0.9,
-            "samples": 1,
-            "predicted": 0.855,
-            "observed": 0
+            "samples": 0,
+            "predicted": null,
+            "observed": null
           },
           {
             "lower": 0.9,
@@ -1756,107 +1753,37 @@
           }
         ]
       },
-      "byMarket": {
-        "player_anytime_td": {
-          "plays": 8,
-          "wins": 3,
-          "losses": 5,
-          "pushes": 0,
-          "winRate": 0.375,
-          "winRate95Interval": [
-            0.1368,
-            0.6943
-          ],
-          "pricedPlays": 8,
-          "profitUnits": 2.1091,
-          "roi": 0.2636,
-          "brierScore": 0.2768,
-          "marketComparisonSamples": 8,
-          "modelBrierOnMatchedSamples": 0.2768,
-          "marketBrierOnMatchedSamples": 0.2754,
-          "calibration": [
-            {
-              "lower": 0.5,
-              "upper": 0.55,
-              "samples": 0,
-              "predicted": null,
-              "observed": null
-            },
-            {
-              "lower": 0.55,
-              "upper": 0.6,
-              "samples": 0,
-              "predicted": null,
-              "observed": null
-            },
-            {
-              "lower": 0.6,
-              "upper": 0.65,
-              "samples": 0,
-              "predicted": null,
-              "observed": null
-            },
-            {
-              "lower": 0.65,
-              "upper": 0.7,
-              "samples": 1,
-              "predicted": 0.684,
-              "observed": 1
-            },
-            {
-              "lower": 0.7,
-              "upper": 0.8,
-              "samples": 0,
-              "predicted": null,
-              "observed": null
-            },
-            {
-              "lower": 0.8,
-              "upper": 0.9,
-              "samples": 1,
-              "predicted": 0.855,
-              "observed": 0
-            },
-            {
-              "lower": 0.9,
-              "upper": 1,
-              "samples": 0,
-              "predicted": null,
-              "observed": null
-            }
-          ]
-        }
-      },
+      "byMarket": {},
       "legacyPicks": 0,
       "note": "Legacy tracked props are not presented as qualified bets. DFS entries need actual entry payouts to calculate ROI."
     },
     "filters": {
       "games": {
-        "evaluated": 130,
+        "evaluated": 126,
         "qualified": 4,
-        "blockedByData": 95,
-        "belowBettingThresholds": 31,
+        "blockedByData": 94,
+        "belowBettingThresholds": 28,
         "reasons": {
-          "Probability, price, evidence or edge below betting thresholds": 31,
-          "Listed injury status needs confirmation": 67,
+          "Listed injury status needs confirmation": 66,
           "Current injury coverage unavailable": 8,
-          "Fresh quote at the modeled line unavailable": 59,
-          "Fresh sportsbook lines unavailable": 56,
+          "Fresh quote at the modeled line unavailable": 61,
+          "Probability, price, evidence or edge below betting thresholds": 28,
+          "Fresh sportsbook lines unavailable": 58,
           "Price outside standard betting range": 18
         }
       },
       "props": {
-        "evaluated": 2284,
+        "evaluated": 2207,
         "qualified": 0,
-        "blockedByData": 1831,
-        "belowBettingThresholds": 453,
+        "blockedByData": 1882,
+        "belowBettingThresholds": 325,
         "reasons": {
-          "Sample, probability or price edge below betting thresholds": 453,
-          "Prop quote needs refreshing": 486,
-          "Prop quote or game inputs need a fresh update": 1530,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 834,
-          "Player listed unavailable or doubtful": 30,
-          "Independent projection unavailable": 226
+          "Sample, probability or price edge below betting thresholds": 325,
+          "Prop quote or game inputs need a fresh update": 1712,
+          "Prop quote needs refreshing": 822,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 665,
+          "Independent projection unavailable": 286,
+          "Player listed unavailable or doubtful": 20
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
@@ -3552,17 +3479,17 @@
         }
       },
       "props": {
-        "evaluated": 15764,
+        "evaluated": 16361,
         "qualified": 0,
-        "blockedByData": 12595,
-        "belowBettingThresholds": 3169,
+        "blockedByData": 13313,
+        "belowBettingThresholds": 3048,
         "reasons": {
-          "Prop quote needs refreshing": 9324,
-          "Prop quote or game inputs need a fresh update": 9257,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 3652,
-          "Sample, probability or price edge below betting thresholds": 3169,
-          "Player listed unavailable or doubtful": 70,
-          "Independent projection unavailable": 4522
+          "Prop quote needs refreshing": 10088,
+          "Prop quote or game inputs need a fresh update": 9936,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 3826,
+          "Sample, probability or price edge below betting thresholds": 3048,
+          "Player listed unavailable or doubtful": 155,
+          "Independent projection unavailable": 4711
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
