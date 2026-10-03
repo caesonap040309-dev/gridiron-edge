@@ -1,29 +1,29 @@
 {
-  "updatedAt": "2026-10-03T14:38:58.978Z",
+  "updatedAt": "2026-10-03T19:42:55.657Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
     "win": {
       "factor": 1.04,
-      "sampleSize": 150,
-      "effectiveSample": 150,
-      "brierScore": 0.1411022066666667,
-      "calibratedBrierScore": 0.16391514240000002,
+      "sampleSize": 161,
+      "effectiveSample": 161,
+      "brierScore": 0.1413588571591492,
+      "calibratedBrierScore": 0.16840720707086163,
       "status": "held-out-improvement",
-      "trainingSamples": 98,
-      "holdoutSamples": 52,
-      "holdoutBrier": 0.16602361538461535,
-      "holdoutCandidateBrier": 0.16391514240000002,
+      "trainingSamples": 112,
+      "holdoutSamples": 49,
+      "holdoutBrier": 0.17047571433924527,
+      "holdoutCandidateBrier": 0.16840720707086163,
       "holdoutDifference95Interval": [
-        -0.0030851529419522418,
-        -0.0011317930272785341
+        -0.003080658452855206,
+        -0.0010563560839119495
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 30,
-      "effectiveSample": 30,
-      "brierScore": 0.26573189999999997,
+      "sampleSize": 40,
+      "effectiveSample": 40,
+      "brierScore": 0.2663125975730952,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -31,9 +31,9 @@
     },
     "total": {
       "factor": 1,
-      "sampleSize": 24,
-      "effectiveSample": 24,
-      "brierScore": 0.242197125,
+      "sampleSize": 35,
+      "effectiveSample": 35,
+      "brierScore": 0.24894058897279145,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -42,7 +42,7 @@
     "probabilityFactor": 1.04,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 150,
+    "sampleSize": 161,
     "status": "held-out-improvement"
   },
   "nfl": {
