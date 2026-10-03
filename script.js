@@ -115,7 +115,7 @@ function modelRecords(){
   for(const game of (state.seasonGames||state.allGames)){
     if(!/final/i.test(game.status||""))continue;
     const p=game.prediction||{},market=p.market;
-    if(!p.createdAt||new Date(p.createdAt)>=new Date(game.date))continue;
+    if(!p.asOf||new Date(p.asOf)>=new Date(game.date))continue;
     const home=Number(game.homeScore),away=Number(game.awayScore);
     if(!Number.isFinite(home)||!Number.isFinite(away))continue;
     if(home!==away&&p.winner){
@@ -225,7 +225,7 @@ async function load(){
     state.games=(live.games||[]).filter(g=>String(g.season)===String(year)&&(week==="0"?true:String(g.week)===String(week))).sort((a,b)=>new Date(a.date)-new Date(b.date));
     await refreshLiveGames(year,week);
     state.games.sort((a,b)=>{const rank=g=>isLiveGame(g)?0:(g.statusCompleted||/final/i.test(g.status||"")||isPastGameWindow(g))?2:1;return rank(a)-rank(b)||new Date(a.date)-new Date(b.date)});
-    populateBooks();render();renderModelRecords();$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
+    populateBooks();render();renderModelRecords();window.dispatchEvent(new Event("gridiron-data-loaded"));$("lastUpdated").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
     $("connectionStatus").className="status live";$("connectionStatus").lastElementChild.textContent="Latest data loaded";
     if(live.updatedAt) $("lastUpdated").textContent=new Date(live.updatedAt).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
   }catch(e){showError(e.message+" Check the API setup and try again.")}
@@ -352,11 +352,11 @@ function sharpMetrics(game,p){
   const winnerConfidence=p.confidenceByMarket?.moneyline||p.confidence||"Unrated";
   const spreadEdge=Math.abs(Number(p.spreadEdge)||0),totalEdge=Math.abs(Number(p.totalEdge)||0),books=Number(p.marketBooks)||0;
   const spreadProb=coverProb==null?0:Number(coverProb),totalP=totalProb==null?0:Number(totalProb);
-  const stalePrediction=!p.asOf||Date.now()-new Date(p.asOf)>2*3600000;
-  const units=(edge,prob)=>p.dataQuality?.eligible===false||stalePrediction||books<2||edge<2||prob<54?0:(books>=3&&edge>=4.5&&prob>=61?3:(edge>=3&&prob>=57?2:1));
-  const spreadUnits=units(spreadEdge,spreadProb),totalUnits=units(totalEdge,totalP);
+  const rows=globalThis.GridironPolicy.gameRows(game,state.odds||[]);
+  const spreadRating=rows.find(row=>row.type==="Spread"),totalRating=rows.find(row=>row.type==="Total");
+  const spreadUnits=spreadRating?.units||0,totalUnits=totalRating?.units||0;
   const unitText=n=>n===3?"3 Units · Strongest":n===2?"2 Units · Strong":n===1?"1 Unit · Lean":"NO BET · Pass";
-  return qualityNote(p)+`<div class="sharp-metrics"><div><span>Spread bet rating</span><b>${unitText(spreadUnits)}</b><small>${spreadUnits?"Qualified model edge":"Edge/data quality below threshold"}</small></div><div><span>Total bet rating</span><b>${unitText(totalUnits)}</b><small>${totalUnits?"Qualified model edge":"Edge/data quality below threshold"}</small></div><div><span>Spread edge</span><b>${p.spreadEdge==null?"—":signed(p.spreadEdge)+" pts"}</b><small>${coverProb==null?"Waiting for market":esc(coverSide)+" "+coverProb.toFixed(1)+"%"}</small></div><div><span>Total edge</span><b>${p.totalEdge==null?"—":signed(p.totalEdge)+" pts"}</b><small>${totalProb==null?"Waiting for market":totalSide+" "+totalProb.toFixed(1)+"%"}</small></div><div><span>Fair moneyline</span><b>${esc(game.home)} ${american(p.fairHomeMoneyline)}</b><small>${esc(game.away)} ${american(p.fairAwayMoneyline)}</small></div><div><span>Model confidence</span><b>${winnerConfidence}</b><small>${winnerProb==null?"Win probability unavailable":esc(p.winner)+" "+winnerProb.toFixed(1)+"%"} · ${Number(p.sample)||0} games · ${Number(p.marketBooks)||0} books</small></div></div>${p.adjustments?`<div class="model-factors"><span>Model v${Number(p.version)||"—"}</span><span>${p.adjustments.neutralSite?"Neutral site":"Home field "+signed(p.adjustments.homeField)}</span><span>Rest ${signed(p.adjustments.rest)}</span><span>Venue form ${signed(p.adjustments.venue)}</span><span>Weather total ${signed(p.adjustments.weatherTotal)}</span><span>Injuries ${signed(p.adjustments.injuryMargin||0)} margin</span></div>`:""}`;
+  return qualityNote(p)+`<div class="sharp-metrics"><div><span>Spread bet rating</span><b>${unitText(spreadUnits)}</b><small>${esc(spreadRating?.reason||"Fresh modeled line unavailable")}</small></div><div><span>Total bet rating</span><b>${unitText(totalUnits)}</b><small>${esc(totalRating?.reason||"Fresh modeled line unavailable")}</small></div><div><span>Spread edge</span><b>${p.spreadEdge==null?"—":signed(p.spreadEdge)+" pts"}</b><small>${coverProb==null?"Waiting for market":esc(coverSide)+" "+coverProb.toFixed(1)+"%"}</small></div><div><span>Total edge</span><b>${p.totalEdge==null?"—":signed(p.totalEdge)+" pts"}</b><small>${totalProb==null?"Waiting for market":totalSide+" "+totalProb.toFixed(1)+"%"}</small></div><div><span>Fair moneyline</span><b>${esc(game.home)} ${american(p.fairHomeMoneyline)}</b><small>${esc(game.away)} ${american(p.fairAwayMoneyline)}</small></div><div><span>Model confidence</span><b>${winnerConfidence}</b><small>${winnerProb==null?"Win probability unavailable":esc(p.winner)+" "+winnerProb.toFixed(1)+"%"} · ${Number(p.sample)||0} games · ${Number(p.marketBooks)||0} books</small></div></div>${p.adjustments?`<div class="model-factors"><span>Model v${Number(p.version)||"—"}</span><span>${p.adjustments.neutralSite?"Neutral site":"Home field "+signed(p.adjustments.homeField)}</span><span>Rest ${signed(p.adjustments.rest)}</span><span>Venue form ${signed(p.adjustments.venue)}</span><span>Weather total ${signed(p.adjustments.weatherTotal)}</span><span>Injuries ${signed(p.adjustments.injuryMargin||0)} margin</span></div>`:""}`;
 }
 function scoringSummary(summary){
   const plays=summary?.scoringPlays||[];

@@ -1,3 +1,4 @@
+import {consensusPoint} from "./market-quotes.mjs";
 import {loadInjuryFallback,fallbackSummary,selectInjuryReport} from "./injury-feed.mjs";
 import {loadCollegeAdvanced,attachCollegeAdvanced,collegeFor,collegeAdjustment,loadNFLData,attachNFLData,loadTeamProfiles,enrichmentFor,enrichmentAdjustment,roleFactor,dataQuality} from "./team-enrichment.mjs";
 import {buildContextLookup,contextAdjustment,sustainablePoints,playerInjuryValue,fitRatings} from "./model-context.mjs";
@@ -165,8 +166,8 @@ function snapshotMarket(game,prediction){
   const fresh=new Set(event.freshBookmakers||[]);
   const books=fresh.size>=2?(event.bookmakers||[]).filter(book=>fresh.has(sportsbookIdentity(book))):(event.bookmakers||[]);
   for(const book of books)for(const market of book.markets||[])for(const outcome of market.outcomes||[])offers.push({...outcome,key:market.key,book:book.title});
-  const homeSpread=offers.filter(o=>o.key==="spreads"&&o.name===game.home).sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0];
-  const over=offers.filter(o=>o.key==="totals"&&o.name==="Over").sort((a,b)=>(Number(a.point)-Number(b.point))||(Number(b.price)-Number(a.price)))[0];
+  const homeSpread=offers.filter(o=>o.key==="spreads"&&o.name===game.home&&Number(o.point)===-Number(prediction.marketMargin)).sort((a,b)=>(Number(b.point)-Number(a.point))||(Number(b.price)-Number(a.price)))[0];
+  const over=offers.filter(o=>o.key==="totals"&&o.name==="Over"&&Number(o.point)===Number(prediction.marketTotal)).sort((a,b)=>(Number(a.point)-Number(b.point))||(Number(b.price)-Number(a.price)))[0];
   if(!homeSpread&&!over)return null;
   const projectedMargin=Number(prediction.homeScore)-Number(prediction.awayScore);
   const quote=(market,name,point,book)=>offers.filter(o=>o.key===market&&o.name===name&&(point==null||Number(o.point)===Number(point))&&(!book||o.book===book)).sort((a,b)=>Number(b.price)-Number(a.price))[0]?.price??null;
@@ -174,7 +175,7 @@ function snapshotMarket(game,prediction){
     over:over?.price??null,under:over?quote("totals","Under",over.point,over.book):null,homeMoneyline:quote("h2h",game.home),awayMoneyline:quote("h2h",game.away)};
   return {prices,capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
 }
-const MODEL_VERSION=13;
+const MODEL_VERSION=14;
 const LEAGUE_MEAN=27;
 const HOME_FIELD=2.7;
 const PRIOR_GAMES=3.5;
@@ -248,8 +249,8 @@ function consensusMarket(game){
     if(market.key==="spreads"&&outcome.name===game.home&&Number.isFinite(Number(outcome.point)))homePoints.push(Number(outcome.point));
     if(market.key==="totals"&&outcome.name==="Over"&&Number.isFinite(Number(outcome.point)))totals.push(Number(outcome.point));
   }
-  const homePoint=median(homePoints);
-  return {margin:homePoint==null?null:-homePoint,total:median(totals),spreadDeviation:deviation(homePoints),totalDeviation:deviation(totals),bookCount:new Set(books.map(book=>book.key)).size};
+  const homePoint=consensusPoint(homePoints);
+  return {margin:homePoint==null?null:-homePoint,total:consensusPoint(totals),spreadDeviation:deviation(homePoints),totalDeviation:deviation(totals),bookCount:new Set(books.map(book=>book.key)).size};
 }
 
 const INJURY_POSITION_POINTS={QB:5.5,LT:1.15,RT:1.0,OL:0.85,G:0.75,C:0.8,WR:1.25,RB:0.85,TE:0.7,DE:0.75,DT:0.65,DL:0.65,LB:0.7,CB:0.95,S:0.8,DB:0.8,K:0.35,P:0.15};
@@ -379,14 +380,15 @@ for(const game of games){
   const homePoints=Math.max(3,(projectedTotal+margin)/2),awayPoints=Math.max(3,(projectedTotal-margin)/2);
   const injuryReliability=Math.max(.78,1-injury.uncertainty*.04);
   const reliability=cap((.55+Math.min(sample,8)*.04+Math.min(market.bookCount||0,4)*.03)*cap(Number(dailyCalibration.probabilityFactor)||1,.68,1.04)*injuryReliability*quality.reliabilityFactor,.5,.92);
+  const uncalibratedReliability=cap((.55+Math.min(sample,8)*.04+Math.min(market.bookCount||0,4)*.03)*injuryReliability*quality.reliabilityFactor,.5,.92);
   const rawHomeWin=(1/(1+Math.exp(-margin/10.5)))*100;
   const homeWin=Math.round((50+(rawHomeWin-50)*reliability)*10)/10;
   const spreadEdge=market.margin==null?null:Math.round((margin-market.margin)*10)/10;
   const totalEdge=market.total==null?null:Math.round((projectedTotal-market.total)*10)/10;
   const spreadCalibration=cap(Number(dailyCalibration.spreadProbabilityFactor)||1,.68,1.04);
   const totalCalibration=cap(Number(dailyCalibration.totalProbabilityFactor)||1,.68,1.04);
-  const homeCover=spreadEdge==null?null:Math.round((50+(((1/(1+Math.exp(-spreadEdge/SPREAD_SCALE)))*100)-50)*reliability*spreadCalibration)*10)/10;
-  const overProb=totalEdge==null?null:Math.round((50+(((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*100)-50)*reliability*totalCalibration)*10)/10;
+  const homeCover=spreadEdge==null?null:Math.round((50+(((1/(1+Math.exp(-spreadEdge/SPREAD_SCALE)))*100)-50)*uncalibratedReliability*spreadCalibration)*10)/10;
+  const overProb=totalEdge==null?null:Math.round((50+(((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*100)-50)*uncalibratedReliability*totalCalibration)*10)/10;
   const maxEdge=Math.max(Math.abs(spreadEdge||0),Math.abs(totalEdge||0));
   const marketStable=(market.spreadDeviation||0)<=1.25&&(market.totalDeviation||0)<=1.75;
   // Overall matchup confidence is not the same as sportsbook edge. The model
@@ -406,6 +408,7 @@ for(const game of games){
   const evidenceScore=Math.min(1,evidenceGames/6)*.45+Math.min(1,(market.bookCount||0)/3)*.25+(marketStable?.15:0)+reliability*.15;
   const confidenceScore=Math.round(cap((signalScore*.58+evidenceScore*.42-Math.min(.25,injury.uncertainty*.05))*100,0,100));
   const prediction={
+    probabilityEvidence:{homeWin:(50+(rawHomeWin-50)*uncalibratedReliability)/100,homeCover:spreadEdge==null?null:(50+((1/(1+Math.exp(-spreadEdge/SPREAD_SCALE)))*100-50)*uncalibratedReliability)/100,over:totalEdge==null?null:(50+((1/(1+Math.exp(-totalEdge/TOTAL_SCALE)))*100-50)*uncalibratedReliability)/100},
     version:MODEL_VERSION,winner:margin>=0?game.home:game.away,homeWin,
     spread:Math.round(-margin*10)/10,total:Math.round(projectedTotal*10)/10,
     homeScore:Math.round(homePoints),awayScore:Math.round(awayPoints),sample,evidenceGames,observedGames,

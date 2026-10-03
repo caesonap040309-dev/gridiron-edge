@@ -1,32 +1,8 @@
-import {numeric} from "./model-context.mjs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-
-async function read(path){try{return JSON.parse(await readFile(path,"utf8"))}catch{return {games:[]}}}
-const round=value=>Math.round(value*10000)/10000;
-function summarize(rows){
-  const decided=rows.filter(row=>row.result!=="push");
-  const wins=decided.filter(row=>row.result==="win").length,losses=decided.length-wins;
-  const brier=decided.length?decided.reduce((sum,row)=>sum+(row.prob-row.outcome)**2,0)/decided.length:null;
-  return {plays:rows.length,wins,losses,pushes:rows.length-decided.length,winRate:decided.length?round(wins/decided.length):null,brierScore:brier==null?null:round(brier)};
-}
-function auditLeague(data,league){
-  const rows=[];
-  for(const game of data?.games||[]){
-    const p=game.prediction||{},homeScore=Number(game.homeScore),awayScore=Number(game.awayScore),created=new Date(p.asOf||p.createdAt),kickoff=new Date(game.date);
-    if(!/final/i.test(game.status||"")||!Number.isFinite(homeScore)||!Number.isFinite(awayScore)||!Number.isFinite(created.getTime())||created>=kickoff)continue;
-    if(homeScore!==awayScore&&Number.isFinite(Number(p.homeWin))){const homePick=Number(p.homeWin)>=50,outcome=homeScore>awayScore;rows.push({league,market:"moneyline",confidence:p.confidenceByMarket?.moneyline||p.confidence||"Unknown",prob:(homePick?Number(p.homeWin):100-Number(p.homeWin))/100,outcome:homePick===outcome?1:0,result:homePick===outcome?"win":"loss"})}
-    const point=numeric(p.market?.homePoint),homeCover=numeric(p.homeCover),coverMargin=homeScore-awayScore+point;
-    if(point!=null&&homeCover!=null){const homePick=homeCover>=50;rows.push({league,market:"spread",confidence:p.confidenceByMarket?.spread||p.confidence||"Unknown",prob:(homePick?homeCover:100-homeCover)/100,outcome:coverMargin===0?.5:(homePick===(coverMargin>0)?1:0),result:coverMargin===0?"push":(homePick===(coverMargin>0)?"win":"loss")})}
-    const line=numeric(p.market?.total),overProb=numeric(p.overProb),difference=homeScore+awayScore-line;
-    if(line!=null&&overProb!=null){const overPick=overProb>=50;rows.push({league,market:"total",confidence:p.confidenceByMarket?.total||p.confidence||"Unknown",prob:(overPick?overProb:100-overProb)/100,outcome:difference===0?.5:(overPick===(difference>0)?1:0),result:difference===0?"push":(overPick===(difference>0)?"win":"loss")})}
-  }
-  const byMarket=Object.fromEntries(["moneyline","spread","total"].map(market=>[market,summarize(rows.filter(row=>row.market===market))]));
-  const byConfidence=Object.fromEntries(["High","Medium","Low"].map(level=>[level,summarize(rows.filter(row=>row.confidence===level))]));
-  return {overall:summarize(rows),byMarket,byConfidence};
-}
-
-const [cfb,nfl]=await Promise.all([read("data/live.json"),read("data/nfl.json")]);
-const output={updatedAt:new Date().toISOString(),method:"pregame snapshots only; pushes excluded from win rate",cfb:auditLeague(cfb,"cfb"),nfl:auditLeague(nfl,"nfl")};
-await mkdir("data",{recursive:true});
-await writeFile("data/model-audit.json",JSON.stringify(output,null,2)+"\n");
-console.log(`Audit saved: CFB ${output.cfb.overall.plays} graded markets; NFL ${output.nfl.overall.plays}`);
+import {mkdir,readFile,writeFile} from "node:fs/promises";
+import {gameEvaluation,qualifiedEvaluation,propEvaluation,filterReview} from "./production-evaluation.mjs";
+const read=async(path,fallback)=>{try{return JSON.parse(await readFile(path,"utf8"))}catch{return fallback}};
+const [cfb,nfl,archive,cfbProps,nflProps,recovered]=await Promise.all([read("data/live.json",{games:[]}),read("data/nfl.json",{games:[]}),read("data/model-snapshots.json",{entries:[]}),read("data/props-cfb.json",{}),read("data/props-nfl.json",{}),read("data/verified-historical-snapshots.json",{entries:[]})]);
+const now=new Date(),output={schemaVersion:2,recoveredForecasts:recovered.entries.length,updatedAt:now.toISOString(),method:"Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately."};
+for(const [league,data,props] of [["cfb",cfb,cfbProps],["nfl",nfl,nflProps]])output[league]={...gameEvaluation(data.games||[],[...(archive.entries||[]),...(recovered.entries||[])],league),qualified:qualifiedEvaluation(archive.entries||[],data.games||[],league),props:propEvaluation(props),filters:filterReview(data.games||[],data.events||[],props,now.getTime())};
+await mkdir("data",{recursive:true});await writeFile("data/model-audit.json",JSON.stringify(output,null,2)+"\n");
+console.log(`Production audit: CFB ${output.cfb.overall.plays}, NFL ${output.nfl.overall.plays} graded markets; qualified betting records separated.`);

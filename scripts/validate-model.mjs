@@ -1,3 +1,5 @@
+import {promotionGate} from "./promotion-gate.mjs";
+import {gameRows} from "./betting-policy.mjs";
 import {mkdir,readFile,writeFile,realpath} from "node:fs/promises";
 import {pathToFileURL} from "node:url";
 import {numeric,fitRatings,buildContextLookup,contextAdjustment,sustainablePoints} from "./model-context.mjs";
@@ -12,14 +14,15 @@ export const validPregame=(p,game)=> {
 const profit=(price,win,push=false)=>push?0:win?(price<0?100/(-price):price/100):-1;
 export function evaluateSnapshots(entries,games){
   const actual=new Map(games.map(g=>[String(g.id),g])),pairs=[],markets={spread:[],total:[],moneyline:[]};
-  for(const entry of entries){
+  const latest=new Map();for(const entry of entries){const old=latest.get(String(entry.id));if(!old||new Date(entry.prediction?.asOf)>new Date(old.prediction?.asOf))latest.set(String(entry.id),entry);}
+  for(const entry of latest.values()){
     const game=actual.get(String(entry.id)),p=entry.prediction,b=p?.baseline;
     if(!game||!(game.statusCompleted||/final/i.test(game.status||""))||!validPregame(p,game)||!b)continue;
     const home=numeric(game.homeScore),away=numeric(game.awayScore);
     if(home==null||away==null)continue;
     const outcome=home>away?1:0;
     const margin=home-away,total=home+away;
-    pairs.push({version:p.version,baselineVersion:b.version,
+    pairs.push({date:game.date,version:p.version,baselineVersion:b.version,
       marginError:numeric(p.spread)==null?null:Math.abs(-p.spread-margin),
       baselineMarginError:numeric(b.spread)==null?null:Math.abs(-b.spread-margin),
       totalError:numeric(p.total)==null?null:Math.abs(p.total-total),
@@ -51,7 +54,7 @@ export function evaluateSnapshots(entries,games){
     return {forecasts:rows.length,wins:decided.filter(r=>r.win).length,losses:decided.filter(r=>!r.win).length,pushes:rows.length-decided.length,
       winRate:round(decided.length?decided.filter(r=>r.win).length/decided.length:null),pricedForecasts:priced.length,profitUnits:round(priced.reduce((a,r)=>a+r.profit,0)),roi:round(mean(priced.map(r=>r.profit))),closingLineSamples:clv.length,meanClosingLineValuePoints:round(mean(clv.map(r=>r.clv)))}};
   const metrics=rows=>Object.fromEntries(["marginError","baselineMarginError","totalError","baselineTotalError","brier","baselineBrier"].map(k=>[k,round(mean(rows.map(r=>r[k]).filter(v=>v!=null)))]));
-  return {status:pairs.length?"collecting forward evidence":"awaiting completed paired pregame forecasts",pairedGames:pairs.length,...metrics(pairs),
+  return {promotion:{spread:promotionGate(pairs.map(r=>({date:r.date,candidate:r.marginError,baseline:r.baselineMarginError}))),total:promotionGate(pairs.map(r=>({date:r.date,candidate:r.totalError,baseline:r.baselineTotalError})))},status:pairs.length?"collecting forward evidence":"awaiting completed paired pregame forecasts",pairedGames:pairs.length,...metrics(pairs),
     byVersion:Object.fromEntries([...new Set(pairs.map(r=>r.version))].map(v=>[v,{games:pairs.filter(r=>r.version===v).length,...metrics(pairs.filter(r=>r.version===v))}])),
     byMarket:Object.fromEntries(Object.entries(markets).map(([k,v])=>[k,summarize(v)])),
     note:"All paired forecasts, not a selected betting card. Profit uses recorded side-specific prices only. Missing prices and closing lines are excluded."};
@@ -90,13 +93,13 @@ export function walkForward(games,league){
 async function read(path,fallback){try{return JSON.parse(await readFile(path,"utf8"))}catch{return fallback}}
 export async function main(){
   const [cfb,nfl,archive]=await Promise.all([read("data/live.json",{games:[]}),read("data/nfl.json",{games:[]}),read("data/model-snapshots.json",{entries:[]})]);
-  const now=new Date(),known=new Set(archive.entries.map(e=>e.league+":"+e.id+":"+e.prediction.version));
+  const now=new Date(),known=new Set(archive.entries.map(e=>e.league+":"+e.id+":"+e.prediction.version+":"+(e.policyVersion||0)));
   for(const [league,data] of [["cfb",cfb],["nfl",nfl]])for(const game of data.games||[]){
-    const p=game.prediction,date=new Date(game.date),id=league+":"+game.id+":"+p?.version;
+    const p=game.prediction,date=new Date(game.date),id=league+":"+game.id+":"+p?.version+":1";
     if(!p?.baseline||!validPregame(p,game)||date<=now||date>new Date(now.getTime()+7*86400000)||known.has(id))continue;
-    archive.entries.push({league,id:String(game.id),date:game.date,prediction:p});known.add(id);
+    archive.entries.push({league,id:String(game.id),date:game.date,prediction:p,policyVersion:1,qualifiedPlays:gameRows(game,data.events||[],now.getTime()).filter(row=>row.units>0)});known.add(id);
   }
-  const report={updatedAt:now.toISOString(),coefficientStatus:"Conservative fixed caps; not fitted or claimed validated by this report",
+  const report={updatedAt:now.toISOString(),coefficientStatus:"Live fixed caps; coefficient changes require chronological held-out calibration or sufficient paired forward improvement",
     cfb:{forward:evaluateSnapshots(archive.entries.filter(e=>e.league==="cfb"),cfb.games||[]),historical:walkForward(cfb.games||[],"cfb")},
     nfl:{forward:evaluateSnapshots(archive.entries.filter(e=>e.league==="nfl"),nfl.games||[]),historical:walkForward(nfl.games||[],"nfl")}};
   await mkdir("data",{recursive:true});
@@ -105,3 +108,4 @@ export async function main(){
   console.log("Model validation saved: paired forward snapshots and chronological feature comparison.");
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(await realpath(process.argv[1])).href)await main();
+

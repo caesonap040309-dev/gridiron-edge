@@ -1,38 +1,23 @@
+import {mkdir,readFile,writeFile} from "node:fs/promises";
 import {numeric} from "./model-context.mjs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-
-const now=new Date();
-const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
-async function read(path){try{return JSON.parse(await readFile(path,"utf8"))}catch{return {games:[]}}}
-
-function fit(samples){
-  const weightedSample=samples.reduce((sum,row)=>sum+row.weight,0);
-  const brier=factor=>samples.reduce((sum,row)=>{const adjusted=clamp(.5+(row.prob-.5)*factor,.02,.98);return sum+row.weight*(adjusted-row.outcome)**2},0)/Math.max(1,weightedSample);
-  let bestFactor=1,bestBrier=brier(1);
-  if(samples.length>=12)for(let factor=.55;factor<=1.1001;factor+=.025){const score=brier(factor);if(score<bestBrier){bestBrier=score;bestFactor=factor}}
-  const evidence=weightedSample/(weightedSample+80),blended=samples.length>=12?1+(bestFactor-1)*evidence:1;
-  return {factor:Number(clamp(blended,.68,1.04).toFixed(3)),sampleSize:samples.length,effectiveSample:Number(weightedSample.toFixed(1)),brierScore:Number(brier(1).toFixed(4)),calibratedBrierScore:Number(bestBrier.toFixed(4)),status:samples.length>=12?"active-shrunk":"collecting-data"};
+import {latestForecasts} from "./production-evaluation.mjs";
+import {fitChronological} from "./calibration-fit.mjs";
+const read=async(path,fallback)=>{try{return JSON.parse(await readFile(path,"utf8"))}catch{return fallback}};
+const [cfb,nfl,archive,recovered]=await Promise.all([read("data/live.json",{games:[]}),read("data/nfl.json",{games:[]}),read("data/model-snapshots.json",{entries:[]}),read("data/verified-historical-snapshots.json",{entries:[]})]);
+function calibrate(data,league){
+ const samples={win:[],spread:[],total:[]};
+ for(const {game:g,prediction:p} of latestForecasts(data.games||[],[...(archive.entries||[]),...(recovered.entries||[])],league)){
+  if(!(g.statusCompleted||/final/i.test(g.status||"")))continue;
+  const home=numeric(g.homeScore),away=numeric(g.awayScore);if(home==null||away==null)continue;
+  const date=new Date(g.date).getTime(),raw=p.probabilityEvidence;
+  if(home!==away&&numeric(p.homeWin)!=null)samples.win.push({date,prob:raw?.homeWin??p.homeWin/100,outcome:home>away?1:0});
+  const quote=p.market,time=new Date(quote?.capturedAt);if(!Number.isFinite(time.getTime())||time>=new Date(g.date))continue;
+  const point=numeric(quote?.homePoint),line=numeric(quote?.total),margin=home-away;
+  if(point!=null&&numeric(p.homeCover)!=null&&numeric(p.marketMargin)!=null&&Math.abs(point+p.marketMargin)<.01&&margin+point!==0)samples.spread.push({date,prob:raw?.homeCover??p.homeCover/100,outcome:margin+point>0?1:0});
+  if(line!=null&&numeric(p.overProb)!=null&&numeric(p.marketTotal)!=null&&Math.abs(line-p.marketTotal)<.01&&home+away!==line)samples.total.push({date,prob:raw?.over??p.overProb/100,outcome:home+away>line?1:0});
+ }
+ const fit=Object.fromEntries(Object.entries(samples).map(([market,rows])=>[market,fitChronological(rows)]));
+ return {...fit,probabilityFactor:fit.win.factor,spreadProbabilityFactor:fit.spread.factor,totalProbabilityFactor:fit.total.factor,sampleSize:fit.win.sampleSize,status:fit.win.status};
 }
-
-function calibrationFor(data){
-  const win=[],spread=[],total=[];
-  for(const game of data?.games||[]){
-    const p=game.prediction||{},kickoff=new Date(game.date),created=new Date(p.asOf||p.createdAt),homeScore=Number(game.homeScore),awayScore=Number(game.awayScore);
-    if(!/final/i.test(game.status||"")||!Number.isFinite(homeScore)||!Number.isFinite(awayScore)||!Number.isFinite(kickoff.getTime())||!Number.isFinite(created.getTime())||created>=kickoff)continue;
-    const ageDays=Math.max(0,(now-kickoff)/86400000);
-    const weight=Math.max(.35,Math.exp(-ageDays/70));
-    if(homeScore!==awayScore&&Number.isFinite(Number(p.homeWin)))win.push({prob:Number(p.homeWin)/100,outcome:homeScore>awayScore?1:0,weight});
-    const homePoint=numeric(p.market?.homePoint),homeCover=numeric(p.homeCover),coverMargin=homeScore-awayScore+homePoint;
-    if(homePoint!=null&&homeCover!=null&&coverMargin!==0)spread.push({prob:homeCover/100,outcome:coverMargin>0?1:0,weight});
-    const marketTotal=numeric(p.market?.total),overProb=numeric(p.overProb),actualTotal=homeScore+awayScore;
-    if(marketTotal!=null&&overProb!=null&&actualTotal!==marketTotal)total.push({prob:overProb/100,outcome:actualTotal>marketTotal?1:0,weight});
-  }
-  const fitted={win:fit(win),spread:fit(spread),total:fit(total)};
-  return {...fitted,probabilityFactor:fitted.win.factor,spreadProbabilityFactor:fitted.spread.factor,totalProbabilityFactor:fitted.total.factor,sampleSize:fitted.win.sampleSize,status:fitted.win.status};
-}
-
-const [cfb,nfl]=await Promise.all([read("data/live.json"),read("data/nfl.json")]);
-const output={updatedAt:now.toISOString(),method:"recency-weighted Brier shrinkage by market",minimumSample:12,recencyDecayDays:70,cfb:calibrationFor(cfb),nfl:calibrationFor(nfl)};
-await mkdir("data",{recursive:true});
-await writeFile("data/model-calibration.json",JSON.stringify(output,null,2)+"\n");
-console.log(`Calibration: CFB W/S/T ${output.cfb.win.sampleSize}/${output.cfb.spread.sampleSize}/${output.cfb.total.sampleSize}; NFL ${output.nfl.win.sampleSize}/${output.nfl.spread.sampleSize}/${output.nfl.total.sampleSize}`);
+const output={updatedAt:new Date().toISOString(),method:"Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",minimumSample:60,cfb:calibrate(cfb,"cfb"),nfl:calibrate(nfl,"nfl")};
+await mkdir("data",{recursive:true});await writeFile("data/model-calibration.json",JSON.stringify(output,null,2)+"\n");console.log(`Held-out calibration saved: CFB ${output.cfb.status}; NFL ${output.nfl.status}`);

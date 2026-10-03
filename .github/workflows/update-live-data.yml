@@ -19,6 +19,14 @@ on:
       - "scripts/model-context.mjs"
       - "scripts/team-enrichment.mjs"
       - "scripts/validate-model.mjs"
+      - "scripts/production-evaluation.mjs"
+      - "scripts/betting-policy.mjs"
+      - "scripts/calibration-fit.mjs"
+      - "scripts/prop-statistics.mjs"
+      - "scripts/market-quotes.mjs"
+      - "scripts/promotion-gate.mjs"
+      - "scripts/injury-feed.mjs"
+      - "betting-policy.js"
       - "tests/**"
       - ".github/workflows/update-live-data.yml"
   schedule:
@@ -64,7 +72,9 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: node scripts/update-props.mjs
       - name: Grade player props against final results
-        run: node scripts/grade-props.mjs
+        run: |
+          node scripts/grade-props.mjs
+          node scripts/audit-model.mjs
       - name: Publish changed data
         run: |
           git config user.name "gridiron-edge-bot"

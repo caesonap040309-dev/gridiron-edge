@@ -1,3 +1,4 @@
+import {propRow} from "./betting-policy.mjs";
 import { readFile, writeFile } from "node:fs/promises";
 
 const now=new Date();
@@ -9,18 +10,20 @@ async function fetchJson(url){const response=await fetch(url);if(!response.ok)th
 
 function freezePregamePicks(data){
   const picks=Array.isArray(data?.picks)?data.picks:[];
-  const saved=new Set(picks.map(p=>`${p.eventId}|${clean(p.player)}|${p.market}`));
+  const saved=new Set(picks.map(p=>`${p.eventId}|${clean(p.player)}|${p.market}|${p.policyVersion||0}`));
   const best=new Map();
   for(const prop of data?.props||[]){
     const kickoff=new Date(prop.commenceTime).getTime(),captured=new Date(prop.capturedAt).getTime();
     if(!Number.isFinite(kickoff)||!Number.isFinite(captured)||captured>=kickoff||now.getTime()>=kickoff)continue;
-    const key=`${prop.eventId}|${clean(prop.player)}|${prop.market}`;
+    const key=`${prop.eventId}|${clean(prop.player)}|${prop.market}|1`;
     const old=best.get(key);
-    if(!old||Number(prop.hitProbability)>Number(old.hitProbability))best.set(key,prop);
+    const rating=propRow(prop,now.getTime()),prior=old?propRow(old,now.getTime()):null;
+    if(!old||rating.units>(prior?.units||0)||rating.units===(prior?.units||0)&&(rating.units?rating.valueEdge>prior.valueEdge:Number(prop.hitProbability)>Number(old.hitProbability)))best.set(key,prop);
   }
   for(const [key,prop] of best){
     if(saved.has(key))continue;
-    picks.push({id:`pick:${key}`,eventId:prop.eventId,commenceTime:prop.commenceTime,matchup:prop.matchup,home:prop.home,away:prop.away,player:prop.player,market:prop.market,marketLabel:prop.marketLabel,category:prop.category,provider:prop.provider,line:prop.line,pick:prop.pick,price:prop.price??null,hitProbability:prop.hitProbability,confidence:prop.confidence,capturedAt:prop.capturedAt,status:"pending",actual:null,gradedAt:null});
+    const rating=propRow(prop,now.getTime());
+    picks.push({policyVersion:1,propModelVersion:prop.propModelVersion||null,betEligible:rating.units>0,units:rating.units,eligibilityReason:rating.reason,modelSample:prop.modelSample,modelProjection:prop.modelProjection,projectionType:prop.projectionType,marketProbability:prop.marketProbability,statisticalProbability:prop.statisticalProbability,valueEdge:rating.valueEdge,id:`pick:${key}`,eventId:prop.eventId,commenceTime:prop.commenceTime,matchup:prop.matchup,home:prop.home,away:prop.away,player:prop.player,market:prop.market,marketLabel:prop.marketLabel,category:prop.category,provider:prop.provider,line:prop.line,pick:prop.pick,price:prop.price??null,hitProbability:prop.hitProbability,confidence:prop.confidence,capturedAt:prop.capturedAt,status:"pending",actual:null,gradedAt:null});
   }
   return picks;
 }
