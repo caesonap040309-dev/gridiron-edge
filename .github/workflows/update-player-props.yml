@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/update-props.mjs"
+      - "scripts/prop-statistics.mjs"
       - ".github/workflows/update-player-props.yml"
   schedule:
     # Refresh after Saturday ends in Eastern time (00:20 EST / 01:20 EDT Sunday).
@@ -31,6 +32,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate production model logic
+        run: node --test tests/*.test.mjs
       - name: Fetch current NFL and college player props
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
