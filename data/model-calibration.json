@@ -1,68 +1,85 @@
 {
-  "updatedAt": "2026-10-03T02:36:32.395Z",
-  "method": "recency-weighted Brier shrinkage by market",
-  "minimumSample": 12,
-  "recencyDecayDays": 70,
+  "updatedAt": "2026-10-03T03:03:32.709Z",
+  "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
+  "minimumSample": 60,
   "cfb": {
     "win": {
       "factor": 1.04,
       "sampleSize": 149,
-      "effectiveSample": 129.9,
-      "brierScore": 0.1392,
-      "calibratedBrierScore": 0.1331,
-      "status": "active-shrunk"
+      "effectiveSample": 149,
+      "brierScore": 0.140149711409396,
+      "calibratedBrierScore": 0.1615529381647059,
+      "status": "held-out-improvement",
+      "trainingSamples": 98,
+      "holdoutSamples": 51,
+      "holdoutBrier": 0.16372949019607844,
+      "holdoutCandidateBrier": 0.1615529381647059,
+      "holdoutDifference95Interval": [
+        -0.003163225471540165,
+        -0.001189878591204937
+      ]
     },
     "spread": {
-      "factor": 0.733,
-      "sampleSize": 134,
-      "effectiveSample": 116.6,
-      "brierScore": 0.2639,
-      "calibratedBrierScore": 0.2531,
-      "status": "active-shrunk"
+      "factor": 1,
+      "sampleSize": 29,
+      "effectiveSample": 29,
+      "brierScore": 0.26685062068965515,
+      "calibratedBrierScore": null,
+      "status": "insufficient-held-out-evidence",
+      "trainingSamples": 0,
+      "holdoutSamples": 0
     },
     "total": {
-      "factor": 0.722,
-      "sampleSize": 149,
-      "effectiveSample": 129.9,
-      "brierScore": 0.2526,
-      "calibratedBrierScore": 0.2511,
-      "status": "active-shrunk"
+      "factor": 1,
+      "sampleSize": 23,
+      "effectiveSample": 23,
+      "brierScore": 0.24241573913043482,
+      "calibratedBrierScore": null,
+      "status": "insufficient-held-out-evidence",
+      "trainingSamples": 0,
+      "holdoutSamples": 0
     },
     "probabilityFactor": 1.04,
-    "spreadProbabilityFactor": 0.733,
-    "totalProbabilityFactor": 0.722,
+    "spreadProbabilityFactor": 1,
+    "totalProbabilityFactor": 1,
     "sampleSize": 149,
-    "status": "active-shrunk"
+    "status": "held-out-improvement"
   },
   "nfl": {
     "win": {
-      "factor": 0.985,
-      "sampleSize": 39,
-      "effectiveSample": 33.8,
-      "brierScore": 0.2383,
-      "calibratedBrierScore": 0.2383,
-      "status": "active-shrunk"
+      "factor": 1,
+      "sampleSize": 32,
+      "effectiveSample": 32,
+      "brierScore": 0.25171934375,
+      "calibratedBrierScore": null,
+      "status": "insufficient-held-out-evidence",
+      "trainingSamples": 0,
+      "holdoutSamples": 0
     },
     "spread": {
-      "factor": 1.023,
-      "sampleSize": 27,
-      "effectiveSample": 24,
-      "brierScore": 0.2438,
-      "calibratedBrierScore": 0.2433,
-      "status": "active-shrunk"
+      "factor": 1,
+      "sampleSize": 7,
+      "effectiveSample": 7,
+      "brierScore": 0.2437808571428571,
+      "calibratedBrierScore": null,
+      "status": "insufficient-held-out-evidence",
+      "trainingSamples": 0,
+      "holdoutSamples": 0
     },
     "total": {
-      "factor": 0.875,
-      "sampleSize": 35,
-      "effectiveSample": 30.7,
-      "brierScore": 0.2538,
-      "calibratedBrierScore": 0.2518,
-      "status": "active-shrunk"
+      "factor": 1,
+      "sampleSize": 9,
+      "effectiveSample": 9,
+      "brierScore": 0.2617656666666667,
+      "calibratedBrierScore": null,
+      "status": "insufficient-held-out-evidence",
+      "trainingSamples": 0,
+      "holdoutSamples": 0
     },
-    "probabilityFactor": 0.985,
-    "spreadProbabilityFactor": 1.023,
-    "totalProbabilityFactor": 0.875,
-    "sampleSize": 39,
-    "status": "active-shrunk"
+    "probabilityFactor": 1,
+    "spreadProbabilityFactor": 1,
+    "totalProbabilityFactor": 1,
+    "sampleSize": 32,
+    "status": "insufficient-held-out-evidence"
   }
 }

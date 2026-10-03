@@ -1,48 +1,61 @@
 {
-  "updatedAt": "2026-10-03T02:36:31.333Z",
-  "coefficientStatus": "Conservative fixed caps; not fitted or claimed validated by this report",
+  "updatedAt": "2026-10-03T03:03:31.776Z",
+  "coefficientStatus": "Live fixed caps; coefficient changes require chronological held-out calibration or sufficient paired forward improvement",
   "cfb": {
     "forward": {
+      "promotion": {
+        "spread": {
+          "samples": 2,
+          "weeks": 1,
+          "meanErrorDifference": 0,
+          "difference95Interval": null,
+          "promote": false,
+          "status": "more completed forward evidence required",
+          "minimumGames": 100,
+          "minimumWeeks": 6
+        },
+        "total": {
+          "samples": 2,
+          "weeks": 1,
+          "meanErrorDifference": 0,
+          "difference95Interval": null,
+          "promote": false,
+          "status": "more completed forward evidence required",
+          "minimumGames": 100,
+          "minimumWeeks": 6
+        }
+      },
       "status": "collecting forward evidence",
       "pairedGames": 2,
-      "marginError": 10.75,
-      "baselineMarginError": 10.8,
-      "totalError": 7.8,
-      "baselineTotalError": 7.9,
-      "brier": 0.1612,
-      "baselineBrier": 0.1616,
+      "marginError": 6.45,
+      "baselineMarginError": 6.45,
+      "totalError": 11.05,
+      "baselineTotalError": 11.05,
+      "brier": 0.21,
+      "baselineBrier": 0.21,
       "byVersion": {
-        "12": {
-          "games": 1,
-          "marginError": 10.9,
-          "baselineMarginError": 11,
-          "totalError": 7.8,
-          "baselineTotalError": 8,
-          "brier": 0.1584,
-          "baselineBrier": 0.1592
-        },
         "13": {
-          "games": 1,
-          "marginError": 10.6,
-          "baselineMarginError": 10.6,
-          "totalError": 7.8,
-          "baselineTotalError": 7.8,
-          "brier": 0.164,
-          "baselineBrier": 0.164
+          "games": 2,
+          "marginError": 6.45,
+          "baselineMarginError": 6.45,
+          "totalError": 11.05,
+          "baselineTotalError": 11.05,
+          "brier": 0.21,
+          "baselineBrier": 0.21
         }
       },
       "byMarket": {
         "spread": {
           "forecasts": 2,
-          "wins": 0,
-          "losses": 2,
+          "wins": 1,
+          "losses": 1,
           "pushes": 0,
-          "winRate": 0,
+          "winRate": 0.5,
           "pricedForecasts": 2,
-          "profitUnits": -2,
-          "roi": -1,
+          "profitUnits": -0.1304,
+          "roi": -0.0652,
           "closingLineSamples": 2,
-          "meanClosingLineValuePoints": -0.5
+          "meanClosingLineValuePoints": -0.25
         },
         "total": {
           "forecasts": 2,
@@ -54,17 +67,17 @@
           "profitUnits": -2,
           "roi": -1,
           "closingLineSamples": 2,
-          "meanClosingLineValuePoints": 0.5
+          "meanClosingLineValuePoints": 0
         },
         "moneyline": {
           "forecasts": 2,
-          "wins": 2,
-          "losses": 0,
+          "wins": 1,
+          "losses": 1,
           "pushes": 0,
-          "winRate": 1,
+          "winRate": 0.5,
           "pricedForecasts": 2,
-          "profitUnits": 0.755,
-          "roi": 0.3775,
+          "profitUnits": -0.6296,
+          "roi": -0.3148,
           "closingLineSamples": 0,
           "meanClosingLineValuePoints": null
         }
@@ -74,15 +87,37 @@
     "historical": {
       "method": "Chronological scoring-feature experiment; every game uses strictly earlier results. Excludes sportsbook, weather and live injury adjustments.",
       "games": 119,
-      "baselineMarginMAE": 14.1509,
-      "candidateMarginMAE": 14.1341,
-      "baselineTotalMAE": 12.2472,
-      "candidateTotalMAE": 12.1263,
+      "baselineMarginMAE": 14.0521,
+      "candidateMarginMAE": 14.0515,
+      "baselineTotalMAE": 12.353,
+      "candidateTotalMAE": 12.242,
       "limitation": "Historical feature-development evidence, not an independent betting-profit claim or a full replay of the production forecast."
     }
   },
   "nfl": {
     "forward": {
+      "promotion": {
+        "spread": {
+          "samples": 0,
+          "weeks": 0,
+          "meanErrorDifference": null,
+          "difference95Interval": null,
+          "promote": false,
+          "status": "more completed forward evidence required",
+          "minimumGames": 100,
+          "minimumWeeks": 6
+        },
+        "total": {
+          "samples": 0,
+          "weeks": 0,
+          "meanErrorDifference": null,
+          "difference95Interval": null,
+          "promote": false,
+          "status": "more completed forward evidence required",
+          "minimumGames": 100,
+          "minimumWeeks": 6
+        }
+      },
       "status": "awaiting completed paired pregame forecasts",
       "pairedGames": 0,
       "marginError": null,
