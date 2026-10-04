@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-04T18:07:36.024Z",
+  "updatedAt": "2026-10-04T18:22:43.021Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -4310,15 +4310,16 @@
         }
       },
       "props": {
-        "evaluated": 6618,
+        "evaluated": 7258,
         "qualified": 0,
-        "blockedByData": 6618,
-        "belowBettingThresholds": 0,
+        "blockedByData": 6013,
+        "belowBettingThresholds": 1245,
         "reasons": {
-          "Prop quote needs refreshing": 6618,
-          "Prop quote or game inputs need a fresh update": 3944,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 1512,
-          "Independent projection unavailable": 2229,
+          "Prop quote needs refreshing": 4612,
+          "Prop quote or game inputs need a fresh update": 4600,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 1668,
+          "Independent projection unavailable": 2429,
+          "Sample, probability or price edge below betting thresholds": 1245,
           "Player listed unavailable or doubtful": 12
         }
       },
