@@ -57,3 +57,13 @@ test('score bias corrections require improvement on later games',()=>{
  assert.equal(fitResidualCorrection(samples).correction,0);
  assert.equal(fitResidualCorrection(samples.slice(0,20)).correction,0);
 });
+
+test('total diagnostics distinguish unders, overs and signed scoring bias',()=>{
+ const g=structuredClone(game);g.status='Final';g.homeScore=30;g.awayScore=24;
+ g.prediction.total=44;g.prediction.overProb=48;
+ g.prediction.market={capturedAt:g.prediction.asOf,total:45,prices:{over:-110,under:-110}};
+ const result=gameEvaluation([g],[],'nfl');
+ assert.equal(result.totalBySide.Under.losses,1);
+ assert.equal(result.totalBySide.Over.plays,0);
+ assert.equal(result.errors.total.meanActualMinusModel,10);
+});

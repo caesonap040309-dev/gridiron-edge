@@ -31,3 +31,9 @@ Usage data remains limited by source coverage: NFL snaps are available, route pa
 ## Operational checks
 
 Focused tests cover look-ahead exclusion, line/price alignment, identical betting decisions across views, stale-data blocking, count distributions, calibration rejection on later outcomes, and separation of tracked/qualified records. Production refresh and prop workflows regenerate the audit after grading. Passing software checks does not prove profitable performance.
+
+## NFL v16 injury scoring correction
+
+Injury strength losses retain their existing margin effect and caps. Offensive absences reduce the total; defensive absences increase it. Unknown positions have no directional total effect. This corrects the prior calculation that reduced totals for every absence, including defenders. Injury component evidence is saved with each new forecast. Forecasts locked after kickoff remain unchanged. The previous-feature baseline retains the prior injury calculation for forward comparison; this bug fix does not establish improved betting performance.
+
+The audit and performance panel report separate Over/Under records and mean actual scoring minus projected scoring on matched total samples. Positive residual bias means projected totals were too low. These diagnostics use saved pregame forecasts, including No Bet predictions.

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {extractContext,playerProduction,playCreator,buildContextLookup,contextAdjustment,playerInjuryValue,fitRatings,numeric,sustainablePoints} from "../scripts/model-context.mjs";
+import {extractContext,playerProduction,playCreator,buildContextLookup,contextAdjustment,playerInjuryValue,fitRatings,numeric,sustainablePoints,injuryScoringAdjustment} from "../scripts/model-context.mjs";
 import {rosterGameWeights} from "../scripts/team-performance.mjs";
 import {evaluateSnapshots,validPregame,walkForward} from "../scripts/validate-model.mjs";
 const play=(id,team,kind,yards,down=1,distance=10,homeScore=0,awayScore=0,period=1)=>({id,sequenceNumber:id,start:{team:{id:team},down,distance,yardsToEndzone:60},statYardage:yards,type:{text:kind},homeScore,awayScore,period:{number:period},clock:{displayValue:"10:00"}});
@@ -60,3 +60,14 @@ test("walk-forward does not treat future or first-game outcomes as training evid
  const first=walkForward(rows.slice(0,2),"cfb");assert.equal(first.games,0);
  const all=walkForward(rows,"cfb");assert.equal(all.games,3);assert.ok(Number.isFinite(all.candidateMarginMAE));
 });
+
+ test("injury scoring separates offensive losses from weakened defenses",()=>{
+   const qb={position:'QB',expectedLoss:5},cb={position:'CB',expectedLoss:1};
+   assert.equal(injuryScoringAdjustment([qb],[]).total,-.8);
+   assert.equal(injuryScoringAdjustment([cb],[]).total,.16);
+   assert.equal(injuryScoringAdjustment([],[cb]).total,.16);
+   assert.equal(injuryScoringAdjustment([qb,cb],[]).margin,-6);
+   assert.equal(injuryScoringAdjustment([{position:'unknown',expectedLoss:2}],[]).total,0);
+   assert.equal(injuryScoringAdjustment([],[]).total,0);
+   assert.ok(Math.abs(injuryScoringAdjustment(Array(30).fill(qb),Array(30).fill(qb)).total)<=2.5);
+ });

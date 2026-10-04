@@ -32,11 +32,11 @@ export function gameEvaluation(games,entries,league){
     const point=goodQuote?numeric(quote.homePoint):null,line=goodQuote?numeric(quote.total):null;
     const close=g.prediction?.closingConsensus,closeTime=new Date(close?.capturedAt),validClose=Number.isFinite(closeTime.getTime())&&closeTime<new Date(g.date)&&(!goodQuote||closeTime>=quotedAt);
     const marketMargin=validClose&&numeric(close.homePoint)!=null?-Number(close.homePoint):point!=null?-point:null,marketTotal=validClose?numeric(close.total):line;
-    errors.push({margin:numeric(p.spread)!=null?Math.abs(-p.spread-margin):null,total:numeric(p.total)!=null?Math.abs(p.total-total):null,marketMargin:marketMargin!=null?Math.abs(marketMargin-margin):null,marketTotal:marketTotal!=null?Math.abs(marketTotal-total):null,version:p.version});
+    errors.push({margin:numeric(p.spread)!=null?Math.abs(-p.spread-margin):null,total:numeric(p.total)!=null?Math.abs(p.total-total):null,marketMargin:marketMargin!=null?Math.abs(marketMargin-margin):null,marketTotal:marketTotal!=null?Math.abs(marketTotal-total):null,version:p.version,marginResidual:numeric(p.spread)!=null?margin+Number(p.spread):null,totalResidual:numeric(p.total)!=null?total-Number(p.total):null});
     if(!goodQuote)excluded.missingPregameQuote++;
     const add=(market,homePick,outcome,push,prob,price,oppositePrice,clv)=>{
       const a=implied(price),b=implied(oppositePrice),win=homePick===outcome;
-      rows.push({market,gameId:String(g.id),version:p.version,confidence:p.confidenceByMarket?.[market]||p.confidence||'Unknown',win,push,prob:prob==null?null:(homePick?prob:1-prob),marketProb:a!=null&&b!=null?a/(a+b):null,price,profit:profit(price,win,push),clv});
+      rows.push({market,side:market==='total'?(homePick?'Over':'Under'):market==='spread'?(homePick?'Home':'Away'):(homePick?'Home':'Away'),gameId:String(g.id),version:p.version,confidence:p.confidenceByMarket?.[market]||p.confidence||'Unknown',win,push,prob:prob==null?null:(homePick?prob:1-prob),marketProb:a!=null&&b!=null?a/(a+b):null,price,profit:profit(price,win,push),clv});
     };
     if(home!==away&&numeric(p.homeWin)!=null){const pick=p.homeWin>=50;add('moneyline',pick,home>away,false,p.homeWin/100,goodQuote?numeric(quote.prices?.[pick?'homeMoneyline':'awayMoneyline']):null,goodQuote?numeric(quote.prices?.[pick?'awayMoneyline':'homeMoneyline']):null,null);}
     if(point!=null&&numeric(p.spread)!=null){
@@ -51,10 +51,10 @@ export function gameEvaluation(games,entries,league){
       add('total',pick,total>line,total===line,aligned&&numeric(p.overProb)!=null?p.overProb/100:null,numeric(quote.prices?.[pick?'over':'under']),numeric(quote.prices?.[pick?'under':'over']),closingLine==null?null:pick?closingLine-line:line-closingLine);
     }
   }
-  const metrics=values=>({samples:values.length,modelMAE:round(mean(values.map(r=>r.model))),marketMAE:round(mean(values.map(r=>r.market)))});
+  const metrics=values=>({samples:values.length,modelMAE:round(mean(values.map(r=>r.model))),meanActualMinusModel:round(mean(values.map(r=>r.residual))),marketMAE:round(mean(values.map(r=>r.market)))});
   const byMarket=Object.fromEntries(['moneyline','spread','total'].map(m=>[m,summarize(rows.filter(r=>r.market===m))]));
-  const matchedMargin=errors.filter(e=>e.margin!=null&&e.marketMargin!=null).map(e=>({model:e.margin,market:e.marketMargin})),matchedTotal=errors.filter(e=>e.total!=null&&e.marketTotal!=null).map(e=>({model:e.total,market:e.marketTotal}));
-  return {overall:summarize(rows),byMarket,byConfidence:Object.fromEntries(['High','Medium','Low'].map(c=>[c,summarize(rows.filter(r=>r.confidence===c))])),byVersion:Object.fromEntries([...new Set(rows.map(r=>r.version))].map(v=>[v,Object.fromEntries(['moneyline','spread','total'].map(m=>[m,summarize(rows.filter(r=>r.version===v&&r.market===m))]))])),errors:{margin:metrics(matchedMargin),total:metrics(matchedTotal)},excluded};
+  const matchedMargin=errors.filter(e=>e.margin!=null&&e.marketMargin!=null).map(e=>({model:e.margin,market:e.marketMargin,residual:e.marginResidual})),matchedTotal=errors.filter(e=>e.total!=null&&e.marketTotal!=null).map(e=>({model:e.total,market:e.marketTotal,residual:e.totalResidual}));
+  return {overall:summarize(rows),byMarket,totalBySide:Object.fromEntries(['Over','Under'].map(side=>[side,summarize(rows.filter(r=>r.market==='total'&&r.side===side))])),byConfidence:Object.fromEntries(['High','Medium','Low'].map(c=>[c,summarize(rows.filter(r=>r.confidence===c))])),byVersion:Object.fromEntries([...new Set(rows.map(r=>r.version))].map(v=>[v,Object.fromEntries(['moneyline','spread','total'].map(m=>[m,summarize(rows.filter(r=>r.version===v&&r.market===m))]))])),errors:{margin:metrics(matchedMargin),total:metrics(matchedTotal)},excluded};
 }
 export function qualifiedEvaluation(entries,games,league){
   const actual=new Map(games.map(g=>[String(g.id),g])),rows=[],seen=new Set();

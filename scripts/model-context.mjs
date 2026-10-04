@@ -199,6 +199,25 @@ export function sustainablePoints(game,side){
   return Math.max(0,observed-clamp((context.nonOffensivePoints??0)*.65+context.shortFieldPoints*.2,0,7));
 }
 
+// Position priors describe team strength lost. Defensive losses increase the
+// opponent's scoring outlook; unknown positions carry no directional total signal.
+export function injuryScoringAdjustment(home=[],away=[]){
+  const offense=new Set(['QB','RB','FB','WR','TE','OL','OT','LT','RT','OG','LG','RG','G','C','K']);
+  const defense=new Set(['DE','DT','DL','NT','EDGE','LB','ILB','OLB','MLB','CB','S','FS','SS','DB']);
+  const split=list=>list.reduce((result,item)=>{
+    const loss=Math.max(0,numeric(item.expectedLoss)??0),position=String(item.position||'').toUpperCase();
+    result.loss+=loss;
+    if(offense.has(position))result.offense+=loss;
+    else if(defense.has(position))result.defense+=loss;
+    else result.unknown+=loss;
+    return result;
+  },{loss:0,offense:0,defense:0,unknown:0});
+  const h=split(home),a=split(away),homeLoss=Math.min(7,h.loss),awayLoss=Math.min(7,a.loss);
+  // Preserve the existing strength and total caps and attenuation.
+  const signed=t=>t.loss?((t.defense-t.offense)*Math.min(1,7/t.loss)):0;
+  return {homeLoss,awayLoss,margin:clamp(awayLoss-homeLoss,-7,7),total:clamp((signed(h)+signed(a))*.16,-2.5,2.5),components:{home:h,away:a}};
+}
+
 export function playerInjuryValue(games,game,side,item){
   const position=String(item.position||"").toUpperCase(),kind=position==="QB"?"passing":position==="RB"?"rushing":["WR","TE"].includes(position)?"receiving":null;
   const base=numeric(item.expectedLoss)??0;
