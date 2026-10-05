@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {parseCSV,aggregateNFL,attachNFLData,enrichmentFor,enrichmentAdjustment,normalizeProfiles,roleFactor,dataQuality,attachCollegeAdvanced,collegeFor,collegeAdjustment} from "../scripts/team-enrichment.mjs";
+import {nflCoverage,nflRefreshInterval,parseCSV,aggregateNFL,attachNFLData,enrichmentFor,enrichmentAdjustment,normalizeProfiles,roleFactor,dataQuality,attachCollegeAdvanced,collegeFor,collegeAdjustment} from "../scripts/team-enrichment.mjs";
 import {rosterGameWeights} from "../scripts/team-performance.mjs";
 test("CSV handles quoted commas, escaped quotes, newlines and missing values",()=>{
  const rows=parseCSV('name,value\n"Player, Jr.",0\n"Two ""Names""",\n');
@@ -60,4 +60,18 @@ test("full snapshots fail safely when future timestamps are reported",()=>{
  const game={date:"2026-10-03",injuries:{updatedAt:"2026-10-01",source:"ESPN"},prediction:{contextEvidence:{home:{},away:{}}}};
  const event={freshBookmakers:["draftkings"],bookmakers:[{key:"draftkings",last_update:"2026-10-04"}]};
  assert.equal(dataQuality(game,event,now).eligible,false);
+});
+
+test('healthy NFL feeds retry missing completed games without claiming full coverage',()=>{
+ const now=new Date('2026-10-05T18:00Z');
+ const game={id:'g',season:2026,week:4,home:'Home',away:'Away',homeAbbreviation:'WSH',awayAbbreviation:'JAC',date:'2026-10-04T17:00Z',statusCompleted:true};
+ const data={games:{},sourceHealth:Object.fromEntries(['snaps','passing','rushing','pbp','charting'].map(k=>[k,{status:'available'}]))};
+ assert.equal(nflRefreshInterval([game],data,now),30*60000);
+ assert.equal(nflCoverage([game],data,now).coveredGames.epa,0);
+ const row={snaps:[{}],epa:{run:{n:10},pass:{n:20}},pressure:{known:true},contact:{carries:20},chart:{plays:30}};
+ data.games['2026_04_JAX_WAS']={JAX:row,WAS:row};
+ assert.equal(nflCoverage([game],data,now).missingGames.length,0);
+ assert.equal(nflRefreshInterval([game],data,now),6*3600000);
+ assert.equal(nflCoverage([{...game,statusCompleted:false}],data,now).completedGames,0);
+ assert.equal(nflRefreshInterval([], {games:{},sourceHealth:{}},now),30*60000);
 });

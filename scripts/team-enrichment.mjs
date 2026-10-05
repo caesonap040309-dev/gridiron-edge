@@ -77,9 +77,26 @@ export function aggregateNFL(datasets){
   for(const teams of Object.values(games))for(const t of Object.values(teams))if(t.pressure.known&&!t.pressure.dropbacks)t.pressure.dropbacks=t.pressure.pbpDropbacks;
   return games;
 }
-export async function loadNFLData(season,now=new Date()){
+export function nflCoverage(games,data,now=new Date()){
+  const completed=games.filter(g=>complete(g)),fields={snaps:r=>!!r?.snaps?.length,epa:r=>(r?.epa?.run?.n||0)+(r?.epa?.pass?.n||0)>0,pressure:r=>r?.pressure?.known===true,contact:r=>(r?.contact?.carries||0)>0,charting:r=>(r?.chart?.plays||0)>0};
+  const missing=[];const counts=Object.fromEntries(Object.keys(fields).map(k=>[k,0]));
+  for(const game of completed){
+    const id=[game.season,String(game.week).padStart(2,'0'),code(game.awayAbbreviation),code(game.homeAbbreviation)].join('_');
+    const rows=['home','away'].map(side=>data.games?.[id]?.[code(game[side+'Abbreviation'])]);
+    const gaps=Object.entries(fields).filter(([field,has])=>{const present=rows.every(has);if(present)counts[field]++;return !present;}).map(([field])=>field);
+    if(gaps.length)missing.push({id:String(game.id),game:game.away+' at '+game.home,date:game.date,fields:gaps,retryDue:now-new Date(game.date)>=6*3600000});
+  }
+  return {completedGames:completed.length,coveredGames:counts,missingGames:missing,sourceHealth:data.sourceHealth||{},asOf:now.toISOString()};
+}
+export function nflRefreshInterval(games,data,now=new Date()){
+  const sources=['snaps','passing','rushing','pbp','charting'];
+  const healthy=sources.every(name=>data.sourceHealth?.[name]?.status==='available');
+  const gaps=nflCoverage(games,data,now).missingGames.some(g=>g.retryDue);
+  return healthy&&!gaps?6*3600000:30*60000;
+}
+export async function loadNFLData(season,now=new Date(),games=[]){
   const path="data/nfl-enrichment.json",cached=await read(path,{games:{},sourceHealth:{}});
-  if(cached.season===season&&now-new Date(cached.updatedAt)<(Object.values(cached.sourceHealth||{}).every(h=>h.status==="available")?6*3600000:30*60000))return cached;
+  if(cached.season===season&&now-new Date(cached.updatedAt)<nflRefreshInterval(games,cached,now))return cached;
   const base="https://github.com/nflverse/nflverse-data/releases/download/";
   const sources={snaps:"snap_counts/snap_counts_"+season+".csv",passing:"pfr_advstats/advstats_week_pass_"+season+".csv",rushing:"pfr_advstats/advstats_week_rush_"+season+".csv",
     charting:"ftn_charting/ftn_charting_"+season+".csv",pbp:"pbp/play_by_play_"+season+".csv.gz"};

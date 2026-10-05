@@ -1,7 +1,7 @@
 import {fitResidualCorrection} from "./calibration-fit.mjs";
 import {consensusPoint} from "./market-quotes.mjs";
 import {loadInjuryFallback,fallbackSummary,selectInjuryReport} from "./injury-feed.mjs";
-import {loadNFLData,attachNFLData,loadTeamProfiles,enrichmentFor,enrichmentAdjustment,roleFactor,dataQuality} from "./team-enrichment.mjs";
+import {loadNFLData,nflCoverage,attachNFLData,loadTeamProfiles,enrichmentFor,enrichmentAdjustment,roleFactor,dataQuality} from "./team-enrichment.mjs";
 import {buildContextLookup,contextAdjustment,sustainablePoints,playerInjuryValue,injuryScoringAdjustment,fitRatings} from "./model-context.mjs";
 import {loadPerformance,performanceAdjustment,rosterGameWeights} from "./team-performance.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -183,7 +183,7 @@ const RECENCY_DAYS=56;
 const SPREAD_SCALE=5.7;
 const TOTAL_SCALE=7.2;
 const performanceFor=await loadPerformance(games,previous,"nfl");
-const nflData=await loadNFLData(season,now);
+const nflData=await loadNFLData(season,now,games);
 attachNFLData(games,nflData);
 const profiles=await loadTeamProfiles(games,"nfl",now);
 const rosterWeight=rosterGameWeights(games);
@@ -446,6 +446,6 @@ const confidenceDistribution=games.reduce((counts,game)=>{const level=game.predi
 const confidenceSamples=games.filter(game=>game.prediction&&new Date(game.date)>now).slice(0,12).map(game=>({game:`${game.away} at ${game.home}`,confidence:game.prediction.confidence,confidenceByMarket:game.prediction.confidenceByMarket,confidenceScore:game.prediction.confidenceScore,sample:game.prediction.sample,evidenceGames:game.prediction.evidenceGames,observedGames:game.prediction.observedGames,reliability:game.prediction.reliability,homeWin:game.prediction.homeWin,marketBooks:game.prediction.marketBooks,spreadEdge:game.prediction.spreadEdge,totalEdge:game.prediction.totalEdge,injuryUncertainty:game.prediction.injuryImpact?.uncertainty??null}));
 const sportsbookNames=[...new Set(events.flatMap(event=>(event.bookmakers||[]).map(book=>book.title||book.key)))].sort();
 const oddsSource=hasFreshMultiBook?(sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":"The Odds API multi-book"):usedCachedMultiBook?"Last available multi-book lines + ESPN fallback":"ESPN market fallback";
-await writeFile("data/model-health-nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),modelVersion:MODEL_VERSION,onlineCorrection:{totalStatus:onlineCorrection.totalStatus,marginStatus:onlineCorrection.marginStatus,total:Math.round(onlineCorrection.total*10)/10,margin:Math.round(onlineCorrection.margin*10)/10,totalSamples:onlineCorrection.totalSamples,marginSamples:onlineCorrection.marginSamples},confidenceDistribution,confidenceSamples},null,2)+"\n");
+await writeFile("data/model-health-nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),modelVersion:MODEL_VERSION,dataCoverage:nflCoverage(games,nflData,now),onlineCorrection:{totalStatus:onlineCorrection.totalStatus,marginStatus:onlineCorrection.marginStatus,total:Math.round(onlineCorrection.total*10)/10,margin:Math.round(onlineCorrection.margin*10)/10,totalSamples:onlineCorrection.totalSamples,marginSamples:onlineCorrection.marginSamples},confidenceDistribution,confidenceSamples},null,2)+"\n");
 await writeFile("data/nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),modelHealth:{confidenceDistribution,confidenceSamples},multiBookUpdatedAt:hasFreshMultiBook?new Date().toISOString():(previous.multiBookUpdatedAt||previous.updatedAt||null),oddsSource,feedHealth:{multiBookLive:hasFreshMultiBook,usedCachedMultiBook,sportsbookCount:sportsbookNames.length,sportsbooks:sportsbookNames},games,events},null,2)+"\n");
 console.log(`Saved NFL ${games.length} games and ${events.length} markets (${sportsGameOdds.length} SportsGameOdds + ${theOddsApi.length} The Odds API events)`);
