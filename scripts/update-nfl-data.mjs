@@ -2,7 +2,7 @@ import {fitResidualCorrection} from "./calibration-fit.mjs";
 import {consensusPoint} from "./market-quotes.mjs";
 import {loadInjuryFallback,fallbackSummary,selectInjuryReport} from "./injury-feed.mjs";
 import {loadNFLData,nflCoverage,attachNFLData,loadTeamProfiles,enrichmentFor,enrichmentAdjustment,roleFactor,dataQuality} from "./team-enrichment.mjs";
-import {buildContextLookup,contextAdjustment,sustainablePoints,playerInjuryValue,injuryScoringAdjustment,fitRatings} from "./model-context.mjs";
+import {buildContextLookup,contextAdjustment,nflTotalContext,sustainablePoints,playerInjuryValue,injuryScoringAdjustment,fitRatings} from "./model-context.mjs";
 import {loadPerformance,performanceAdjustment,rosterGameWeights} from "./team-performance.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
@@ -175,7 +175,7 @@ function snapshotMarket(game,prediction){
     over:over?.price??null,under:over?quote("totals","Under",over.point,over.book):null,homeMoneyline:quote("h2h",game.home),awayMoneyline:quote("h2h",game.away)};
   return {prices,capturedAt:now.toISOString(),homePoint:homeSpread?.point??null,spreadPrice:homeSpread?.price??null,spreadBook:homeSpread?.book||null,spreadPick:homeSpread?(projectedMargin+Number(homeSpread.point)>=0?game.home:game.away):null,total:over?.point??null,totalPrice:over?.price??null,totalBook:over?.book||null,totalPick:over?(Number(prediction.total)>=Number(over.point)?"Over":"Under"):null};
 }
-const MODEL_VERSION=16; // market-first projections with rolling out-of-sample correction
+const MODEL_VERSION=17; // market-first projections with rolling out-of-sample correction
 const LEAGUE_MEAN=22;
 const HOME_FIELD=1.7;
 const PRIOR_GAMES=4.5;
@@ -363,7 +363,8 @@ for(const game of games){
   const baselineInjuryTotal=cap(-(baselineInjuryHome+baselineInjuryAway)*.16,-2.5,0);
   const rawMargin=rawHome-rawAway+restAdjustment+venueAdjustment+formAdjustment+matchup.margin+injury.margin+performance.margin+advanced.margin+enriched.margin+onlineCorrection.margin;
   const weatherTotalAdjustment=weatherAdjustment(game);
-  const rawTotal=rawHome+rawAway+weatherTotalAdjustment+matchup.total+injury.total+performance.total+advanced.total+enriched.total+onlineCorrection.total;
+  const totalsContext=nflTotalContext(contextFor(game.home,kickoff),contextFor(game.away,kickoff),rawHome+rawAway);
+  const rawTotal=rawHome+rawAway+weatherTotalAdjustment+matchup.total+injury.total+performance.total+totalsContext.total+enriched.total+onlineCorrection.total;
   const market=consensusMarket(game),sample=Math.round(Math.min(home.effectiveGames,away.effectiveGames)*10)/10;
   const observedGames=Math.min(home.games||0,away.games||0);
   const evidenceGames=Math.round(Math.max(sample,Math.min(8,observedGames*.35))*10)/10;
@@ -376,7 +377,7 @@ for(const game of games){
     -(baselineAway.defense-away.defense)+(baselineHome.defense-home.defense);
   const baselineScoringDelta=(baselineHome.offense-home.offense)+(baselineAway.offense-away.offense)
     -(baselineHome.defense-home.defense)-(baselineAway.defense-away.defense);
-  const baselineRawTotal=rawTotal-enriched.total-injury.total+baselineInjuryTotal+baselineScoringDelta;
+  const baselineRawTotal=rawTotal-totalsContext.delta-enriched.total-injury.total+baselineInjuryTotal+baselineScoringDelta;
   const baselineMargin=market.margin==null?baselineRawMargin:baselineRawMargin*(1-marketWeight)+market.margin*marketWeight;
   const baselineTotal=market.total==null?baselineRawTotal:baselineRawTotal*(1-marketWeight)+market.total*marketWeight;
   const homePoints=Math.max(3,(projectedTotal+margin)/2),awayPoints=Math.max(3,(projectedTotal-margin)/2);
@@ -420,12 +421,13 @@ for(const game of games){
     homeOffense:Math.round(home.for*10)/10,homeDefense:Math.round(home.against*10)/10,
     awayOffense:Math.round(away.for*10)/10,awayDefense:Math.round(away.against*10)/10,
     dataQuality:quality,
+    totalsEvidence:{...totalsContext,teams:{home:game.home,away:game.away},asOf:now.toISOString(),rawTotal,marketTotal:market.total,marketWeight,appliedAdjustment:totalsContext.total,injuryTotal:injury.total,projectedTotal,verification:'calculation checked before save'},
     enrichmentEvidence:{home:enrichmentFor(games,game.home,kickoff),away:enrichmentFor(games,game.away,kickoff),adjustment:enriched,profiles:{home:profiles.profileFor(game.home,kickoff),away:profiles.profileFor(game.away,kickoff)}},
     contextEvidence:{home:contextFor(game.home,kickoff),away:contextFor(game.away,kickoff),adjustment:advanced,playerInjuries:injury.playerEvidence,dataLimits:{snapCounts:enrichmentFor(games,game.home,kickoff)?.snaps?.length&&enrichmentFor(games,game.away,kickoff)?.snaps?.length?"available":"unavailable",pressureRate:enrichmentFor(games,game.home,kickoff)?.pressureAllowed!=null&&enrichmentFor(games,game.away,kickoff)?.pressureAllowed!=null?"available":"unavailable",epa:enrichmentFor(games,game.home,kickoff)?.passEPA!=null&&enrichmentFor(games,game.away,kickoff)?.passEPA!=null?"available":"unavailable",routes:"unavailable",manZone:"unavailable",blockingGrades:"unavailable"}},
     performanceEvidence:{games:performance.games,home:performanceFor(game.home,kickoff),away:performanceFor(game.away,kickoff)},
     power:{homeOffense:Math.round(home.offense*10)/10,homeDefense:Math.round(home.defense*10)/10,awayOffense:Math.round(away.offense*10)/10,awayDefense:Math.round(away.defense*10)/10},
     marketMargin:market.margin,marketTotal:market.total,marketBooks:market.bookCount||0,marketSpreadDeviation:Math.round((market.spreadDeviation||0)*10)/10,marketTotalDeviation:Math.round((market.totalDeviation||0)*10)/10,spreadEdge,totalEdge,homeCover,
-    adjustments:{neutralSite:game.neutralSite===true,homeField:Math.round(homeField*10)/10,rest:Math.round(restAdjustment*10)/10,venue:Math.round(venueAdjustment*10)/10,recentForm:Math.round(formAdjustment*10)/10,headToHead:Math.round(matchup.margin*10)/10,weatherTotal:weatherTotalAdjustment,injuryMargin:Math.round(injury.margin*10)/10,injuryTotal:Math.round(injury.total*10)/10,performanceMargin:performance.margin,performanceTotal:performance.total,contextMargin:advanced.margin,contextTotal:advanced.total,enrichmentMargin:enriched.margin},injuryImpact:{homeLoss:Math.round(injury.homeLoss*10)/10,awayLoss:Math.round(injury.awayLoss*10)/10,uncertainty:Math.round(injury.uncertainty*10)/10,homeCount:injury.homeCount,awayCount:injury.awayCount,components:injury.components,updatedAt:injury.updatedAt},calibration:{reliability:Math.round(reliability*1000)/10,effectiveSample:sample,dailyFactor:Number(dailyCalibration.probabilityFactor)||1,onlineTotalCorrection:Math.round(onlineCorrection.total*10)/10,onlineMarginCorrection:Math.round(onlineCorrection.margin*10)/10,totalCorrectionSamples:onlineCorrection.totalSamples,marginCorrectionSamples:onlineCorrection.marginSamples,marketWeight:Math.round(marketWeight*1000)/1000},
+    adjustments:{neutralSite:game.neutralSite===true,homeField:Math.round(homeField*10)/10,rest:Math.round(restAdjustment*10)/10,venue:Math.round(venueAdjustment*10)/10,recentForm:Math.round(formAdjustment*10)/10,headToHead:Math.round(matchup.margin*10)/10,weatherTotal:weatherTotalAdjustment,injuryMargin:Math.round(injury.margin*10)/10,injuryTotal:Math.round(injury.total*10)/10,performanceMargin:performance.margin,performanceTotal:performance.total,contextMargin:advanced.margin,contextTotal:totalsContext.total,enrichmentMargin:enriched.margin},injuryImpact:{homeLoss:Math.round(injury.homeLoss*10)/10,awayLoss:Math.round(injury.awayLoss*10)/10,uncertainty:Math.round(injury.uncertainty*10)/10,homeCount:injury.homeCount,awayCount:injury.awayCount,components:injury.components,updatedAt:injury.updatedAt},calibration:{reliability:Math.round(reliability*1000)/10,effectiveSample:sample,dailyFactor:Number(dailyCalibration.probabilityFactor)||1,onlineTotalCorrection:Math.round(onlineCorrection.total*10)/10,onlineMarginCorrection:Math.round(onlineCorrection.margin*10)/10,totalCorrectionSamples:onlineCorrection.totalSamples,marginCorrectionSamples:onlineCorrection.marginSamples,marketWeight:Math.round(marketWeight*1000)/1000},
     awayCover:homeCover==null?null:Math.round((100-homeCover)*10)/10,
     overProb,underProb:overProb==null?null:Math.round((100-overProb)*10)/10,
     fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence,confidenceByMarket:{moneyline:moneylineConfidence,spread:spreadConfidence,total:totalConfidence},confidenceScore,reliability:Math.round(reliability*1000)/1000
@@ -442,10 +444,16 @@ for(const game of games){
   game.prediction=prediction;
 }
 await mkdir("data",{recursive:true});
+const totalsLineage=games.filter(g=>new Date(g.date)>now&&g.prediction?.version===MODEL_VERSION).map(g=>{
+  const e=g.prediction.totalsEvidence;
+  const reconstructed=e.marketTotal==null?e.rawTotal:e.rawTotal*(1-e.marketWeight)+e.marketTotal*e.marketWeight;
+  if(!Number.isFinite(reconstructed)||!Number.isFinite(g.prediction.total)||e.teams.home!==g.home||e.teams.away!==g.away||Math.abs(reconstructed-g.prediction.total)>.051)throw Error('NFL totals input lineage failed for '+g.id);
+  return {id:g.id,home:g.home,away:g.away,verified:true,possessionEvidence:e.expectedPossessions!=null,matchupTerms:e.components?.homeMatchup?.terms?.length+e.components?.awayMatchup?.terms?.length||0,appliedAdjustment:e.appliedAdjustment};
+});
 const confidenceDistribution=games.reduce((counts,game)=>{const level=game.prediction?.confidence||"Missing";counts[level]=(counts[level]||0)+1;return counts},{High:0,Medium:0,Low:0,Missing:0});
 const confidenceSamples=games.filter(game=>game.prediction&&new Date(game.date)>now).slice(0,12).map(game=>({game:`${game.away} at ${game.home}`,confidence:game.prediction.confidence,confidenceByMarket:game.prediction.confidenceByMarket,confidenceScore:game.prediction.confidenceScore,sample:game.prediction.sample,evidenceGames:game.prediction.evidenceGames,observedGames:game.prediction.observedGames,reliability:game.prediction.reliability,homeWin:game.prediction.homeWin,marketBooks:game.prediction.marketBooks,spreadEdge:game.prediction.spreadEdge,totalEdge:game.prediction.totalEdge,injuryUncertainty:game.prediction.injuryImpact?.uncertainty??null}));
 const sportsbookNames=[...new Set(events.flatMap(event=>(event.bookmakers||[]).map(book=>book.title||book.key)))].sort();
 const oddsSource=hasFreshMultiBook?(sportsGameOdds.length&&theOddsApi.length?"SportsGameOdds + The Odds API":sportsGameOdds.length?"SportsGameOdds multi-book":"The Odds API multi-book"):usedCachedMultiBook?"Last available multi-book lines + ESPN fallback":"ESPN market fallback";
-await writeFile("data/model-health-nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),modelVersion:MODEL_VERSION,dataCoverage:nflCoverage(games,nflData,now),onlineCorrection:{totalStatus:onlineCorrection.totalStatus,marginStatus:onlineCorrection.marginStatus,total:Math.round(onlineCorrection.total*10)/10,margin:Math.round(onlineCorrection.margin*10)/10,totalSamples:onlineCorrection.totalSamples,marginSamples:onlineCorrection.marginSamples},confidenceDistribution,confidenceSamples},null,2)+"\n");
+await writeFile("data/model-health-nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),modelVersion:MODEL_VERSION,dataCoverage:nflCoverage(games,nflData,now),totalsLineage,onlineCorrection:{totalStatus:onlineCorrection.totalStatus,marginStatus:onlineCorrection.marginStatus,total:Math.round(onlineCorrection.total*10)/10,margin:Math.round(onlineCorrection.margin*10)/10,totalSamples:onlineCorrection.totalSamples,marginSamples:onlineCorrection.marginSamples},confidenceDistribution,confidenceSamples},null,2)+"\n");
 await writeFile("data/nfl.json",JSON.stringify({updatedAt:new Date().toISOString(),modelHealth:{confidenceDistribution,confidenceSamples},multiBookUpdatedAt:hasFreshMultiBook?new Date().toISOString():(previous.multiBookUpdatedAt||previous.updatedAt||null),oddsSource,feedHealth:{multiBookLive:hasFreshMultiBook,usedCachedMultiBook,sportsbookCount:sportsbookNames.length,sportsbooks:sportsbookNames},games,events},null,2)+"\n");
 console.log(`Saved NFL ${games.length} games and ${events.length} markets (${sportsGameOdds.length} SportsGameOdds + ${theOddsApi.length} The Odds API events)`);

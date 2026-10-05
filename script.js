@@ -408,6 +408,9 @@ async function openGame(id){
     ["Yards per play",p.performanceEvidence?.away?.yardsPerPlay?.toFixed(1)??"—",p.performanceEvidence?.home?.yardsPerPlay?.toFixed(1)??"—"],
     ["Fourth down conversion",p.performanceEvidence?.away?.fourthDown==null?"—":(p.performanceEvidence.away.fourthDown*100).toFixed(1)+"%",p.performanceEvidence?.home?.fourthDown==null?"—":(p.performanceEvidence.home.fourthDown*100).toFixed(1)+"%"],
 
+    ["Expected possessions per team",p.totalsEvidence?.expectedPossessions?.toFixed(1)??"—",p.totalsEvidence?.expectedPossessions?.toFixed(1)??"—"],
+    ["Passing success rate",p.contextEvidence?.away?.passSuccess==null?"—":(p.contextEvidence.away.passSuccess*100).toFixed(1)+"%",p.contextEvidence?.home?.passSuccess==null?"—":(p.contextEvidence.home.passSuccess*100).toFixed(1)+"%"],
+    ["Rushing success rate",p.contextEvidence?.away?.runSuccess==null?"—":(p.contextEvidence.away.runSuccess*100).toFixed(1)+"%",p.contextEvidence?.home?.runSuccess==null?"—":(p.contextEvidence.home.runSuccess*100).toFixed(1)+"%"],
     ["Projected points",p.awayScore,p.homeScore],["Win probability",awayWin.toFixed(1)+"%",homeWin.toFixed(1)+"%"],["Historical games used",p.history?.awayGames??"—",p.history?.homeGames??"—"]
   ];
   const awayEdge=Math.round((awayOff-homeDef)*10)/10,homeEdge=Math.round((homeOff-awayDef)*10)/10;

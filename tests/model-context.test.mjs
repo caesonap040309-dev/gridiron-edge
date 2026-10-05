@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {extractContext,playerProduction,playCreator,buildContextLookup,contextAdjustment,playerInjuryValue,fitRatings,numeric,sustainablePoints,injuryScoringAdjustment} from "../scripts/model-context.mjs";
+import {extractContext,playerProduction,playCreator,buildContextLookup,contextAdjustment,nflTotalContext,playerInjuryValue,fitRatings,numeric,sustainablePoints,injuryScoringAdjustment} from "../scripts/model-context.mjs";
 import {rosterGameWeights} from "../scripts/team-performance.mjs";
 import {evaluateSnapshots,validPregame,walkForward} from "../scripts/validate-model.mjs";
 const play=(id,team,kind,yards,down=1,distance=10,homeScore=0,awayScore=0,period=1)=>({id,sequenceNumber:id,start:{team:{id:team},down,distance,yardsToEndzone:60},statYardage:yards,type:{text:kind},homeScore,awayScore,period:{number:period},clock:{displayValue:"10:00"}});
@@ -71,3 +71,12 @@ test("walk-forward does not treat future or first-game outcomes as training evid
    assert.equal(injuryScoringAdjustment([],[]).total,0);
    assert.ok(Math.abs(injuryScoringAdjustment(Array(30).fill(qb),Array(30).fill(qb)).total)<=2.5);
  });
+
+test('NFL possession and matchup evidence changes totals with missing-data and cap protection',()=>{
+ const team={games:6,possessions:12,leaguePossessions:10,earlyPassRate:.6,passSuccess:.55,runSuccess:.5,leaguePassSuccess:.45,leagueRunSuccess:.4,passDefenseResidual:.05,runDefenseResidual:.05};
+ const high=nflTotalContext(team,team,44);assert.equal(high.expectedPossessions,12);assert.ok(high.total>0);assert.ok(high.total<=1);assert.equal(high.components.homeMatchup.terms.length,2);
+ const low=nflTotalContext({...team,possessions:8,passSuccess:.3,runSuccess:.25,passDefenseResidual:-.05,runDefenseResidual:-.05},{...team,possessions:8,passSuccess:.3,runSuccess:.25,passDefenseResidual:-.05,runDefenseResidual:-.05},44);assert.ok(low.total<0);
+ assert.equal(nflTotalContext(null,team,44).delta,0);
+ assert.equal(nflTotalContext({...team,possessions:null},team,44).expectedPossessions,null);
+ assert.equal(high.delta,high.total-contextAdjustment(team,team,{specialTeams:false}).total);
+});

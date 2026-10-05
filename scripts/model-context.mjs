@@ -151,7 +151,9 @@ export function buildContextLookup(games){
     const fgAttempts=sum((g,s)=>ctx(g,s).specialTeams?.fgAttempts||0),fgMade=sum((g,s)=>ctx(g,s).specialTeams?.fgMade||0);
     const leagueFG=completed.filter(g=>new Date(g.date)<date&&Number(g.season)===season).flatMap(g=>["home","away"].map(s=>g.performance?.[s]?.context?.specialTeams)).filter(Boolean);
     const totalAttempts=leagueFG.reduce((sum,c)=>sum+c.fgAttempts,0),leagueFGRate=totalAttempts>=20?leagueFG.reduce((sum,c)=>sum+c.fgMade,0)/totalAttempts:null;
-    return {games:valid.length,leaguePossessions,leagueRedZoneRate,
+    const leagueContext=completed.filter(g=>new Date(g.date)<date&&Number(g.season)===season).flatMap(g=>['home','away'].map(side=>g.performance?.[side]?.context)).filter(Boolean);
+    const leagueSuccess=kind=>{const plays=leagueContext.reduce((sum,c)=>sum+(c[kind]?.plays||0),0);return plays>=100?leagueContext.reduce((sum,c)=>sum+(c[kind]?.success||0),0)/plays:null};
+    return {games:valid.length,leaguePossessions,leagueRedZoneRate,leagueRunSuccess:leagueSuccess('run'),leaguePassSuccess:leagueSuccess('pass'),
       specialTeams:{fgAttempts,fgRate:fgAttempts?fgMade/fgAttempts:null,leagueFGRate,puntAverage:rate((g,s)=>ctx(g,s).specialTeams?.puntAverage||0,(g,s)=>ctx(g,s).specialTeams?.puntAverage==null?0:1)},
       redZoneTrips:sum((g,s)=>ctx(g,s).redZoneTrips),redZoneTDs:sum((g,s)=>ctx(g,s).redZoneTDs),
       runSuccess:rate((g,s)=>ctx(g,s).run.success,(g,s)=>ctx(g,s).run.plays),
@@ -190,6 +192,31 @@ export function contextAdjustment(home,away,{specialTeams=true}={}){
   const special=specialTeams?clamp((kicking(home)-kicking(away))*.8+diff(home.specialTeams?.puntAverage,away.specialTeams?.puntAverage)*.01,-.25,.25):0;
   return {margin:Math.round(clamp((efficiency+line+special+homeRedZone-awayRedZone)*credibility,-1.25,1.25)*100)/100,total:Math.round(clamp((pace+homeRedZone+awayRedZone)*credibility,-1,1)*100)/100,
     coverage:"supported evidence; conservative uncalibrated caps",components:{efficiency,line,pace,specialTeams:special,redZoneRegression:{home:homeRedZone,away:awayRedZone},credibility}};
+}
+
+export function nflTotalContext(home,away,baseTotal){
+  const old=contextAdjustment(home,away,{specialTeams:false});
+  if(!home||!away)return {total:old.total,delta:0,status:'insufficient history',expectedPossessions:null,components:{}};
+  const credibility=clamp(Math.min(home.games,away.games)/6,0,1);
+  const baseline=home.leaguePossessions!=null&&away.leaguePossessions!=null?(home.leaguePossessions+away.leaguePossessions)/2:null;
+  const observed=home.possessions!=null&&away.possessions!=null?(home.possessions+away.possessions)/2:null;
+  const expected=baseline>0&&observed!=null?baseline+(observed-baseline)*credibility:null;
+  // Replace the old pace term; never add a second pace adjustment.
+  const pace=expected!=null&&Number.isFinite(baseTotal)?clamp(baseTotal*(expected/baseline-1),-.75,.75):0;
+  const matchup=(off,def)=>{
+    const passWeight=off.earlyPassRate==null?.5:clamp(off.earlyPassRate,.25,.75);
+    const terms=[];
+    for(const [kind,weight] of [['pass',passWeight],['run',1-passWeight]]){
+      const success=off[kind+'Success'],league=off[kind==='pass'?'leaguePassSuccess':'leagueRunSuccess'],residual=def[kind+'DefenseResidual'];
+      if(success!=null&&league!=null&&residual!=null)terms.push({kind,weight,success,league,opponentDefenseResidual:residual,signal:(success-league+residual)*weight});
+    }
+    return {terms,signal:terms.reduce((sum,t)=>sum+t.signal,0)};
+  };
+  const h=matchup(home,away),a=matchup(away,home);
+  const efficiency=clamp((h.signal+a.signal)*3,-.75,.75)*credibility;
+  const redZone=old.components.redZoneRegression||{home:0,away:0};
+  const total=Math.round(clamp(pace+efficiency+(redZone.home+redZone.away)*credibility,-1,1)*100)/100;
+  return {total,delta:total-old.total,status:expected==null?'partial evidence; possession data unavailable':'applied with conservative caps',expectedPossessions:expected,leaguePossessions:baseline,historyGames:Math.min(home.games,away.games),components:{pace,efficiency,homeMatchup:h,awayMatchup:a,redZone,credibility},priorTotalAdjustment:old.total};
 }
 
 export function sustainablePoints(game,side){
