@@ -1,6 +1,2083 @@
 {
-  "updatedAt": "2026-10-05T18:38:08.326Z",
-  "modelVersion": 16,
+  "updatedAt": "2026-10-05T21:31:41.991Z",
+  "modelVersion": 17,
+  "dataCoverage": {
+    "completedGames": 63,
+    "coveredGames": {
+      "snaps": 63,
+      "epa": 63,
+      "pressure": 49,
+      "contact": 49,
+      "charting": 49
+    },
+    "missingGames": [
+      {
+        "id": "401872965",
+        "game": "Indianapolis Colts at Washington Commanders",
+        "date": "2026-10-04T13:30Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872971",
+        "game": "New England Patriots at Buffalo Bills",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872972",
+        "game": "New York Jets at Chicago Bears",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872969",
+        "game": "Jacksonville Jaguars at Cincinnati Bengals",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872966",
+        "game": "Arizona Cardinals at New York Giants",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872970",
+        "game": "Los Angeles Rams at Philadelphia Eagles",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872968",
+        "game": "Green Bay Packers at Tampa Bay Buccaneers",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872973",
+        "game": "Tennessee Titans at Baltimore Ravens",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872967",
+        "game": "Dallas Cowboys at Houston Texans",
+        "date": "2026-10-04T17:00Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872974",
+        "game": "Miami Dolphins at Minnesota Vikings",
+        "date": "2026-10-04T20:05Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872976",
+        "game": "Kansas City Chiefs at Las Vegas Raiders",
+        "date": "2026-10-04T20:25Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872975",
+        "game": "Denver Broncos at San Francisco 49ers",
+        "date": "2026-10-04T20:25Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872977",
+        "game": "Los Angeles Chargers at Seattle Seahawks",
+        "date": "2026-10-04T20:25Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
+      {
+        "id": "401872978",
+        "game": "Detroit Lions at Carolina Panthers",
+        "date": "2026-10-05T00:20Z",
+        "fields": [
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      }
+    ],
+    "sourceHealth": {
+      "snaps": {
+        "status": "available",
+        "rows": 5876,
+        "fetchedAt": "2026-10-05T21:31:34.498Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 8246,
+        "fetchedAt": "2026-10-05T21:31:34.498Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 10979,
+        "fetchedAt": "2026-10-05T21:31:34.498Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 385,
+        "fetchedAt": "2026-10-05T21:31:34.498Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 117,
+        "fetchedAt": "2026-10-05T21:31:34.498Z"
+      }
+    },
+    "asOf": "2026-10-05T21:31:34.498Z"
+  },
+  "totalsLineage": [
+    {
+      "id": "401872979",
+      "home": "New Orleans Saints",
+      "away": "Atlanta Falcons",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 1,
+      "appliedAdjustment": 0.75
+    },
+    {
+      "id": "401872980",
+      "home": "Dallas Cowboys",
+      "away": "Tampa Bay Buccaneers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.16
+    },
+    {
+      "id": "401872981",
+      "home": "Jacksonville Jaguars",
+      "away": "Philadelphia Eagles",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401872990",
+      "home": "Green Bay Packers",
+      "away": "Chicago Bears",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.18
+    },
+    {
+      "id": "401872984",
+      "home": "Tennessee Titans",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.61
+    },
+    {
+      "id": "401872982",
+      "home": "Miami Dolphins",
+      "away": "Cincinnati Bengals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.52
+    },
+    {
+      "id": "401872986",
+      "home": "New England Patriots",
+      "away": "Las Vegas Raiders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.62
+    },
+    {
+      "id": "401872987",
+      "home": "New Orleans Saints",
+      "away": "Minnesota Vikings",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.65
+    },
+    {
+      "id": "401872983",
+      "home": "New York Jets",
+      "away": "Cleveland Browns",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.62
+    },
+    {
+      "id": "401872985",
+      "home": "Pittsburgh Steelers",
+      "away": "Indianapolis Colts",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.67
+    },
+    {
+      "id": "401872988",
+      "home": "Washington Commanders",
+      "away": "New York Giants",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.6
+    },
+    {
+      "id": "401872989",
+      "home": "Los Angeles Chargers",
+      "away": "Denver Broncos",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.14
+    },
+    {
+      "id": "401872991",
+      "home": "Arizona Cardinals",
+      "away": "Detroit Lions",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.82
+    },
+    {
+      "id": "401872992",
+      "home": "Seattle Seahawks",
+      "away": "San Francisco 49ers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.23
+    },
+    {
+      "id": "401872993",
+      "home": "Atlanta Falcons",
+      "away": "Baltimore Ravens",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.49
+    },
+    {
+      "id": "401872994",
+      "home": "Los Angeles Rams",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.32
+    },
+    {
+      "id": "401872995",
+      "home": "Denver Broncos",
+      "away": "Seattle Seahawks",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.27
+    },
+    {
+      "id": "401872996",
+      "home": "Jacksonville Jaguars",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.98
+    },
+    {
+      "id": "401872999",
+      "home": "Atlanta Falcons",
+      "away": "Chicago Bears",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.03
+    },
+    {
+      "id": "401872997",
+      "home": "Cleveland Browns",
+      "away": "Baltimore Ravens",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.41
+    },
+    {
+      "id": "401873003",
+      "home": "Indianapolis Colts",
+      "away": "Tennessee Titans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.71
+    },
+    {
+      "id": "401873001",
+      "home": "New England Patriots",
+      "away": "New York Jets",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.43
+    },
+    {
+      "id": "401873000",
+      "home": "New York Giants",
+      "away": "New Orleans Saints",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.72
+    },
+    {
+      "id": "401872998",
+      "home": "Philadelphia Eagles",
+      "away": "Carolina Panthers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.59
+    },
+    {
+      "id": "401873002",
+      "home": "Tampa Bay Buccaneers",
+      "away": "Pittsburgh Steelers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 1
+    },
+    {
+      "id": "401873004",
+      "home": "Los Angeles Rams",
+      "away": "Arizona Cardinals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.5
+    },
+    {
+      "id": "401873006",
+      "home": "Kansas City Chiefs",
+      "away": "Los Angeles Chargers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.45
+    },
+    {
+      "id": "401873005",
+      "home": "Las Vegas Raiders",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.63
+    },
+    {
+      "id": "401873007",
+      "home": "Green Bay Packers",
+      "away": "Dallas Cowboys",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.5
+    },
+    {
+      "id": "401873008",
+      "home": "San Francisco 49ers",
+      "away": "Washington Commanders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.63
+    },
+    {
+      "id": "401873010",
+      "home": "Chicago Bears",
+      "away": "New England Patriots",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.45
+    },
+    {
+      "id": "401873011",
+      "home": "New Orleans Saints",
+      "away": "Pittsburgh Steelers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.98
+    },
+    {
+      "id": "401873017",
+      "home": "Atlanta Falcons",
+      "away": "San Francisco 49ers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": -0.53
+    },
+    {
+      "id": "401873013",
+      "home": "Tennessee Titans",
+      "away": "Cleveland Browns",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873014",
+      "home": "Minnesota Vikings",
+      "away": "Indianapolis Colts",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.24
+    },
+    {
+      "id": "401873015",
+      "home": "New York Jets",
+      "away": "Miami Dolphins",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.42
+    },
+    {
+      "id": "401873018",
+      "home": "Carolina Panthers",
+      "away": "Tampa Bay Buccaneers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.73
+    },
+    {
+      "id": "401873012",
+      "home": "Baltimore Ravens",
+      "away": "Cincinnati Bengals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.76
+    },
+    {
+      "id": "401873016",
+      "home": "Houston Texans",
+      "away": "New York Giants",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.14
+    },
+    {
+      "id": "401873019",
+      "home": "Arizona Cardinals",
+      "away": "Denver Broncos",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.32
+    },
+    {
+      "id": "401873020",
+      "home": "Detroit Lions",
+      "away": "Green Bay Packers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.87
+    },
+    {
+      "id": "401873021",
+      "home": "Las Vegas Raiders",
+      "away": "Los Angeles Rams",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.79
+    },
+    {
+      "id": "401873022",
+      "home": "Seattle Seahawks",
+      "away": "Kansas City Chiefs",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.65
+    },
+    {
+      "id": "401873009",
+      "home": "Philadelphia Eagles",
+      "away": "Dallas Cowboys",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.82
+    },
+    {
+      "id": "401873023",
+      "home": "Green Bay Packers",
+      "away": "Carolina Panthers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.83
+    },
+    {
+      "id": "401873026",
+      "home": "Buffalo Bills",
+      "away": "Baltimore Ravens",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.11
+    },
+    {
+      "id": "401873031",
+      "home": "Cincinnati Bengals",
+      "away": "Tennessee Titans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.88
+    },
+    {
+      "id": "401873024",
+      "home": "Dallas Cowboys",
+      "away": "Arizona Cardinals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.63
+    },
+    {
+      "id": "401873030",
+      "home": "Detroit Lions",
+      "away": "Minnesota Vikings",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.17
+    },
+    {
+      "id": "401873029",
+      "home": "New York Jets",
+      "away": "Las Vegas Raiders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.18
+    },
+    {
+      "id": "401873027",
+      "home": "Pittsburgh Steelers",
+      "away": "Cleveland Browns",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.88
+    },
+    {
+      "id": "401873025",
+      "home": "Tampa Bay Buccaneers",
+      "away": "Atlanta Falcons",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.79
+    },
+    {
+      "id": "401873028",
+      "home": "Jacksonville Jaguars",
+      "away": "Indianapolis Colts",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873032",
+      "home": "Los Angeles Rams",
+      "away": "Los Angeles Chargers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.27
+    },
+    {
+      "id": "401873033",
+      "home": "Denver Broncos",
+      "away": "Kansas City Chiefs",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873034",
+      "home": "Miami Dolphins",
+      "away": "New England Patriots",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.62
+    },
+    {
+      "id": "401873035",
+      "home": "Washington Commanders",
+      "away": "Philadelphia Eagles",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.66
+    },
+    {
+      "id": "401873036",
+      "home": "Seattle Seahawks",
+      "away": "Chicago Bears",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.76
+    },
+    {
+      "id": "401873037",
+      "home": "Baltimore Ravens",
+      "away": "Jacksonville Jaguars",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873038",
+      "home": "Atlanta Falcons",
+      "away": "Cincinnati Bengals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": -0.45
+    },
+    {
+      "id": "401873040",
+      "home": "Indianapolis Colts",
+      "away": "Dallas Cowboys",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873045",
+      "home": "Kansas City Chiefs",
+      "away": "New York Jets",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.46
+    },
+    {
+      "id": "401873042",
+      "home": "Miami Dolphins",
+      "away": "Detroit Lions",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.47
+    },
+    {
+      "id": "401873039",
+      "home": "New Orleans Saints",
+      "away": "Cleveland Browns",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.66
+    },
+    {
+      "id": "401873044",
+      "home": "Philadelphia Eagles",
+      "away": "New York Giants",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.15
+    },
+    {
+      "id": "401873043",
+      "home": "Washington Commanders",
+      "away": "Los Angeles Rams",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.6
+    },
+    {
+      "id": "401873041",
+      "home": "Carolina Panthers",
+      "away": "Denver Broncos",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.47
+    },
+    {
+      "id": "401873046",
+      "home": "Los Angeles Chargers",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.36
+    },
+    {
+      "id": "401873047",
+      "home": "San Francisco 49ers",
+      "away": "Las Vegas Raiders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.32
+    },
+    {
+      "id": "401873049",
+      "home": "New England Patriots",
+      "away": "Green Bay Packers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.23
+    },
+    {
+      "id": "401873048",
+      "home": "Seattle Seahawks",
+      "away": "Arizona Cardinals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.47
+    },
+    {
+      "id": "401873050",
+      "home": "Chicago Bears",
+      "away": "Tampa Bay Buccaneers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.26
+    },
+    {
+      "id": "401873051",
+      "home": "Minnesota Vikings",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.38
+    },
+    {
+      "id": "401873052",
+      "home": "New York Giants",
+      "away": "Washington Commanders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.6
+    },
+    {
+      "id": "401873053",
+      "home": "Detroit Lions",
+      "away": "New England Patriots",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.54
+    },
+    {
+      "id": "401873058",
+      "home": "Atlanta Falcons",
+      "away": "Kansas City Chiefs",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.66
+    },
+    {
+      "id": "401873056",
+      "home": "Cleveland Browns",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.17
+    },
+    {
+      "id": "401873060",
+      "home": "Green Bay Packers",
+      "away": "Minnesota Vikings",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.63
+    },
+    {
+      "id": "401873057",
+      "home": "Tennessee Titans",
+      "away": "Jacksonville Jaguars",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873059",
+      "home": "Indianapolis Colts",
+      "away": "Miami Dolphins",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.97
+    },
+    {
+      "id": "401873055",
+      "home": "New Orleans Saints",
+      "away": "Carolina Panthers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.64
+    },
+    {
+      "id": "401873054",
+      "home": "New York Jets",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.5
+    },
+    {
+      "id": "401873062",
+      "home": "Las Vegas Raiders",
+      "away": "Seattle Seahawks",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.81
+    },
+    {
+      "id": "401873061",
+      "home": "Arizona Cardinals",
+      "away": "Los Angeles Rams",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.5
+    },
+    {
+      "id": "401873063",
+      "home": "Dallas Cowboys",
+      "away": "San Francisco 49ers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.61
+    },
+    {
+      "id": "401873064",
+      "home": "Cincinnati Bengals",
+      "away": "Pittsburgh Steelers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.28
+    },
+    {
+      "id": "401873065",
+      "home": "Baltimore Ravens",
+      "away": "Los Angeles Chargers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.3
+    },
+    {
+      "id": "401873066",
+      "home": "Houston Texans",
+      "away": "Indianapolis Colts",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.39
+    },
+    {
+      "id": "401873070",
+      "home": "Buffalo Bills",
+      "away": "Miami Dolphins",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.67
+    },
+    {
+      "id": "401873071",
+      "home": "Chicago Bears",
+      "away": "New Orleans Saints",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.09
+    },
+    {
+      "id": "401873073",
+      "home": "Dallas Cowboys",
+      "away": "Tennessee Titans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.92
+    },
+    {
+      "id": "401873072",
+      "home": "Detroit Lions",
+      "away": "Tampa Bay Buccaneers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 1
+    },
+    {
+      "id": "401873067",
+      "home": "Kansas City Chiefs",
+      "away": "Arizona Cardinals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.68
+    },
+    {
+      "id": "401873069",
+      "home": "New York Giants",
+      "away": "Jacksonville Jaguars",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873068",
+      "home": "Carolina Panthers",
+      "away": "Baltimore Ravens",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.59
+    },
+    {
+      "id": "401873074",
+      "home": "Los Angeles Chargers",
+      "away": "New York Jets",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.18
+    },
+    {
+      "id": "401873075",
+      "home": "Denver Broncos",
+      "away": "Las Vegas Raiders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.05
+    },
+    {
+      "id": "401873076",
+      "home": "Philadelphia Eagles",
+      "away": "Pittsburgh Steelers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.92
+    },
+    {
+      "id": "401873077",
+      "home": "San Francisco 49ers",
+      "away": "Minnesota Vikings",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.87
+    },
+    {
+      "id": "401873078",
+      "home": "Washington Commanders",
+      "away": "Cincinnati Bengals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.71
+    },
+    {
+      "id": "401873079",
+      "home": "Los Angeles Rams",
+      "away": "Green Bay Packers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.82
+    },
+    {
+      "id": "401873081",
+      "home": "Detroit Lions",
+      "away": "Chicago Bears",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.44
+    },
+    {
+      "id": "401873080",
+      "home": "Dallas Cowboys",
+      "away": "Philadelphia Eagles",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.82
+    },
+    {
+      "id": "401873082",
+      "home": "Buffalo Bills",
+      "away": "Kansas City Chiefs",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.69
+    },
+    {
+      "id": "401873083",
+      "home": "Pittsburgh Steelers",
+      "away": "Denver Broncos",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.09
+    },
+    {
+      "id": "401873087",
+      "home": "Cincinnati Bengals",
+      "away": "New Orleans Saints",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": -0.36
+    },
+    {
+      "id": "401873086",
+      "home": "Cleveland Browns",
+      "away": "Las Vegas Raiders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.84
+    },
+    {
+      "id": "401873088",
+      "home": "Indianapolis Colts",
+      "away": "New York Giants",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.13
+    },
+    {
+      "id": "401873089",
+      "home": "Miami Dolphins",
+      "away": "New York Jets",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.42
+    },
+    {
+      "id": "401873084",
+      "home": "Minnesota Vikings",
+      "away": "Atlanta Falcons",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.64
+    },
+    {
+      "id": "401873085",
+      "home": "Houston Texans",
+      "away": "Baltimore Ravens",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.64
+    },
+    {
+      "id": "401873090",
+      "home": "Jacksonville Jaguars",
+      "away": "Tennessee Titans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873092",
+      "home": "Arizona Cardinals",
+      "away": "Washington Commanders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.6
+    },
+    {
+      "id": "401873091",
+      "home": "San Francisco 49ers",
+      "away": "Seattle Seahawks",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.23
+    },
+    {
+      "id": "401873093",
+      "home": "Los Angeles Chargers",
+      "away": "New England Patriots",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.49
+    },
+    {
+      "id": "401873094",
+      "home": "Tampa Bay Buccaneers",
+      "away": "Carolina Panthers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.73
+    },
+    {
+      "id": "401873096",
+      "home": "Los Angeles Rams",
+      "away": "Kansas City Chiefs",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.67
+    },
+    {
+      "id": "401873098",
+      "home": "Atlanta Falcons",
+      "away": "Detroit Lions",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.64
+    },
+    {
+      "id": "401873100",
+      "home": "Chicago Bears",
+      "away": "Jacksonville Jaguars",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.77
+    },
+    {
+      "id": "401873097",
+      "home": "Cleveland Browns",
+      "away": "Cincinnati Bengals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.81
+    },
+    {
+      "id": "401873102",
+      "home": "Tennessee Titans",
+      "away": "Washington Commanders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.2
+    },
+    {
+      "id": "401873099",
+      "home": "New Orleans Saints",
+      "away": "Green Bay Packers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.94
+    },
+    {
+      "id": "401873095",
+      "home": "New York Giants",
+      "away": "San Francisco 49ers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.65
+    },
+    {
+      "id": "401873101",
+      "home": "Tampa Bay Buccaneers",
+      "away": "Los Angeles Chargers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.49
+    },
+    {
+      "id": "401873103",
+      "home": "Denver Broncos",
+      "away": "Miami Dolphins",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.97
+    },
+    {
+      "id": "401873104",
+      "home": "Arizona Cardinals",
+      "away": "Philadelphia Eagles",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.56
+    },
+    {
+      "id": "401873106",
+      "home": "Minnesota Vikings",
+      "away": "Carolina Panthers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.37
+    },
+    {
+      "id": "401873105",
+      "home": "New England Patriots",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.68
+    },
+    {
+      "id": "401873107",
+      "home": "Pittsburgh Steelers",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.96
+    },
+    {
+      "id": "401873108",
+      "home": "Seattle Seahawks",
+      "away": "Dallas Cowboys",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.4
+    },
+    {
+      "id": "401873109",
+      "home": "New England Patriots",
+      "away": "Minnesota Vikings",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.28
+    },
+    {
+      "id": "401873110",
+      "home": "Cleveland Browns",
+      "away": "Atlanta Falcons",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.63
+    },
+    {
+      "id": "401873117",
+      "home": "Detroit Lions",
+      "away": "Tennessee Titans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.77
+    },
+    {
+      "id": "401873111",
+      "home": "Miami Dolphins",
+      "away": "Chicago Bears",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.52
+    },
+    {
+      "id": "401873112",
+      "home": "New York Jets",
+      "away": "Denver Broncos",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.84
+    },
+    {
+      "id": "401873114",
+      "home": "Philadelphia Eagles",
+      "away": "Indianapolis Colts",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.39
+    },
+    {
+      "id": "401873113",
+      "home": "Washington Commanders",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.69
+    },
+    {
+      "id": "401873115",
+      "home": "Carolina Panthers",
+      "away": "New Orleans Saints",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.64
+    },
+    {
+      "id": "401873116",
+      "home": "Baltimore Ravens",
+      "away": "Tampa Bay Buccaneers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.75
+    },
+    {
+      "id": "401873118",
+      "home": "Las Vegas Raiders",
+      "away": "Los Angeles Chargers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.61
+    },
+    {
+      "id": "401873119",
+      "home": "Cincinnati Bengals",
+      "away": "Kansas City Chiefs",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.63
+    },
+    {
+      "id": "401873120",
+      "home": "San Francisco 49ers",
+      "away": "Los Angeles Rams",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.65
+    },
+    {
+      "id": "401873121",
+      "home": "Seattle Seahawks",
+      "away": "New York Giants",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.53
+    },
+    {
+      "id": "401873122",
+      "home": "Green Bay Packers",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.22
+    },
+    {
+      "id": "401873123",
+      "home": "Jacksonville Jaguars",
+      "away": "Pittsburgh Steelers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.68
+    },
+    {
+      "id": "401873124",
+      "home": "Los Angeles Chargers",
+      "away": "San Francisco 49ers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.09
+    },
+    {
+      "id": "401873125",
+      "home": "Philadelphia Eagles",
+      "away": "Seattle Seahawks",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.53
+    },
+    {
+      "id": "401873126",
+      "home": "Buffalo Bills",
+      "away": "Chicago Bears",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.55
+    },
+    {
+      "id": "401873133",
+      "home": "Green Bay Packers",
+      "away": "Miami Dolphins",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.44
+    },
+    {
+      "id": "401873131",
+      "home": "Tennessee Titans",
+      "away": "Indianapolis Colts",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.71
+    },
+    {
+      "id": "401873130",
+      "home": "New York Giants",
+      "away": "Cleveland Browns",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.5
+    },
+    {
+      "id": "401873128",
+      "home": "Pittsburgh Steelers",
+      "away": "Baltimore Ravens",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.91
+    },
+    {
+      "id": "401873134",
+      "home": "Tampa Bay Buccaneers",
+      "away": "New Orleans Saints",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.88
+    },
+    {
+      "id": "401873127",
+      "home": "Washington Commanders",
+      "away": "Atlanta Falcons",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.82
+    },
+    {
+      "id": "401873129",
+      "home": "Carolina Panthers",
+      "away": "Cincinnati Bengals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.82
+    },
+    {
+      "id": "401873132",
+      "home": "Houston Texans",
+      "away": "Jacksonville Jaguars",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.98
+    },
+    {
+      "id": "401873135",
+      "home": "Arizona Cardinals",
+      "away": "New York Jets",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.61
+    },
+    {
+      "id": "401873137",
+      "home": "Las Vegas Raiders",
+      "away": "Denver Broncos",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.05
+    },
+    {
+      "id": "401873136",
+      "home": "Los Angeles Rams",
+      "away": "Dallas Cowboys",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.5
+    },
+    {
+      "id": "401873138",
+      "home": "Minnesota Vikings",
+      "away": "Detroit Lions",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.17
+    },
+    {
+      "id": "401873139",
+      "home": "Kansas City Chiefs",
+      "away": "New England Patriots",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.63
+    },
+    {
+      "id": "401873140",
+      "home": "Philadelphia Eagles",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.65
+    },
+    {
+      "id": "401873141",
+      "home": "Chicago Bears",
+      "away": "Green Bay Packers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.18
+    },
+    {
+      "id": "401873142",
+      "home": "Denver Broncos",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873143",
+      "home": "Seattle Seahawks",
+      "away": "Los Angeles Rams",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.48
+    },
+    {
+      "id": "401873146",
+      "home": "Atlanta Falcons",
+      "away": "Tampa Bay Buccaneers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 2,
+      "appliedAdjustment": 0.79
+    },
+    {
+      "id": "401873145",
+      "home": "Indianapolis Colts",
+      "away": "Cincinnati Bengals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -1
+    },
+    {
+      "id": "401873147",
+      "home": "Minnesota Vikings",
+      "away": "Washington Commanders",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.45
+    },
+    {
+      "id": "401873144",
+      "home": "Pittsburgh Steelers",
+      "away": "Carolina Panthers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.87
+    },
+    {
+      "id": "401873150",
+      "home": "Miami Dolphins",
+      "away": "Los Angeles Chargers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.01
+    },
+    {
+      "id": "401873148",
+      "home": "New Orleans Saints",
+      "away": "Arizona Cardinals",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 3,
+      "appliedAdjustment": 0.67
+    },
+    {
+      "id": "401873151",
+      "home": "New York Jets",
+      "away": "New England Patriots",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.43
+    },
+    {
+      "id": "401873149",
+      "home": "Baltimore Ravens",
+      "away": "Cleveland Browns",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.41
+    },
+    {
+      "id": "401873152",
+      "home": "Las Vegas Raiders",
+      "away": "Tennessee Titans",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": 0.15
+    },
+    {
+      "id": "401873153",
+      "home": "Kansas City Chiefs",
+      "away": "San Francisco 49ers",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.55
+    },
+    {
+      "id": "401873154",
+      "home": "Dallas Cowboys",
+      "away": "Jacksonville Jaguars",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.93
+    },
+    {
+      "id": "401873155",
+      "home": "Detroit Lions",
+      "away": "New York Giants",
+      "verified": true,
+      "possessionEvidence": true,
+      "matchupTerms": 4,
+      "appliedAdjustment": -0.55
+    },
+    {
+      "id": "401873156",
+      "home": "Cincinnati Bengals",
+      "away": "Baltimore Ravens",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873157",
+      "home": "New England Patriots",
+      "away": "Denver Broncos",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873158",
+      "home": "Los Angeles Chargers",
+      "away": "Kansas City Chiefs",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873159",
+      "home": "Tampa Bay Buccaneers",
+      "away": "Los Angeles Rams",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873160",
+      "home": "Jacksonville Jaguars",
+      "away": "Washington Commanders",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873164",
+      "home": "Atlanta Falcons",
+      "away": "New Orleans Saints",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873162",
+      "home": "Cleveland Browns",
+      "away": "Indianapolis Colts",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873165",
+      "home": "Dallas Cowboys",
+      "away": "New York Giants",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873166",
+      "home": "Tennessee Titans",
+      "away": "Pittsburgh Steelers",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873161",
+      "home": "Miami Dolphins",
+      "away": "Buffalo Bills",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873163",
+      "home": "New York Jets",
+      "away": "Minnesota Vikings",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873167",
+      "home": "Carolina Panthers",
+      "away": "Seattle Seahawks",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873168",
+      "home": "Arizona Cardinals",
+      "away": "Las Vegas Raiders",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873169",
+      "home": "Chicago Bears",
+      "away": "Detroit Lions",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873170",
+      "home": "San Francisco 49ers",
+      "away": "Philadelphia Eagles",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873171",
+      "home": "Green Bay Packers",
+      "away": "Houston Texans",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873181",
+      "home": "Buffalo Bills",
+      "away": "New York Jets",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873174",
+      "home": "Cincinnati Bengals",
+      "away": "Cleveland Browns",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873179",
+      "home": "Denver Broncos",
+      "away": "Los Angeles Chargers",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873176",
+      "home": "Green Bay Packers",
+      "away": "Detroit Lions",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873177",
+      "home": "Indianapolis Colts",
+      "away": "Jacksonville Jaguars",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873178",
+      "home": "Kansas City Chiefs",
+      "away": "Las Vegas Raiders",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873185",
+      "home": "Los Angeles Rams",
+      "away": "Seattle Seahawks",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873173",
+      "home": "Minnesota Vikings",
+      "away": "Chicago Bears",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873180",
+      "home": "New England Patriots",
+      "away": "Miami Dolphins",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873186",
+      "home": "New Orleans Saints",
+      "away": "Tampa Bay Buccaneers",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873182",
+      "home": "New York Giants",
+      "away": "Philadelphia Eagles",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873184",
+      "home": "Arizona Cardinals",
+      "away": "San Francisco 49ers",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873175",
+      "home": "Washington Commanders",
+      "away": "Dallas Cowboys",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873172",
+      "home": "Carolina Panthers",
+      "away": "Atlanta Falcons",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873183",
+      "home": "Baltimore Ravens",
+      "away": "Pittsburgh Steelers",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    },
+    {
+      "id": "401873187",
+      "home": "Houston Texans",
+      "away": "Tennessee Titans",
+      "verified": true,
+      "possessionEvidence": false,
+      "matchupTerms": 0,
+      "appliedAdjustment": 0
+    }
+  ],
   "onlineCorrection": {
     "totalStatus": "insufficient-held-out-evidence",
     "marginStatus": "insufficient-held-out-evidence",
@@ -11,8 +2088,8 @@
   },
   "confidenceDistribution": {
     "High": 10,
-    "Medium": 97,
-    "Low": 151,
+    "Medium": 88,
+    "Low": 160,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -24,15 +2101,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
+      "confidenceScore": 50,
       "sample": 5,
       "evidenceGames": 8,
       "observedGames": 37,
       "reliability": 0.803,
       "homeWin": 52.9,
-      "marketBooks": 8,
+      "marketBooks": 9,
       "spreadEdge": -0.3,
-      "totalEdge": -1.5,
+      "totalEdge": -1.3,
       "injuryUncertainty": 1.9
     },
     {
@@ -43,16 +2120,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 98,
+      "confidenceScore": 96,
       "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.897,
-      "homeWin": 71.6,
-      "marketBooks": 8,
-      "spreadEdge": -0.6,
-      "totalEdge": 0.9,
-      "injuryUncertainty": 0.3
+      "reliability": 0.882,
+      "homeWin": 71.8,
+      "marketBooks": 9,
+      "spreadEdge": -0.3,
+      "totalEdge": 1.1,
+      "injuryUncertainty": 0.7
     },
     {
       "game": "Philadelphia Eagles at Jacksonville Jaguars",
@@ -62,16 +2139,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 76,
-      "sample": 5.9,
+      "confidenceScore": 87,
+      "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.839,
-      "homeWin": 63.6,
-      "marketBooks": 8,
-      "spreadEdge": 0.2,
-      "totalEdge": -0.4,
-      "injuryUncertainty": 1.8
+      "reliability": 0.872,
+      "homeWin": 65.4,
+      "marketBooks": 9,
+      "spreadEdge": 0.8,
+      "totalEdge": -0.5,
+      "injuryUncertainty": 0.8
     },
     {
       "game": "Chicago Bears at Green Bay Packers",
@@ -81,73 +2158,73 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 55,
+      "confidenceScore": 56,
       "sample": 5.5,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.849,
-      "homeWin": 44,
-      "marketBooks": 8,
-      "spreadEdge": 0.6,
-      "totalEdge": -0.3,
-      "injuryUncertainty": 1.2
+      "reliability": 0.873,
+      "homeWin": 44.7,
+      "marketBooks": 9,
+      "spreadEdge": 0.4,
+      "totalEdge": -0.4,
+      "injuryUncertainty": 0.5
     },
     {
       "game": "Houston Texans at Tennessee Titans",
+      "confidence": "Medium",
+      "confidenceByMarket": {
+        "moneyline": "Medium",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 76,
+      "sample": 6.2,
+      "evidenceGames": 8,
+      "observedGames": 38,
+      "reliability": 0.831,
+      "homeWin": 35.5,
+      "marketBooks": 9,
+      "spreadEdge": 0.8,
+      "totalEdge": -0.1,
+      "injuryUncertainty": 2.4
+    },
+    {
+      "game": "Cincinnati Bengals at Miami Dolphins",
       "confidence": "High",
       "confidenceByMarket": {
         "moneyline": "High",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 89,
-      "sample": 6.2,
-      "evidenceGames": 8,
-      "observedGames": 38,
-      "reliability": 0.873,
-      "homeWin": 33.3,
-      "marketBooks": 8,
-      "spreadEdge": 0.1,
-      "totalEdge": 0,
-      "injuryUncertainty": 1.2
-    },
-    {
-      "game": "Cincinnati Bengals at Miami Dolphins",
-      "confidence": "Medium",
-      "confidenceByMarket": {
-        "moneyline": "Medium",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 89,
+      "confidenceScore": 87,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.847,
-      "homeWin": 32.4,
-      "marketBooks": 8,
-      "spreadEdge": 0,
+      "reliability": 0.864,
+      "homeWin": 33.6,
+      "marketBooks": 9,
+      "spreadEdge": 0.7,
       "totalEdge": 0.6,
-      "injuryUncertainty": 1.8
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Las Vegas Raiders at New England Patriots",
-      "confidence": "Medium",
+      "confidence": "Low",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 59,
+      "confidenceScore": 53,
       "sample": 6.2,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.851,
-      "homeWin": 58.5,
-      "marketBooks": 8,
-      "spreadEdge": -0.1,
-      "totalEdge": -1.2,
-      "injuryUncertainty": 1.8
+      "reliability": 0.832,
+      "homeWin": 57.3,
+      "marketBooks": 9,
+      "spreadEdge": -0.5,
+      "totalEdge": -0.8,
+      "injuryUncertainty": 2.3
     },
     {
       "game": "Minnesota Vikings at New Orleans Saints",
@@ -157,15 +2234,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 47,
+      "confidenceScore": 52,
       "sample": 5.4,
       "evidenceGames": 8,
       "observedGames": 37,
       "reliability": 0.856,
-      "homeWin": 47.1,
-      "marketBooks": 8,
-      "spreadEdge": 0.4,
-      "totalEdge": -0.7,
+      "homeWin": 45.3,
+      "marketBooks": 7,
+      "spreadEdge": -0.4,
+      "totalEdge": -0.4,
       "injuryUncertainty": 0.8
     },
     {
@@ -176,16 +2253,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 60,
-      "sample": 6.2,
+      "confidenceScore": 52,
+      "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.896,
-      "homeWin": 56.7,
-      "marketBooks": 8,
-      "spreadEdge": 0.6,
-      "totalEdge": 0.2,
-      "injuryUncertainty": 0.6
+      "homeWin": 54,
+      "marketBooks": 9,
+      "spreadEdge": -0.5,
+      "totalEdge": 0,
+      "injuryUncertainty": 0.5
     },
     {
       "game": "Indianapolis Colts at Pittsburgh Steelers",
@@ -195,16 +2272,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 55,
+      "confidenceScore": 45,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.9,
-      "homeWin": 53.7,
-      "marketBooks": 8,
-      "spreadEdge": -1.1,
-      "totalEdge": 0.2,
-      "injuryUncertainty": 0.4
+      "reliability": 0.747,
+      "homeWin": 54.1,
+      "marketBooks": 9,
+      "spreadEdge": -0.6,
+      "totalEdge": 0.8,
+      "injuryUncertainty": 1.8
     },
     {
       "game": "New York Giants at Washington Commanders",
@@ -218,12 +2295,12 @@
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.823,
-      "homeWin": 54.6,
-      "marketBooks": 8,
-      "spreadEdge": -1.6,
-      "totalEdge": -0.2,
-      "injuryUncertainty": 2.2
+      "reliability": 0.814,
+      "homeWin": 54.3,
+      "marketBooks": 9,
+      "spreadEdge": -1.7,
+      "totalEdge": 0,
+      "injuryUncertainty": 2.5
     },
     {
       "game": "Denver Broncos at Los Angeles Chargers",
@@ -233,16 +2310,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 51,
+      "confidenceScore": 57,
       "sample": 6.3,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.837,
-      "homeWin": 43.2,
-      "marketBooks": 7,
-      "spreadEdge": 0.7,
-      "totalEdge": -0.9,
-      "injuryUncertainty": 2.3
+      "reliability": 0.865,
+      "homeWin": 42.8,
+      "marketBooks": 9,
+      "spreadEdge": 0.6,
+      "totalEdge": -0.8,
+      "injuryUncertainty": 1.5
     }
   ]
 }
