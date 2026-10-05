@@ -75,3 +75,12 @@ test('healthy NFL feeds retry missing completed games without claiming full cove
  assert.equal(nflCoverage([{...game,statusCompleted:false}],data,now).completedGames,0);
  assert.equal(nflRefreshInterval([], {games:{},sourceHealth:{}},now),30*60000);
 });
+
+test('Rams LA game IDs attach to LAR schedule IDs without losing downloaded metrics',()=>{
+ const game={season:2026,week:1,awayAbbreviation:'SF',homeAbbreviation:'LAR',statusCompleted:true,date:'2026-09-10',id:'rams'};
+ const row={snaps:[{}],epa:{pass:{n:30}}};
+ const data={games:{'2026_01_SF_LA':{SF:row,LAR:row}}};
+ attachNFLData([game],data);
+ assert.equal(game.enrichment.home,row);
+ assert.equal(nflCoverage([game],data).coveredGames.epa,1);
+});

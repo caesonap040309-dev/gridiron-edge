@@ -77,12 +77,22 @@ export function aggregateNFL(datasets){
   for(const teams of Object.values(games))for(const t of Object.values(teams))if(t.pressure.known&&!t.pressure.dropbacks)t.pressure.dropbacks=t.pressure.pbpDropbacks;
   return games;
 }
+function nflGameIndex(data){
+  const result={};
+  for(const [id,teams] of Object.entries(data.games||{})){
+    const parts=id.split('_');
+    if(parts.length===4){parts[2]=code(parts[2]);parts[3]=code(parts[3]);}
+    const key=parts.join('_');result[key]={...result[key],...teams};
+  }
+  return result;
+}
 export function nflCoverage(games,data,now=new Date()){
+  const indexed=nflGameIndex(data);
   const completed=games.filter(g=>complete(g)),fields={snaps:r=>!!r?.snaps?.length,epa:r=>(r?.epa?.run?.n||0)+(r?.epa?.pass?.n||0)>0,pressure:r=>r?.pressure?.known===true,contact:r=>(r?.contact?.carries||0)>0,charting:r=>(r?.chart?.plays||0)>0};
   const missing=[];const counts=Object.fromEntries(Object.keys(fields).map(k=>[k,0]));
   for(const game of completed){
     const id=[game.season,String(game.week).padStart(2,'0'),code(game.awayAbbreviation),code(game.homeAbbreviation)].join('_');
-    const rows=['home','away'].map(side=>data.games?.[id]?.[code(game[side+'Abbreviation'])]);
+    const rows=['home','away'].map(side=>indexed[id]?.[code(game[side+'Abbreviation'])]);
     const gaps=Object.entries(fields).filter(([field,has])=>{const present=rows.every(has);if(present)counts[field]++;return !present;}).map(([field])=>field);
     if(gaps.length)missing.push({id:String(game.id),game:game.away+' at '+game.home,date:game.date,fields:gaps,retryDue:now-new Date(game.date)>=6*3600000});
   }
@@ -122,10 +132,11 @@ export async function loadNFLData(season,now=new Date(),games=[]){
   await mkdir("data",{recursive:true});await writeFile(path,JSON.stringify(result)+"\n");return result;
 }
 export function attachNFLData(games,data){
+  const indexed=nflGameIndex(data);
   for(const game of games){
     const id=[game.season,String(game.week).padStart(2,"0"),code(game.awayAbbreviation),code(game.homeAbbreviation)].join("_");
     for(const side of ["home","away"]){
-      const row=data.games?.[id]?.[code(game[side+"Abbreviation"])];
+      const row=indexed[id]?.[code(game[side+"Abbreviation"])];
       if(!row)continue;
       if(!game.enrichment)game.enrichment={};game.enrichment[side]=row;
     }
