@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-10-06T10:32:49.639Z",
+  "updatedAt": "2026-10-06T11:31:25.098Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
     "coveredGames": {
-      "snaps": 63,
+      "snaps": 64,
       "epa": 64,
       "pressure": 49,
       "contact": 49,
-      "charting": 49
+      "charting": 63
     },
     "missingGames": [
       {
@@ -17,8 +17,7 @@
         "date": "2026-10-04T13:30Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -28,8 +27,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -39,8 +37,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -50,8 +47,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -61,8 +57,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -72,8 +67,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -83,8 +77,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -94,8 +87,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -105,8 +97,7 @@
         "date": "2026-10-04T17:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -116,8 +107,7 @@
         "date": "2026-10-04T20:05Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -127,8 +117,7 @@
         "date": "2026-10-04T20:25Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -138,8 +127,7 @@
         "date": "2026-10-04T20:25Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -149,8 +137,7 @@
         "date": "2026-10-04T20:25Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -160,8 +147,7 @@
         "date": "2026-10-05T00:20Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -170,7 +156,6 @@
         "game": "Atlanta Falcons at New Orleans Saints",
         "date": "2026-10-06T00:15Z",
         "fields": [
-          "snaps",
           "pressure",
           "contact",
           "charting"
@@ -179,33 +164,33 @@
       }
     ],
     "sourceHealth": {
-      "passing": {
+      "snaps": {
         "status": "available",
-        "rows": 117,
-        "fetchedAt": "2026-10-06T10:32:39.933Z"
+        "rows": 5970,
+        "fetchedAt": "2026-10-06T11:31:16.919Z"
       },
       "rushing": {
         "status": "available",
         "rows": 385,
-        "fetchedAt": "2026-10-06T10:32:39.933Z"
+        "fetchedAt": "2026-10-06T11:31:16.919Z"
       },
-      "charting": {
+      "passing": {
         "status": "available",
-        "rows": 8246,
-        "fetchedAt": "2026-10-06T10:32:39.933Z"
-      },
-      "snaps": {
-        "status": "available",
-        "rows": 5876,
-        "fetchedAt": "2026-10-06T10:32:39.933Z"
+        "rows": 117,
+        "fetchedAt": "2026-10-06T11:31:16.919Z"
       },
       "pbp": {
         "status": "available",
         "rows": 11155,
-        "fetchedAt": "2026-10-06T10:32:39.933Z"
+        "fetchedAt": "2026-10-06T11:31:16.919Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 10658,
+        "fetchedAt": "2026-10-06T11:31:16.919Z"
       }
     },
-    "asOf": "2026-10-06T10:32:39.933Z"
+    "asOf": "2026-10-06T11:31:16.919Z"
   },
   "totalsLineage": [
     {
@@ -404,7 +389,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.7
+      "appliedAdjustment": 0.69
     },
     {
       "id": "401872998",
@@ -2091,8 +2076,8 @@
   },
   "confidenceDistribution": {
     "High": 9,
-    "Medium": 93,
-    "Low": 156,
+    "Medium": 92,
+    "Low": 157,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -2146,12 +2131,12 @@
       "sample": 5.5,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.86,
-      "homeWin": 44.1,
+      "reliability": 0.852,
+      "homeWin": 43.7,
       "marketBooks": 9,
-      "spreadEdge": 0.7,
+      "spreadEdge": 0.5,
       "totalEdge": -0.4,
-      "injuryUncertainty": 0.8
+      "injuryUncertainty": 1.1
     },
     {
       "game": "Houston Texans at Tennessee Titans",
@@ -2218,14 +2203,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 69,
+      "confidenceScore": 68,
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.882,
-      "homeWin": 40.9,
+      "homeWin": 41,
       "marketBooks": 8,
-      "spreadEdge": -2.1,
+      "spreadEdge": -2,
       "totalEdge": -0.1,
       "injuryUncertainty": 0.4
     },
