@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-06T21:30:46.644Z",
+  "updatedAt": "2026-10-06T22:30:50.910Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
@@ -164,33 +164,33 @@
       }
     ],
     "sourceHealth": {
-      "charting": {
+      "passing": {
         "status": "available",
-        "rows": 10658,
-        "fetchedAt": "2026-10-06T21:30:35.099Z"
+        "rows": 117,
+        "fetchedAt": "2026-10-06T22:30:43.515Z"
       },
       "rushing": {
         "status": "available",
         "rows": 385,
-        "fetchedAt": "2026-10-06T21:30:35.099Z"
-      },
-      "snaps": {
-        "status": "available",
-        "rows": 5970,
-        "fetchedAt": "2026-10-06T21:30:35.099Z"
-      },
-      "passing": {
-        "status": "available",
-        "rows": 117,
-        "fetchedAt": "2026-10-06T21:30:35.099Z"
+        "fetchedAt": "2026-10-06T22:30:43.515Z"
       },
       "pbp": {
         "status": "available",
         "rows": 11155,
-        "fetchedAt": "2026-10-06T21:30:35.099Z"
+        "fetchedAt": "2026-10-06T22:30:43.515Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 5970,
+        "fetchedAt": "2026-10-06T22:30:43.515Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 10658,
+        "fetchedAt": "2026-10-06T22:30:43.515Z"
       }
     },
-    "asOf": "2026-10-06T21:30:35.099Z"
+    "asOf": "2026-10-06T22:30:43.515Z"
   },
   "totalsLineage": [
     {
@@ -2076,8 +2076,8 @@
   },
   "confidenceDistribution": {
     "High": 8,
-    "Medium": 89,
-    "Low": 161,
+    "Medium": 87,
+    "Low": 163,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -2112,12 +2112,12 @@
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.802,
+      "reliability": 0.799,
       "homeWin": 65.6,
       "marketBooks": 9,
       "spreadEdge": 0,
       "totalEdge": -0.4,
-      "injuryUncertainty": 2.8
+      "injuryUncertainty": 2.9
     },
     {
       "game": "Chicago Bears at Green Bay Packers",
@@ -2131,12 +2131,12 @@
       "sample": 5.5,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.804,
-      "homeWin": 44.7,
+      "reliability": 0.812,
+      "homeWin": 45.1,
       "marketBooks": 9,
-      "spreadEdge": 0.8,
-      "totalEdge": -0.8,
-      "injuryUncertainty": 2.4
+      "spreadEdge": 0.9,
+      "totalEdge": -0.7,
+      "injuryUncertainty": 2.2
     },
     {
       "game": "Houston Texans at Tennessee Titans",
@@ -2154,7 +2154,7 @@
       "homeWin": 34.7,
       "marketBooks": 9,
       "spreadEdge": 0.8,
-      "totalEdge": 0.2,
+      "totalEdge": 0.5,
       "injuryUncertainty": 2.6
     },
     {
@@ -2207,12 +2207,12 @@
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.815,
-      "homeWin": 42.5,
+      "reliability": 0.807,
+      "homeWin": 42.4,
       "marketBooks": 9,
       "spreadEdge": -1.2,
-      "totalEdge": 0,
-      "injuryUncertainty": 2.3
+      "totalEdge": 0.1,
+      "injuryUncertainty": 2.5
     },
     {
       "game": "Cleveland Browns at New York Jets",
@@ -2242,10 +2242,10 @@
         "total": "Low"
       },
       "confidenceScore": 44,
-      "sample": 6.1,
+      "sample": 6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.823,
+      "reliability": 0.819,
       "homeWin": 54.7,
       "marketBooks": 9,
       "spreadEdge": -0.5,
@@ -2298,14 +2298,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 62,
+      "confidenceScore": 68,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.831,
-      "homeWin": 39.8,
+      "homeWin": 38.2,
       "marketBooks": 9,
-      "spreadEdge": 0.2,
+      "spreadEdge": 0.5,
       "totalEdge": -0.5,
       "injuryUncertainty": 2.3
     }
