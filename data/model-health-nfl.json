@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-10-06T04:33:02.082Z",
+  "updatedAt": "2026-10-06T05:32:03.349Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
     "coveredGames": {
       "snaps": 63,
-      "epa": 63,
+      "epa": 64,
       "pressure": 49,
       "contact": 49,
       "charting": 49
@@ -171,7 +171,6 @@
         "date": "2026-10-06T00:15Z",
         "fields": [
           "snaps",
-          "epa",
           "pressure",
           "contact",
           "charting"
@@ -183,30 +182,30 @@
       "snaps": {
         "status": "available",
         "rows": 5876,
-        "fetchedAt": "2026-10-06T04:32:52.947Z"
-      },
-      "passing": {
-        "status": "available",
-        "rows": 117,
-        "fetchedAt": "2026-10-06T04:32:52.947Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 10979,
-        "fetchedAt": "2026-10-06T04:32:52.947Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 385,
-        "fetchedAt": "2026-10-06T04:32:52.947Z"
+        "fetchedAt": "2026-10-06T05:31:53.609Z"
       },
       "charting": {
         "status": "available",
         "rows": 8246,
-        "fetchedAt": "2026-10-06T04:32:52.947Z"
+        "fetchedAt": "2026-10-06T05:31:53.609Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 117,
+        "fetchedAt": "2026-10-06T05:31:53.609Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 385,
+        "fetchedAt": "2026-10-06T05:31:53.609Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 11155,
+        "fetchedAt": "2026-10-06T05:31:53.609Z"
       }
     },
-    "asOf": "2026-10-06T04:32:52.947Z"
+    "asOf": "2026-10-06T05:31:53.609Z"
   },
   "totalsLineage": [
     {
@@ -2092,8 +2091,8 @@
   },
   "confidenceDistribution": {
     "High": 9,
-    "Medium": 94,
-    "Low": 155,
+    "Medium": 95,
+    "Low": 154,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -2124,12 +2123,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 87,
+      "confidenceScore": 86,
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.841,
-      "homeWin": 66.8,
+      "homeWin": 66.7,
       "marketBooks": 9,
       "spreadEdge": 0.2,
       "totalEdge": -0.6,
@@ -2219,15 +2218,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 68,
+      "confidenceScore": 69,
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.882,
-      "homeWin": 41,
+      "homeWin": 40.9,
       "marketBooks": 8,
-      "spreadEdge": -2,
-      "totalEdge": -0.1,
+      "spreadEdge": -2.1,
+      "totalEdge": -0.2,
       "injuryUncertainty": 0.4
     },
     {
@@ -2238,14 +2237,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 52,
+      "confidenceScore": 54,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.883,
-      "homeWin": 54.5,
+      "homeWin": 55.4,
       "marketBooks": 9,
-      "spreadEdge": -0.3,
+      "spreadEdge": -0.4,
       "totalEdge": 0.1,
       "injuryUncertainty": 0.9
     },
