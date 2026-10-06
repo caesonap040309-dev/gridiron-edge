@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-06T03:31:59.616Z",
+  "updatedAt": "2026-10-06T04:33:02.082Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
@@ -11,19 +11,6 @@
       "charting": 49
     },
     "missingGames": [
-      {
-        "id": "401872979",
-        "game": "Atlanta Falcons at New Orleans Saints",
-        "date": "2026-10-06T00:15Z",
-        "fields": [
-          "snaps",
-          "epa",
-          "pressure",
-          "contact",
-          "charting"
-        ],
-        "retryDue": false
-      },
       {
         "id": "401872965",
         "game": "Indianapolis Colts at Washington Commanders",
@@ -177,36 +164,49 @@
           "charting"
         ],
         "retryDue": true
+      },
+      {
+        "id": "401872979",
+        "game": "Atlanta Falcons at New Orleans Saints",
+        "date": "2026-10-06T00:15Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
       }
     ],
     "sourceHealth": {
-      "pbp": {
+      "snaps": {
         "status": "available",
-        "rows": 10979,
-        "fetchedAt": "2026-10-06T03:31:50.176Z"
+        "rows": 5876,
+        "fetchedAt": "2026-10-06T04:32:52.947Z"
       },
       "passing": {
         "status": "available",
         "rows": 117,
-        "fetchedAt": "2026-10-06T03:31:50.176Z"
+        "fetchedAt": "2026-10-06T04:32:52.947Z"
       },
-      "charting": {
+      "pbp": {
         "status": "available",
-        "rows": 8246,
-        "fetchedAt": "2026-10-06T03:31:50.176Z"
+        "rows": 10979,
+        "fetchedAt": "2026-10-06T04:32:52.947Z"
       },
       "rushing": {
         "status": "available",
         "rows": 385,
-        "fetchedAt": "2026-10-06T03:31:50.176Z"
+        "fetchedAt": "2026-10-06T04:32:52.947Z"
       },
-      "snaps": {
+      "charting": {
         "status": "available",
-        "rows": 5876,
-        "fetchedAt": "2026-10-06T03:31:50.176Z"
+        "rows": 8246,
+        "fetchedAt": "2026-10-06T04:32:52.947Z"
       }
     },
-    "asOf": "2026-10-06T03:31:50.176Z"
+    "asOf": "2026-10-06T04:32:52.947Z"
   },
   "totalsLineage": [
     {
@@ -2087,13 +2087,13 @@
     "marginStatus": "insufficient-held-out-evidence",
     "total": 0,
     "margin": 0,
-    "totalSamples": 14,
-    "marginSamples": 14
+    "totalSamples": 15,
+    "marginSamples": 15
   },
   "confidenceDistribution": {
     "High": 9,
-    "Medium": 93,
-    "Low": 156,
+    "Medium": 94,
+    "Low": 155,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -2106,10 +2106,10 @@
         "total": "Low"
       },
       "confidenceScore": 91,
-      "sample": 5.9,
+      "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.864,
+      "reliability": 0.861,
       "homeWin": 67.3,
       "marketBooks": 9,
       "spreadEdge": -1.3,
@@ -2124,14 +2124,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 84,
+      "confidenceScore": 87,
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.841,
-      "homeWin": 66,
+      "homeWin": 66.8,
       "marketBooks": 9,
-      "spreadEdge": 0.3,
+      "spreadEdge": 0.2,
       "totalEdge": -0.6,
       "injuryUncertainty": 1.7
     },
@@ -2213,19 +2213,19 @@
     },
     {
       "game": "Minnesota Vikings at New Orleans Saints",
-      "confidence": "Low",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "Low",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 67,
+      "confidenceScore": 68,
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.776,
-      "homeWin": 42.1,
-      "marketBooks": 20,
+      "reliability": 0.882,
+      "homeWin": 41,
+      "marketBooks": 8,
       "spreadEdge": -2,
       "totalEdge": -0.1,
       "injuryUncertainty": 0.4
