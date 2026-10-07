@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-07T13:35:23.914Z",
+  "updatedAt": "2026-10-07T13:36:39.919Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1918,15 +1918,17 @@
         }
       },
       "props": {
-        "evaluated": 915,
-        "qualified": 0,
-        "blockedByData": 915,
-        "belowBettingThresholds": 0,
+        "evaluated": 2899,
+        "qualified": 10,
+        "blockedByData": 2771,
+        "belowBettingThresholds": 118,
         "reasons": {
-          "Prop quote needs refreshing": 915,
-          "Prop quote or game inputs need a fresh update": 896,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 443,
-          "Independent projection unavailable": 77
+          "Prop quote or game inputs need a fresh update": 2628,
+          "Prop quote needs refreshing": 634,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 1197,
+          "Independent projection unavailable": 266,
+          "Sample, probability or price edge below betting thresholds": 118,
+          "Player listed unavailable or doubtful": 3
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
@@ -4391,16 +4393,17 @@
         }
       },
       "props": {
-        "evaluated": 2720,
+        "evaluated": 5961,
         "qualified": 0,
-        "blockedByData": 2720,
-        "belowBettingThresholds": 0,
+        "blockedByData": 3595,
+        "belowBettingThresholds": 2366,
         "reasons": {
-          "Prop quote needs refreshing": 2720,
-          "Prop quote or game inputs need a fresh update": 865,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 838,
-          "Independent projection unavailable": 489,
-          "Player listed unavailable or doubtful": 4
+          "Prop quote needs refreshing": 1865,
+          "Prop quote or game inputs need a fresh update": 1865,
+          "Sample, probability or price edge below betting thresholds": 2366,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 1702,
+          "Independent projection unavailable": 1075,
+          "Player listed unavailable or doubtful": 1
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
