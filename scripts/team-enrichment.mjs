@@ -242,17 +242,34 @@ export function dataQuality(game,event,now=new Date()){
 }
 
 export async function loadCollegeAdvanced(season,now=new Date()){
-  const path="data/college-enrichment.json",cached=await read(path,{rows:[]}),apiKey=process.env.CFBD_API_KEY?.trim();
+  const path="data/college-enrichment.json",cached=await read(path,{rows:[],talent:[],recruiting:[],returning:[],sourceHealth:{}}),apiKey=process.env.CFBD_API_KEY?.trim();
   if(!apiKey)return {...cached,sourceStatus:cached.rows?.length?"cached; credentials unavailable":"not connected"};
   if(cached.season===season&&now-new Date(cached.updatedAt)<6*3600000)return cached;
-  try{
-    const q=new URLSearchParams({year:String(season),seasonType:"regular",excludeGarbageTime:"true"});
-    const response=await fetch("https://api.collegefootballdata.com/stats/game/advanced?"+q,{headers:{Authorization:"Bearer "+apiKey},signal:AbortSignal.timeout(30000)});
-    if(!response.ok)throw Error("College feed "+response.status);
-    const rows=await response.json();if(!Array.isArray(rows))throw Error("Invalid college feed");
-    const result={season,updatedAt:now.toISOString(),sourceStatus:"connected",source:"CollegeFootballData advanced game PPA and line yards",rows};
-    await mkdir("data",{recursive:true});await writeFile(path,JSON.stringify(result)+"\n");return result;
-  }catch{return {...cached,sourceStatus:"unavailable; retained prior metrics"}}
+  const request=async(path,params)=>{
+    const response=await fetch("https://api.collegefootballdata.com"+path+"?"+new URLSearchParams(params),{headers:{Authorization:"Bearer "+apiKey},signal:AbortSignal.timeout(30000)});
+    if(!response.ok)throw Error(path+" "+response.status);
+    const payload=await response.json();if(!Array.isArray(payload))throw Error("Invalid "+path+" feed");return payload;
+  };
+  const feeds={
+    advanced:request("/stats/game/advanced",{year:String(season),seasonType:"regular",excludeGarbageTime:"true"}),
+    talent:request("/talent",{year:String(season)}),
+    recruiting:request("/recruiting/teams",{year:String(season)}),
+    returning:request("/player/returning",{year:String(season)})
+  };
+  const settled=await Promise.allSettled(Object.values(feeds)),names=Object.keys(feeds),sourceHealth={};
+  const result={season,updatedAt:now.toISOString(),rows:cached.rows||[],talent:cached.talent||[],recruiting:cached.recruiting||[],returning:cached.returning||[]};
+  settled.forEach((entry,index)=>{
+    const name=names[index];
+    if(entry.status==="fulfilled"){
+      const key=name==="advanced"?"rows":name;result[key]=entry.value;
+      sourceHealth[name]={status:"available",rows:entry.value.length,fetchedAt:now.toISOString()};
+    }else sourceHealth[name]={status:result[name==="advanced"?"rows":name]?.length?"cached":"unavailable",fetchedAt:now.toISOString()};
+  });
+  result.sourceHealth=sourceHealth;
+  const available=Object.values(sourceHealth).filter(source=>source.status==="available").length;
+  result.sourceStatus=available===names.length?"connected; four college datasets":available?"partial; retained cached fallbacks":"unavailable; retained prior metrics";
+  result.source="CollegeFootballData advanced game PPA, line yards, roster talent, recruiting, and returning production; ESPN summaries provide independent game/drive context";
+  await mkdir("data",{recursive:true});await writeFile(path,JSON.stringify(result)+"\n");return result;
 }
 export function attachCollegeAdvanced(games,data){
   const byId=new Map(games.map(g=>[String(g.id),g]));
@@ -262,19 +279,37 @@ export function attachCollegeAdvanced(games,data){
     if(sides.length!==1)continue;
     const side=sides[0];g.collegeAdvanced||={};g.collegeAdvanced[side]=row;
   }
+  const index=(rows,field)=>(rows||[]).map(row=>({key:identity(row[field]),row}));
+  const talent=index(data.talent,"school"),recruiting=index(data.recruiting,"team"),returning=index(data.returning,"team");
+  const match=(rows,name)=>{const key=identity(name),matches=rows.filter(item=>item.key===key||key.startsWith(item.key)||item.key.startsWith(key));return matches.length===1?matches[0].row:null};
+  for(const game of games)for(const side of ["home","away"]){
+    const program={talent:match(talent,game[side]),recruiting:match(recruiting,game[side]),returning:match(returning,game[side])};
+    if(Object.values(program).some(Boolean)){game.collegeProgram||={};game.collegeProgram[side]=program}
+  }
 }
 export function collegeFor(games,name,before){
-  const date=new Date(before),rows=games.filter(g=>complete(g)&&new Date(g.date)<date&&Number(g.season)===date.getUTCFullYear()&&(g.home===name||g.away===name))
-    .sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8).map(g=>g.collegeAdvanced?.[g.home===name?"home":"away"]).filter(Boolean);
+  const date=new Date(before),eligible=games.filter(g=>new Date(g.date)<date&&Number(g.season)===date.getUTCFullYear()&&(g.home===name||g.away===name)).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const rows=eligible.filter(complete).slice(0,8).map(g=>g.collegeAdvanced?.[g.home===name?"home":"away"]).filter(Boolean);
   if(!rows.length)return null;
   const average=(unit,key)=>{const values=rows.map(r=>numeric(r[unit]?.[key])).filter(v=>v!=null);return values.length?values.reduce((a,b)=>a+b,0)/values.length:null};
+  const program=eligible.map(g=>g.collegeProgram?.[g.home===name?"home":"away"]).find(Boolean)||null;
+  const returning=program?.returning||{},talent=program?.talent||{},recruiting=program?.recruiting||{};
   return {games:rows.length,offensePPA:average("offense","ppa"),defensePPA:average("defense","ppa"),lineYards:average("offense","lineYards"),lineYardsAllowed:average("defense","lineYards"),
-    stuffRate:average("offense","stuffRate"),stuffRateGenerated:average("defense","stuffRate"),source:"CollegeFootballData PPA and line yards; not player blocking grades"};
+    stuffRate:average("offense","stuffRate"),stuffRateGenerated:average("defense","stuffRate"),
+    talentScore:numeric(talent.talent),recruitingPoints:numeric(recruiting.points),recruitingRank:numeric(recruiting.rank),
+    returningPPA:numeric(returning.percentPPA),returningUsage:numeric(returning.percentUsage),returningPassingPPA:numeric(returning.percentPassingPPA),
+    source:"CollegeFootballData PPA, line yards, talent, recruiting, and returning production; ESPN provides independent game context; not player blocking grades"};
 }
 export function collegeAdjustment(home,away){
   if(!home||!away)return {margin:0,total:0,status:"college advanced feed not connected or insufficient history"};
   const diff=(a,b)=>a!=null&&b!=null?a-b:0;
-  const value=(diff(home.offensePPA,away.offensePPA)+diff(away.defensePPA,home.defensePPA))*.3+
+  const performance=(diff(home.offensePPA,away.offensePPA)+diff(away.defensePPA,home.defensePPA))*.3+
     (diff(home.lineYards,away.lineYards)+diff(away.lineYardsAllowed,home.lineYardsAllowed))*.04;
-  return {margin:Math.round(clamp(value,-.5,.5)*clamp(Math.min(home.games,away.games)/6,0,1)*100)/100,total:0,status:"supported college PPA/line-yards context"};
+  // Preseason roster inputs are slow-moving priors. Keep them small because
+  // team results and sportsbook consensus already contain much of this signal.
+  const roster=clamp(diff(home.talentScore,away.talentScore)/900+diff(home.recruitingPoints,away.recruitingPoints)/140+
+    diff(home.returningPPA,away.returningPPA)*.45+diff(home.returningUsage,away.returningUsage)*.2,-.35,.35);
+  const credibility=clamp(Math.min(home.games,away.games)/6,0,1);
+  const margin=Math.round(clamp(performance,-.5,.5)*credibility*100+roster*(1-.45*credibility)*100)/100;
+  return {margin:Math.round(clamp(margin,-.75,.75)*100)/100,total:0,components:{performance:Math.round(clamp(performance,-.5,.5)*credibility*100)/100,rosterPrior:Math.round(roster*(1-.45*credibility)*100)/100,credibility},status:"multi-source college efficiency and roster context with duplicate-signal caps"};
 }
