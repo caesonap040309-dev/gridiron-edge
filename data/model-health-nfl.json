@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T08:35:29.128Z",
+  "updatedAt": "2026-10-07T09:34:02.270Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
@@ -163,33 +163,33 @@
       }
     ],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 5970,
-        "fetchedAt": "2026-10-07T08:35:19.333Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 11155,
-        "fetchedAt": "2026-10-07T08:35:19.333Z"
-      },
       "passing": {
         "status": "available",
         "rows": 117,
-        "fetchedAt": "2026-10-07T08:35:19.333Z"
+        "fetchedAt": "2026-10-07T09:33:51.212Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 5970,
+        "fetchedAt": "2026-10-07T09:33:51.212Z"
       },
       "rushing": {
         "status": "available",
         "rows": 385,
-        "fetchedAt": "2026-10-07T08:35:19.333Z"
+        "fetchedAt": "2026-10-07T09:33:51.212Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 11155,
+        "fetchedAt": "2026-10-07T09:33:51.212Z"
       },
       "charting": {
         "status": "available",
         "rows": 10829,
-        "fetchedAt": "2026-10-07T08:35:19.333Z"
+        "fetchedAt": "2026-10-07T09:33:51.212Z"
       }
     },
-    "asOf": "2026-10-07T08:35:19.333Z"
+    "asOf": "2026-10-07T09:33:51.212Z"
   },
   "totalsLineage": [
     {
@@ -2075,8 +2075,8 @@
   },
   "confidenceDistribution": {
     "High": 8,
-    "Medium": 87,
-    "Low": 163,
+    "Medium": 86,
+    "Low": 164,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -2088,14 +2088,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 80,
+      "confidenceScore": 77,
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.819,
-      "homeWin": 65.6,
+      "homeWin": 64.9,
       "marketBooks": 9,
-      "spreadEdge": -1.7,
+      "spreadEdge": -1.5,
       "totalEdge": 1.2,
       "injuryUncertainty": 2.3
     },
@@ -2139,13 +2139,13 @@
     },
     {
       "game": "Houston Texans at Tennessee Titans",
-      "confidence": "Medium",
+      "confidence": "Low",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 77,
+      "confidenceScore": 71,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
