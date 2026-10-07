@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-06T23:53:30.623Z",
+  "updatedAt": "2026-10-07T00:43:36.693Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1904,29 +1904,29 @@
     },
     "filters": {
       "games": {
-        "evaluated": 173,
+        "evaluated": 171,
         "qualified": 7,
-        "blockedByData": 113,
+        "blockedByData": 111,
         "belowBettingThresholds": 53,
         "reasons": {
-          "Fresh sportsbook lines unavailable": 14,
-          "Listed injury status needs confirmation": 99,
-          "Fresh quote at the modeled line unavailable": 14,
-          "Price outside standard betting range": 8,
+          "Listed injury status needs confirmation": 97,
+          "Fresh sportsbook lines unavailable": 12,
+          "Fresh quote at the modeled line unavailable": 12,
+          "Price outside standard betting range": 6,
           "Probability, price, evidence or edge below betting thresholds": 53,
           "Current injury coverage unavailable": 7
         }
       },
       "props": {
-        "evaluated": 1079,
+        "evaluated": 915,
         "qualified": 0,
-        "blockedByData": 1079,
+        "blockedByData": 915,
         "belowBettingThresholds": 0,
         "reasons": {
-          "Prop quote needs refreshing": 1079,
-          "Prop quote or game inputs need a fresh update": 1060,
+          "Prop quote needs refreshing": 915,
+          "Prop quote or game inputs need a fresh update": 896,
           "DFS payout depends on the full entry; sportsbook value cannot be assumed": 443,
-          "Independent projection unavailable": 185
+          "Independent projection unavailable": 77
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
