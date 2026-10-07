@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T17:34:36.276Z",
+  "updatedAt": "2026-10-07T18:37:28.446Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
@@ -23,33 +23,33 @@
       }
     ],
     "sourceHealth": {
-      "passing": {
-        "status": "available",
-        "rows": 148,
-        "fetchedAt": "2026-10-07T17:34:28.841Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 496,
-        "fetchedAt": "2026-10-07T17:34:28.841Z"
-      },
       "snaps": {
         "status": "available",
         "rows": 5970,
-        "fetchedAt": "2026-10-07T17:34:28.841Z"
-      },
-      "charting": {
-        "status": "available",
-        "rows": 10829,
-        "fetchedAt": "2026-10-07T17:34:28.841Z"
+        "fetchedAt": "2026-10-07T18:37:20.934Z"
       },
       "pbp": {
         "status": "available",
         "rows": 11155,
-        "fetchedAt": "2026-10-07T17:34:28.841Z"
+        "fetchedAt": "2026-10-07T18:37:20.934Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 10829,
+        "fetchedAt": "2026-10-07T18:37:20.934Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 496,
+        "fetchedAt": "2026-10-07T18:37:20.934Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 148,
+        "fetchedAt": "2026-10-07T18:37:20.934Z"
       }
     },
-    "asOf": "2026-10-07T17:34:28.841Z"
+    "asOf": "2026-10-07T18:37:20.934Z"
   },
   "totalsLineage": [
     {
@@ -1935,8 +1935,8 @@
   },
   "confidenceDistribution": {
     "High": 9,
-    "Medium": 85,
-    "Low": 164,
+    "Medium": 84,
+    "Low": 165,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1948,14 +1948,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 86,
+      "confidenceScore": 88,
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.849,
-      "homeWin": 66.3,
+      "homeWin": 67,
       "marketBooks": 9,
-      "spreadEdge": -1.1,
+      "spreadEdge": -1.3,
       "totalEdge": 1.3,
       "injuryUncertainty": 1.5
     },
@@ -2011,7 +2011,7 @@
       "observedGames": 38,
       "reliability": 0.818,
       "homeWin": 34.5,
-      "marketBooks": 9,
+      "marketBooks": 8,
       "spreadEdge": 0.7,
       "totalEdge": 0.5,
       "injuryUncertainty": 2.6
@@ -2024,16 +2024,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 73,
+      "confidenceScore": 71,
       "sample": 6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.806,
+      "reliability": 0.79,
       "homeWin": 35.5,
       "marketBooks": 9,
-      "spreadEdge": 0.1,
+      "spreadEdge": 0.4,
       "totalEdge": 0.6,
-      "injuryUncertainty": 2.9
+      "injuryUncertainty": 3.3
     },
     {
       "game": "Las Vegas Raiders at New England Patriots",
@@ -2047,10 +2047,10 @@
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.785,
-      "homeWin": 57.5,
+      "reliability": 0.784,
+      "homeWin": 57.6,
       "marketBooks": 9,
-      "spreadEdge": -0.2,
+      "spreadEdge": -0.1,
       "totalEdge": -0.9,
       "injuryUncertainty": 3.5
     },
@@ -2062,12 +2062,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
+      "confidenceScore": 52,
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.807,
-      "homeWin": 42.4,
+      "homeWin": 42.5,
       "marketBooks": 9,
       "spreadEdge": -1.2,
       "totalEdge": 0.1,
@@ -2085,12 +2085,12 @@
       "sample": 6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.763,
+      "reliability": 0.759,
       "homeWin": 54.3,
       "marketBooks": 9,
       "spreadEdge": -0.1,
-      "totalEdge": 0.1,
-      "injuryUncertainty": 4
+      "totalEdge": 0,
+      "injuryUncertainty": 4.1
     },
     {
       "game": "Indianapolis Colts at Pittsburgh Steelers",
@@ -2119,15 +2119,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 35,
+      "confidenceScore": 32,
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.718,
-      "homeWin": 56,
+      "homeWin": 55.3,
       "marketBooks": 9,
-      "spreadEdge": -0.6,
-      "totalEdge": 0.1,
+      "spreadEdge": -1,
+      "totalEdge": 0,
       "injuryUncertainty": 5
     },
     {
@@ -2139,10 +2139,10 @@
         "total": "Low"
       },
       "confidenceScore": 47,
-      "sample": 6.2,
+      "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.812,
+      "reliability": 0.808,
       "homeWin": 43.7,
       "marketBooks": 9,
       "spreadEdge": 0.8,
