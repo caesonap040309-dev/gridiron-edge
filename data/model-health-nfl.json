@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T03:33:06.071Z",
+  "updatedAt": "2026-10-07T04:33:53.054Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
@@ -8,7 +8,7 @@
       "epa": 64,
       "pressure": 49,
       "contact": 49,
-      "charting": 63
+      "charting": 64
     },
     "missingGames": [
       {
@@ -157,40 +157,39 @@
         "date": "2026-10-06T00:15Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       }
     ],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 5970,
-        "fetchedAt": "2026-10-07T03:32:54.753Z"
-      },
       "passing": {
         "status": "available",
         "rows": 117,
-        "fetchedAt": "2026-10-07T03:32:54.753Z"
-      },
-      "charting": {
-        "status": "available",
-        "rows": 10658,
-        "fetchedAt": "2026-10-07T03:32:54.753Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 11155,
-        "fetchedAt": "2026-10-07T03:32:54.753Z"
+        "fetchedAt": "2026-10-07T04:33:45.025Z"
       },
       "rushing": {
         "status": "available",
         "rows": 385,
-        "fetchedAt": "2026-10-07T03:32:54.753Z"
+        "fetchedAt": "2026-10-07T04:33:45.025Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 5970,
+        "fetchedAt": "2026-10-07T04:33:45.025Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 10829,
+        "fetchedAt": "2026-10-07T04:33:45.025Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 11155,
+        "fetchedAt": "2026-10-07T04:33:45.025Z"
       }
     },
-    "asOf": "2026-10-07T03:32:54.753Z"
+    "asOf": "2026-10-07T04:33:45.025Z"
   },
   "totalsLineage": [
     {
@@ -2116,7 +2115,7 @@
       "homeWin": 66.4,
       "marketBooks": 9,
       "spreadEdge": -0.1,
-      "totalEdge": -0.4,
+      "totalEdge": -0.2,
       "injuryUncertainty": 2.8
     },
     {
@@ -2127,16 +2126,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 46,
+      "confidenceScore": 45,
       "sample": 5.4,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.809,
-      "homeWin": 45.1,
+      "reliability": 0.8,
+      "homeWin": 44.8,
       "marketBooks": 9,
-      "spreadEdge": 0.9,
-      "totalEdge": -0.7,
-      "injuryUncertainty": 2.2
+      "spreadEdge": 0.8,
+      "totalEdge": -0.8,
+      "injuryUncertainty": 2.4
     },
     {
       "game": "Houston Texans at Tennessee Titans",
