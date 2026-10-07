@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T19:32:17.868Z",
+  "updatedAt": "2026-10-07T20:19:51.389Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
@@ -23,33 +23,33 @@
       }
     ],
     "sourceHealth": {
-      "snaps": {
+      "pbp": {
         "status": "available",
-        "rows": 5970,
-        "fetchedAt": "2026-10-07T19:32:09.608Z"
-      },
-      "charting": {
-        "status": "available",
-        "rows": 10829,
-        "fetchedAt": "2026-10-07T19:32:09.608Z"
+        "rows": 11155,
+        "fetchedAt": "2026-10-07T20:19:42.588Z"
       },
       "rushing": {
         "status": "available",
         "rows": 496,
-        "fetchedAt": "2026-10-07T19:32:09.608Z"
+        "fetchedAt": "2026-10-07T20:19:42.588Z"
       },
       "passing": {
         "status": "available",
         "rows": 148,
-        "fetchedAt": "2026-10-07T19:32:09.608Z"
+        "fetchedAt": "2026-10-07T20:19:42.588Z"
       },
-      "pbp": {
+      "snaps": {
         "status": "available",
-        "rows": 11155,
-        "fetchedAt": "2026-10-07T19:32:09.608Z"
+        "rows": 5970,
+        "fetchedAt": "2026-10-07T20:19:42.588Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 10829,
+        "fetchedAt": "2026-10-07T20:19:42.588Z"
       }
     },
-    "asOf": "2026-10-07T19:32:09.608Z"
+    "asOf": "2026-10-07T20:19:42.588Z"
   },
   "totalsLineage": [
     {
@@ -1935,8 +1935,8 @@
   },
   "confidenceDistribution": {
     "High": 9,
-    "Medium": 85,
-    "Low": 164,
+    "Medium": 86,
+    "Low": 163,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1986,16 +1986,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 43,
+      "confidenceScore": 42,
       "sample": 5.4,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.8,
-      "homeWin": 45.6,
+      "reliability": 0.804,
+      "homeWin": 46.2,
       "marketBooks": 9,
-      "spreadEdge": 0.6,
+      "spreadEdge": 0.9,
       "totalEdge": -0.7,
-      "injuryUncertainty": 2.4
+      "injuryUncertainty": 2.3
     },
     {
       "game": "Houston Texans at Tennessee Titans",
@@ -2024,14 +2024,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 71,
+      "confidenceScore": 69,
       "sample": 6,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.79,
-      "homeWin": 35.5,
+      "homeWin": 36.2,
       "marketBooks": 9,
-      "spreadEdge": 0.4,
+      "spreadEdge": 0.3,
       "totalEdge": 0.6,
       "injuryUncertainty": 3.3
     },
@@ -2081,15 +2081,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 34,
+      "confidenceScore": 33,
       "sample": 6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.759,
-      "homeWin": 54.3,
+      "reliability": 0.762,
+      "homeWin": 54.1,
       "marketBooks": 9,
-      "spreadEdge": -0.1,
-      "totalEdge": 0,
+      "spreadEdge": -0.2,
+      "totalEdge": 0.1,
       "injuryUncertainty": 4.1
     },
     {
@@ -2100,16 +2100,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 42,
+      "confidenceScore": 40,
       "sample": 6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.81,
-      "homeWin": 54.6,
+      "reliability": 0.806,
+      "homeWin": 54.3,
       "marketBooks": 9,
-      "spreadEdge": -0.6,
+      "spreadEdge": -0.7,
       "totalEdge": 0.8,
-      "injuryUncertainty": 2.8
+      "injuryUncertainty": 2.9
     },
     {
       "game": "New York Giants at Washington Commanders",
@@ -2119,16 +2119,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 33,
+      "confidenceScore": 40,
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.718,
-      "homeWin": 54.9,
+      "reliability": 0.738,
+      "homeWin": 56.9,
       "marketBooks": 9,
-      "spreadEdge": -1.2,
-      "totalEdge": 0,
-      "injuryUncertainty": 5
+      "spreadEdge": -0.3,
+      "totalEdge": 0.1,
+      "injuryUncertainty": 4.5
     },
     {
       "game": "Denver Broncos at Los Angeles Chargers",
