@@ -51,9 +51,18 @@ test("unknown injury coverage reduces reliability but does not assert players ar
 });
 test("college advanced metrics join by game ID and retain PPA's actual name",()=>{
  const game={id:"1",season:2026,date:"2026-09-01",home:"Northwestern Wildcats",away:"Penn State Nittany Lions",statusCompleted:true};
- attachCollegeAdvanced([game],{rows:[{gameId:1,team:"Northwestern",offense:{ppa:.2,lineYards:3},defense:{ppa:.1,lineYards:2}}]});
+ attachCollegeAdvanced([game],{rows:[{gameId:1,team:"Northwestern",offense:{ppa:.2,lineYards:3},defense:{ppa:.1,lineYards:2}}],
+  talent:[{school:"Northwestern",talent:640}],recruiting:[{team:"Northwestern",rank:34,points:190}],
+  returning:[{team:"Northwestern",percentPPA:.72,percentUsage:.68,percentPassingPPA:.8}]});
  const e=collegeFor([game],game.home,"2026-09-02");assert.equal(e.offensePPA,.2);assert.equal(collegeFor([game],game.home,"2026-08-01"),null);
+ assert.equal(e.talentScore,640);assert.equal(e.returningPPA,.72);assert.equal(e.recruitingRank,34);
  assert.equal(collegeAdjustment(e,null).margin,0);
+});
+test("college roster priors are capped and fade as current-season evidence grows",()=>{
+ const strong={games:1,offensePPA:.2,defensePPA:.1,lineYards:3,lineYardsAllowed:2,talentScore:900,recruitingPoints:260,returningPPA:.8,returningUsage:.75};
+ const weak={games:1,offensePPA:.2,defensePPA:.1,lineYards:3,lineYardsAllowed:2,talentScore:450,recruitingPoints:150,returningPPA:.35,returningUsage:.4};
+ const early=collegeAdjustment(strong,weak);assert.ok(early.margin>0);assert.ok(early.margin<=.75);assert.ok(early.components.rosterPrior>0);
+ const mature=collegeAdjustment({...strong,games:8},{...weak,games:8});assert.ok(mature.components.rosterPrior<early.components.rosterPrior);
 });
 test("full snapshots fail safely when future timestamps are reported",()=>{
  const now=new Date("2026-10-02T21:00:00Z");
