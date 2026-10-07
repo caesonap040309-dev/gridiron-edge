@@ -21,7 +21,7 @@
       .player-prop-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;border:0;background:transparent;text-align:left;cursor:pointer;color:#0f172a}
       .player-prop-toggle:hover{background:#f8fafc}.player-prop-left{display:flex;align-items:center;gap:13px;min-width:0}.player-prop-copy{min-width:0}.player-prop-copy h3{margin:1px 0 3px;font-size:1.05rem}.player-prop-copy p{margin:0;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.player-prop-copy small{color:#94a3b8;font-weight:700}
       .prop-headshot,.prop-avatar-fallback{width:54px;height:54px;border-radius:14px;flex:0 0 54px;background:#e8edf4;border:1px solid #d7dee8}.prop-headshot{object-fit:cover;object-position:center top}.prop-avatar-fallback{display:grid;place-items:center;color:#334155;font-weight:900}
-      .player-prop-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.prop-count-pill{padding:6px 9px;border-radius:999px;background:#eef3f9;color:#334155;font-size:.75rem;font-weight:800}.prop-chevron{font-size:1.05rem;color:#64748b;transition:transform .18s ease}.player-prop-card.open .prop-chevron{transform:rotate(180deg)}
+      .player-prop-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.prop-count-pill{padding:6px 9px;border-radius:999px;background:#eef3f9;color:#334155;font-size:.75rem;font-weight:800}.prop-line-pill{background:#e8f1ff;color:#1d4ed8}.prop-chevron{font-size:1.05rem;color:#64748b;transition:transform .18s ease}.player-prop-card.open .prop-chevron{transform:rotate(180deg)}
       .player-prop-body{display:none;border-top:1px solid #e5eaf0;background:#f8fafc;padding:12px}.player-prop-card.open .player-prop-body{display:grid;gap:10px}
       .prop-market-group{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden}.prop-market-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid #eef2f7}.prop-market-head strong{color:#0f172a}.prop-market-head span{font-size:.78rem;color:#64748b;font-weight:700}
       .book-list{display:grid}.book-row{display:grid;grid-template-columns:minmax(110px,1.2fr) minmax(92px,.8fr) minmax(86px,.7fr) minmax(92px,.7fr);gap:10px;align-items:center;padding:11px 14px;border:0;border-top:1px solid #f1f5f9;background:#fff;text-align:left;cursor:pointer;color:#0f172a}.book-row:first-child{border-top:0}.book-row:hover{background:#f8fafc}.book-row .book-name{font-weight:800}.book-row .book-line{font-weight:800;color:#1d4ed8}.book-row .book-chance{font-weight:800}.book-row .book-price{color:#64748b;text-align:right}.book-row small{display:block;color:#94a3b8;font-weight:600;margin-top:2px}
@@ -86,10 +86,12 @@
     const markets=marketGroups(group.rows);
     const providers=new Set(group.rows.map(r=>r.provider).filter(Boolean));
     const top=Math.max(...group.rows.map(r=>Number(r.hitProbability)||0));
+    const topRow=[...group.rows].sort((a,b)=>(Number(b.hitProbability)||0)-(Number(a.hitProbability)||0))[0];
+    const topLine=topRow?`${topRow.pick} ${topRow.line} · ${topRow.provider}`:"Line unavailable";
     return `<article class="player-prop-card" data-player-key="${esc(group.key)}">
       <button class="player-prop-toggle" type="button" aria-expanded="false">
         <span class="player-prop-left">${photoMarkup(group)}<span class="player-prop-copy"><small>${providers.size} sportsbook${providers.size===1?"":"s"}</small><h3>${esc(group.player)}</h3><p>${esc(group.matchup)}</p></span></span>
-        <span class="player-prop-meta"><span class="prop-count-pill">${markets.length} prop${markets.length===1?"":"s"}</span><span class="prop-count-pill">Top ${pct(top)}</span><span class="prop-chevron">⌄</span></span>
+        <span class="player-prop-meta"><span class="prop-count-pill prop-line-pill">${esc(topLine)}</span><span class="prop-count-pill">${markets.length} prop${markets.length===1?"":"s"}</span><span class="prop-count-pill">Top ${pct(top)}</span><span class="prop-chevron">⌄</span></span>
       </button>
       <div class="player-prop-body">
         ${markets.map(m=>{
