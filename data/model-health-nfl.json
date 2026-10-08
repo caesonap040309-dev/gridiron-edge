@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-10-08T10:35:06.467Z",
+  "updatedAt": "2026-10-08T11:33:23.844Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
     "coveredGames": {
       "snaps": 64,
       "epa": 64,
-      "pressure": 63,
-      "contact": 63,
+      "pressure": 64,
+      "contact": 64,
       "charting": 64
     },
-    "missingGames": [
-      {
-        "id": "401872979",
-        "game": "Atlanta Falcons at New Orleans Saints",
-        "date": "2026-10-06T00:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 5970,
-        "fetchedAt": "2026-10-08T10:34:52.883Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 496,
-        "fetchedAt": "2026-10-08T10:34:52.883Z"
-      },
       "pbp": {
         "status": "available",
         "rows": 11155,
-        "fetchedAt": "2026-10-08T10:34:52.883Z"
+        "fetchedAt": "2026-10-08T11:33:15.368Z"
       },
       "passing": {
         "status": "available",
-        "rows": 148,
-        "fetchedAt": "2026-10-08T10:34:52.883Z"
+        "rows": 150,
+        "fetchedAt": "2026-10-08T11:33:15.368Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 504,
+        "fetchedAt": "2026-10-08T11:33:15.368Z"
       },
       "charting": {
         "status": "available",
         "rows": 10829,
-        "fetchedAt": "2026-10-08T10:34:52.883Z"
+        "fetchedAt": "2026-10-08T11:33:15.368Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 5970,
+        "fetchedAt": "2026-10-08T11:33:15.368Z"
       }
     },
-    "asOf": "2026-10-08T10:34:52.883Z"
+    "asOf": "2026-10-08T11:33:15.368Z"
   },
   "totalsLineage": [
     {
@@ -1935,8 +1924,8 @@
   },
   "confidenceDistribution": {
     "High": 9,
-    "Medium": 87,
-    "Low": 162,
+    "Medium": 88,
+    "Low": 161,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1990,12 +1979,12 @@
       "sample": 5.4,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.81,
-      "homeWin": 44.1,
+      "reliability": 0.802,
+      "homeWin": 43.8,
       "marketBooks": 9,
-      "spreadEdge": -0.5,
+      "spreadEdge": -0.7,
       "totalEdge": -0.5,
-      "injuryUncertainty": 2.1
+      "injuryUncertainty": 2.4
     },
     {
       "game": "Houston Texans at Tennessee Titans",
@@ -2070,7 +2059,7 @@
       "homeWin": 42,
       "marketBooks": 9,
       "spreadEdge": -1,
-      "totalEdge": 0.2,
+      "totalEdge": 0,
       "injuryUncertainty": 2.9
     },
     {
@@ -2143,10 +2132,10 @@
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.744,
-      "homeWin": 43.4,
+      "homeWin": 43.5,
       "marketBooks": 9,
       "spreadEdge": 0.5,
-      "totalEdge": -0.7,
+      "totalEdge": -0.9,
       "injuryUncertainty": 4.6
     },
     {
