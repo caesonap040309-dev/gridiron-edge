@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-08T09:34:26.820Z",
+  "updatedAt": "2026-10-08T10:35:06.467Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 64,
@@ -23,33 +23,33 @@
       }
     ],
     "sourceHealth": {
-      "passing": {
+      "snaps": {
         "status": "available",
-        "rows": 148,
-        "fetchedAt": "2026-10-08T09:34:16.127Z"
+        "rows": 5970,
+        "fetchedAt": "2026-10-08T10:34:52.883Z"
       },
       "rushing": {
         "status": "available",
         "rows": 496,
-        "fetchedAt": "2026-10-08T09:34:16.127Z"
-      },
-      "snaps": {
-        "status": "available",
-        "rows": 5970,
-        "fetchedAt": "2026-10-08T09:34:16.127Z"
+        "fetchedAt": "2026-10-08T10:34:52.883Z"
       },
       "pbp": {
         "status": "available",
         "rows": 11155,
-        "fetchedAt": "2026-10-08T09:34:16.127Z"
+        "fetchedAt": "2026-10-08T10:34:52.883Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 148,
+        "fetchedAt": "2026-10-08T10:34:52.883Z"
       },
       "charting": {
         "status": "available",
         "rows": 10829,
-        "fetchedAt": "2026-10-08T09:34:16.127Z"
+        "fetchedAt": "2026-10-08T10:34:52.883Z"
       }
     },
-    "asOf": "2026-10-08T09:34:16.127Z"
+    "asOf": "2026-10-08T10:34:52.883Z"
   },
   "totalsLineage": [
     {
@@ -1990,12 +1990,12 @@
       "sample": 5.4,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.802,
-      "homeWin": 43.8,
+      "reliability": 0.81,
+      "homeWin": 44.1,
       "marketBooks": 9,
-      "spreadEdge": -0.7,
+      "spreadEdge": -0.5,
       "totalEdge": -0.5,
-      "injuryUncertainty": 2.4
+      "injuryUncertainty": 2.1
     },
     {
       "game": "Houston Texans at Tennessee Titans",
@@ -2056,21 +2056,21 @@
     },
     {
       "game": "Minnesota Vikings at New Orleans Saints",
-      "confidence": "Low",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "Low",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 49,
+      "confidenceScore": 52,
       "sample": 5.6,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.789,
-      "homeWin": 42.8,
+      "homeWin": 42,
       "marketBooks": 9,
-      "spreadEdge": -1.1,
-      "totalEdge": 0,
+      "spreadEdge": -1,
+      "totalEdge": 0.2,
       "injuryUncertainty": 2.9
     },
     {
