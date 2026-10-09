@@ -5,6 +5,7 @@ import {loadNFLData,nflCoverage,attachNFLData,loadTeamProfiles,enrichmentFor,enr
 import {buildContextLookup,contextAdjustment,nflTotalContext,sustainablePoints,playerInjuryValue,injuryScoringAdjustment,fitRatings} from "./model-context.mjs";
 import {loadPerformance,performanceAdjustment,rosterGameWeights} from "./team-performance.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import {loadMarketSignals,marketSignalFor} from "./market-signals.mjs";
 
 const now=new Date();
 let previous={games:[]};
@@ -12,6 +13,7 @@ try{previous=JSON.parse(await readFile("data/nfl.json","utf8"))}catch{}
 let dailyCalibration={probabilityFactor:1};
 try{dailyCalibration=JSON.parse(await readFile("data/model-calibration.json","utf8")).nfl||dailyCalibration}catch{}
 const previousPredictions=new Map((previous.games||[]).filter(game=>game.prediction).map(game=>[game.id,game.prediction]));
+const publicMarketSignals=await loadMarketSignals().catch(error=>(console.error(error.message),new Map()));
 const season=Number(process.env.SEASON||now.getUTCFullYear());
 const espn="https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
 const games=[];
@@ -370,7 +372,8 @@ for(const game of games){
   const evidenceGames=Math.round(Math.max(sample,Math.min(8,observedGames*.35))*10)/10;
   const baseMarketWeight=sample<2?.78:sample<4?.70:sample<7?.62:.56;
   const marketWeight=Math.min(.86,baseMarketWeight+(market.bookCount>=4?.08:market.bookCount>=2?.04:0));
-  const margin=market.margin==null?rawMargin:rawMargin*(1-marketWeight)+market.margin*marketWeight;
+  const publicSignal=marketSignalFor(game,publicMarketSignals,market.margin==null?null:-market.margin),marketAdjustedRawMargin=rawMargin+(publicSignal?.marginAdjustment||0);
+  const margin=market.margin==null?marketAdjustedRawMargin:marketAdjustedRawMargin*(1-marketWeight)+market.margin*marketWeight;
   const projectedTotal=market.total==null?rawTotal:rawTotal*(1-marketWeight)+market.total*marketWeight;
   const baselineRawMargin=rawMargin-enriched.margin-injury.margin+baselineInjuryMargin
     +(baselineHome.offense-home.offense)-(baselineAway.offense-away.offense)
@@ -428,6 +431,7 @@ for(const game of games){
     power:{homeOffense:Math.round(home.offense*10)/10,homeDefense:Math.round(home.defense*10)/10,awayOffense:Math.round(away.offense*10)/10,awayDefense:Math.round(away.defense*10)/10},
     marketMargin:market.margin,marketTotal:market.total,marketBooks:market.bookCount||0,marketSpreadDeviation:Math.round((market.spreadDeviation||0)*10)/10,marketTotalDeviation:Math.round((market.totalDeviation||0)*10)/10,spreadEdge,totalEdge,homeCover,
     adjustments:{neutralSite:game.neutralSite===true,homeField:Math.round(homeField*10)/10,rest:Math.round(restAdjustment*10)/10,venue:Math.round(venueAdjustment*10)/10,recentForm:Math.round(formAdjustment*10)/10,headToHead:Math.round(matchup.margin*10)/10,weatherTotal:weatherTotalAdjustment,injuryMargin:Math.round(injury.margin*10)/10,injuryTotal:Math.round(injury.total*10)/10,performanceMargin:performance.margin,performanceTotal:performance.total,contextMargin:advanced.margin,contextTotal:totalsContext.total,enrichmentMargin:enriched.margin},injuryImpact:{homeLoss:Math.round(injury.homeLoss*10)/10,awayLoss:Math.round(injury.awayLoss*10)/10,uncertainty:Math.round(injury.uncertainty*10)/10,homeCount:injury.homeCount,awayCount:injury.awayCount,components:injury.components,updatedAt:injury.updatedAt},calibration:{reliability:Math.round(reliability*1000)/10,effectiveSample:sample,dailyFactor:Number(dailyCalibration.probabilityFactor)||1,onlineTotalCorrection:Math.round(onlineCorrection.total*10)/10,onlineMarginCorrection:Math.round(onlineCorrection.margin*10)/10,totalCorrectionSamples:onlineCorrection.totalSamples,marginCorrectionSamples:onlineCorrection.marginSamples,marketWeight:Math.round(marketWeight*1000)/1000},
+    publicBetting:publicSignal,
     awayCover:homeCover==null?null:Math.round((100-homeCover)*10)/10,
     overProb,underProb:overProb==null?null:Math.round((100-overProb)*10)/10,
     fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence,confidenceByMarket:{moneyline:moneylineConfidence,spread:spreadConfidence,total:totalConfidence},confidenceScore,reliability:Math.round(reliability*1000)/1000

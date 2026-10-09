@@ -24,6 +24,7 @@ on:
       - "scripts/calibration-fit.mjs"
       - "scripts/prop-statistics.mjs"
       - "scripts/market-quotes.mjs"
+      - "scripts/market-signals.mjs"
       - "scripts/promotion-gate.mjs"
       - "scripts/injury-feed.mjs"
       - "betting-policy.js"
@@ -58,6 +59,8 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+          PUBLIC_BETTING_FEED_URL: ${{ secrets.PUBLIC_BETTING_FEED_URL }}
+          PUBLIC_BETTING_FEED_TOKEN: ${{ secrets.PUBLIC_BETTING_FEED_TOKEN }}
         run: |
           node scripts/calibrate-model.mjs
           node scripts/update-data.mjs

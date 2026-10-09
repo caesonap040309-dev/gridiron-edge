@@ -4,6 +4,7 @@ import {loadCollegeAdvanced,attachCollegeAdvanced,collegeFor,collegeAdjustment,l
 import {buildContextLookup,contextAdjustment,sustainablePoints,playerInjuryValue,fitRatings} from "./model-context.mjs";
 import {loadPerformance,performanceAdjustment,rosterGameWeights} from "./team-performance.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import {loadMarketSignals,marketSignalFor} from "./market-signals.mjs";
 
 const now=new Date();
 let previous={games:[]};
@@ -11,6 +12,7 @@ try{previous=JSON.parse(await readFile("data/live.json","utf8"))}catch{}
 let dailyCalibration={probabilityFactor:1};
 try{dailyCalibration=JSON.parse(await readFile("data/model-calibration.json","utf8")).cfb||dailyCalibration}catch{}
 const previousPredictions=new Map((previous.games||[]).filter(game=>game.prediction).map(game=>[game.id,game.prediction]));
+const publicMarketSignals=await loadMarketSignals().catch(error=>(console.error(error.message),new Map()));
 const season=Number(process.env.SEASON||now.getUTCFullYear());
 const espn="https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard";
 const games=[];
@@ -367,7 +369,8 @@ for(const game of games){
   // anchoring while the model is still learning team scoring/pace profiles.
   const totalBaseMarketWeight=sample<2?.62:sample<4?.50:sample<7?.38:.27;
   const totalMarketWeight=Math.min(.68,totalBaseMarketWeight+(market.bookCount>=4?.08:market.bookCount>=2?.04:0));
-  const margin=market.margin==null?rawMargin:rawMargin*(1-spreadMarketWeight)+market.margin*spreadMarketWeight;
+  const publicSignal=marketSignalFor(game,publicMarketSignals,market.margin==null?null:-market.margin),marketAdjustedRawMargin=rawMargin+(publicSignal?.marginAdjustment||0);
+  const margin=market.margin==null?marketAdjustedRawMargin:marketAdjustedRawMargin*(1-spreadMarketWeight)+market.margin*spreadMarketWeight;
   const projectedTotal=market.total==null?rawTotal:rawTotal*(1-totalMarketWeight)+market.total*totalMarketWeight;
   const baselineRawMargin=rawMargin-enriched.margin-injury.margin+baselineInjuryMargin
     +(baselineHome.offense-home.offense)-(baselineAway.offense-away.offense)
@@ -424,6 +427,7 @@ for(const game of games){
     power:{homeOffense:Math.round(home.offense*10)/10,homeDefense:Math.round(home.defense*10)/10,awayOffense:Math.round(away.offense*10)/10,awayDefense:Math.round(away.defense*10)/10},
     marketMargin:market.margin,marketTotal:market.total,marketBooks:market.bookCount||0,marketSpreadDeviation:Math.round((market.spreadDeviation||0)*10)/10,marketTotalDeviation:Math.round((market.totalDeviation||0)*10)/10,spreadEdge,totalEdge,homeCover,
     adjustments:{neutralSite:game.neutralSite===true,homeField:Math.round(homeField*10)/10,rest:Math.round(restAdjustment*10)/10,venue:Math.round(venueAdjustment*10)/10,recentForm:Math.round(formAdjustment*10)/10,headToHead:Math.round(matchup.margin*10)/10,weatherTotal:weatherTotalAdjustment,injuryMargin:Math.round(injury.margin*10)/10,injuryTotal:Math.round(injury.total*10)/10,performanceMargin:performance.margin,performanceTotal:performance.total,contextMargin:advanced.margin,contextTotal:advanced.total,enrichmentMargin:enriched.margin,totalRegression:TOTAL_REGRESSION,spreadMarketWeight:Math.round(spreadMarketWeight*1000)/1000,totalMarketWeight:Math.round(totalMarketWeight*1000)/1000},injuryImpact:{homeLoss:Math.round(injury.homeLoss*10)/10,awayLoss:Math.round(injury.awayLoss*10)/10,uncertainty:Math.round(injury.uncertainty*10)/10,homeCount:injury.homeCount,awayCount:injury.awayCount,updatedAt:injury.updatedAt},calibration:{reliability:Math.round(reliability*1000)/10,effectiveSample:sample,dailyFactor:Number(dailyCalibration.probabilityFactor)||1},
+    publicBetting:publicSignal,
     awayCover:homeCover==null?null:Math.round((100-homeCover)*10)/10,
     overProb,underProb:overProb==null?null:Math.round((100-overProb)*10)/10,
     fairHomeMoneyline:fairAmerican(homeWin),fairAwayMoneyline:fairAmerican(100-homeWin),confidence,confidenceByMarket:{moneyline:moneylineConfidence,spread:spreadConfidence,total:totalConfidence},confidenceScore,reliability:Math.round(reliability*1000)/1000
