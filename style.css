@@ -133,8 +133,10 @@ body.theme-dark .odds-table .best-line{background:rgba(57,255,136,.13);color:#6d
 .games .market{min-height:82px;padding:12px 8px}
 .games .market strong{font-size:11px}
 .games .market small{font-size:7px;line-height:1.35;max-height:29px;overflow:hidden}
+.prediction-market-strip{grid-column:1/-1;padding:11px 14px;border-top:1px solid var(--line);background:linear-gradient(90deg,rgba(8,121,230,.09),transparent);display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:10px}.prediction-market-strip>span{color:#0879e6;font-size:8px;font-weight:900;letter-spacing:.08em}.prediction-market-strip strong{font-size:12px}.prediction-market-strip small{color:var(--muted);font-size:8px;text-align:right}.prediction-market-teams{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px}.prediction-market-teams div{display:grid;gap:4px}.prediction-market-teams div:last-child{text-align:right}.prediction-market-teams span{color:var(--muted);font-size:10px}.prediction-market-teams strong{font-size:26px}.prediction-market-teams i{height:8px;overflow:hidden;border-radius:99px;background:#8798aa}.prediction-market-teams i b{display:block;height:100%;margin-left:auto;background:#0879e6}.prediction-market-stats{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:16px;color:var(--muted);font-size:10px}.prediction-market-stats b{color:inherit}.prediction-market-stats a{margin-left:auto;color:#0879e6;font-weight:800;text-decoration:none}.prediction-market-stats a:hover{text-decoration:underline}
 .games .kickoff{font-size:8px}
 @media(max-width:620px){.games{grid-template-columns:1fr}.games .market{display:flex}}
+@media(max-width:620px){.prediction-market-strip{grid-template-columns:1fr;gap:4px}.prediction-market-strip small{text-align:left}.prediction-market-teams{gap:8px}.prediction-market-stats a{margin-left:0}}
 
 /* Readable home-team colors inside Our Picks vs. Market */
 .game-dialog .model-pick-card h3,
