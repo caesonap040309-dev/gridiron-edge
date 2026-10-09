@@ -25,6 +25,7 @@ on:
       - "scripts/prop-statistics.mjs"
       - "scripts/market-quotes.mjs"
       - "scripts/market-signals.mjs"
+      - "scripts/update-prediction-markets.mjs"
       - "scripts/promotion-gate.mjs"
       - "scripts/injury-feed.mjs"
       - "betting-policy.js"
@@ -63,6 +64,7 @@ jobs:
           PUBLIC_BETTING_FEED_TOKEN: ${{ secrets.PUBLIC_BETTING_FEED_TOKEN }}
         run: |
           node scripts/calibrate-model.mjs
+          node scripts/update-prediction-markets.mjs
           node scripts/update-data.mjs
           node scripts/update-nfl-data.mjs
           node scripts/merge-nfl-books.mjs
@@ -83,6 +85,7 @@ jobs:
           git config user.name "gridiron-edge-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/live.json data/nfl.json data/props-nfl.json data/props-cfb.json data/model-calibration.json data/model-audit.json data/model-health-cfb.json data/model-health-nfl.json data/model-snapshots.json data/model-validation.json data/nfl-enrichment.json data/team-profiles-nfl.json data/team-profiles-cfb.json
+          [ ! -f data/prediction-markets.json ] || git add data/prediction-markets.json
           [ ! -f data/college-enrichment.json ] || git add data/college-enrichment.json
           git diff --cached --quiet && exit 0
           git commit -m "Update live football data"
