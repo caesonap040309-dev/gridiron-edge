@@ -32,21 +32,31 @@ export function normalizePolymarketEvent(event,league){
 }
 
 async function get(path){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);try{const response=await fetch(`${API}${path}`,{headers:{accept:"application/json","user-agent":"GridironEdge/1.0"},signal:controller.signal});if(!response.ok)throw Error(`${path} returned ${response.status}`);return response.json()}finally{clearTimeout(timer)}}
-async function eventsForTag(tagId){
-  const all=[];let cursor="";
+async function eventsForFilter(key,value){
+  const all=[];const limit=500;
   for(let page=0;page<5;page++){
-    const query=new URLSearchParams({tag_id:String(tagId),closed:"false",limit:"100"});if(cursor)query.set("after_cursor",cursor);
-    const data=await get(`/events/keyset?${query}`),items=Array.isArray(data)?data:data.events||data.items||[];all.push(...items);
-    cursor=data.next_cursor||data.nextCursor||"";if(!cursor||!items.length)break;
+    const query=new URLSearchParams({[key]:String(value),active:"true",closed:"false",limit:String(limit),offset:String(page*limit)});
+    const data=await get(`/events?${query}`),items=Array.isArray(data)?data:data.events||data.items||[];all.push(...items);
+    if(!items.length||items.length<limit||data.has_more===false)break;
   }
   return all;
+}
+
+async function eventsForSport(sport){
+  const requests=[];
+  for(const seriesId of String(sport.series||"").split(",").filter(Boolean))requests.push(eventsForFilter("series_id",seriesId));
+  const tagIds=new Set([sport.primaryTagId]);
+  if(String(sport.sport||"").toLowerCase()==="cfb")tagIds.add(10210);
+  for(const tagId of tagIds)if(tagId)requests.push(eventsForFilter("tag_id",tagId));
+  const events=(await Promise.all(requests)).flat(),seen=new Set();
+  return events.filter(event=>{const key=event.id||event.slug;if(!key||seen.has(key))return false;seen.add(key);return true});
 }
 
 export async function updatePredictionMarkets(){
   const sports=await get("/sports"),wanted=(sports||[]).filter(s=>["nfl","ncaaf","cfb"].includes(String(s.sport||"").toLowerCase())||/college football/i.test(s.name||""));
   const collected=[];
   for(const sport of wanted){
-    const events=await eventsForTag(sport.primaryTagId||String(sport.tags||"").split(",").at(-1));
+    const events=await eventsForSport(sport);
     const league=String(sport.sport||"").toLowerCase()==="nfl"?"NFL":"College Football";
     collected.push(...events.map(event=>normalizePolymarketEvent(event,league)).filter(Boolean));
   }
