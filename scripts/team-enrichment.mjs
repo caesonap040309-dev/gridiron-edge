@@ -106,7 +106,7 @@ export function nflRefreshInterval(games,data,now=new Date()){
 }
 export async function loadNFLData(season,now=new Date(),games=[]){
   const path="data/nfl-enrichment.json",cached=await read(path,{games:{},sourceHealth:{}});
-  if(cached.season===season&&now-new Date(cached.updatedAt)<nflRefreshInterval(games,cached,now))return cached;
+  if(process.env.REFRESH_TEAM_STATS!=='1'&&cached.season===season&&now-new Date(cached.updatedAt)<nflRefreshInterval(games,cached,now))return cached;
   const base="https://github.com/nflverse/nflverse-data/releases/download/";
   const sources={snaps:"snap_counts/snap_counts_"+season+".csv",passing:"pfr_advstats/advstats_week_pass_"+season+".csv",rushing:"pfr_advstats/advstats_week_rush_"+season+".csv",
     charting:"ftn_charting/ftn_charting_"+season+".csv",pbp:"pbp/play_by_play_"+season+".csv.gz"};
@@ -244,7 +244,7 @@ export function dataQuality(game,event,now=new Date()){
 export async function loadCollegeAdvanced(season,now=new Date()){
   const path="data/college-enrichment.json",cached=await read(path,{rows:[],talent:[],recruiting:[],returning:[],sourceHealth:{}}),apiKey=process.env.CFBD_API_KEY?.trim();
   if(!apiKey)return {...cached,sourceStatus:cached.rows?.length?"cached; credentials unavailable":"not connected"};
-  if(cached.season===season&&now-new Date(cached.updatedAt)<6*3600000)return cached;
+  if(process.env.REFRESH_TEAM_STATS!=='1'&&cached.season===season&&now-new Date(cached.updatedAt)<6*3600000)return cached;
   const request=async(path,params)=>{
     const response=await fetch("https://api.collegefootballdata.com"+path+"?"+new URLSearchParams(params),{headers:{Authorization:"Bearer "+apiKey},signal:AbortSignal.timeout(30000)});
     if(!response.ok)throw Error(path+" "+response.status);

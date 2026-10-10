@@ -55,6 +55,8 @@ jobs:
         run: node --test tests/*.test.mjs
       - name: Refresh schedules scores and live game lines
         env:
+          # Requested updates recheck all completed-game stats and advanced feeds.
+          REFRESH_TEAM_STATS: ${{ github.event_name != 'schedule' && '1' || '0' }}
           SPORTSGAMEODDS_API_KEY: ${{ secrets.SPORTSGAMEODDS_API_KEY }}
           SPORTS_GAME_ODDS_API_KEY: ${{ secrets.SPORTS_GAME_ODDS_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}

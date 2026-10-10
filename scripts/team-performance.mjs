@@ -65,7 +65,15 @@ export function extractPerformance(summary,game){
   result.schemaVersion=6;
   return result;
 }
+export function performanceNeedsRefresh(game,cached,now=new Date(),force=false){
+  if(force||cached?.schemaVersion!==6)return true;
+  const fetched=new Date(cached.fetchedAt).getTime();
+  if(!Number.isFinite(fetched))return true;
+  const recent=now-new Date(game.date)<=7*86400000;
+  return now.getTime()-fetched>=(recent?6*3600000:7*86400000);
+}
 export async function loadPerformance(games,previous,sport){
+  const now=new Date(),force=process.env.REFRESH_TEAM_STATS==='1';
   const old=new Map((previous.games||[]).filter(game=>game.performance).map(game=>[String(game.id),game.performance]));
   for(const game of games){
     const cached=(previous.games||[]).find(item=>String(item.id)===String(game.id))?.injuries;
@@ -76,12 +84,12 @@ export async function loadPerformance(games,previous,sport){
   await Promise.all(Array.from({length:Math.min(6,finals.length)},async()=>{
     while(cursor<finals.length){
       const game=finals[cursor++];
-      if(old.get(String(game.id))?.schemaVersion===6){game.performance=old.get(String(game.id));continue}
+      if(!performanceNeedsRefresh(game,old.get(String(game.id)),now,force)){game.performance=old.get(String(game.id));continue}
       try{
-        const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${sport}/summary?event=${encodeURIComponent(game.id)}`);
+        const response=await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${sport}/summary?event=${encodeURIComponent(game.id)}`,{signal:AbortSignal.timeout(25000)});
         if(!response.ok)throw new Error(`ESPN summary ${response.status}`);
         const result=extractPerformance(await response.json(),game);
-        if(result)game.performance=result;
+        if(result)game.performance={...result,fetchedAt:now.toISOString(),source:'ESPN completed-game summary'};
       }catch{} // Missing detail must not erase cached metrics or change a projection.
       if(!game.performance&&old.has(String(game.id)))game.performance=old.get(String(game.id));
     }
