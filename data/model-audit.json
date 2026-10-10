@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-10T00:43:55.152Z",
+  "updatedAt": "2026-10-10T01:03:05.528Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1904,30 +1904,30 @@
     },
     "filters": {
       "games": {
-        "evaluated": 164,
+        "evaluated": 156,
         "qualified": 2,
-        "blockedByData": 124,
+        "blockedByData": 116,
         "belowBettingThresholds": 38,
         "reasons": {
-          "Listed injury status needs confirmation": 107,
-          "Fresh sportsbook lines unavailable": 14,
-          "Fresh quote at the modeled line unavailable": 16,
-          "Price outside standard betting range": 4,
+          "Listed injury status needs confirmation": 101,
           "Probability, price, evidence or edge below betting thresholds": 38,
-          "Current injury coverage unavailable": 10
+          "Fresh quote at the modeled line unavailable": 14,
+          "Fresh sportsbook lines unavailable": 12,
+          "Current injury coverage unavailable": 10,
+          "Price outside standard betting range": 3
         }
       },
       "props": {
-        "evaluated": 5557,
+        "evaluated": 4967,
         "qualified": 0,
-        "blockedByData": 5557,
+        "blockedByData": 4967,
         "belowBettingThresholds": 0,
         "reasons": {
-          "Prop quote needs refreshing": 5557,
-          "Prop quote or game inputs need a fresh update": 5105,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 2126,
-          "Independent projection unavailable": 474,
-          "Player listed unavailable or doubtful": 10
+          "Prop quote needs refreshing": 4967,
+          "Prop quote or game inputs need a fresh update": 4518,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 1942,
+          "Independent projection unavailable": 408,
+          "Player listed unavailable or doubtful": 7
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
