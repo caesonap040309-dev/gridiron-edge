@@ -8,12 +8,15 @@ const json=value=>{if(Array.isArray(value))return value;try{return JSON.parse(va
 
 function namedTeam(team){return team?.name||team?.title||team?.team||team?.abbreviation||null}
 function teamsFor(event){
+  const title=String(event?.title||event?.question||"");
+  const parts=title.split(/\s+(?:vs\.?|at|@)\s+/i);
+  if(parts.length===2)return{away:parts[0].trim(),home:parts[1].replace(/\s+-.*$/," ").trim()};
   const teams=event?.sports?.teams||event?.teams||[];
   const home=teams.find(team=>String(team?.ordering||team?.designation||team?.homeAway).toLowerCase()==="home");
   const away=teams.find(team=>String(team?.ordering||team?.designation||team?.homeAway).toLowerCase()==="away");
   if(namedTeam(home)&&namedTeam(away))return{home:namedTeam(home),away:namedTeam(away)};
-  const title=String(event?.title||event?.question||"");
-  const parts=title.split(/\s+(?:vs\.?|at|@)\s+/i);
+  const fallbackTitle=String(event?.title||event?.question||"");
+  const fallbackParts=fallbackTitle.split(/\s+(?:vs\.?|at|@)\s+/i);
   return parts.length===2?{away:parts[0].trim(),home:parts[1].replace(/\s+-.*$/,"").trim()}:{};
 }
 
@@ -33,9 +36,12 @@ export function normalizePolymarketEvent(event,league){
 
 async function get(path){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);try{const response=await fetch(`${API}${path}`,{headers:{accept:"application/json","user-agent":"GridironEdge/1.0"},signal:controller.signal});if(!response.ok)throw Error(`${path} returned ${response.status}`);return response.json()}finally{clearTimeout(timer)}}
 async function eventsForFilter(key,value){
-  const all=[];const limit=500;
-  for(let page=0;page<5;page++){
-    const query=new URLSearchParams({[key]:String(value),active:"true",closed:"false",limit:String(limit),offset:String(page*limit)});
+  // Gamma currently caps this endpoint at 100 results even when a larger
+  // limit is requested. Page explicitly so large CFB slates are not trapped
+  // behind resolved games from earlier weeks.
+  const all=[];const limit=100;
+  for(let page=0;page<20;page++){
+    const query=new URLSearchParams({[key]:String(value),active:"true",closed:"false",order:"startDate",ascending:"false",limit:String(limit),offset:String(page*limit)});
     const data=await get(`/events?${query}`),items=Array.isArray(data)?data:data.events||data.items||[];all.push(...items);
     if(!items.length||items.length<limit||data.has_more===false)break;
   }
