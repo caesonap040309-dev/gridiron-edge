@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T10:30:57.958Z",
+  "updatedAt": "2026-10-10T11:29:51.805Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 65,
@@ -8,7 +8,7 @@
       "epa": 65,
       "pressure": 64,
       "contact": 64,
-      "charting": 64
+      "charting": 65
     },
     "missingGames": [
       {
@@ -17,40 +17,39 @@
         "date": "2026-10-09T00:15Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       }
     ],
     "sourceHealth": {
-      "rushing": {
-        "status": "available",
-        "rows": 504,
-        "fetchedAt": "2026-10-10T10:29:28.946Z"
-      },
       "pbp": {
         "status": "available",
         "rows": 11327,
-        "fetchedAt": "2026-10-10T10:29:28.946Z"
+        "fetchedAt": "2026-10-10T11:29:44.928Z"
       },
-      "passing": {
+      "rushing": {
         "status": "available",
-        "rows": 150,
-        "fetchedAt": "2026-10-10T10:29:28.946Z"
-      },
-      "charting": {
-        "status": "available",
-        "rows": 10829,
-        "fetchedAt": "2026-10-10T10:29:28.946Z"
+        "rows": 504,
+        "fetchedAt": "2026-10-10T11:29:44.928Z"
       },
       "snaps": {
         "status": "available",
         "rows": 6064,
-        "fetchedAt": "2026-10-10T10:29:28.946Z"
+        "fetchedAt": "2026-10-10T11:29:44.928Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 10996,
+        "fetchedAt": "2026-10-10T11:29:44.928Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 150,
+        "fetchedAt": "2026-10-10T11:29:44.928Z"
       }
     },
-    "asOf": "2026-10-10T10:30:48.739Z"
+    "asOf": "2026-10-10T11:29:44.928Z"
   },
   "totalsLineage": [
     {
@@ -2024,7 +2023,7 @@
       "homeWin": 58.3,
       "marketBooks": 8,
       "spreadEdge": -0.1,
-      "totalEdge": -0.9,
+      "totalEdge": -0.8,
       "injuryUncertainty": 2
     },
     {
