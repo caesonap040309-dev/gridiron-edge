@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-10T21:54:06.752Z",
+  "updatedAt": "2026-10-10T22:30:21.468Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1904,29 +1904,29 @@
     },
     "filters": {
       "games": {
-        "evaluated": 98,
+        "evaluated": 96,
         "qualified": 0,
-        "blockedByData": 92,
+        "blockedByData": 90,
         "belowBettingThresholds": 6,
         "reasons": {
-          "Listed injury status needs confirmation": 78,
+          "Listed injury status needs confirmation": 75,
           "Probability, price, evidence or edge below betting thresholds": 6,
           "Current injury coverage unavailable": 7,
-          "Fresh sportsbook lines unavailable": 41,
-          "Fresh quote at the modeled line unavailable": 41
+          "Fresh sportsbook lines unavailable": 42,
+          "Fresh quote at the modeled line unavailable": 42
         }
       },
       "props": {
-        "evaluated": 382,
+        "evaluated": 356,
         "qualified": 0,
-        "blockedByData": 382,
+        "blockedByData": 356,
         "belowBettingThresholds": 0,
         "reasons": {
-          "Prop quote needs refreshing": 382,
-          "Prop quote or game inputs need a fresh update": 368,
+          "Prop quote needs refreshing": 356,
+          "Prop quote or game inputs need a fresh update": 343,
           "DFS payout depends on the full entry; sportsbook value cannot be assumed": 88,
-          "Player listed unavailable or doubtful": 2,
-          "Independent projection unavailable": 32
+          "Player listed unavailable or doubtful": 1,
+          "Independent projection unavailable": 27
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
