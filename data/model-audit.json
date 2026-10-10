@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-10T15:54:05.197Z",
+  "updatedAt": "2026-10-10T16:31:00.497Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1904,30 +1904,30 @@
     },
     "filters": {
       "games": {
-        "evaluated": 164,
+        "evaluated": 158,
         "qualified": 0,
-        "blockedByData": 155,
-        "belowBettingThresholds": 9,
+        "blockedByData": 152,
+        "belowBettingThresholds": 6,
         "reasons": {
-          "Listed injury status needs confirmation": 144,
-          "Probability, price, evidence or edge below betting thresholds": 9,
-          "Fresh sportsbook lines unavailable": 14,
-          "Current injury coverage unavailable": 10,
-          "Fresh quote at the modeled line unavailable": 15,
-          "Price outside standard betting range": 3
+          "Listed injury status needs confirmation": 139,
+          "Fresh sportsbook lines unavailable": 23,
+          "Current injury coverage unavailable": 11,
+          "Fresh quote at the modeled line unavailable": 25,
+          "Price outside standard betting range": 4,
+          "Probability, price, evidence or edge below betting thresholds": 6
         }
       },
       "props": {
-        "evaluated": 7162,
+        "evaluated": 4523,
         "qualified": 0,
-        "blockedByData": 7162,
+        "blockedByData": 4523,
         "belowBettingThresholds": 0,
         "reasons": {
-          "Prop quote needs refreshing": 7162,
-          "Prop quote or game inputs need a fresh update": 6968,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 2745,
-          "Independent projection unavailable": 575,
-          "Player listed unavailable or doubtful": 15
+          "Prop quote needs refreshing": 4523,
+          "Prop quote or game inputs need a fresh update": 4495,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 1607,
+          "Independent projection unavailable": 383,
+          "Player listed unavailable or doubtful": 9
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
