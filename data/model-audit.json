@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-10T17:53:04.037Z",
+  "updatedAt": "2026-10-10T18:34:31.517Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1904,30 +1904,29 @@
     },
     "filters": {
       "games": {
-        "evaluated": 139,
+        "evaluated": 137,
         "qualified": 0,
-        "blockedByData": 133,
+        "blockedByData": 131,
         "belowBettingThresholds": 6,
         "reasons": {
-          "Fresh sportsbook lines unavailable": 31,
-          "Listed injury status needs confirmation": 122,
-          "Fresh quote at the modeled line unavailable": 32,
-          "Price outside standard betting range": 1,
+          "Listed injury status needs confirmation": 120,
+          "Fresh quote at the modeled line unavailable": 30,
           "Current injury coverage unavailable": 9,
-          "Probability, price, evidence or edge below betting thresholds": 6
+          "Probability, price, evidence or edge below betting thresholds": 6,
+          "Fresh sportsbook lines unavailable": 29
         }
       },
       "props": {
-        "evaluated": 4584,
+        "evaluated": 4568,
         "qualified": 0,
-        "blockedByData": 4576,
+        "blockedByData": 4560,
         "belowBettingThresholds": 8,
         "reasons": {
-          "Prop quote or game inputs need a fresh update": 4564,
-          "Prop quote needs refreshing": 3126,
+          "Prop quote or game inputs need a fresh update": 4548,
+          "Prop quote needs refreshing": 3117,
           "DFS payout depends on the full entry; sportsbook value cannot be assumed": 1621,
           "Sample, probability or price edge below betting thresholds": 8,
-          "Independent projection unavailable": 416,
+          "Independent projection unavailable": 410,
           "Player listed unavailable or doubtful": 8
         }
       },
