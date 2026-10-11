@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-11T05:31:48.067Z",
+  "updatedAt": "2026-10-11T05:32:58.224Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -5218,16 +5218,17 @@
         }
       },
       "props": {
-        "evaluated": 15692,
+        "evaluated": 17211,
         "qualified": 0,
-        "blockedByData": 15692,
-        "belowBettingThresholds": 0,
+        "blockedByData": 13619,
+        "belowBettingThresholds": 3592,
         "reasons": {
-          "Prop quote needs refreshing": 15692,
-          "Prop quote or game inputs need a fresh update": 10424,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 3650,
-          "Player listed unavailable or doubtful": 87,
-          "Independent projection unavailable": 2522
+          "Prop quote needs refreshing": 11574,
+          "Prop quote or game inputs need a fresh update": 11462,
+          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 3924,
+          "Sample, probability or price edge below betting thresholds": 3592,
+          "Player listed unavailable or doubtful": 113,
+          "Independent projection unavailable": 2903
         }
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
