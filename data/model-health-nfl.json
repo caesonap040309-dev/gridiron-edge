@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-10-11T10:31:31.582Z",
+  "updatedAt": "2026-10-11T11:30:43.960Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 65,
     "coveredGames": {
       "snaps": 65,
       "epa": 65,
-      "pressure": 64,
-      "contact": 64,
+      "pressure": 65,
+      "contact": 65,
       "charting": 65
     },
-    "missingGames": [
-      {
-        "id": "401872980",
-        "game": "Tampa Bay Buccaneers at Dallas Cowboys",
-        "date": "2026-10-09T00:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
-      "passing": {
-        "status": "available",
-        "rows": 150,
-        "fetchedAt": "2026-10-11T10:31:22.692Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 504,
-        "fetchedAt": "2026-10-11T10:31:22.692Z"
-      },
       "snaps": {
         "status": "available",
         "rows": 6064,
-        "fetchedAt": "2026-10-11T10:31:22.692Z"
+        "fetchedAt": "2026-10-11T11:30:37.980Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 512,
+        "fetchedAt": "2026-10-11T11:30:37.980Z"
       },
       "pbp": {
         "status": "available",
         "rows": 11327,
-        "fetchedAt": "2026-10-11T10:31:22.692Z"
+        "fetchedAt": "2026-10-11T11:30:37.980Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 152,
+        "fetchedAt": "2026-10-11T11:30:37.980Z"
       },
       "charting": {
         "status": "available",
         "rows": 10996,
-        "fetchedAt": "2026-10-11T10:31:22.692Z"
+        "fetchedAt": "2026-10-11T11:30:37.980Z"
       }
     },
-    "asOf": "2026-10-11T10:31:22.692Z"
+    "asOf": "2026-10-11T11:30:37.980Z"
   },
   "totalsLineage": [
     {
@@ -1962,12 +1951,12 @@
       "sample": 5.3,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.823,
-      "homeWin": 44.4,
+      "reliability": 0.832,
+      "homeWin": 44.8,
       "marketBooks": 9,
-      "spreadEdge": -0.8,
-      "totalEdge": -0.9,
-      "injuryUncertainty": 1.7
+      "spreadEdge": -0.6,
+      "totalEdge": -0.8,
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Houston Texans at Tennessee Titans",
@@ -1983,7 +1972,7 @@
       "observedGames": 38,
       "reliability": 0.814,
       "homeWin": 34.5,
-      "marketBooks": 9,
+      "marketBooks": 8,
       "spreadEdge": 0.2,
       "totalEdge": 0.5,
       "injuryUncertainty": 2.5
@@ -2002,7 +1991,7 @@
       "observedGames": 38,
       "reliability": 0.833,
       "homeWin": 34.4,
-      "marketBooks": 9,
+      "marketBooks": 8,
       "spreadEdge": 0.3,
       "totalEdge": 0.3,
       "injuryUncertainty": 2
@@ -2021,9 +2010,9 @@
       "observedGames": 38,
       "reliability": 0.835,
       "homeWin": 58.6,
-      "marketBooks": 9,
+      "marketBooks": 8,
       "spreadEdge": 0.1,
-      "totalEdge": -0.8,
+      "totalEdge": -1,
       "injuryUncertainty": 2
     },
     {
@@ -2040,7 +2029,7 @@
       "observedGames": 38,
       "reliability": 0.817,
       "homeWin": 42.1,
-      "marketBooks": 9,
+      "marketBooks": 8,
       "spreadEdge": -0.8,
       "totalEdge": 0.2,
       "injuryUncertainty": 2
@@ -2078,7 +2067,7 @@
       "observedGames": 38,
       "reliability": 0.827,
       "homeWin": 54.8,
-      "marketBooks": 9,
+      "marketBooks": 8,
       "spreadEdge": -0.5,
       "totalEdge": 1.2,
       "injuryUncertainty": 2.1
@@ -2097,7 +2086,7 @@
       "observedGames": 38,
       "reliability": 0.766,
       "homeWin": 56.8,
-      "marketBooks": 9,
+      "marketBooks": 8,
       "spreadEdge": -0.4,
       "totalEdge": 1,
       "injuryUncertainty": 3.5
