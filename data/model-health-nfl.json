@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T05:31:39.398Z",
+  "updatedAt": "2026-10-11T06:38:22.768Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 65,
@@ -23,33 +23,33 @@
       }
     ],
     "sourceHealth": {
-      "passing": {
-        "status": "available",
-        "rows": 150,
-        "fetchedAt": "2026-10-11T05:31:29.941Z"
-      },
       "snaps": {
         "status": "available",
         "rows": 6064,
-        "fetchedAt": "2026-10-11T05:31:29.941Z"
+        "fetchedAt": "2026-10-11T06:38:14.816Z"
       },
       "rushing": {
         "status": "available",
         "rows": 504,
-        "fetchedAt": "2026-10-11T05:31:29.941Z"
+        "fetchedAt": "2026-10-11T06:38:14.816Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 150,
+        "fetchedAt": "2026-10-11T06:38:14.816Z"
       },
       "pbp": {
         "status": "available",
         "rows": 11327,
-        "fetchedAt": "2026-10-11T05:31:29.941Z"
+        "fetchedAt": "2026-10-11T06:38:14.816Z"
       },
       "charting": {
         "status": "available",
         "rows": 10996,
-        "fetchedAt": "2026-10-11T05:31:29.941Z"
+        "fetchedAt": "2026-10-11T06:38:14.816Z"
       }
     },
-    "asOf": "2026-10-11T05:31:29.941Z"
+    "asOf": "2026-10-11T06:38:14.816Z"
   },
   "totalsLineage": [
     {
@@ -1925,30 +1925,30 @@
     "marginSamples": 16
   },
   "confidenceDistribution": {
-    "High": 12,
-    "Medium": 85,
+    "High": 11,
+    "Medium": 86,
     "Low": 161,
     "Missing": 14
   },
   "confidenceSamples": [
     {
       "game": "Philadelphia Eagles at Jacksonville Jaguars",
-      "confidence": "High",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "High",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 92,
+      "confidenceScore": 91,
       "sample": 5.6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.844,
-      "homeWin": 69.3,
+      "reliability": 0.835,
+      "homeWin": 68.6,
       "marketBooks": 9,
-      "spreadEdge": 0.4,
-      "totalEdge": -0.3,
-      "injuryUncertainty": 1.4
+      "spreadEdge": 0.1,
+      "totalEdge": -0.2,
+      "injuryUncertainty": 1.6
     },
     {
       "game": "Chicago Bears at Green Bay Packers",
@@ -1962,12 +1962,12 @@
       "sample": 5.3,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.832,
-      "homeWin": 44.8,
+      "reliability": 0.823,
+      "homeWin": 44.4,
       "marketBooks": 9,
-      "spreadEdge": -0.6,
+      "spreadEdge": -0.8,
       "totalEdge": -0.8,
-      "injuryUncertainty": 1.4
+      "injuryUncertainty": 1.7
     },
     {
       "game": "Houston Texans at Tennessee Titans",
@@ -2134,7 +2134,7 @@
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.858,
-      "homeWin": 37.7,
+      "homeWin": 37.6,
       "marketBooks": 9,
       "spreadEdge": 0.5,
       "totalEdge": -0.5,
