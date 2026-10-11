@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-11T19:30:40.121Z",
+  "updatedAt": "2026-10-11T20:31:31.581Z",
   "modelVersion": 17,
   "dataCoverage": {
-    "completedGames": 66,
+    "completedGames": 73,
     "coveredGames": {
       "snaps": 65,
       "epa": 65,
@@ -23,65 +23,129 @@
           "charting"
         ],
         "retryDue": true
+      },
+      {
+        "id": "401872990",
+        "game": "Chicago Bears at Green Bay Packers",
+        "date": "2026-10-11T17:00Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
+      },
+      {
+        "id": "401872984",
+        "game": "Houston Texans at Tennessee Titans",
+        "date": "2026-10-11T17:00Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
+      },
+      {
+        "id": "401872982",
+        "game": "Cincinnati Bengals at Miami Dolphins",
+        "date": "2026-10-11T17:00Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
+      },
+      {
+        "id": "401872986",
+        "game": "Las Vegas Raiders at New England Patriots",
+        "date": "2026-10-11T17:00Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
+      },
+      {
+        "id": "401872987",
+        "game": "Minnesota Vikings at New Orleans Saints",
+        "date": "2026-10-11T17:00Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
+      },
+      {
+        "id": "401872983",
+        "game": "Cleveland Browns at New York Jets",
+        "date": "2026-10-11T17:00Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
+      },
+      {
+        "id": "401872985",
+        "game": "Indianapolis Colts at Pittsburgh Steelers",
+        "date": "2026-10-11T17:00Z",
+        "fields": [
+          "snaps",
+          "epa",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": false
       }
     ],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 6064,
-        "fetchedAt": "2026-10-11T19:30:31.873Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 11327,
-        "fetchedAt": "2026-10-11T19:30:31.873Z"
-      },
       "passing": {
         "status": "available",
         "rows": 152,
-        "fetchedAt": "2026-10-11T19:30:31.873Z"
+        "fetchedAt": "2026-10-11T20:31:20.911Z"
       },
       "rushing": {
         "status": "available",
         "rows": 512,
-        "fetchedAt": "2026-10-11T19:30:31.873Z"
+        "fetchedAt": "2026-10-11T20:31:20.911Z"
       },
       "charting": {
         "status": "available",
         "rows": 10996,
-        "fetchedAt": "2026-10-11T19:30:31.873Z"
+        "fetchedAt": "2026-10-11T20:31:20.911Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 6064,
+        "fetchedAt": "2026-10-11T20:31:20.911Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 11327,
+        "fetchedAt": "2026-10-11T20:31:20.911Z"
       }
     },
-    "asOf": "2026-10-11T19:30:31.873Z"
+    "asOf": "2026-10-11T20:31:20.911Z"
   },
   "totalsLineage": [
-    {
-      "id": "401872989",
-      "home": "Los Angeles Chargers",
-      "away": "Denver Broncos",
-      "verified": true,
-      "possessionEvidence": true,
-      "matchupTerms": 4,
-      "appliedAdjustment": 0.14
-    },
-    {
-      "id": "401872991",
-      "home": "Arizona Cardinals",
-      "away": "Detroit Lions",
-      "verified": true,
-      "possessionEvidence": true,
-      "matchupTerms": 4,
-      "appliedAdjustment": 0.83
-    },
-    {
-      "id": "401872992",
-      "home": "Seattle Seahawks",
-      "away": "San Francisco 49ers",
-      "verified": true,
-      "possessionEvidence": true,
-      "matchupTerms": 4,
-      "appliedAdjustment": 0.27
-    },
     {
       "id": "401872993",
       "home": "Atlanta Falcons",
@@ -98,7 +162,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.36
+      "appliedAdjustment": 0.39
     },
     {
       "id": "401872995",
@@ -107,7 +171,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.28
+      "appliedAdjustment": 0.27
     },
     {
       "id": "401872996",
@@ -116,7 +180,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.62
+      "appliedAdjustment": -0.93
     },
     {
       "id": "401872999",
@@ -125,7 +189,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 3,
-      "appliedAdjustment": -0.53
+      "appliedAdjustment": 0.45
     },
     {
       "id": "401872997",
@@ -134,7 +198,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.44
+      "appliedAdjustment": 0.52
     },
     {
       "id": "401873003",
@@ -143,7 +207,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.68
+      "appliedAdjustment": -1
     },
     {
       "id": "401873001",
@@ -152,7 +216,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.42
+      "appliedAdjustment": -0.54
     },
     {
       "id": "401873000",
@@ -161,7 +225,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.7
+      "appliedAdjustment": -0.37
     },
     {
       "id": "401872998",
@@ -170,7 +234,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.38
+      "appliedAdjustment": 0.37
     },
     {
       "id": "401873002",
@@ -179,7 +243,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 1
+      "appliedAdjustment": 0.98
     },
     {
       "id": "401873004",
@@ -206,7 +270,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.67
+      "appliedAdjustment": 0.32
     },
     {
       "id": "401873007",
@@ -215,7 +279,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.48
+      "appliedAdjustment": -0.55
     },
     {
       "id": "401873008",
@@ -233,7 +297,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.44
+      "appliedAdjustment": -0.38
     },
     {
       "id": "401873011",
@@ -242,7 +306,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 1
+      "appliedAdjustment": 0.59
     },
     {
       "id": "401873017",
@@ -260,7 +324,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -1
+      "appliedAdjustment": -0.27
     },
     {
       "id": "401873014",
@@ -269,7 +333,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.25
+      "appliedAdjustment": 0.28
     },
     {
       "id": "401873015",
@@ -278,7 +342,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.42
+      "appliedAdjustment": -0.43
     },
     {
       "id": "401873018",
@@ -296,7 +360,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.75
+      "appliedAdjustment": -0.62
     },
     {
       "id": "401873016",
@@ -305,7 +369,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.18
+      "appliedAdjustment": -0.59
     },
     {
       "id": "401873019",
@@ -314,7 +378,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.28
+      "appliedAdjustment": -0.26
     },
     {
       "id": "401873020",
@@ -323,7 +387,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.91
+      "appliedAdjustment": 1
     },
     {
       "id": "401873021",
@@ -332,7 +396,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.8
+      "appliedAdjustment": 0.79
     },
     {
       "id": "401873022",
@@ -359,7 +423,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.85
+      "appliedAdjustment": 0.7
     },
     {
       "id": "401873026",
@@ -368,7 +432,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.07
+      "appliedAdjustment": -0.04
     },
     {
       "id": "401873031",
@@ -377,7 +441,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.87
+      "appliedAdjustment": -0.58
     },
     {
       "id": "401873024",
@@ -386,7 +450,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.59
+      "appliedAdjustment": -0.57
     },
     {
       "id": "401873030",
@@ -395,7 +459,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.21
+      "appliedAdjustment": 0.06
     },
     {
       "id": "401873029",
@@ -404,7 +468,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.14
+      "appliedAdjustment": 0.84
     },
     {
       "id": "401873027",
@@ -413,7 +477,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.89
+      "appliedAdjustment": 0.68
     },
     {
       "id": "401873025",
@@ -431,7 +495,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.73
+      "appliedAdjustment": -1
     },
     {
       "id": "401873032",
@@ -458,7 +522,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.61
+      "appliedAdjustment": -0.58
     },
     {
       "id": "401873035",
@@ -476,7 +540,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.8
+      "appliedAdjustment": 0.84
     },
     {
       "id": "401873037",
@@ -485,7 +549,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.55
+      "appliedAdjustment": -0.53
     },
     {
       "id": "401873038",
@@ -494,7 +558,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 3,
-      "appliedAdjustment": -0.73
+      "appliedAdjustment": -0.63
     },
     {
       "id": "401873040",
@@ -503,7 +567,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -1
+      "appliedAdjustment": -0.89
     },
     {
       "id": "401873045",
@@ -512,7 +576,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.45
+      "appliedAdjustment": -0.28
     },
     {
       "id": "401873042",
@@ -521,7 +585,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.46
+      "appliedAdjustment": -0.44
     },
     {
       "id": "401873039",
@@ -530,7 +594,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.77
+      "appliedAdjustment": 0.67
     },
     {
       "id": "401873044",
@@ -539,7 +603,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.17
+      "appliedAdjustment": 0.19
     },
     {
       "id": "401873043",
@@ -557,7 +621,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.44
+      "appliedAdjustment": -0.41
     },
     {
       "id": "401873046",
@@ -566,7 +630,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.37
+      "appliedAdjustment": 0.44
     },
     {
       "id": "401873047",
@@ -575,7 +639,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.28
+      "appliedAdjustment": -0.42
     },
     {
       "id": "401873049",
@@ -584,7 +648,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.27
+      "appliedAdjustment": 0.61
     },
     {
       "id": "401873048",
@@ -602,7 +666,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.42
+      "appliedAdjustment": 0.9
     },
     {
       "id": "401873051",
@@ -611,7 +675,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.34
+      "appliedAdjustment": -0.49
     },
     {
       "id": "401873052",
@@ -620,7 +684,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.64
+      "appliedAdjustment": 0.67
     },
     {
       "id": "401873053",
@@ -629,7 +693,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.53
+      "appliedAdjustment": -0.58
     },
     {
       "id": "401873058",
@@ -638,7 +702,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 3,
-      "appliedAdjustment": 0.21
+      "appliedAdjustment": 0.23
     },
     {
       "id": "401873056",
@@ -647,7 +711,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.21
+      "appliedAdjustment": 0.55
     },
     {
       "id": "401873060",
@@ -656,7 +720,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.63
+      "appliedAdjustment": 0.48
     },
     {
       "id": "401873057",
@@ -674,7 +738,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.96
+      "appliedAdjustment": -0.72
     },
     {
       "id": "401873055",
@@ -683,7 +747,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.82
+      "appliedAdjustment": 0.73
     },
     {
       "id": "401873054",
@@ -692,7 +756,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.49
+      "appliedAdjustment": -0.61
     },
     {
       "id": "401873062",
@@ -701,7 +765,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.82
+      "appliedAdjustment": 0.78
     },
     {
       "id": "401873061",
@@ -728,7 +792,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.25
+      "appliedAdjustment": -0.29
     },
     {
       "id": "401873065",
@@ -746,7 +810,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.4
+      "appliedAdjustment": -0.49
     },
     {
       "id": "401873070",
@@ -755,7 +819,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.66
+      "appliedAdjustment": -0.64
     },
     {
       "id": "401873071",
@@ -764,7 +828,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.08
+      "appliedAdjustment": 0.03
     },
     {
       "id": "401873073",
@@ -773,7 +837,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.91
+      "appliedAdjustment": -0.82
     },
     {
       "id": "401873072",
@@ -782,7 +846,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.45
+      "appliedAdjustment": 0.47
     },
     {
       "id": "401873067",
@@ -818,7 +882,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.22
+      "appliedAdjustment": 0.55
     },
     {
       "id": "401873075",
@@ -827,7 +891,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.08
+      "appliedAdjustment": -0.21
     },
     {
       "id": "401873076",
@@ -836,7 +900,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.73
+      "appliedAdjustment": 0.58
     },
     {
       "id": "401873077",
@@ -854,7 +918,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.7
+      "appliedAdjustment": -0.51
     },
     {
       "id": "401873079",
@@ -863,7 +927,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.83
+      "appliedAdjustment": 0.69
     },
     {
       "id": "401873081",
@@ -872,7 +936,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.43
+      "appliedAdjustment": -0.08
     },
     {
       "id": "401873080",
@@ -899,7 +963,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.13
+      "appliedAdjustment": -0.62
     },
     {
       "id": "401873087",
@@ -908,7 +972,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.45
+      "appliedAdjustment": -0.32
     },
     {
       "id": "401873086",
@@ -917,7 +981,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.85
+      "appliedAdjustment": 0.77
     },
     {
       "id": "401873088",
@@ -926,7 +990,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.17
+      "appliedAdjustment": -0.24
     },
     {
       "id": "401873089",
@@ -935,7 +999,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.42
+      "appliedAdjustment": -0.43
     },
     {
       "id": "401873084",
@@ -944,7 +1008,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 3,
-      "appliedAdjustment": 0.49
+      "appliedAdjustment": 0.41
     },
     {
       "id": "401873085",
@@ -953,7 +1017,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.65
+      "appliedAdjustment": 0.3
     },
     {
       "id": "401873090",
@@ -980,7 +1044,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.27
+      "appliedAdjustment": 0.29
     },
     {
       "id": "401873093",
@@ -989,7 +1053,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.5
+      "appliedAdjustment": 0.45
     },
     {
       "id": "401873094",
@@ -1016,7 +1080,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 3,
-      "appliedAdjustment": 0.05
+      "appliedAdjustment": 0.08
     },
     {
       "id": "401873100",
@@ -1025,7 +1089,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.76
+      "appliedAdjustment": -0.72
     },
     {
       "id": "401873097",
@@ -1034,7 +1098,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.8
+      "appliedAdjustment": -0.59
     },
     {
       "id": "401873102",
@@ -1043,7 +1107,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.16
+      "appliedAdjustment": -0.19
     },
     {
       "id": "401873099",
@@ -1070,7 +1134,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.49
+      "appliedAdjustment": 0.48
     },
     {
       "id": "401873103",
@@ -1079,7 +1143,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.96
+      "appliedAdjustment": -0.94
     },
     {
       "id": "401873104",
@@ -1097,7 +1161,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.38
+      "appliedAdjustment": 0.39
     },
     {
       "id": "401873105",
@@ -1106,7 +1170,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.67
+      "appliedAdjustment": -0.71
     },
     {
       "id": "401873107",
@@ -1115,7 +1179,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.97
+      "appliedAdjustment": 0.15
     },
     {
       "id": "401873108",
@@ -1124,7 +1188,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.42
+      "appliedAdjustment": 0.45
     },
     {
       "id": "401873109",
@@ -1133,7 +1197,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.25
+      "appliedAdjustment": -0.33
     },
     {
       "id": "401873110",
@@ -1142,7 +1206,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 3,
-      "appliedAdjustment": 0.13
+      "appliedAdjustment": 0.67
     },
     {
       "id": "401873117",
@@ -1151,7 +1215,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.76
+      "appliedAdjustment": -0.65
     },
     {
       "id": "401873111",
@@ -1160,7 +1224,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.51
+      "appliedAdjustment": -0.34
     },
     {
       "id": "401873112",
@@ -1169,7 +1233,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.83
+      "appliedAdjustment": -0.95
     },
     {
       "id": "401873114",
@@ -1178,7 +1242,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.17
+      "appliedAdjustment": 0.26
     },
     {
       "id": "401873113",
@@ -1187,7 +1251,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.7
+      "appliedAdjustment": 0.57
     },
     {
       "id": "401873115",
@@ -1196,7 +1260,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.82
+      "appliedAdjustment": 0.73
     },
     {
       "id": "401873116",
@@ -1205,7 +1269,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.74
+      "appliedAdjustment": 0.73
     },
     {
       "id": "401873118",
@@ -1214,7 +1278,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.62
+      "appliedAdjustment": 0.58
     },
     {
       "id": "401873119",
@@ -1223,7 +1287,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.62
+      "appliedAdjustment": -0.48
     },
     {
       "id": "401873120",
@@ -1232,7 +1296,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.61
+      "appliedAdjustment": -0.59
     },
     {
       "id": "401873121",
@@ -1250,7 +1314,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.26
+      "appliedAdjustment": 0.37
     },
     {
       "id": "401873123",
@@ -1259,7 +1323,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.18
+      "appliedAdjustment": -0.73
     },
     {
       "id": "401873124",
@@ -1268,7 +1332,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.12
+      "appliedAdjustment": 0.14
     },
     {
       "id": "401873125",
@@ -1277,7 +1341,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.32
+      "appliedAdjustment": 0.31
     },
     {
       "id": "401873126",
@@ -1286,7 +1350,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.54
+      "appliedAdjustment": -0.51
     },
     {
       "id": "401873133",
@@ -1295,7 +1359,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.43
+      "appliedAdjustment": -0.48
     },
     {
       "id": "401873131",
@@ -1304,7 +1368,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.68
+      "appliedAdjustment": -1
     },
     {
       "id": "401873130",
@@ -1313,7 +1377,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.47
+      "appliedAdjustment": 0.56
     },
     {
       "id": "401873128",
@@ -1322,7 +1386,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.92
+      "appliedAdjustment": 0.79
     },
     {
       "id": "401873134",
@@ -1331,7 +1395,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 1
+      "appliedAdjustment": 0.62
     },
     {
       "id": "401873127",
@@ -1349,7 +1413,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.81
+      "appliedAdjustment": -0.66
     },
     {
       "id": "401873132",
@@ -1358,7 +1422,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.62
+      "appliedAdjustment": -0.93
     },
     {
       "id": "401873135",
@@ -1367,7 +1431,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.58
+      "appliedAdjustment": 0.6
     },
     {
       "id": "401873137",
@@ -1376,7 +1440,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.08
+      "appliedAdjustment": -0.21
     },
     {
       "id": "401873136",
@@ -1385,7 +1449,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.49
+      "appliedAdjustment": -0.46
     },
     {
       "id": "401873138",
@@ -1394,7 +1458,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.21
+      "appliedAdjustment": 0.06
     },
     {
       "id": "401873139",
@@ -1403,7 +1467,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.6
+      "appliedAdjustment": -0.47
     },
     {
       "id": "401873140",
@@ -1412,7 +1476,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.45
+      "appliedAdjustment": 0.16
     },
     {
       "id": "401873141",
@@ -1421,7 +1485,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.14
+      "appliedAdjustment": 1
     },
     {
       "id": "401873142",
@@ -1439,7 +1503,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.5
+      "appliedAdjustment": 0.49
     },
     {
       "id": "401873146",
@@ -1457,7 +1521,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -1
+      "appliedAdjustment": -0.66
     },
     {
       "id": "401873147",
@@ -1475,7 +1539,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.88
+      "appliedAdjustment": 0.76
     },
     {
       "id": "401873150",
@@ -1484,7 +1548,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.03
+      "appliedAdjustment": 0.13
     },
     {
       "id": "401873148",
@@ -1493,7 +1557,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.84
+      "appliedAdjustment": 0.76
     },
     {
       "id": "401873151",
@@ -1502,7 +1566,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.42
+      "appliedAdjustment": -0.54
     },
     {
       "id": "401873149",
@@ -1511,7 +1575,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.44
+      "appliedAdjustment": 0.52
     },
     {
       "id": "401873152",
@@ -1520,7 +1584,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.18
+      "appliedAdjustment": -0.19
     },
     {
       "id": "401873153",
@@ -1529,7 +1593,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.54
+      "appliedAdjustment": -0.55
     },
     {
       "id": "401873154",
@@ -1547,7 +1611,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.51
+      "appliedAdjustment": -0.49
     },
     {
       "id": "401873156",
@@ -1848,73 +1912,16 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 91,
-    "Low": 156,
+    "Medium": 105,
+    "Low": 142,
     "Missing": 14
   },
   "confidenceSamples": [
     {
-      "game": "Denver Broncos at Los Angeles Chargers",
-      "confidence": "Low",
-      "confidenceByMarket": {
-        "moneyline": "Low",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 61,
-      "sample": 5.9,
-      "evidenceGames": 8,
-      "observedGames": 38,
-      "reliability": 0.906,
-      "homeWin": 44,
-      "marketBooks": 8,
-      "spreadEdge": 1.2,
-      "totalEdge": -0.6,
-      "injuryUncertainty": 0
-    },
-    {
-      "game": "Detroit Lions at Arizona Cardinals",
+      "game": "Baltimore Ravens at Atlanta Falcons",
       "confidence": "Medium",
       "confidenceByMarket": {
         "moneyline": "Medium",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 90,
-      "sample": 5.8,
-      "evidenceGames": 8,
-      "observedGames": 38,
-      "reliability": 0.902,
-      "homeWin": 34.8,
-      "marketBooks": 8,
-      "spreadEdge": -0.5,
-      "totalEdge": -0.6,
-      "injuryUncertainty": 0
-    },
-    {
-      "game": "San Francisco 49ers at Seattle Seahawks",
-      "confidence": "Low",
-      "confidenceByMarket": {
-        "moneyline": "Low",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 61,
-      "sample": 5.5,
-      "evidenceGames": 8,
-      "observedGames": 38,
-      "reliability": 0.89,
-      "homeWin": 56.2,
-      "marketBooks": 8,
-      "spreadEdge": -0.6,
-      "totalEdge": -0.7,
-      "injuryUncertainty": 0
-    },
-    {
-      "game": "Baltimore Ravens at Atlanta Falcons",
-      "confidence": "Low",
-      "confidenceByMarket": {
-        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
@@ -1923,10 +1930,10 @@
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.831,
-      "homeWin": 57.9,
+      "homeWin": 58.1,
       "marketBooks": 8,
-      "spreadEdge": -0.2,
-      "totalEdge": 1,
+      "spreadEdge": -0.1,
+      "totalEdge": 1.1,
       "injuryUncertainty": 1.8
     },
     {
@@ -1942,9 +1949,9 @@
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.823,
-      "homeWin": 57.7,
+      "homeWin": 57.5,
       "marketBooks": 8,
-      "spreadEdge": -0.3,
+      "spreadEdge": -0.4,
       "totalEdge": -0.9,
       "injuryUncertainty": 2.3
     },
@@ -1956,12 +1963,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 50,
+      "confidenceScore": 51,
       "sample": 5.5,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.678,
-      "homeWin": 43.5,
+      "homeWin": 43.2,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
@@ -1969,22 +1976,22 @@
     },
     {
       "game": "Houston Texans at Jacksonville Jaguars",
-      "confidence": "Medium",
+      "confidence": "Low",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
-      "sample": 5.9,
+      "confidenceScore": 40,
+      "sample": 6.9,
       "evidenceGames": 8,
-      "observedGames": 38,
-      "reliability": 0.671,
-      "homeWin": 58.4,
+      "observedGames": 39,
+      "reliability": 0.687,
+      "homeWin": 55.5,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
-      "injuryUncertainty": 0.8
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Chicago Bears at Atlanta Falcons",
@@ -1994,16 +2001,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 36,
+      "confidenceScore": 25,
       "sample": 5.6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.631,
-      "homeWin": 44.9,
+      "reliability": 0.624,
+      "homeWin": 51.9,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
-      "injuryUncertainty": 1.8
+      "injuryUncertainty": 2.1
     },
     {
       "game": "Baltimore Ravens at Cleveland Browns",
@@ -2013,16 +2020,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 50,
-      "sample": 5.8,
+      "confidenceScore": 44,
+      "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.666,
-      "homeWin": 42.4,
+      "reliability": 0.642,
+      "homeWin": 42.5,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
-      "injuryUncertainty": 0.8
+      "injuryUncertainty": 1.8
     },
     {
       "game": "Tennessee Titans at Indianapolis Colts",
@@ -2032,12 +2039,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 65,
-      "sample": 5.9,
+      "confidenceScore": 72,
+      "sample": 6.9,
       "evidenceGames": 8,
-      "observedGames": 38,
-      "reliability": 0.667,
-      "homeWin": 62.5,
+      "observedGames": 39,
+      "reliability": 0.701,
+      "homeWin": 64.6,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
@@ -2051,12 +2058,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 62,
-      "sample": 5.8,
+      "confidenceScore": 77,
+      "sample": 6.7,
       "evidenceGames": 8,
-      "observedGames": 38,
-      "reliability": 0.658,
-      "homeWin": 61.7,
+      "observedGames": 39,
+      "reliability": 0.688,
+      "homeWin": 66.4,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
@@ -2064,22 +2071,79 @@
     },
     {
       "game": "New Orleans Saints at New York Giants",
+      "confidence": "Medium",
+      "confidenceByMarket": {
+        "moneyline": "Medium",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 57,
+      "sample": 5.9,
+      "evidenceGames": 8,
+      "observedGames": 38,
+      "reliability": 0.668,
+      "homeWin": 59.8,
+      "marketBooks": 0,
+      "spreadEdge": null,
+      "totalEdge": null,
+      "injuryUncertainty": 0.9
+    },
+    {
+      "game": "Carolina Panthers at Philadelphia Eagles",
       "confidence": "Low",
       "confidenceByMarket": {
         "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 48,
-      "sample": 5.9,
+      "confidenceScore": 21,
+      "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.692,
-      "homeWin": 55.8,
+      "reliability": 0.63,
+      "homeWin": 50.7,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
-      "injuryUncertainty": 0
+      "injuryUncertainty": 2.1
+    },
+    {
+      "game": "Pittsburgh Steelers at Tampa Bay Buccaneers",
+      "confidence": "Low",
+      "confidenceByMarket": {
+        "moneyline": "Low",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 35,
+      "sample": 6.1,
+      "evidenceGames": 8,
+      "observedGames": 39,
+      "reliability": 0.673,
+      "homeWin": 53.2,
+      "marketBooks": 0,
+      "spreadEdge": null,
+      "totalEdge": null,
+      "injuryUncertainty": 0.9
+    },
+    {
+      "game": "Arizona Cardinals at Los Angeles Rams",
+      "confidence": "Medium",
+      "confidenceByMarket": {
+        "moneyline": "Medium",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 81,
+      "sample": 5.9,
+      "evidenceGames": 8,
+      "observedGames": 38,
+      "reliability": 0.658,
+      "homeWin": 72.7,
+      "marketBooks": 0,
+      "spreadEdge": null,
+      "totalEdge": null,
+      "injuryUncertainty": 1.2
     }
   ]
 }
