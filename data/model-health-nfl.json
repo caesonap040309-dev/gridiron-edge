@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T21:32:05.889Z",
+  "updatedAt": "2026-10-12T22:32:18.615Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 78,
@@ -156,33 +156,33 @@
       }
     ],
     "sourceHealth": {
+      "rushing": {
+        "status": "available",
+        "rows": 512,
+        "fetchedAt": "2026-10-12T22:32:11.061Z"
+      },
       "snaps": {
         "status": "available",
         "rows": 7277,
-        "fetchedAt": "2026-10-12T21:31:57.844Z"
+        "fetchedAt": "2026-10-12T22:32:11.061Z"
       },
       "passing": {
         "status": "available",
         "rows": 152,
-        "fetchedAt": "2026-10-12T21:31:57.844Z"
+        "fetchedAt": "2026-10-12T22:32:11.061Z"
       },
       "charting": {
         "status": "available",
         "rows": 10996,
-        "fetchedAt": "2026-10-12T21:31:57.844Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 512,
-        "fetchedAt": "2026-10-12T21:31:57.844Z"
+        "fetchedAt": "2026-10-12T22:32:11.061Z"
       },
       "pbp": {
         "status": "available",
         "rows": 13643,
-        "fetchedAt": "2026-10-12T21:31:57.844Z"
+        "fetchedAt": "2026-10-12T22:32:11.061Z"
       }
     },
-    "asOf": "2026-10-12T21:31:57.844Z"
+    "asOf": "2026-10-12T22:32:11.061Z"
   },
   "totalsLineage": [
     {
@@ -1942,8 +1942,8 @@
   },
   "confidenceDistribution": {
     "High": 15,
-    "Medium": 105,
-    "Low": 138,
+    "Medium": 103,
+    "Low": 140,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1963,7 +1963,7 @@
       "homeWin": 57.4,
       "marketBooks": 9,
       "spreadEdge": -0.4,
-      "totalEdge": -1.1,
+      "totalEdge": -1.4,
       "injuryUncertainty": 2.3
     },
     {
@@ -2012,16 +2012,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
+      "confidenceScore": 54,
       "sample": 6.4,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.8,
-      "homeWin": 44.7,
+      "reliability": 0.809,
+      "homeWin": 44.9,
       "marketBooks": 8,
-      "spreadEdge": 1.2,
+      "spreadEdge": 1.4,
       "totalEdge": -2,
-      "injuryUncertainty": 3.4
+      "injuryUncertainty": 3.2
     },
     {
       "game": "Baltimore Ravens at Cleveland Browns",
@@ -2088,14 +2088,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 63,
+      "confidenceScore": 61,
       "sample": 6.6,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.894,
-      "homeWin": 51,
+      "homeWin": 51.9,
       "marketBooks": 9,
-      "spreadEdge": 1.9,
+      "spreadEdge": 1.7,
       "totalEdge": -0.6,
       "injuryUncertainty": 1.1
     },
@@ -2126,14 +2126,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 60,
+      "confidenceScore": 63,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.886,
-      "homeWin": 43.1,
+      "homeWin": 42.2,
       "marketBooks": 9,
-      "spreadEdge": -0.2,
+      "spreadEdge": 0,
       "totalEdge": 1,
       "injuryUncertainty": 0.8
     },
