@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T01:35:37.410Z",
+  "updatedAt": "2026-10-12T02:34:44.892Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 77,
@@ -129,7 +129,7 @@
           "contact",
           "charting"
         ],
-        "retryDue": false
+        "retryDue": true
       },
       {
         "id": "401872991",
@@ -141,7 +141,7 @@
           "contact",
           "charting"
         ],
-        "retryDue": false
+        "retryDue": true
       },
       {
         "id": "401872992",
@@ -153,37 +153,37 @@
           "contact",
           "charting"
         ],
-        "retryDue": false
+        "retryDue": true
       }
     ],
     "sourceHealth": {
       "passing": {
         "status": "available",
         "rows": 152,
-        "fetchedAt": "2026-10-12T01:35:26.259Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 512,
-        "fetchedAt": "2026-10-12T01:35:26.259Z"
+        "fetchedAt": "2026-10-12T02:34:35.958Z"
       },
       "snaps": {
         "status": "available",
         "rows": 6064,
-        "fetchedAt": "2026-10-12T01:35:26.259Z"
+        "fetchedAt": "2026-10-12T02:34:35.958Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 512,
+        "fetchedAt": "2026-10-12T02:34:35.958Z"
       },
       "charting": {
         "status": "available",
         "rows": 10996,
-        "fetchedAt": "2026-10-12T01:35:26.259Z"
+        "fetchedAt": "2026-10-12T02:34:35.958Z"
       },
       "pbp": {
         "status": "available",
         "rows": 13449,
-        "fetchedAt": "2026-10-12T01:35:26.259Z"
+        "fetchedAt": "2026-10-12T02:34:35.958Z"
       }
     },
-    "asOf": "2026-10-12T01:35:26.259Z"
+    "asOf": "2026-10-12T02:34:35.958Z"
   },
   "totalsLineage": [
     {
@@ -1962,7 +1962,7 @@
       "observedGames": 38,
       "reliability": 0.823,
       "homeWin": 57.4,
-      "marketBooks": 8,
+      "marketBooks": 9,
       "spreadEdge": -0.4,
       "totalEdge": -1.1,
       "injuryUncertainty": 2.3
@@ -1975,14 +1975,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 61,
+      "confidenceScore": 64,
       "sample": 6.5,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.909,
-      "homeWin": 43.1,
-      "marketBooks": 6,
-      "spreadEdge": -0.1,
+      "homeWin": 42.1,
+      "marketBooks": 8,
+      "spreadEdge": 0,
       "totalEdge": -0.4,
       "injuryUncertainty": 0.6
     },
@@ -1994,14 +1994,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 60,
+      "confidenceScore": 57,
       "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.856,
-      "homeWin": 57.9,
-      "marketBooks": 5,
-      "spreadEdge": 0.2,
+      "homeWin": 57.1,
+      "marketBooks": 7,
+      "spreadEdge": 0.3,
       "totalEdge": -1,
       "injuryUncertainty": 1.4
     },
@@ -2032,16 +2032,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 28,
+      "confidenceScore": 29,
       "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.641,
+      "reliability": 0.649,
       "homeWin": 47.6,
       "marketBooks": 0,
       "spreadEdge": null,
       "totalEdge": null,
-      "injuryUncertainty": 1.8
+      "injuryUncertainty": 1.6
     },
     {
       "game": "Tennessee Titans at Indianapolis Colts",
@@ -2057,7 +2057,7 @@
       "observedGames": 39,
       "reliability": 0.913,
       "homeWin": 67.5,
-      "marketBooks": 6,
+      "marketBooks": 7,
       "spreadEdge": 0.4,
       "totalEdge": -0.1,
       "injuryUncertainty": 0.9
@@ -2076,7 +2076,7 @@
       "observedGames": 39,
       "reliability": 0.875,
       "homeWin": 68.3,
-      "marketBooks": 6,
+      "marketBooks": 7,
       "spreadEdge": 0.6,
       "totalEdge": -1.3,
       "injuryUncertainty": 1.7
@@ -2089,14 +2089,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 57,
+      "confidenceScore": 55,
       "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.914,
-      "homeWin": 56.3,
+      "homeWin": 55.4,
       "marketBooks": 6,
-      "spreadEdge": 0.9,
+      "spreadEdge": 1,
       "totalEdge": -0.7,
       "injuryUncertainty": 0.9
     },
@@ -2114,7 +2114,7 @@
       "observedGames": 38,
       "reliability": 0.82,
       "homeWin": 53.6,
-      "marketBooks": 6,
+      "marketBooks": 7,
       "spreadEdge": 0,
       "totalEdge": 0.3,
       "injuryUncertainty": 2.3
@@ -2133,7 +2133,7 @@
       "observedGames": 39,
       "reliability": 0.88,
       "homeWin": 46.7,
-      "marketBooks": 6,
+      "marketBooks": 7,
       "spreadEdge": 1.2,
       "totalEdge": 0.7,
       "injuryUncertainty": 0.9
@@ -2152,7 +2152,7 @@
       "observedGames": 38,
       "reliability": 0.848,
       "homeWin": 79.1,
-      "marketBooks": 5,
+      "marketBooks": 6,
       "spreadEdge": 1.8,
       "totalEdge": -1.2,
       "injuryUncertainty": 1.5
@@ -2171,7 +2171,7 @@
       "observedGames": 38,
       "reliability": 0.848,
       "homeWin": 69.5,
-      "marketBooks": 6,
+      "marketBooks": 7,
       "spreadEdge": 0.4,
       "totalEdge": -0.8,
       "injuryUncertainty": 1.6
