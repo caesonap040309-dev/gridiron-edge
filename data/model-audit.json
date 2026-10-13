@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-13T13:44:31.279Z",
+  "updatedAt": "2026-10-13T19:53:14.879Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -1904,29 +1904,28 @@
     },
     "filters": {
       "games": {
-        "evaluated": 175,
-        "qualified": 9,
-        "blockedByData": 79,
-        "belowBettingThresholds": 87,
+        "evaluated": 179,
+        "qualified": 8,
+        "blockedByData": 83,
+        "belowBettingThresholds": 88,
         "reasons": {
-          "Current injury coverage unavailable": 12,
-          "Probability, price, evidence or edge below betting thresholds": 87,
+          "Current injury coverage unavailable": 16,
+          "Probability, price, evidence or edge below betting thresholds": 88,
           "Listed injury status needs confirmation": 58,
-          "Fresh sportsbook lines unavailable": 15,
+          "Fresh sportsbook lines unavailable": 13,
           "Fresh quote at the modeled line unavailable": 15,
           "Price outside standard betting range": 7
         }
       },
       "props": {
         "evaluated": 1270,
-        "qualified": 9,
-        "blockedByData": 1022,
-        "belowBettingThresholds": 239,
+        "qualified": 0,
+        "blockedByData": 1270,
+        "belowBettingThresholds": 0,
         "reasons": {
+          "Prop quote needs refreshing": 1270,
           "Prop quote or game inputs need a fresh update": 861,
-          "Sample, probability or price edge below betting thresholds": 239,
           "Player listed unavailable or doubtful": 8,
-          "Prop quote needs refreshing": 132,
           "Independent projection unavailable": 171,
           "DFS payout depends on the full entry; sportsbook value cannot be assumed": 288
         }
@@ -4386,22 +4385,21 @@
       "games": {
         "evaluated": 42,
         "qualified": 0,
-        "blockedByData": 3,
-        "belowBettingThresholds": 39,
+        "blockedByData": 6,
+        "belowBettingThresholds": 36,
         "reasons": {
-          "Probability, price, evidence or edge below betting thresholds": 39,
-          "Listed injury status needs confirmation": 3
+          "Probability, price, evidence or edge below betting thresholds": 36,
+          "Listed injury status needs confirmation": 6
         }
       },
       "props": {
         "evaluated": 2149,
-        "qualified": 70,
-        "blockedByData": 1195,
-        "belowBettingThresholds": 884,
+        "qualified": 0,
+        "blockedByData": 2149,
+        "belowBettingThresholds": 0,
         "reasons": {
-          "Prop quote needs refreshing": 415,
+          "Prop quote needs refreshing": 2149,
           "Prop quote or game inputs need a fresh update": 495,
-          "Sample, probability or price edge below betting thresholds": 884,
           "DFS payout depends on the full entry; sportsbook value cannot be assumed": 646,
           "Independent projection unavailable": 194,
           "Player listed unavailable or doubtful": 3
