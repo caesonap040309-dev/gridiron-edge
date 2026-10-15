@@ -1,60 +1,60 @@
 {
-  "updatedAt": "2026-10-15T01:34:01.535Z",
+  "updatedAt": "2026-10-15T07:29:08.305Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
     "win": {
       "factor": 1,
-      "sampleSize": 264,
-      "effectiveSample": 264,
-      "brierScore": 0.16725911641970442,
-      "calibratedBrierScore": 0.2110955201465532,
+      "sampleSize": 266,
+      "effectiveSample": 266,
+      "brierScore": 0.1680881335193683,
+      "calibratedBrierScore": 0.21519037087418558,
       "status": "held-out-no-improvement",
-      "trainingSamples": 183,
+      "trainingSamples": 185,
       "holdoutSamples": 81,
-      "holdoutBrier": 0.2110955201465532,
-      "holdoutCandidateBrier": 0.21031873925720973,
+      "holdoutBrier": 0.21519037087418558,
+      "holdoutCandidateBrier": 0.21453414605070756,
       "holdoutDifference95Interval": [
-        -0.0016588364778692042,
-        0.00010527469918260985
+        -0.0015338260416355902,
+        0.00022137639467954666
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 135,
-      "effectiveSample": 135,
-      "brierScore": 0.2571228359212792,
-      "calibratedBrierScore": 0.2476686790237001,
+      "sampleSize": 136,
+      "effectiveSample": 136,
+      "brierScore": 0.25703551320172774,
+      "calibratedBrierScore": 0.24761603265497348,
       "status": "held-out-no-improvement",
       "trainingSamples": 90,
-      "holdoutSamples": 45,
-      "holdoutBrier": 0.2476686790237001,
-      "holdoutCandidateBrier": 0.24719426744454323,
+      "holdoutSamples": 46,
+      "holdoutBrier": 0.24761603265497348,
+      "holdoutCandidateBrier": 0.24717646058552134,
       "holdoutDifference95Interval": [
-        -0.005789539902952378,
-        0.004840716744638748
+        -0.005639592751109717,
+        0.004760448612205533
       ]
     },
     "total": {
       "factor": 1,
-      "sampleSize": 132,
-      "effectiveSample": 132,
-      "brierScore": 0.2514830188949119,
-      "calibratedBrierScore": 0.2506798916102772,
+      "sampleSize": 133,
+      "effectiveSample": 133,
+      "brierScore": 0.25133112650417394,
+      "calibratedBrierScore": 0.2502671562765853,
       "status": "held-out-no-improvement",
       "trainingSamples": 86,
-      "holdoutSamples": 46,
-      "holdoutBrier": 0.2506798916102772,
-      "holdoutCandidateBrier": 0.250390741377252,
+      "holdoutSamples": 47,
+      "holdoutBrier": 0.2502671562765853,
+      "holdoutCandidateBrier": 0.25007562257118826,
       "holdoutDifference95Interval": [
-        -0.0021432439120888215,
-        0.001564943446038279
+        -0.0020160236951079196,
+        0.0016329562843137911
       ]
     },
     "probabilityFactor": 1,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 264,
+    "sampleSize": 266,
     "status": "held-out-no-improvement"
   },
   "nfl": {
