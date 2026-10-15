@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-10-15T07:29:06.066Z",
+  "updatedAt": "2026-10-15T13:28:17.381Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 79,
     "coveredGames": {
       "snaps": 79,
       "epa": 79,
-      "pressure": 78,
-      "contact": 78,
+      "pressure": 79,
+      "contact": 79,
       "charting": 79
     },
-    "missingGames": [
-      {
-        "id": "401872994",
-        "game": "Buffalo Bills at Los Angeles Rams",
-        "date": "2026-10-13T00:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
-      "passing": {
-        "status": "available",
-        "rows": 182,
-        "fetchedAt": "2026-10-15T07:28:59.860Z"
-      },
       "snaps": {
         "status": "available",
         "rows": 7370,
-        "fetchedAt": "2026-10-15T07:28:59.860Z"
+        "fetchedAt": "2026-10-15T13:28:08.339Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 184,
+        "fetchedAt": "2026-10-15T13:28:08.339Z"
       },
       "rushing": {
         "status": "available",
-        "rows": 624,
-        "fetchedAt": "2026-10-15T07:28:59.860Z"
+        "rows": 630,
+        "fetchedAt": "2026-10-15T13:28:08.339Z"
       },
       "charting": {
         "status": "available",
         "rows": 13438,
-        "fetchedAt": "2026-10-15T07:28:59.860Z"
+        "fetchedAt": "2026-10-15T13:28:08.339Z"
       },
       "pbp": {
         "status": "available",
         "rows": 13842,
-        "fetchedAt": "2026-10-15T07:28:59.860Z"
+        "fetchedAt": "2026-10-15T13:28:08.339Z"
       }
     },
-    "asOf": "2026-10-15T07:28:59.860Z"
+    "asOf": "2026-10-15T13:28:08.339Z"
   },
   "totalsLineage": [
     {
@@ -1889,12 +1878,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 83,
-      "sample": 6.6,
+      "confidenceScore": 82,
+      "sample": 6.5,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.814,
-      "homeWin": 68,
+      "reliability": 0.811,
+      "homeWin": 67.9,
       "marketBooks": 9,
       "spreadEdge": 1.1,
       "totalEdge": -0.1,
@@ -1928,10 +1917,10 @@
         "total": "Low"
       },
       "confidenceScore": 45,
-      "sample": 6.5,
+      "sample": 6.4,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.828,
+      "reliability": 0.824,
       "homeWin": 50.6,
       "marketBooks": 9,
       "spreadEdge": 1.2,
@@ -1947,11 +1936,11 @@
         "total": "Low"
       },
       "confidenceScore": 45,
-      "sample": 5.7,
+      "sample": 5.6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.813,
-      "homeWin": 49.4,
+      "reliability": 0.809,
+      "homeWin": 49.5,
       "marketBooks": 9,
       "spreadEdge": 0.8,
       "totalEdge": 1.1,
@@ -1966,11 +1955,11 @@
         "total": "Low"
       },
       "confidenceScore": 40,
-      "sample": 6,
+      "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.768,
-      "homeWin": 45,
+      "reliability": 0.765,
+      "homeWin": 45.1,
       "marketBooks": 9,
       "spreadEdge": 0.3,
       "totalEdge": 1.3,
