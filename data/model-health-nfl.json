@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T12:28:30.101Z",
+  "updatedAt": "2026-10-16T17:26:56.922Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 80,
@@ -24,33 +24,33 @@
       }
     ],
     "sourceHealth": {
-      "passing": {
-        "status": "available",
-        "rows": 184,
-        "fetchedAt": "2026-10-16T12:28:18.801Z"
-      },
       "rushing": {
         "status": "available",
         "rows": 630,
-        "fetchedAt": "2026-10-16T12:28:18.801Z"
+        "fetchedAt": "2026-10-16T17:26:45.712Z"
       },
-      "charting": {
+      "passing": {
         "status": "available",
-        "rows": 13438,
-        "fetchedAt": "2026-10-16T12:28:18.801Z"
+        "rows": 184,
+        "fetchedAt": "2026-10-16T17:26:45.712Z"
       },
       "snaps": {
         "status": "available",
         "rows": 7463,
-        "fetchedAt": "2026-10-16T12:28:18.801Z"
+        "fetchedAt": "2026-10-16T17:26:45.712Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 13438,
+        "fetchedAt": "2026-10-16T17:26:45.712Z"
       },
       "pbp": {
         "status": "available",
         "rows": 14031,
-        "fetchedAt": "2026-10-16T12:28:18.801Z"
+        "fetchedAt": "2026-10-16T17:26:45.712Z"
       }
     },
-    "asOf": "2026-10-16T12:28:18.801Z"
+    "asOf": "2026-10-16T17:26:45.712Z"
   },
   "totalsLineage": [
     {
@@ -843,7 +843,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.41
+      "appliedAdjustment": 0.42
     },
     {
       "id": "401873087",
@@ -1792,8 +1792,8 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 104,
-    "Low": 143,
+    "Medium": 105,
+    "Low": 142,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1824,7 +1824,7 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 52,
+      "confidenceScore": 54,
       "sample": 6.2,
       "evidenceGames": 8,
       "observedGames": 39,
@@ -1832,7 +1832,7 @@
       "homeWin": 49.7,
       "marketBooks": 9,
       "spreadEdge": 0.9,
-      "totalEdge": -2.3,
+      "totalEdge": -2.4,
       "injuryUncertainty": 4.3
     },
     {
@@ -1843,15 +1843,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 43,
+      "confidenceScore": 40,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.735,
-      "homeWin": 41.7,
+      "reliability": 0.733,
+      "homeWin": 42.3,
       "marketBooks": 9,
-      "spreadEdge": 0.1,
-      "totalEdge": 0.9,
+      "spreadEdge": -0.1,
+      "totalEdge": 1.1,
       "injuryUncertainty": 4.9
     },
     {
@@ -1862,16 +1862,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 84,
+      "confidenceScore": 89,
       "sample": 6.5,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.82,
-      "homeWin": 68.4,
+      "reliability": 0.854,
+      "homeWin": 68.9,
       "marketBooks": 9,
-      "spreadEdge": 1.2,
+      "spreadEdge": 1.1,
       "totalEdge": 0,
-      "injuryUncertainty": 3
+      "injuryUncertainty": 2
     },
     {
       "game": "New York Jets at New England Patriots",
@@ -1881,16 +1881,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 86,
+      "confidenceScore": 89,
       "sample": 6.4,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.829,
-      "homeWin": 68.8,
+      "reliability": 0.854,
+      "homeWin": 69.4,
       "marketBooks": 9,
-      "spreadEdge": 1.3,
+      "spreadEdge": 1.4,
       "totalEdge": -0.9,
-      "injuryUncertainty": 2.6
+      "injuryUncertainty": 1.9
     },
     {
       "game": "New Orleans Saints at New York Giants",
@@ -1938,16 +1938,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 42,
+      "confidenceScore": 50,
       "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.78,
-      "homeWin": 45.2,
+      "reliability": 0.835,
+      "homeWin": 44.1,
       "marketBooks": 9,
-      "spreadEdge": 0.4,
+      "spreadEdge": 0.1,
       "totalEdge": 1.3,
-      "injuryUncertainty": 3.5
+      "injuryUncertainty": 2
     },
     {
       "game": "Arizona Cardinals at Los Angeles Rams",
@@ -1976,15 +1976,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 79,
-      "sample": 5.7,
+      "confidenceScore": 78,
+      "sample": 5.6,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.775,
-      "homeWin": 67.1,
+      "reliability": 0.771,
+      "homeWin": 67,
       "marketBooks": 9,
       "spreadEdge": 0.5,
-      "totalEdge": -0.1,
+      "totalEdge": 0.1,
       "injuryUncertainty": 3.4
     },
     {
@@ -2019,9 +2019,9 @@
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.813,
-      "homeWin": 54.6,
+      "homeWin": 53.8,
       "marketBooks": 9,
-      "spreadEdge": 0.4,
+      "spreadEdge": 0.6,
       "totalEdge": -1.1,
       "injuryUncertainty": 2.6
     }
