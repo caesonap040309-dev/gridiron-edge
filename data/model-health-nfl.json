@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-15T22:22:20.923Z",
+  "updatedAt": "2026-10-16T01:23:35.481Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 79,
@@ -38,18 +38,9 @@
         "fetchedAt": "2026-10-15T22:22:13.484Z"
       }
     },
-    "asOf": "2026-10-15T22:22:13.484Z"
+    "asOf": "2026-10-16T01:23:27.931Z"
   },
   "totalsLineage": [
-    {
-      "id": "401872995",
-      "home": "Denver Broncos",
-      "away": "Seattle Seahawks",
-      "verified": true,
-      "possessionEvidence": true,
-      "matchupTerms": 4,
-      "appliedAdjustment": 0.18
-    },
     {
       "id": "401872996",
       "home": "Jacksonville Jaguars",
@@ -1425,7 +1416,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.04
+      "appliedAdjustment": 0.05
     },
     {
       "id": "401873148",
@@ -1795,25 +1786,6 @@
   },
   "confidenceSamples": [
     {
-      "game": "Seattle Seahawks at Denver Broncos",
-      "confidence": "Low",
-      "confidenceByMarket": {
-        "moneyline": "Low",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 54,
-      "sample": 6.2,
-      "evidenceGames": 8,
-      "observedGames": 39,
-      "reliability": 0.862,
-      "homeWin": 43.7,
-      "marketBooks": 9,
-      "spreadEdge": 0,
-      "totalEdge": 0.5,
-      "injuryUncertainty": 1.5
-    },
-    {
       "game": "Houston Texans at Jacksonville Jaguars",
       "confidence": "Low",
       "confidenceByMarket": {
@@ -1825,12 +1797,12 @@
       "sample": 6.4,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.838,
+      "reliability": 0.841,
       "homeWin": 57,
       "marketBooks": 9,
       "spreadEdge": 0.4,
       "totalEdge": -0.8,
-      "injuryUncertainty": 2.4
+      "injuryUncertainty": 2.3
     },
     {
       "game": "Chicago Bears at Atlanta Falcons",
@@ -1859,16 +1831,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 42,
+      "confidenceScore": 43,
       "sample": 6.2,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.734,
-      "homeWin": 41.6,
+      "reliability": 0.739,
+      "homeWin": 41.7,
       "marketBooks": 9,
-      "spreadEdge": 0,
-      "totalEdge": 0.8,
-      "injuryUncertainty": 5
+      "spreadEdge": 0.1,
+      "totalEdge": 0.9,
+      "injuryUncertainty": 4.9
     },
     {
       "game": "Tennessee Titans at Indianapolis Colts",
@@ -1977,7 +1949,7 @@
       "sample": 6.5,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.833,
+      "reliability": 0.835,
       "homeWin": 75.8,
       "marketBooks": 9,
       "spreadEdge": -0.2,
@@ -1992,16 +1964,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 82,
+      "confidenceScore": 80,
       "sample": 5.7,
       "evidenceGames": 8,
       "observedGames": 38,
-      "reliability": 0.789,
-      "homeWin": 67.4,
+      "reliability": 0.775,
+      "homeWin": 67.7,
       "marketBooks": 9,
-      "spreadEdge": 0,
+      "spreadEdge": 0.4,
       "totalEdge": -0.1,
-      "injuryUncertainty": 3
+      "injuryUncertainty": 3.4
     },
     {
       "game": "Buffalo Bills at Las Vegas Raiders",
@@ -2015,12 +1987,31 @@
       "sample": 6.5,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.808,
+      "reliability": 0.807,
       "homeWin": 37.9,
       "marketBooks": 9,
-      "spreadEdge": -0.8,
-      "totalEdge": -0.2,
+      "spreadEdge": -0.7,
+      "totalEdge": -0.1,
       "injuryUncertainty": 3.3
+    },
+    {
+      "game": "Dallas Cowboys at Green Bay Packers",
+      "confidence": "Low",
+      "confidenceByMarket": {
+        "moneyline": "Low",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 44,
+      "sample": 6,
+      "evidenceGames": 8,
+      "observedGames": 39,
+      "reliability": 0.817,
+      "homeWin": 54.7,
+      "marketBooks": 9,
+      "spreadEdge": 0.5,
+      "totalEdge": -1.1,
+      "injuryUncertainty": 2.6
     }
   ]
 }
