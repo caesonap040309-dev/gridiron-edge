@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-10-16T07:13:31.683Z",
+  "updatedAt": "2026-10-16T12:28:30.101Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 80,
     "coveredGames": {
-      "snaps": 79,
+      "snaps": 80,
       "epa": 80,
       "pressure": 79,
       "contact": 79,
@@ -16,7 +16,6 @@
         "game": "Seattle Seahawks at Denver Broncos",
         "date": "2026-10-16T00:15Z",
         "fields": [
-          "snaps",
           "pressure",
           "contact",
           "charting"
@@ -25,33 +24,33 @@
       }
     ],
     "sourceHealth": {
-      "charting": {
-        "status": "available",
-        "rows": 13438,
-        "fetchedAt": "2026-10-16T07:13:22.004Z"
-      },
       "passing": {
         "status": "available",
         "rows": 184,
-        "fetchedAt": "2026-10-16T07:13:22.004Z"
+        "fetchedAt": "2026-10-16T12:28:18.801Z"
       },
       "rushing": {
         "status": "available",
         "rows": 630,
-        "fetchedAt": "2026-10-16T07:13:22.004Z"
+        "fetchedAt": "2026-10-16T12:28:18.801Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 13438,
+        "fetchedAt": "2026-10-16T12:28:18.801Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 7463,
+        "fetchedAt": "2026-10-16T12:28:18.801Z"
       },
       "pbp": {
         "status": "available",
         "rows": 14031,
-        "fetchedAt": "2026-10-16T07:13:22.004Z"
-      },
-      "snaps": {
-        "status": "available",
-        "rows": 7370,
-        "fetchedAt": "2026-10-16T07:13:22.004Z"
+        "fetchedAt": "2026-10-16T12:28:18.801Z"
       }
     },
-    "asOf": "2026-10-16T07:13:22.004Z"
+    "asOf": "2026-10-16T12:28:18.801Z"
   },
   "totalsLineage": [
     {
@@ -1177,7 +1176,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.6
+      "appliedAdjustment": -0.59
     },
     {
       "id": "401873121",
@@ -1788,13 +1787,13 @@
     "marginStatus": "insufficient-held-out-evidence",
     "total": 0,
     "margin": 0,
-    "totalSamples": 30,
-    "marginSamples": 30
+    "totalSamples": 31,
+    "marginSamples": 31
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 105,
-    "Low": 142,
+    "Medium": 104,
+    "Low": 143,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1883,11 +1882,11 @@
         "total": "Low"
       },
       "confidenceScore": 86,
-      "sample": 6.5,
+      "sample": 6.4,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.832,
-      "homeWin": 68.9,
+      "reliability": 0.829,
+      "homeWin": 68.8,
       "marketBooks": 9,
       "spreadEdge": 1.3,
       "totalEdge": -0.9,
@@ -1901,15 +1900,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 47,
+      "confidenceScore": 50,
       "sample": 6.4,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.823,
-      "homeWin": 51,
+      "homeWin": 50.1,
       "marketBooks": 9,
-      "spreadEdge": 1.4,
-      "totalEdge": -0.7,
+      "spreadEdge": 1.6,
+      "totalEdge": -0.9,
       "injuryUncertainty": 2.8
     },
     {
@@ -1959,11 +1958,11 @@
         "total": "Low"
       },
       "confidenceScore": 87,
-      "sample": 6.5,
+      "sample": 6.4,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.838,
-      "homeWin": 76,
+      "reliability": 0.835,
+      "homeWin": 75.9,
       "marketBooks": 9,
       "spreadEdge": -0.2,
       "totalEdge": -0.5,
@@ -2016,11 +2015,11 @@
         "total": "Low"
       },
       "confidenceScore": 44,
-      "sample": 6,
+      "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.817,
-      "homeWin": 54.7,
+      "reliability": 0.813,
+      "homeWin": 54.6,
       "marketBooks": 9,
       "spreadEdge": 0.4,
       "totalEdge": -1.1,
