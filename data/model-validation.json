@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-10-17T17:13:33.910Z",
+  "updatedAt": "2026-10-17T19:27:03.782Z",
   "coefficientStatus": "Live fixed caps; coefficient changes require chronological held-out calibration or sufficient paired forward improvement",
   "cfb": {
     "forward": {
       "promotion": {
         "spread": {
-          "samples": 125,
+          "samples": 132,
           "weeks": 3,
           "meanErrorDifference": 0,
           "difference95Interval": [
@@ -18,7 +18,7 @@
           "minimumWeeks": 6
         },
         "total": {
-          "samples": 125,
+          "samples": 132,
           "weeks": 3,
           "meanErrorDifference": 0,
           "difference95Interval": [
@@ -32,13 +32,13 @@
         }
       },
       "status": "collecting forward evidence",
-      "pairedGames": 125,
-      "marginError": 12.8144,
-      "baselineMarginError": 12.8144,
-      "totalError": 12.8056,
-      "baselineTotalError": 12.8056,
-      "brier": 0.2088,
-      "baselineBrier": 0.2088,
+      "pairedGames": 132,
+      "marginError": 12.8932,
+      "baselineMarginError": 12.8932,
+      "totalError": 12.8318,
+      "baselineTotalError": 12.8318,
+      "brier": 0.2101,
+      "baselineBrier": 0.2101,
       "byVersion": {
         "13": {
           "games": 3,
@@ -50,49 +50,49 @@
           "baselineBrier": 0.2344
         },
         "14": {
-          "games": 122,
-          "marginError": 12.8377,
-          "baselineMarginError": 12.8377,
-          "totalError": 12.9369,
-          "baselineTotalError": 12.9369,
-          "brier": 0.2082,
-          "baselineBrier": 0.2082
+          "games": 129,
+          "marginError": 12.9171,
+          "baselineMarginError": 12.9171,
+          "totalError": 12.9566,
+          "baselineTotalError": 12.9566,
+          "brier": 0.2095,
+          "baselineBrier": 0.2095
         }
       },
       "byMarket": {
         "spread": {
-          "forecasts": 70,
+          "forecasts": 72,
           "wins": 40,
-          "losses": 29,
+          "losses": 31,
           "pushes": 1,
-          "winRate": 0.5797,
-          "pricedForecasts": 65,
-          "profitUnits": 4.6404,
-          "roi": 0.0714,
-          "closingLineSamples": 70,
-          "meanClosingLineValuePoints": 0.5357
+          "winRate": 0.5634,
+          "pricedForecasts": 67,
+          "profitUnits": 2.6404,
+          "roi": 0.0394,
+          "closingLineSamples": 72,
+          "meanClosingLineValuePoints": 0.4931
         },
         "total": {
-          "forecasts": 71,
-          "wins": 31,
+          "forecasts": 73,
+          "wins": 33,
           "losses": 40,
           "pushes": 0,
-          "winRate": 0.4366,
-          "pricedForecasts": 66,
-          "profitUnits": -12.7623,
-          "roi": -0.1934,
-          "closingLineSamples": 71,
-          "meanClosingLineValuePoints": 0.1901
+          "winRate": 0.4521,
+          "pricedForecasts": 68,
+          "profitUnits": -10.9442,
+          "roi": -0.1609,
+          "closingLineSamples": 73,
+          "meanClosingLineValuePoints": 0.2808
         },
         "moneyline": {
-          "forecasts": 71,
-          "wins": 51,
-          "losses": 20,
+          "forecasts": 73,
+          "wins": 52,
+          "losses": 21,
           "pushes": 0,
-          "winRate": 0.7183,
-          "pricedForecasts": 65,
-          "profitUnits": -2.7194,
-          "roi": -0.0418,
+          "winRate": 0.7123,
+          "pricedForecasts": 67,
+          "profitUnits": -3.4996,
+          "roi": -0.0522,
           "closingLineSamples": 0,
           "meanClosingLineValuePoints": null
         }
@@ -101,11 +101,11 @@
     },
     "historical": {
       "method": "Chronological scoring-feature experiment; every game uses strictly earlier results. Excludes sportsbook, weather and live injury adjustments.",
-      "games": 146,
-      "baselineMarginMAE": 13.9854,
-      "candidateMarginMAE": 13.9236,
-      "baselineTotalMAE": 12.5677,
-      "candidateTotalMAE": 12.4331,
+      "games": 145,
+      "baselineMarginMAE": 13.9243,
+      "candidateMarginMAE": 13.8832,
+      "baselineTotalMAE": 12.9378,
+      "candidateTotalMAE": 12.7794,
       "limitation": "Historical feature-development evidence, not an independent betting-profit claim or a full replay of the production forecast."
     }
   },
