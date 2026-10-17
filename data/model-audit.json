@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-10-17T19:27:11.582Z",
+  "updatedAt": "2026-10-17T19:42:57.401Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -2739,30 +2739,25 @@
     },
     "filters": {
       "games": {
-        "evaluated": 141,
+        "evaluated": 116,
         "qualified": 2,
-        "blockedByData": 111,
-        "belowBettingThresholds": 28,
+        "blockedByData": 98,
+        "belowBettingThresholds": 16,
         "reasons": {
-          "Listed injury status needs confirmation": 90,
-          "Probability, price, evidence or edge below betting thresholds": 28,
-          "Current injury coverage unavailable": 8,
-          "Fresh sportsbook lines unavailable": 35,
-          "Fresh quote at the modeled line unavailable": 37,
-          "Price outside standard betting range": 5
+          "Listed injury status needs confirmation": 78,
+          "Probability, price, evidence or edge below betting thresholds": 16,
+          "Fresh sportsbook lines unavailable": 43,
+          "Fresh quote at the modeled line unavailable": 45,
+          "Price outside standard betting range": 5,
+          "Current injury coverage unavailable": 5
         }
       },
       "props": {
-        "evaluated": 1409,
+        "evaluated": 0,
         "qualified": 0,
-        "blockedByData": 1409,
+        "blockedByData": 0,
         "belowBettingThresholds": 0,
-        "reasons": {
-          "Prop quote needs refreshing": 1409,
-          "Prop quote or game inputs need a fresh update": 1070,
-          "Independent projection unavailable": 73,
-          "DFS payout depends on the full entry; sportsbook value cannot be assumed": 470
-        }
+        "reasons": {}
       },
       "policy": "One policy for game details, Top 10, and saved qualified plays. Edge is measured against the offered price, not a synthetic no-vig price."
     }
