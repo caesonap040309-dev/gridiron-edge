@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-10-18T05:56:50.302Z",
+  "updatedAt": "2026-10-18T11:10:28.243Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 80,
     "coveredGames": {
       "snaps": 80,
       "epa": 80,
-      "pressure": 79,
-      "contact": 79,
+      "pressure": 80,
+      "contact": 80,
       "charting": 80
     },
-    "missingGames": [
-      {
-        "id": "401872995",
-        "game": "Seattle Seahawks at Denver Broncos",
-        "date": "2026-10-16T00:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
+      "rushing": {
+        "status": "available",
+        "rows": 639,
+        "fetchedAt": "2026-10-18T11:10:17.604Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 186,
+        "fetchedAt": "2026-10-18T11:10:17.604Z"
+      },
       "snaps": {
         "status": "available",
         "rows": 7463,
-        "fetchedAt": "2026-10-18T05:56:42.189Z"
+        "fetchedAt": "2026-10-18T11:10:17.604Z"
       },
       "charting": {
         "status": "available",
         "rows": 13621,
-        "fetchedAt": "2026-10-18T05:56:42.189Z"
-      },
-      "passing": {
-        "status": "available",
-        "rows": 184,
-        "fetchedAt": "2026-10-18T05:56:42.189Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 630,
-        "fetchedAt": "2026-10-18T05:56:42.189Z"
+        "fetchedAt": "2026-10-18T11:10:17.604Z"
       },
       "pbp": {
         "status": "available",
         "rows": 14031,
-        "fetchedAt": "2026-10-18T05:56:42.189Z"
+        "fetchedAt": "2026-10-18T11:10:17.604Z"
       }
     },
-    "asOf": "2026-10-18T05:56:42.189Z"
+    "asOf": "2026-10-18T11:10:17.604Z"
   },
   "totalsLineage": [
     {
@@ -707,7 +696,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.31
+      "appliedAdjustment": -0.3
     },
     {
       "id": "401873073",
@@ -1804,12 +1793,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
+      "confidenceScore": 52,
       "sample": 6.3,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.759,
-      "homeWin": 56.3,
+      "homeWin": 56.2,
       "marketBooks": 21,
       "spreadEdge": 0.3,
       "totalEdge": -0.7,
@@ -1823,16 +1812,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 56,
+      "confidenceScore": 57,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.681,
-      "homeWin": 49.5,
+      "reliability": 0.689,
+      "homeWin": 49.9,
       "marketBooks": 21,
-      "spreadEdge": 0.8,
+      "spreadEdge": 0.9,
       "totalEdge": -2.4,
-      "injuryUncertainty": 3.8
+      "injuryUncertainty": 3.6
     },
     {
       "game": "Baltimore Ravens at Cleveland Browns",
@@ -2014,10 +2003,10 @@
         "total": "Low"
       },
       "confidenceScore": 47,
-      "sample": 5.9,
+      "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.729,
+      "reliability": 0.726,
       "homeWin": 54.7,
       "marketBooks": 21,
       "spreadEdge": 1.2,
