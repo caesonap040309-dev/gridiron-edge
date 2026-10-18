@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-18T11:10:28.243Z",
+  "updatedAt": "2026-10-18T14:36:55.398Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 80,
@@ -38,18 +38,9 @@
         "fetchedAt": "2026-10-18T11:10:17.604Z"
       }
     },
-    "asOf": "2026-10-18T11:10:17.604Z"
+    "asOf": "2026-10-18T14:36:48.207Z"
   },
   "totalsLineage": [
-    {
-      "id": "401872996",
-      "home": "Jacksonville Jaguars",
-      "away": "Houston Texans",
-      "verified": true,
-      "possessionEvidence": true,
-      "matchupTerms": 4,
-      "appliedAdjustment": -0.88
-    },
     {
       "id": "401872999",
       "home": "Atlanta Falcons",
@@ -1780,30 +1771,11 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 102,
-    "Low": 145,
+    "Medium": 101,
+    "Low": 146,
     "Missing": 14
   },
   "confidenceSamples": [
-    {
-      "game": "Houston Texans at Jacksonville Jaguars",
-      "confidence": "Low",
-      "confidenceByMarket": {
-        "moneyline": "Low",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 52,
-      "sample": 6.3,
-      "evidenceGames": 8,
-      "observedGames": 39,
-      "reliability": 0.759,
-      "homeWin": 56.2,
-      "marketBooks": 21,
-      "spreadEdge": 0.3,
-      "totalEdge": -0.7,
-      "injuryUncertainty": 1.6
-    },
     {
       "game": "Chicago Bears at Atlanta Falcons",
       "confidence": "Low",
@@ -1812,16 +1784,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 57,
+      "confidenceScore": 56,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.689,
-      "homeWin": 49.9,
+      "reliability": 0.681,
+      "homeWin": 49.5,
       "marketBooks": 21,
-      "spreadEdge": 0.9,
+      "spreadEdge": 0.8,
       "totalEdge": -2.4,
-      "injuryUncertainty": 3.6
+      "injuryUncertainty": 3.8
     },
     {
       "game": "Baltimore Ravens at Cleveland Browns",
@@ -1831,16 +1803,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 54,
+      "confidenceScore": 51,
       "sample": 6,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.764,
-      "homeWin": 44.4,
+      "reliability": 0.753,
+      "homeWin": 44.5,
       "marketBooks": 21,
       "spreadEdge": 0.5,
-      "totalEdge": 1.3,
-      "injuryUncertainty": 1.2
+      "totalEdge": 1.2,
+      "injuryUncertainty": 1.5
     },
     {
       "game": "Tennessee Titans at Indianapolis Colts",
@@ -1926,16 +1898,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 50,
+      "confidenceScore": 48,
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.706,
-      "homeWin": 46.9,
+      "reliability": 0.707,
+      "homeWin": 46.7,
       "marketBooks": 21,
-      "spreadEdge": 1,
-      "totalEdge": 1.6,
-      "injuryUncertainty": 2.8
+      "spreadEdge": 0.9,
+      "totalEdge": 1.5,
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Arizona Cardinals at Los Angeles Rams",
@@ -1964,15 +1936,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 81,
+      "confidenceScore": 80,
       "sample": 5.6,
       "evidenceGames": 8,
       "observedGames": 38,
       "reliability": 0.721,
-      "homeWin": 65.9,
+      "homeWin": 65.7,
       "marketBooks": 21,
-      "spreadEdge": 0.5,
-      "totalEdge": 0.2,
+      "spreadEdge": 0.4,
+      "totalEdge": 0.1,
       "injuryUncertainty": 2.1
     },
     {
@@ -2012,6 +1984,25 @@
       "spreadEdge": 1.2,
       "totalEdge": -1.1,
       "injuryUncertainty": 2.1
+    },
+    {
+      "game": "Washington Commanders at San Francisco 49ers",
+      "confidence": "Medium",
+      "confidenceByMarket": {
+        "moneyline": "Medium",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 84,
+      "sample": 6,
+      "evidenceGames": 8,
+      "observedGames": 39,
+      "reliability": 0.736,
+      "homeWin": 66.8,
+      "marketBooks": 21,
+      "spreadEdge": 0.9,
+      "totalEdge": -0.6,
+      "injuryUncertainty": 2
     }
   ]
 }
