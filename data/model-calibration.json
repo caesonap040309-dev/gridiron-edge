@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-18T23:15:59.478Z",
+  "updatedAt": "2026-10-19T01:21:40.708Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
@@ -59,26 +59,26 @@
   },
   "nfl": {
     "win": {
-      "factor": 0.905,
-      "sampleSize": 71,
-      "effectiveSample": 71,
-      "brierScore": 0.24480262699676983,
-      "calibratedBrierScore": 0.24862280647507962,
-      "status": "held-out-improvement",
+      "factor": 1,
+      "sampleSize": 73,
+      "effectiveSample": 73,
+      "brierScore": 0.24183633334723728,
+      "calibratedBrierScore": 0.24010552693039464,
+      "status": "held-out-no-improvement",
       "trainingSamples": 49,
-      "holdoutSamples": 22,
-      "holdoutBrier": 0.24952121948871858,
-      "holdoutCandidateBrier": 0.24862280647507962,
+      "holdoutSamples": 24,
+      "holdoutBrier": 0.24010552693039464,
+      "holdoutCandidateBrier": 0.24005179300959778,
       "holdoutDifference95Interval": [
-        -0.00520779699795648,
-        0.0034109709706786257
+        -0.00416224573054166,
+        0.004054777888947968
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 42,
-      "effectiveSample": 42,
-      "brierScore": 0.24849785907597455,
+      "sampleSize": 44,
+      "effectiveSample": 44,
+      "brierScore": 0.24879259128258208,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -86,18 +86,18 @@
     },
     "total": {
       "factor": 1,
-      "sampleSize": 47,
-      "effectiveSample": 47,
-      "brierScore": 0.2609021832103836,
+      "sampleSize": 49,
+      "effectiveSample": 49,
+      "brierScore": 0.2606103892593895,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
       "holdoutSamples": 0
     },
-    "probabilityFactor": 0.905,
+    "probabilityFactor": 1,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 71,
-    "status": "held-out-improvement"
+    "sampleSize": 73,
+    "status": "held-out-no-improvement"
   }
 }
