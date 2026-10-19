@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-19T15:39:03.569Z",
+  "updatedAt": "2026-10-19T21:05:48.699Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 92,
@@ -145,33 +145,33 @@
       }
     ],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 8578,
-        "fetchedAt": "2026-10-19T15:38:55.366Z"
-      },
       "passing": {
         "status": "available",
         "rows": 186,
-        "fetchedAt": "2026-10-19T15:38:55.366Z"
+        "fetchedAt": "2026-10-19T21:05:40.565Z"
       },
-      "charting": {
+      "snaps": {
         "status": "available",
-        "rows": 13621,
-        "fetchedAt": "2026-10-19T15:38:55.366Z"
+        "rows": 8578,
+        "fetchedAt": "2026-10-19T21:05:40.565Z"
       },
       "rushing": {
         "status": "available",
         "rows": 639,
-        "fetchedAt": "2026-10-19T15:38:55.366Z"
+        "fetchedAt": "2026-10-19T21:05:40.565Z"
       },
       "pbp": {
         "status": "available",
         "rows": 16212,
-        "fetchedAt": "2026-10-19T15:38:55.366Z"
+        "fetchedAt": "2026-10-19T21:05:40.565Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 13621,
+        "fetchedAt": "2026-10-19T21:05:40.565Z"
       }
     },
-    "asOf": "2026-10-19T15:38:55.366Z"
+    "asOf": "2026-10-19T21:05:40.565Z"
   },
   "totalsLineage": [
     {
@@ -1805,8 +1805,8 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 110,
-    "Low": 137,
+    "Medium": 107,
+    "Low": 140,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1818,16 +1818,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 83,
+      "confidenceScore": 80,
       "sample": 6,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.733,
-      "homeWin": 66.5,
+      "reliability": 0.714,
+      "homeWin": 66.4,
       "marketBooks": 21,
-      "spreadEdge": 0.8,
-      "totalEdge": -0.7,
-      "injuryUncertainty": 2.1
+      "spreadEdge": 0.9,
+      "totalEdge": -0.8,
+      "injuryUncertainty": 2.7
     },
     {
       "game": "New England Patriots at Chicago Bears",
@@ -1837,35 +1837,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 71,
-      "sample": 7,
+      "confidenceScore": 70,
+      "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.703,
-      "homeWin": 51.1,
+      "reliability": 0.728,
+      "homeWin": 53,
       "marketBooks": 1,
-      "spreadEdge": -2.5,
-      "totalEdge": -3.2,
-      "injuryUncertainty": 1.8
+      "spreadEdge": -1.6,
+      "totalEdge": -2.8,
+      "injuryUncertainty": 0.8
     },
     {
       "game": "Pittsburgh Steelers at New Orleans Saints",
-      "confidence": "Low",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "Low",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 39,
+      "confidenceScore": 52,
       "sample": 7,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.705,
-      "homeWin": 46.9,
+      "reliability": 0.694,
+      "homeWin": 41,
       "marketBooks": 1,
-      "spreadEdge": 1,
-      "totalEdge": 0.8,
-      "injuryUncertainty": 1.7
+      "spreadEdge": -1.5,
+      "totalEdge": 0.9,
+      "injuryUncertainty": 2.1
     },
     {
       "game": "San Francisco 49ers at Atlanta Falcons",
@@ -1875,16 +1875,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 66,
+      "confidenceScore": 63,
       "sample": 6.3,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.675,
-      "homeWin": 36.8,
+      "reliability": 0.657,
+      "homeWin": 36.7,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -1.7,
-      "injuryUncertainty": 2
+      "totalEdge": -1.6,
+      "injuryUncertainty": 2.6
     },
     {
       "game": "Cleveland Browns at Tennessee Titans",
@@ -1894,16 +1894,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 44,
+      "confidenceScore": 43,
       "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.728,
-      "homeWin": 48.9,
+      "reliability": 0.723,
+      "homeWin": 47,
       "marketBooks": 1,
-      "spreadEdge": 1,
-      "totalEdge": -0.8,
-      "injuryUncertainty": 0.9
+      "spreadEdge": 0.1,
+      "totalEdge": -1,
+      "injuryUncertainty": 1
     },
     {
       "game": "Indianapolis Colts at Minnesota Vikings",
@@ -1913,16 +1913,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 60,
+      "confidenceScore": 58,
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.559,
-      "homeWin": 62.3,
+      "reliability": 0.564,
+      "homeWin": 61.3,
       "marketBooks": 1,
-      "spreadEdge": 2.6,
-      "totalEdge": 0.1,
-      "injuryUncertainty": 2.4
+      "spreadEdge": 1.7,
+      "totalEdge": 0.3,
+      "injuryUncertainty": 2.1
     },
     {
       "game": "Miami Dolphins at New York Jets",
@@ -1932,35 +1932,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 52,
+      "confidenceScore": 51,
       "sample": 6.3,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.646,
-      "homeWin": 56.7,
+      "homeWin": 56.6,
       "marketBooks": 12,
-      "spreadEdge": -0.9,
-      "totalEdge": 0.8,
+      "spreadEdge": -1,
+      "totalEdge": 0.7,
       "injuryUncertainty": 2
     },
     {
       "game": "Tampa Bay Buccaneers at Carolina Panthers",
-      "confidence": "Low",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "Low",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 55,
+      "confidenceScore": 58,
       "sample": 5.9,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.711,
-      "homeWin": 57.2,
+      "reliability": 0.687,
+      "homeWin": 59.5,
       "marketBooks": 1,
-      "spreadEdge": 0.5,
-      "totalEdge": 0.1,
-      "injuryUncertainty": 0.3
+      "spreadEdge": 1.8,
+      "totalEdge": 0.3,
+      "injuryUncertainty": 1.1
     },
     {
       "game": "Cincinnati Bengals at Baltimore Ravens",
@@ -1970,15 +1970,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 41,
+      "confidenceScore": 62,
       "sample": 6.3,
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.675,
-      "homeWin": 54.3,
+      "homeWin": 50.6,
       "marketBooks": 1,
-      "spreadEdge": -0.8,
-      "totalEdge": -1.2,
+      "spreadEdge": -2.7,
+      "totalEdge": -1.6,
       "injuryUncertainty": 1.9
     },
     {
@@ -1989,16 +1989,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 84,
-      "sample": 7.2,
+      "confidenceScore": 85,
+      "sample": 7.1,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.722,
-      "homeWin": 69.2,
+      "reliability": 0.723,
+      "homeWin": 67.8,
       "marketBooks": 1,
-      "spreadEdge": 0.6,
-      "totalEdge": 0.6,
-      "injuryUncertainty": 1.4
+      "spreadEdge": -0.4,
+      "totalEdge": 0.9,
+      "injuryUncertainty": 1.2
     },
     {
       "game": "Denver Broncos at Arizona Cardinals",
@@ -2008,16 +2008,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 63,
+      "confidenceScore": 56,
       "sample": 7.1,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.751,
-      "homeWin": 40.2,
+      "reliability": 0.717,
+      "homeWin": 40.7,
       "marketBooks": 1,
       "spreadEdge": 0,
-      "totalEdge": -0.5,
-      "injuryUncertainty": 0.3
+      "totalEdge": -0.2,
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Green Bay Packers at Detroit Lions",
@@ -2027,16 +2027,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 51,
+      "confidenceScore": 50,
       "sample": 6.2,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.677,
+      "reliability": 0.672,
       "homeWin": 58.2,
       "marketBooks": 1,
       "spreadEdge": 1.2,
       "totalEdge": -1,
-      "injuryUncertainty": 1.8
+      "injuryUncertainty": 2
     }
   ]
 }
