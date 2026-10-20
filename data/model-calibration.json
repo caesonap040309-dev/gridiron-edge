@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T00:23:04.696Z",
+  "updatedAt": "2026-10-20T06:03:55.402Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
@@ -60,25 +60,25 @@
   "nfl": {
     "win": {
       "factor": 1,
-      "sampleSize": 74,
-      "effectiveSample": 74,
-      "brierScore": 0.2413670453136521,
-      "calibratedBrierScore": 0.2387856666076562,
+      "sampleSize": 75,
+      "effectiveSample": 75,
+      "brierScore": 0.23965499668147638,
+      "calibratedBrierScore": 0.2339463485804568,
       "status": "held-out-no-improvement",
       "trainingSamples": 49,
-      "holdoutSamples": 25,
-      "holdoutBrier": 0.2387856666076562,
-      "holdoutCandidateBrier": 0.23889006837645213,
+      "holdoutSamples": 26,
+      "holdoutBrier": 0.2339463485804568,
+      "holdoutCandidateBrier": 0.23445844460886514,
       "holdoutDifference95Interval": [
-        -0.0038514434470347902,
-        0.004060246984626622
+        -0.0033714699256726863,
+        0.004395661982489389
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 45,
-      "effectiveSample": 45,
-      "brierScore": 0.24815143362984196,
+      "sampleSize": 46,
+      "effectiveSample": 46,
+      "brierScore": 0.2488204449055494,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -86,9 +86,9 @@
     },
     "total": {
       "factor": 1,
-      "sampleSize": 49,
-      "effectiveSample": 49,
-      "brierScore": 0.2606103892593895,
+      "sampleSize": 50,
+      "effectiveSample": 50,
+      "brierScore": 0.260009657020868,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -97,7 +97,7 @@
     "probabilityFactor": 1,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 74,
+    "sampleSize": 75,
     "status": "held-out-no-improvement"
   }
 }
