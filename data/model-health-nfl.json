@@ -1,136 +1,16 @@
 {
-  "updatedAt": "2026-10-21T10:12:39.293Z",
+  "updatedAt": "2026-10-21T15:18:05.006Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 93,
     "coveredGames": {
       "snaps": 93,
       "epa": 93,
-      "pressure": 80,
-      "contact": 80,
+      "pressure": 92,
+      "contact": 92,
       "charting": 93
     },
     "missingGames": [
-      {
-        "id": "401872996",
-        "game": "Houston Texans at Jacksonville Jaguars",
-        "date": "2026-10-18T13:30Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401872999",
-        "game": "Chicago Bears at Atlanta Falcons",
-        "date": "2026-10-18T17:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401872997",
-        "game": "Baltimore Ravens at Cleveland Browns",
-        "date": "2026-10-18T17:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873003",
-        "game": "Tennessee Titans at Indianapolis Colts",
-        "date": "2026-10-18T17:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873001",
-        "game": "New York Jets at New England Patriots",
-        "date": "2026-10-18T17:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873000",
-        "game": "New Orleans Saints at New York Giants",
-        "date": "2026-10-18T17:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401872998",
-        "game": "Carolina Panthers at Philadelphia Eagles",
-        "date": "2026-10-18T17:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873002",
-        "game": "Pittsburgh Steelers at Tampa Bay Buccaneers",
-        "date": "2026-10-18T17:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873004",
-        "game": "Arizona Cardinals at Los Angeles Rams",
-        "date": "2026-10-18T20:05Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873006",
-        "game": "Los Angeles Chargers at Kansas City Chiefs",
-        "date": "2026-10-18T20:25Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873005",
-        "game": "Buffalo Bills at Las Vegas Raiders",
-        "date": "2026-10-18T20:25Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873007",
-        "game": "Dallas Cowboys at Green Bay Packers",
-        "date": "2026-10-19T00:20Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
       {
         "id": "401873008",
         "game": "Washington Commanders at San Francisco 49ers",
@@ -143,33 +23,33 @@
       }
     ],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 8671,
-        "fetchedAt": "2026-10-21T10:12:30.671Z"
-      },
       "passing": {
         "status": "available",
-        "rows": 186,
-        "fetchedAt": "2026-10-21T10:12:30.671Z"
+        "rows": 211,
+        "fetchedAt": "2026-10-21T15:17:57.349Z"
       },
       "rushing": {
         "status": "available",
-        "rows": 639,
-        "fetchedAt": "2026-10-21T10:12:30.671Z"
+        "rows": 729,
+        "fetchedAt": "2026-10-21T15:17:57.349Z"
       },
-      "pbp": {
+      "snaps": {
         "status": "available",
-        "rows": 16380,
-        "fetchedAt": "2026-10-21T10:12:30.671Z"
+        "rows": 8671,
+        "fetchedAt": "2026-10-21T15:17:57.349Z"
       },
       "charting": {
         "status": "available",
         "rows": 15904,
-        "fetchedAt": "2026-10-21T10:12:30.671Z"
+        "fetchedAt": "2026-10-21T15:17:57.349Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 16380,
+        "fetchedAt": "2026-10-21T15:17:57.349Z"
       }
     },
-    "asOf": "2026-10-21T10:12:30.671Z"
+    "asOf": "2026-10-21T15:17:57.349Z"
   },
   "totalsLineage": [
     {
@@ -1833,7 +1713,7 @@
       "reliability": 0.656,
       "homeWin": 41.8,
       "marketBooks": 1,
-      "spreadEdge": -0.9,
+      "spreadEdge": -0.8,
       "totalEdge": 0.7,
       "injuryUncertainty": 3.2
     },
