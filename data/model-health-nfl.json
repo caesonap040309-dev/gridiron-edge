@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-10-22T10:14:26.513Z",
+  "updatedAt": "2026-10-22T15:20:34.105Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 93,
     "coveredGames": {
       "snaps": 93,
       "epa": 93,
-      "pressure": 92,
-      "contact": 92,
+      "pressure": 93,
+      "contact": 93,
       "charting": 93
     },
-    "missingGames": [
-      {
-        "id": "401873008",
-        "game": "Washington Commanders at San Francisco 49ers",
-        "date": "2026-10-20T00:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
-      "pbp": {
-        "status": "available",
-        "rows": 16380,
-        "fetchedAt": "2026-10-22T10:14:18.991Z"
-      },
       "snaps": {
         "status": "available",
         "rows": 8671,
-        "fetchedAt": "2026-10-22T10:14:18.991Z"
+        "fetchedAt": "2026-10-22T15:20:23.735Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 736,
+        "fetchedAt": "2026-10-22T15:20:23.735Z"
       },
       "passing": {
         "status": "available",
-        "rows": 211,
-        "fetchedAt": "2026-10-22T10:14:18.991Z"
+        "rows": 213,
+        "fetchedAt": "2026-10-22T15:20:23.735Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 16380,
+        "fetchedAt": "2026-10-22T15:20:23.735Z"
       },
       "charting": {
         "status": "available",
         "rows": 15904,
-        "fetchedAt": "2026-10-22T10:14:18.991Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 729,
-        "fetchedAt": "2026-10-22T10:14:18.991Z"
+        "fetchedAt": "2026-10-22T15:20:23.735Z"
       }
     },
-    "asOf": "2026-10-22T10:14:18.991Z"
+    "asOf": "2026-10-22T15:20:23.735Z"
   },
   "totalsLineage": [
     {
@@ -1782,16 +1771,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 52,
+      "confidenceScore": 51,
       "sample": 6.2,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.723,
-      "homeWin": 57.6,
+      "reliability": 0.72,
+      "homeWin": 57.7,
       "marketBooks": 12,
-      "spreadEdge": -0.9,
+      "spreadEdge": -0.8,
       "totalEdge": 0.8,
-      "injuryUncertainty": 2.6
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Tampa Bay Buccaneers at Carolina Panthers",
@@ -1805,12 +1794,12 @@
       "sample": 5.8,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.584,
-      "homeWin": 56.5,
+      "reliability": 0.587,
+      "homeWin": 56.4,
       "marketBooks": 1,
-      "spreadEdge": 0.8,
+      "spreadEdge": 0.7,
       "totalEdge": 0.5,
-      "injuryUncertainty": 4.6
+      "injuryUncertainty": 4.5
     },
     {
       "game": "Cincinnati Bengals at Baltimore Ravens",
@@ -1825,7 +1814,7 @@
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.639,
-      "homeWin": 49.3,
+      "homeWin": 49.4,
       "marketBooks": 1,
       "spreadEdge": 1.2,
       "totalEdge": 0,
@@ -1839,14 +1828,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 74,
+      "confidenceScore": 75,
       "sample": 7,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.674,
-      "homeWin": 67.1,
+      "reliability": 0.676,
+      "homeWin": 67.2,
       "marketBooks": 1,
-      "spreadEdge": -1,
+      "spreadEdge": -0.9,
       "totalEdge": 1,
       "injuryUncertainty": 2.7
     },
@@ -1858,16 +1847,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 34,
+      "confidenceScore": 36,
       "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.61,
-      "homeWin": 42.1,
+      "reliability": 0.617,
+      "homeWin": 41.8,
       "marketBooks": 1,
-      "spreadEdge": 0,
-      "totalEdge": -0.2,
-      "injuryUncertainty": 4.7
+      "spreadEdge": -0.2,
+      "totalEdge": -0.1,
+      "injuryUncertainty": 4.5
     },
     {
       "game": "Green Bay Packers at Detroit Lions",
