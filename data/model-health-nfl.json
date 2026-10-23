@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-10-23T10:07:16.357Z",
+  "updatedAt": "2026-10-23T15:07:43.878Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 94,
     "coveredGames": {
-      "snaps": 93,
+      "snaps": 94,
       "epa": 94,
       "pressure": 93,
       "contact": 93,
@@ -16,7 +16,6 @@
         "game": "New England Patriots at Chicago Bears",
         "date": "2026-10-23T00:15Z",
         "fields": [
-          "snaps",
           "pressure",
           "contact",
           "charting"
@@ -25,33 +24,33 @@
       }
     ],
     "sourceHealth": {
-      "rushing": {
-        "status": "available",
-        "rows": 736,
-        "fetchedAt": "2026-10-23T10:07:07.351Z"
-      },
-      "charting": {
-        "status": "available",
-        "rows": 15904,
-        "fetchedAt": "2026-10-23T10:07:07.351Z"
-      },
       "passing": {
         "status": "available",
         "rows": 213,
-        "fetchedAt": "2026-10-23T10:07:07.351Z"
+        "fetchedAt": "2026-10-23T15:07:30.045Z"
       },
-      "snaps": {
+      "rushing": {
         "status": "available",
-        "rows": 8671,
-        "fetchedAt": "2026-10-23T10:07:07.351Z"
+        "rows": 736,
+        "fetchedAt": "2026-10-23T15:07:30.045Z"
       },
       "pbp": {
         "status": "available",
         "rows": 16551,
-        "fetchedAt": "2026-10-23T10:07:07.351Z"
+        "fetchedAt": "2026-10-23T15:07:30.045Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 8763,
+        "fetchedAt": "2026-10-23T15:07:30.045Z"
+      },
+      "charting": {
+        "status": "available",
+        "rows": 15904,
+        "fetchedAt": "2026-10-23T15:07:30.045Z"
       }
     },
-    "asOf": "2026-10-23T10:07:07.351Z"
+    "asOf": "2026-10-23T15:07:30.045Z"
   },
   "totalsLineage": [
     {
@@ -1667,8 +1666,8 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 97,
-    "Low": 150,
+    "Medium": 98,
+    "Low": 149,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1680,16 +1679,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 45,
+      "confidenceScore": 46,
       "sample": 6.7,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.679,
+      "reliability": 0.684,
       "homeWin": 42.7,
       "marketBooks": 1,
       "spreadEdge": -0.7,
       "totalEdge": 0.6,
-      "injuryUncertainty": 2.3
+      "injuryUncertainty": 2.1
     },
     {
       "game": "San Francisco 49ers at Atlanta Falcons",
@@ -1756,16 +1755,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 50,
+      "confidenceScore": 54,
       "sample": 6.1,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.708,
-      "homeWin": 57.8,
+      "reliability": 0.731,
+      "homeWin": 57.9,
       "marketBooks": 12,
-      "spreadEdge": -0.7,
+      "spreadEdge": -0.8,
       "totalEdge": 0.8,
-      "injuryUncertainty": 3
+      "injuryUncertainty": 2.3
     },
     {
       "game": "Tampa Bay Buccaneers at Carolina Panthers",
@@ -1799,7 +1798,7 @@
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.596,
-      "homeWin": 50.7,
+      "homeWin": 50.8,
       "marketBooks": 1,
       "spreadEdge": -1.1,
       "totalEdge": -0.2,
@@ -1871,14 +1870,14 @@
         "total": "Low"
       },
       "confidenceScore": 47,
-      "sample": 7,
+      "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.669,
+      "reliability": 0.666,
       "homeWin": 41.1,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.8,
+      "totalEdge": -0.7,
       "injuryUncertainty": 2.9
     },
     {
