@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T12:42:27.804Z",
+  "updatedAt": "2026-10-24T16:37:46.941Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 94,
@@ -8,7 +8,7 @@
       "epa": 94,
       "pressure": 93,
       "contact": 93,
-      "charting": 93
+      "charting": 94
     },
     "missingGames": [
       {
@@ -17,8 +17,7 @@
         "date": "2026-10-23T00:15Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       }
@@ -27,30 +26,30 @@
       "rushing": {
         "status": "available",
         "rows": 736,
-        "fetchedAt": "2026-10-24T12:42:20.240Z"
-      },
-      "passing": {
-        "status": "available",
-        "rows": 213,
-        "fetchedAt": "2026-10-24T12:42:20.240Z"
+        "fetchedAt": "2026-10-24T16:37:36.869Z"
       },
       "snaps": {
         "status": "available",
         "rows": 8763,
-        "fetchedAt": "2026-10-24T12:42:20.240Z"
+        "fetchedAt": "2026-10-24T16:37:36.869Z"
       },
       "charting": {
         "status": "available",
-        "rows": 15904,
-        "fetchedAt": "2026-10-24T12:42:20.240Z"
+        "rows": 16070,
+        "fetchedAt": "2026-10-24T16:37:36.869Z"
       },
       "pbp": {
         "status": "available",
         "rows": 16551,
-        "fetchedAt": "2026-10-24T12:42:20.240Z"
+        "fetchedAt": "2026-10-24T16:37:36.869Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 213,
+        "fetchedAt": "2026-10-24T16:37:36.869Z"
       }
     },
-    "asOf": "2026-10-24T12:42:20.240Z"
+    "asOf": "2026-10-24T16:37:36.869Z"
   },
   "totalsLineage": [
     {
@@ -1679,16 +1678,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 46,
+      "confidenceScore": 45,
       "sample": 6.7,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.684,
+      "reliability": 0.68,
       "homeWin": 42.7,
       "marketBooks": 1,
       "spreadEdge": -0.7,
-      "totalEdge": 0.6,
-      "injuryUncertainty": 2.1
+      "totalEdge": 0.5,
+      "injuryUncertainty": 2.2
     },
     {
       "game": "San Francisco 49ers at Atlanta Falcons",
@@ -1736,16 +1735,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 73,
+      "confidenceScore": 75,
       "sample": 5.6,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.66,
-      "homeWin": 64.9,
+      "reliability": 0.668,
+      "homeWin": 65.2,
       "marketBooks": 1,
-      "spreadEdge": 1.8,
+      "spreadEdge": 1.9,
       "totalEdge": 0.4,
-      "injuryUncertainty": 1.7
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Miami Dolphins at New York Jets",
@@ -1755,11 +1754,11 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 60,
-      "sample": 6.1,
+      "confidenceScore": 59,
+      "sample": 6,
       "evidenceGames": 8,
       "observedGames": 39,
-      "reliability": 0.755,
+      "reliability": 0.751,
       "homeWin": 58.3,
       "marketBooks": 12,
       "spreadEdge": -0.7,
@@ -1801,7 +1800,7 @@
       "homeWin": 47.1,
       "marketBooks": 1,
       "spreadEdge": -0.1,
-      "totalEdge": -0.1,
+      "totalEdge": 0.3,
       "injuryUncertainty": 3.8
     },
     {
@@ -1817,9 +1816,9 @@
       "evidenceGames": 8,
       "observedGames": 40,
       "reliability": 0.72,
-      "homeWin": 68.4,
+      "homeWin": 67.9,
       "marketBooks": 1,
-      "spreadEdge": -0.9,
+      "spreadEdge": -0.7,
       "totalEdge": 0.9,
       "injuryUncertainty": 1
     },
@@ -1893,7 +1892,7 @@
       "evidenceGames": 8,
       "observedGames": 39,
       "reliability": 0.636,
-      "homeWin": 53.7,
+      "homeWin": 53.8,
       "marketBooks": 1,
       "spreadEdge": -1,
       "totalEdge": 0.1,
