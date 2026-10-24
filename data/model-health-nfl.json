@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T07:19:59.095Z",
+  "updatedAt": "2026-10-24T12:42:27.804Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 94,
@@ -24,33 +24,33 @@
       }
     ],
     "sourceHealth": {
-      "snaps": {
+      "rushing": {
         "status": "available",
-        "rows": 8763,
-        "fetchedAt": "2026-10-24T07:19:51.124Z"
+        "rows": 736,
+        "fetchedAt": "2026-10-24T12:42:20.240Z"
       },
       "passing": {
         "status": "available",
         "rows": 213,
-        "fetchedAt": "2026-10-24T07:19:51.124Z"
+        "fetchedAt": "2026-10-24T12:42:20.240Z"
       },
-      "rushing": {
+      "snaps": {
         "status": "available",
-        "rows": 736,
-        "fetchedAt": "2026-10-24T07:19:51.124Z"
+        "rows": 8763,
+        "fetchedAt": "2026-10-24T12:42:20.240Z"
       },
       "charting": {
         "status": "available",
         "rows": 15904,
-        "fetchedAt": "2026-10-24T07:19:51.124Z"
+        "fetchedAt": "2026-10-24T12:42:20.240Z"
       },
       "pbp": {
         "status": "available",
         "rows": 16551,
-        "fetchedAt": "2026-10-24T07:19:51.124Z"
+        "fetchedAt": "2026-10-24T12:42:20.240Z"
       }
     },
-    "asOf": "2026-10-24T07:19:51.124Z"
+    "asOf": "2026-10-24T12:42:20.240Z"
   },
   "totalsLineage": [
     {
@@ -1666,8 +1666,8 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 99,
-    "Low": 148,
+    "Medium": 98,
+    "Low": 149,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1896,7 +1896,7 @@
       "homeWin": 53.7,
       "marketBooks": 1,
       "spreadEdge": -1,
-      "totalEdge": 0,
+      "totalEdge": 0.1,
       "injuryUncertainty": 3.1
     }
   ]
