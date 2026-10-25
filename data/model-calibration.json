@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T19:40:39.499Z",
+  "updatedAt": "2026-10-25T22:36:00.897Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
@@ -60,25 +60,25 @@
   "nfl": {
     "win": {
       "factor": 1,
-      "sampleSize": 77,
-      "effectiveSample": 77,
-      "brierScore": 0.23843309700881393,
-      "calibratedBrierScore": 0.23099388505927923,
+      "sampleSize": 84,
+      "effectiveSample": 84,
+      "brierScore": 0.243608713544395,
+      "calibratedBrierScore": 0.2638006877753185,
       "status": "held-out-no-improvement",
-      "trainingSamples": 49,
-      "holdoutSamples": 28,
-      "holdoutBrier": 0.23099388505927923,
-      "holdoutCandidateBrier": 0.23183512035784778,
+      "trainingSamples": 57,
+      "holdoutSamples": 27,
+      "holdoutBrier": 0.2638006877753185,
+      "holdoutCandidateBrier": 0.2643462625284855,
       "holdoutDifference95Interval": [
-        -0.0027922455817536497,
-        0.004474716178890746
+        -0.000389789385590417,
+        0.0014809388919241996
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 46,
-      "effectiveSample": 46,
-      "brierScore": 0.2488204449055494,
+      "sampleSize": 48,
+      "effectiveSample": 48,
+      "brierScore": 0.24906858489911698,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -86,9 +86,9 @@
     },
     "total": {
       "factor": 1,
-      "sampleSize": 50,
-      "effectiveSample": 50,
-      "brierScore": 0.260009657020868,
+      "sampleSize": 52,
+      "effectiveSample": 52,
+      "brierScore": 0.25901975838990465,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -97,7 +97,7 @@
     "probabilityFactor": 1,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 77,
+    "sampleSize": 84,
     "status": "held-out-no-improvement"
   }
 }
