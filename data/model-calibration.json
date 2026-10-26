@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T22:36:00.897Z",
+  "updatedAt": "2026-10-26T01:13:33.024Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
@@ -60,25 +60,25 @@
   "nfl": {
     "win": {
       "factor": 1,
-      "sampleSize": 84,
-      "effectiveSample": 84,
-      "brierScore": 0.243608713544395,
-      "calibratedBrierScore": 0.2638006877753185,
+      "sampleSize": 87,
+      "effectiveSample": 87,
+      "brierScore": 0.24085055260101437,
+      "calibratedBrierScore": 0.2537950023762446,
       "status": "held-out-no-improvement",
-      "trainingSamples": 57,
+      "trainingSamples": 60,
       "holdoutSamples": 27,
-      "holdoutBrier": 0.2638006877753185,
-      "holdoutCandidateBrier": 0.2643462625284855,
+      "holdoutBrier": 0.2537950023762446,
+      "holdoutCandidateBrier": 0.25396577884468896,
       "holdoutDifference95Interval": [
-        -0.000389789385590417,
-        0.0014809388919241996
+        -0.00031518444658765096,
+        0.0006567373834762507
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 48,
-      "effectiveSample": 48,
-      "brierScore": 0.24906858489911698,
+      "sampleSize": 49,
+      "effectiveSample": 49,
+      "brierScore": 0.2494138166470729,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -86,9 +86,9 @@
     },
     "total": {
       "factor": 1,
-      "sampleSize": 52,
-      "effectiveSample": 52,
-      "brierScore": 0.25901975838990465,
+      "sampleSize": 53,
+      "effectiveSample": 53,
+      "brierScore": 0.25930140593429624,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -97,7 +97,7 @@
     "probabilityFactor": 1,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 84,
+    "sampleSize": 87,
     "status": "held-out-no-improvement"
   }
 }
