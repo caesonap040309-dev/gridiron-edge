@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-10-27T06:19:24.121Z",
+  "updatedAt": "2026-10-27T13:15:08.735Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 107,
     "coveredGames": {
-      "snaps": 106,
+      "snaps": 107,
       "epa": 107,
       "pressure": 94,
       "contact": 94,
@@ -136,7 +136,6 @@
         "game": "Dallas Cowboys at Philadelphia Eagles",
         "date": "2026-10-27T00:15Z",
         "fields": [
-          "snaps",
           "pressure",
           "contact",
           "charting"
@@ -145,33 +144,33 @@
       }
     ],
     "sourceHealth": {
+      "charting": {
+        "status": "available",
+        "rows": 18019,
+        "fetchedAt": "2026-10-27T13:14:57.846Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 9981,
+        "fetchedAt": "2026-10-27T13:14:57.846Z"
+      },
       "passing": {
         "status": "available",
         "rows": 215,
-        "fetchedAt": "2026-10-27T06:19:12.558Z"
+        "fetchedAt": "2026-10-27T13:14:57.846Z"
       },
       "rushing": {
         "status": "available",
         "rows": 744,
-        "fetchedAt": "2026-10-27T06:19:12.558Z"
-      },
-      "snaps": {
-        "status": "available",
-        "rows": 9888,
-        "fetchedAt": "2026-10-27T06:19:12.558Z"
-      },
-      "charting": {
-        "status": "available",
-        "rows": 18019,
-        "fetchedAt": "2026-10-27T06:19:12.558Z"
+        "fetchedAt": "2026-10-27T13:14:57.846Z"
       },
       "pbp": {
         "status": "available",
         "rows": 18738,
-        "fetchedAt": "2026-10-27T06:19:12.558Z"
+        "fetchedAt": "2026-10-27T13:14:57.846Z"
       }
     },
-    "asOf": "2026-10-27T06:19:12.558Z"
+    "asOf": "2026-10-27T13:14:57.846Z"
   },
   "totalsLineage": [
     {
@@ -289,7 +288,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.14
+      "appliedAdjustment": -0.15
     },
     {
       "id": "401873036",
@@ -658,7 +657,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.19
+      "appliedAdjustment": -0.2
     },
     {
       "id": "401873077",
@@ -1665,8 +1664,8 @@
     "marginStatus": "insufficient-held-out-evidence",
     "total": 0,
     "margin": 0,
-    "totalSamples": 57,
-    "marginSamples": 57
+    "totalSamples": 58,
+    "marginSamples": 58
   },
   "confidenceDistribution": {
     "High": 11,
@@ -1702,16 +1701,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 63,
+      "confidenceScore": 34,
       "sample": 6.7,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.591,
-      "homeWin": 60.5,
+      "reliability": 0.531,
+      "homeWin": 57.4,
       "marketBooks": 1,
-      "spreadEdge": 2.8,
-      "totalEdge": -0.5,
-      "injuryUncertainty": 2.1
+      "spreadEdge": 1.3,
+      "totalEdge": -0.4,
+      "injuryUncertainty": 4.4
     },
     {
       "game": "Tennessee Titans at Cincinnati Bengals",
@@ -1740,16 +1739,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 73,
+      "confidenceScore": 70,
       "sample": 7,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.749,
-      "homeWin": 62.6,
+      "reliability": 0.742,
+      "homeWin": 62,
       "marketBooks": 1,
-      "spreadEdge": -0.5,
+      "spreadEdge": -0.3,
       "totalEdge": -1.8,
-      "injuryUncertainty": 0.3
+      "injuryUncertainty": 0.5
     },
     {
       "game": "Minnesota Vikings at Detroit Lions",
@@ -1760,11 +1759,11 @@
         "total": "Low"
       },
       "confidenceScore": 35,
-      "sample": 6.4,
+      "sample": 6.3,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.663,
-      "homeWin": 53.9,
+      "reliability": 0.66,
+      "homeWin": 53.8,
       "marketBooks": 1,
       "spreadEdge": -1,
       "totalEdge": -1,
@@ -1840,7 +1839,7 @@
       "evidenceGames": 8,
       "observedGames": 40,
       "reliability": 0.59,
-      "homeWin": 66.9,
+      "homeWin": 66.8,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 0,
@@ -1854,12 +1853,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 66,
-      "sample": 6.6,
+      "confidenceScore": 65,
+      "sample": 6.5,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.661,
-      "homeWin": 64.4,
+      "reliability": 0.658,
+      "homeWin": 64.3,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -0.6,
@@ -1873,16 +1872,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 46,
-      "sample": 6.9,
+      "confidenceScore": 42,
+      "sample": 6.8,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.699,
-      "homeWin": 50.6,
+      "reliability": 0.676,
+      "homeWin": 52.5,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -1.5,
-      "injuryUncertainty": 1.8
+      "injuryUncertainty": 2.5
     },
     {
       "game": "New England Patriots at Miami Dolphins",
