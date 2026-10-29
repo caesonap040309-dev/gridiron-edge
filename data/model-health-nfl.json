@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-10-29T08:32:05.267Z",
+  "updatedAt": "2026-10-29T16:10:01.566Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 107,
     "coveredGames": {
       "snaps": 107,
       "epa": 107,
-      "pressure": 106,
-      "contact": 106,
+      "pressure": 107,
+      "contact": 107,
       "charting": 107
     },
-    "missingGames": [
-      {
-        "id": "401873009",
-        "game": "Dallas Cowboys at Philadelphia Eagles",
-        "date": "2026-10-27T00:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
       "snaps": {
         "status": "available",
         "rows": 9981,
-        "fetchedAt": "2026-10-29T08:31:58.236Z"
+        "fetchedAt": "2026-10-29T16:09:52.629Z"
       },
       "passing": {
         "status": "available",
-        "rows": 241,
-        "fetchedAt": "2026-10-29T08:31:58.236Z"
+        "rows": 243,
+        "fetchedAt": "2026-10-29T16:09:52.629Z"
       },
       "pbp": {
         "status": "available",
         "rows": 18738,
-        "fetchedAt": "2026-10-29T08:31:58.236Z"
+        "fetchedAt": "2026-10-29T16:09:52.629Z"
       },
       "rushing": {
         "status": "available",
-        "rows": 843,
-        "fetchedAt": "2026-10-29T08:31:58.236Z"
+        "rows": 851,
+        "fetchedAt": "2026-10-29T16:09:52.629Z"
       },
       "charting": {
         "status": "available",
         "rows": 18191,
-        "fetchedAt": "2026-10-29T08:31:58.236Z"
+        "fetchedAt": "2026-10-29T16:09:52.629Z"
       }
     },
-    "asOf": "2026-10-29T08:31:58.236Z"
+    "asOf": "2026-10-29T16:09:52.629Z"
   },
   "totalsLineage": [
     {
@@ -1561,16 +1550,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 68,
-      "sample": 6.3,
+      "confidenceScore": 64,
+      "sample": 6.2,
       "evidenceGames": 8,
       "observedGames": 40,
-      "reliability": 0.713,
-      "homeWin": 61.8,
+      "reliability": 0.696,
+      "homeWin": 61.4,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -1.9,
-      "injuryUncertainty": 0.6
+      "totalEdge": -1.6,
+      "injuryUncertainty": 1.1
     },
     {
       "game": "Baltimore Ravens at Buffalo Bills",
@@ -1604,9 +1593,9 @@
       "evidenceGames": 8,
       "observedGames": 40,
       "reliability": 0.661,
-      "homeWin": 68.8,
+      "homeWin": 70,
       "marketBooks": 1,
-      "spreadEdge": 1,
+      "spreadEdge": 0.4,
       "totalEdge": -0.6,
       "injuryUncertainty": 2.8
     },
@@ -1619,11 +1608,11 @@
         "total": "Low"
       },
       "confidenceScore": 52,
-      "sample": 6.9,
+      "sample": 6.8,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.65,
-      "homeWin": 61.4,
+      "reliability": 0.647,
+      "homeWin": 61.3,
       "marketBooks": 1,
       "spreadEdge": -0.8,
       "totalEdge": -1.5,
@@ -1695,10 +1684,10 @@
         "total": "Low"
       },
       "confidenceScore": 37,
-      "sample": 6.7,
+      "sample": 6.6,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.655,
+      "reliability": 0.652,
       "homeWin": 55.9,
       "marketBooks": 1,
       "spreadEdge": null,
@@ -1756,7 +1745,7 @@
       "evidenceGames": 8,
       "observedGames": 40,
       "reliability": 0.657,
-      "homeWin": 52.7,
+      "homeWin": 52.8,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -1.1,
