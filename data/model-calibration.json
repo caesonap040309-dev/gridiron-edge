@@ -1,22 +1,22 @@
 {
-  "updatedAt": "2026-10-30T01:03:06.903Z",
+  "updatedAt": "2026-10-30T07:10:20.573Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
     "win": {
       "factor": 1,
-      "sampleSize": 384,
-      "effectiveSample": 384,
-      "brierScore": 0.18695454481632653,
-      "calibratedBrierScore": 0.2285004861904809,
+      "sampleSize": 386,
+      "effectiveSample": 386,
+      "brierScore": 0.1877021232917701,
+      "calibratedBrierScore": 0.22979715683871996,
       "status": "held-out-no-improvement",
-      "trainingSamples": 268,
+      "trainingSamples": 270,
       "holdoutSamples": 116,
-      "holdoutBrier": 0.2285004861904809,
-      "holdoutCandidateBrier": 0.22819295286869926,
+      "holdoutBrier": 0.22979715683871996,
+      "holdoutCandidateBrier": 0.2295430471984195,
       "holdoutDifference95Interval": [
-        -0.0010819625213123083,
-        0.0004668958777486539
+        -0.0010453009229052972,
+        0.0005370816423040179
       ]
     },
     "spread": {
@@ -54,24 +54,24 @@
     "probabilityFactor": 1,
     "spreadProbabilityFactor": 0.721,
     "totalProbabilityFactor": 0.716,
-    "sampleSize": 384,
+    "sampleSize": 386,
     "status": "held-out-no-improvement"
   },
   "nfl": {
     "win": {
       "factor": 1,
-      "sampleSize": 89,
-      "effectiveSample": 89,
-      "brierScore": 0.24022950499270113,
-      "calibratedBrierScore": 0.24634893198667263,
+      "sampleSize": 90,
+      "effectiveSample": 90,
+      "brierScore": 0.23917841273260892,
+      "calibratedBrierScore": 0.24275187018659158,
       "status": "held-out-no-improvement",
       "trainingSamples": 62,
-      "holdoutSamples": 27,
-      "holdoutBrier": 0.24634893198667263,
-      "holdoutCandidateBrier": 0.24617544157628263,
+      "holdoutSamples": 28,
+      "holdoutBrier": 0.24275187018659158,
+      "holdoutCandidateBrier": 0.24265526156466355,
       "holdoutDifference95Interval": [
-        -0.0011596522637696896,
-        0.000812671442989568
+        -0.0010589943475859554,
+        0.0008657771037297726
       ]
     },
     "spread": {
@@ -97,7 +97,7 @@
     "probabilityFactor": 1,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 89,
+    "sampleSize": 90,
     "status": "held-out-no-improvement"
   }
 }
