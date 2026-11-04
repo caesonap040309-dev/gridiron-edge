@@ -1,136 +1,16 @@
 {
-  "updatedAt": "2026-11-04T09:17:39.401Z",
+  "updatedAt": "2026-11-04T17:22:09.013Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 121,
     "coveredGames": {
       "snaps": 121,
       "epa": 121,
-      "pressure": 108,
-      "contact": 108,
+      "pressure": 120,
+      "contact": 120,
       "charting": 121
     },
     "missingGames": [
-      {
-        "id": "401873026",
-        "game": "Baltimore Ravens at Buffalo Bills",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873031",
-        "game": "Tennessee Titans at Cincinnati Bengals",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873024",
-        "game": "Arizona Cardinals at Dallas Cowboys",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873030",
-        "game": "Minnesota Vikings at Detroit Lions",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873029",
-        "game": "Las Vegas Raiders at New York Jets",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873027",
-        "game": "Cleveland Browns at Pittsburgh Steelers",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873025",
-        "game": "Atlanta Falcons at Tampa Bay Buccaneers",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873028",
-        "game": "Indianapolis Colts at Jacksonville Jaguars",
-        "date": "2026-11-01T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873032",
-        "game": "Los Angeles Chargers at Los Angeles Rams",
-        "date": "2026-11-01T21:05Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873033",
-        "game": "Kansas City Chiefs at Denver Broncos",
-        "date": "2026-11-01T21:25Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873034",
-        "game": "New England Patriots at Miami Dolphins",
-        "date": "2026-11-01T21:25Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873035",
-        "game": "Philadelphia Eagles at Washington Commanders",
-        "date": "2026-11-02T01:20Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
       {
         "id": "401873036",
         "game": "Chicago Bears at Seattle Seahawks",
@@ -143,33 +23,33 @@
       }
     ],
     "sourceHealth": {
-      "rushing": {
+      "pbp": {
         "status": "available",
-        "rows": 857,
-        "fetchedAt": "2026-11-04T09:17:24.989Z"
+        "rows": 21191,
+        "fetchedAt": "2026-11-04T17:21:59.586Z"
       },
       "passing": {
         "status": "available",
-        "rows": 245,
-        "fetchedAt": "2026-11-04T09:17:24.989Z"
-      },
-      "snaps": {
-        "status": "available",
-        "rows": 11292,
-        "fetchedAt": "2026-11-04T09:17:24.989Z"
+        "rows": 275,
+        "fetchedAt": "2026-11-04T17:21:59.586Z"
       },
       "charting": {
         "status": "available",
         "rows": 20572,
-        "fetchedAt": "2026-11-04T09:17:24.989Z"
+        "fetchedAt": "2026-11-04T17:21:59.586Z"
       },
-      "pbp": {
+      "rushing": {
         "status": "available",
-        "rows": 21191,
-        "fetchedAt": "2026-11-04T09:17:24.989Z"
+        "rows": 950,
+        "fetchedAt": "2026-11-04T17:21:59.586Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 11292,
+        "fetchedAt": "2026-11-04T17:21:59.586Z"
       }
     },
-    "asOf": "2026-11-04T09:17:24.989Z"
+    "asOf": "2026-11-04T17:21:59.586Z"
   },
   "totalsLineage": [
     {
@@ -1542,29 +1422,29 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 111,
-    "Low": 136,
+    "Medium": 112,
+    "Low": 135,
     "Missing": 14
   },
   "confidenceSamples": [
     {
       "game": "Jacksonville Jaguars at Baltimore Ravens",
-      "confidence": "Low",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "Low",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 63,
+      "confidenceScore": 67,
       "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.64,
-      "homeWin": 34.9,
+      "reliability": 0.68,
+      "homeWin": 35.6,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": 1.7,
-      "injuryUncertainty": 3.8
+      "totalEdge": 2.1,
+      "injuryUncertainty": 2.4
     },
     {
       "game": "Cincinnati Bengals at Atlanta Falcons",
@@ -1574,16 +1454,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 49,
+      "confidenceScore": 51,
       "sample": 7.1,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.672,
-      "homeWin": 42,
+      "reliability": 0.685,
+      "homeWin": 41.9,
       "marketBooks": 1,
       "spreadEdge": -1.1,
       "totalEdge": -2.1,
-      "injuryUncertainty": 2.9
+      "injuryUncertainty": 2.5
     },
     {
       "game": "Dallas Cowboys at Indianapolis Colts",
@@ -1612,16 +1492,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 68,
+      "confidenceScore": 69,
       "sample": 7.2,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.692,
-      "homeWin": 64.6,
+      "reliability": 0.684,
+      "homeWin": 65.2,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -1.9,
-      "injuryUncertainty": 2.4
+      "injuryUncertainty": 2.6
     },
     {
       "game": "Detroit Lions at Miami Dolphins",
@@ -1632,11 +1512,11 @@
         "total": "Low"
       },
       "confidenceScore": 64,
-      "sample": 7.2,
+      "sample": 7.1,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.692,
-      "homeWin": 36.7,
+      "reliability": 0.689,
+      "homeWin": 36.8,
       "marketBooks": 1,
       "spreadEdge": 0.1,
       "totalEdge": -1.2,
@@ -1650,16 +1530,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 39,
+      "confidenceScore": 44,
       "sample": 6.8,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.587,
-      "homeWin": 55.7,
+      "reliability": 0.539,
+      "homeWin": 60.1,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.5,
-      "injuryUncertainty": 2.3
+      "totalEdge": -0.7,
+      "injuryUncertainty": 4.2
     },
     {
       "game": "New York Giants at Philadelphia Eagles",
@@ -1670,10 +1550,10 @@
         "total": "Low"
       },
       "confidenceScore": 31,
-      "sample": 6.7,
+      "sample": 6.6,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.557,
+      "reliability": 0.554,
       "homeWin": 49.9,
       "marketBooks": 1,
       "spreadEdge": null,
@@ -1746,11 +1626,11 @@
         "total": "Low"
       },
       "confidenceScore": 56,
-      "sample": 7.5,
+      "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.685,
-      "homeWin": 56.9,
+      "reliability": 0.682,
+      "homeWin": 56.8,
       "marketBooks": 1,
       "spreadEdge": 0.5,
       "totalEdge": -2.6,
