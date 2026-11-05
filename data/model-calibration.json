@@ -1,22 +1,22 @@
 {
-  "updatedAt": "2026-11-04T23:42:25.692Z",
+  "updatedAt": "2026-11-05T06:51:53.132Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
     "win": {
       "factor": 1.04,
-      "sampleSize": 438,
-      "effectiveSample": 438,
-      "brierScore": 0.18829066389092597,
-      "calibratedBrierScore": 0.2130747229276688,
+      "sampleSize": 441,
+      "effectiveSample": 441,
+      "brierScore": 0.1881893826911527,
+      "calibratedBrierScore": 0.21215708186290716,
       "status": "held-out-improvement",
       "trainingSamples": 303,
-      "holdoutSamples": 135,
-      "holdoutBrier": 0.214022139463714,
-      "holdoutCandidateBrier": 0.2130747229276688,
+      "holdoutSamples": 138,
+      "holdoutBrier": 0.21313910007372577,
+      "holdoutCandidateBrier": 0.21215708186290716,
       "holdoutDifference95Interval": [
-        -0.00156000792479971,
-        -0.00033482514729102244
+        -0.0015836356269066753,
+        -0.00038040079473083196
       ]
     },
     "spread": {
@@ -37,24 +37,24 @@
     },
     "total": {
       "factor": 0.715,
-      "sampleSize": 205,
-      "effectiveSample": 205,
-      "brierScore": 0.25220166529417665,
-      "calibratedBrierScore": 0.2523067888000374,
+      "sampleSize": 206,
+      "effectiveSample": 206,
+      "brierScore": 0.25209330841537786,
+      "calibratedBrierScore": 0.25206000625911595,
       "status": "held-out-improvement",
       "trainingSamples": 138,
-      "holdoutSamples": 67,
-      "holdoutBrier": 0.2534405535750434,
-      "holdoutCandidateBrier": 0.2523067888000374,
+      "holdoutSamples": 68,
+      "holdoutBrier": 0.25309407702631664,
+      "holdoutCandidateBrier": 0.25206000625911595,
       "holdoutDifference95Interval": [
-        -0.0030523099501910114,
-        0.0007847804001787325
+        -0.0029343265662916014,
+        0.0008661850318899659
       ]
     },
     "probabilityFactor": 1.04,
     "spreadProbabilityFactor": 0.718,
     "totalProbabilityFactor": 0.715,
-    "sampleSize": 438,
+    "sampleSize": 441,
     "status": "held-out-improvement"
   },
   "nfl": {
