@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-11-05T06:51:48.447Z",
+  "updatedAt": "2026-11-05T15:30:18.182Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 121,
     "coveredGames": {
       "snaps": 121,
       "epa": 121,
-      "pressure": 120,
-      "contact": 120,
+      "pressure": 121,
+      "contact": 121,
       "charting": 121
     },
-    "missingGames": [
-      {
-        "id": "401873036",
-        "game": "Chicago Bears at Seattle Seahawks",
-        "date": "2026-11-03T01:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
-      "snaps": {
+      "charting": {
         "status": "available",
-        "rows": 11292,
-        "fetchedAt": "2026-11-05T06:51:37.724Z"
+        "rows": 20572,
+        "fetchedAt": "2026-11-05T15:30:07.689Z"
       },
       "pbp": {
         "status": "available",
         "rows": 21191,
-        "fetchedAt": "2026-11-05T06:51:37.724Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 950,
-        "fetchedAt": "2026-11-05T06:51:37.724Z"
-      },
-      "charting": {
-        "status": "available",
-        "rows": 20572,
-        "fetchedAt": "2026-11-05T06:51:37.724Z"
+        "fetchedAt": "2026-11-05T15:30:07.689Z"
       },
       "passing": {
         "status": "available",
-        "rows": 275,
-        "fetchedAt": "2026-11-05T06:51:37.724Z"
+        "rows": 277,
+        "fetchedAt": "2026-11-05T15:30:07.689Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 11292,
+        "fetchedAt": "2026-11-05T15:30:07.689Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 958,
+        "fetchedAt": "2026-11-05T15:30:07.689Z"
       }
     },
-    "asOf": "2026-11-05T06:51:37.724Z"
+    "asOf": "2026-11-05T15:30:07.689Z"
   },
   "totalsLineage": [
     {
@@ -1422,8 +1411,8 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 117,
-    "Low": 130,
+    "Medium": 116,
+    "Low": 131,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1435,12 +1424,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 74,
-      "sample": 6.9,
+      "confidenceScore": 73,
+      "sample": 6.8,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.694,
-      "homeWin": 34.3,
+      "reliability": 0.691,
+      "homeWin": 34.5,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 2.3,
@@ -1516,7 +1505,7 @@
       "evidenceGames": 8,
       "observedGames": 41,
       "reliability": 0.692,
-      "homeWin": 36.9,
+      "homeWin": 37,
       "marketBooks": 1,
       "spreadEdge": 0.3,
       "totalEdge": -1.1,
@@ -1549,16 +1538,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 40,
+      "confidenceScore": 37,
       "sample": 6.6,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.655,
-      "homeWin": 51.2,
+      "reliability": 0.649,
+      "homeWin": 50.9,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": 1.5,
-      "injuryUncertainty": 3
+      "totalEdge": 1.4,
+      "injuryUncertainty": 3.2
     },
     {
       "game": "Los Angeles Rams at Washington Commanders",
@@ -1569,14 +1558,14 @@
         "total": "Low"
       },
       "confidenceScore": 42,
-      "sample": 6.6,
+      "sample": 6.5,
       "evidenceGames": 8,
       "observedGames": 41,
-      "reliability": 0.659,
+      "reliability": 0.656,
       "homeWin": 42.9,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.4,
+      "totalEdge": -0.8,
       "injuryUncertainty": 2.8
     },
     {
