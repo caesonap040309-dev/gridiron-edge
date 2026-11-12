@@ -1,55 +1,44 @@
 {
-  "updatedAt": "2026-11-12T11:17:47.523Z",
+  "updatedAt": "2026-11-12T19:00:05.322Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 136,
     "coveredGames": {
       "snaps": 136,
       "epa": 136,
-      "pressure": 135,
-      "contact": 135,
+      "pressure": 136,
+      "contact": 136,
       "charting": 136
     },
-    "missingGames": [
-      {
-        "id": "401873051",
-        "game": "Buffalo Bills at Minnesota Vikings",
-        "date": "2026-11-10T01:15Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      }
-    ],
+    "missingGames": [],
     "sourceHealth": {
-      "passing": {
-        "status": "available",
-        "rows": 312,
-        "fetchedAt": "2026-11-12T11:17:33.632Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 1076,
-        "fetchedAt": "2026-11-12T11:17:33.632Z"
-      },
       "snaps": {
         "status": "available",
         "rows": 12693,
-        "fetchedAt": "2026-11-12T11:17:33.632Z"
+        "fetchedAt": "2026-11-12T18:59:53.739Z"
       },
       "charting": {
         "status": "available",
         "rows": 23126,
-        "fetchedAt": "2026-11-12T11:17:33.632Z"
+        "fetchedAt": "2026-11-12T18:59:53.739Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 315,
+        "fetchedAt": "2026-11-12T18:59:53.739Z"
       },
       "pbp": {
         "status": "available",
         "rows": 23822,
-        "fetchedAt": "2026-11-12T11:17:33.632Z"
+        "fetchedAt": "2026-11-12T18:59:53.739Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 1085,
+        "fetchedAt": "2026-11-12T18:59:53.739Z"
       }
     },
-    "asOf": "2026-11-12T11:17:33.632Z"
+    "asOf": "2026-11-12T18:59:53.739Z"
   },
   "totalsLineage": [
     {
@@ -338,7 +327,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.65
+      "appliedAdjustment": -0.66
     },
     {
       "id": "401873087",
@@ -1324,9 +1313,9 @@
       "evidenceGames": 8,
       "observedGames": 42,
       "reliability": 0.71,
-      "homeWin": 55.9,
+      "homeWin": 56.2,
       "marketBooks": 1,
-      "spreadEdge": 0.3,
+      "spreadEdge": 0.5,
       "totalEdge": -1.4,
       "injuryUncertainty": 2
     },
@@ -1357,16 +1346,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 59,
+      "confidenceScore": 56,
       "sample": 7.2,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.684,
-      "homeWin": 38,
+      "reliability": 0.674,
+      "homeWin": 38.2,
       "marketBooks": 1,
-      "spreadEdge": -1.8,
-      "totalEdge": 0.4,
-      "injuryUncertainty": 2.6
+      "spreadEdge": -1.7,
+      "totalEdge": 0.8,
+      "injuryUncertainty": 2.9
     },
     {
       "game": "Minnesota Vikings at Green Bay Packers",
@@ -1376,16 +1365,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 42,
-      "sample": 6.9,
+      "confidenceScore": 39,
+      "sample": 6.8,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.663,
-      "homeWin": 55,
+      "reliability": 0.676,
+      "homeWin": 54.8,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -1.7,
-      "injuryUncertainty": 3
+      "totalEdge": -1.3,
+      "injuryUncertainty": 2.5
     },
     {
       "game": "Jacksonville Jaguars at Tennessee Titans",
@@ -1399,8 +1388,8 @@
       "sample": 7,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.694,
-      "homeWin": 27.9,
+      "reliability": 0.693,
+      "homeWin": 28,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -1.5,
@@ -1414,12 +1403,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 45,
-      "sample": 7.5,
+      "confidenceScore": 44,
+      "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.668,
-      "homeWin": 59,
+      "reliability": 0.665,
+      "homeWin": 58.9,
       "marketBooks": 1,
       "spreadEdge": 1.2,
       "totalEdge": 1.6,
@@ -1433,15 +1422,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 44,
+      "confidenceScore": 46,
       "sample": 6.7,
       "evidenceGames": 8,
       "observedGames": 42,
       "reliability": 0.688,
-      "homeWin": 56.5,
+      "homeWin": 57.2,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.9,
+      "totalEdge": -1,
       "injuryUncertainty": 2
     },
     {
@@ -1452,16 +1441,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 73,
+      "confidenceScore": 72,
       "sample": 7,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.669,
+      "reliability": 0.662,
       "homeWin": 33,
       "marketBooks": 1,
-      "spreadEdge": -1,
+      "spreadEdge": -1.2,
       "totalEdge": -0.3,
-      "injuryUncertainty": 2.9
+      "injuryUncertainty": 3.1
     },
     {
       "game": "Seattle Seahawks at Las Vegas Raiders",
@@ -1491,11 +1480,11 @@
         "total": "Low"
       },
       "confidenceScore": 64,
-      "sample": 7.6,
+      "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.697,
-      "homeWin": 37.2,
+      "reliability": 0.694,
+      "homeWin": 37.3,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 3,
@@ -1510,11 +1499,11 @@
         "total": "Low"
       },
       "confidenceScore": 45,
-      "sample": 7.4,
+      "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.672,
-      "homeWin": 41.3,
+      "reliability": 0.669,
+      "homeWin": 41.4,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -1.3,
