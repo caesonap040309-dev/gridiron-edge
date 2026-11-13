@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-11-13T08:02:04.629Z",
+  "updatedAt": "2026-11-13T16:28:45.478Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 137,
     "coveredGames": {
-      "snaps": 136,
+      "snaps": 137,
       "epa": 137,
       "pressure": 136,
       "contact": 136,
@@ -16,7 +16,6 @@
         "game": "Washington Commanders at New York Giants",
         "date": "2026-11-13T01:15Z",
         "fields": [
-          "snaps",
           "pressure",
           "contact",
           "charting"
@@ -25,33 +24,33 @@
       }
     ],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 12693,
-        "fetchedAt": "2026-11-13T08:01:55.278Z"
-      },
       "passing": {
         "status": "available",
         "rows": 315,
-        "fetchedAt": "2026-11-13T08:01:55.278Z"
+        "fetchedAt": "2026-11-13T16:28:34.881Z"
       },
       "rushing": {
         "status": "available",
         "rows": 1085,
-        "fetchedAt": "2026-11-13T08:01:55.278Z"
+        "fetchedAt": "2026-11-13T16:28:34.881Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 12785,
+        "fetchedAt": "2026-11-13T16:28:34.881Z"
       },
       "charting": {
         "status": "available",
         "rows": 23126,
-        "fetchedAt": "2026-11-13T08:01:55.278Z"
+        "fetchedAt": "2026-11-13T16:28:34.881Z"
       },
       "pbp": {
         "status": "available",
         "rows": 24002,
-        "fetchedAt": "2026-11-13T08:01:55.278Z"
+        "fetchedAt": "2026-11-13T16:28:34.881Z"
       }
     },
-    "asOf": "2026-11-13T08:01:55.278Z"
+    "asOf": "2026-11-13T16:28:34.881Z"
   },
   "totalsLineage": [
     {
@@ -1275,8 +1274,8 @@
     "marginStatus": "held-out-no-improvement",
     "total": 0,
     "margin": 0,
-    "totalSamples": 87,
-    "marginSamples": 87
+    "totalSamples": 88,
+    "marginSamples": 88
   },
   "confidenceDistribution": {
     "High": 11,
@@ -1293,15 +1292,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 42,
+      "confidenceScore": 41,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 42,
       "reliability": 0.707,
-      "homeWin": 55.7,
+      "homeWin": 55.4,
       "marketBooks": 1,
-      "spreadEdge": 0.2,
-      "totalEdge": -0.9,
+      "spreadEdge": 0.1,
+      "totalEdge": -0.5,
       "injuryUncertainty": 2
     },
     {
@@ -1312,15 +1311,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 59,
-      "sample": 7.4,
+      "confidenceScore": 66,
+      "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.697,
+      "reliability": 0.693,
       "homeWin": 38.9,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -2.6,
+      "totalEdge": -3.1,
       "injuryUncertainty": 2.4
     },
     {
@@ -1369,16 +1368,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 75,
+      "confidenceScore": 76,
       "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.655,
-      "homeWin": 29,
+      "reliability": 0.662,
+      "homeWin": 29.6,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -1.4,
-      "injuryUncertainty": 3.3
+      "injuryUncertainty": 3
     },
     {
       "game": "Miami Dolphins at Indianapolis Colts",
@@ -1388,16 +1387,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 46,
+      "confidenceScore": 52,
       "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.684,
-      "homeWin": 58.4,
+      "reliability": 0.697,
+      "homeWin": 59.5,
       "marketBooks": 1,
-      "spreadEdge": 0.8,
+      "spreadEdge": 1.2,
       "totalEdge": 1.6,
-      "injuryUncertainty": 2.8
+      "injuryUncertainty": 2.4
     },
     {
       "game": "Carolina Panthers at New Orleans Saints",
@@ -1426,16 +1425,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 72,
-      "sample": 7,
+      "confidenceScore": 75,
+      "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 42,
-      "reliability": 0.662,
-      "homeWin": 32.9,
+      "reliability": 0.673,
+      "homeWin": 32.8,
       "marketBooks": 1,
-      "spreadEdge": -1.2,
-      "totalEdge": -0.3,
-      "injuryUncertainty": 3.1
+      "spreadEdge": -1.1,
+      "totalEdge": -0.2,
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Seattle Seahawks at Las Vegas Raiders",
