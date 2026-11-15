@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-15T10:58:14.214Z",
+  "updatedAt": "2026-11-15T17:44:43.251Z",
   "coefficientStatus": "Live fixed caps; coefficient changes require chronological held-out calibration or sufficient paired forward improvement",
   "cfb": {
     "forward": {
@@ -113,12 +113,12 @@
     "forward": {
       "promotion": {
         "spread": {
-          "samples": 88,
+          "samples": 89,
           "weeks": 7,
-          "meanErrorDifference": -0.18687074829931974,
+          "meanErrorDifference": -0.15829931972789127,
           "difference95Interval": [
-            -0.34650984125590106,
-            -0.027231655342738414
+            -0.289311855175628,
+            -0.02728678428015452
           ],
           "promote": false,
           "status": "more completed forward evidence required",
@@ -126,12 +126,12 @@
           "minimumWeeks": 6
         },
         "total": {
-          "samples": 88,
+          "samples": 89,
           "weeks": 7,
-          "meanErrorDifference": -0.09047619047619014,
+          "meanErrorDifference": -0.09761904761904738,
           "difference95Interval": [
-            -0.2591810082958238,
-            0.07822862734344353
+            -0.2588655256167601,
+            0.0636274303786653
           ],
           "promote": false,
           "status": "more completed forward evidence required",
@@ -140,13 +140,13 @@
         }
       },
       "status": "collecting forward evidence",
-      "pairedGames": 88,
-      "marginError": 9.4898,
-      "baselineMarginError": 9.625,
-      "totalError": 10.767,
-      "baselineTotalError": 10.9011,
-      "brier": 0.2244,
-      "baselineBrier": 0.2277,
+      "pairedGames": 89,
+      "marginError": 9.6719,
+      "baselineMarginError": 9.8067,
+      "totalError": 10.6899,
+      "baselineTotalError": 10.8213,
+      "brier": 0.2249,
+      "baselineBrier": 0.2281,
       "byVersion": {
         "15": {
           "games": 13,
@@ -167,46 +167,46 @@
           "baselineBrier": 0.3226
         },
         "17": {
-          "games": 74,
-          "marginError": 10.1014,
-          "baselineMarginError": 10.273,
-          "totalError": 11.0851,
-          "baselineTotalError": 11.2446,
-          "brier": 0.2268,
-          "baselineBrier": 0.2301
+          "games": 75,
+          "marginError": 10.3093,
+          "baselineMarginError": 10.48,
+          "totalError": 10.9893,
+          "baselineTotalError": 11.1453,
+          "brier": 0.2274,
+          "baselineBrier": 0.2306
         }
       },
       "byMarket": {
         "spread": {
-          "forecasts": 77,
+          "forecasts": 78,
           "wins": 37,
-          "losses": 38,
+          "losses": 39,
           "pushes": 2,
-          "winRate": 0.4933,
+          "winRate": 0.4868,
           "pricedForecasts": 58,
           "profitUnits": -6.3386,
           "roi": -0.1093,
-          "closingLineSamples": 71,
-          "meanClosingLineValuePoints": 0.9437
+          "closingLineSamples": 72,
+          "meanClosingLineValuePoints": 0.9167
         },
         "total": {
-          "forecasts": 88,
+          "forecasts": 89,
           "wins": 47,
-          "losses": 41,
+          "losses": 42,
           "pushes": 0,
-          "winRate": 0.5341,
+          "winRate": 0.5281,
           "pricedForecasts": 58,
           "profitUnits": -4.9615,
           "roi": -0.0855,
-          "closingLineSamples": 88,
-          "meanClosingLineValuePoints": 0.9375
+          "closingLineSamples": 89,
+          "meanClosingLineValuePoints": 0.9382
         },
         "moneyline": {
-          "forecasts": 87,
+          "forecasts": 88,
           "wins": 56,
-          "losses": 31,
+          "losses": 32,
           "pushes": 0,
-          "winRate": 0.6437,
+          "winRate": 0.6364,
           "pricedForecasts": 57,
           "profitUnits": -6.2343,
           "roi": -0.1094,
@@ -218,11 +218,11 @@
     },
     "historical": {
       "method": "Chronological scoring-feature experiment; every game uses strictly earlier results. Excludes sportsbook, weather and live injury adjustments.",
-      "games": 105,
-      "baselineMarginMAE": 9.2593,
-      "candidateMarginMAE": 9.2842,
-      "baselineTotalMAE": 11.401,
-      "candidateTotalMAE": 11.5372,
+      "games": 106,
+      "baselineMarginMAE": 9.3915,
+      "candidateMarginMAE": 9.4181,
+      "baselineTotalMAE": 11.3285,
+      "candidateTotalMAE": 11.4579,
       "limitation": "Historical feature-development evidence, not an independent betting-profit claim or a full replay of the production forecast."
     }
   }
