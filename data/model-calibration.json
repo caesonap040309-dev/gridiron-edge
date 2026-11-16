@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-16T02:46:13.945Z",
+  "updatedAt": "2026-11-16T11:25:48.880Z",
   "method": "Chronological training and later held-out evaluation by market; aligned pregame prices only. Factors remain neutral without sufficient later evidence.",
   "minimumSample": 60,
   "cfb": {
@@ -60,25 +60,25 @@
   "nfl": {
     "win": {
       "factor": 1,
-      "sampleSize": 130,
-      "effectiveSample": 130,
-      "brierScore": 0.2244078173986917,
-      "calibratedBrierScore": 0.19117397789737797,
+      "sampleSize": 131,
+      "effectiveSample": 131,
+      "brierScore": 0.22421574170553396,
+      "calibratedBrierScore": 0.19137085408512547,
       "status": "held-out-no-improvement",
       "trainingSamples": 90,
-      "holdoutSamples": 40,
-      "holdoutBrier": 0.19117397789737797,
-      "holdoutCandidateBrier": 0.19359184229651324,
+      "holdoutSamples": 41,
+      "holdoutBrier": 0.19137085408512547,
+      "holdoutCandidateBrier": 0.1937917650376979,
       "holdoutDifference95Interval": [
-        0.0011067319739363397,
-        0.0037289968243341977
+        0.0011417437697688055,
+        0.003700078135376054
       ]
     },
     "spread": {
       "factor": 1,
-      "sampleSize": 53,
-      "effectiveSample": 53,
-      "brierScore": 0.2505904732517632,
+      "sampleSize": 54,
+      "effectiveSample": 54,
+      "brierScore": 0.2510301713712057,
       "calibratedBrierScore": null,
       "status": "insufficient-held-out-evidence",
       "trainingSamples": 0,
@@ -97,7 +97,7 @@
     "probabilityFactor": 1,
     "spreadProbabilityFactor": 1,
     "totalProbabilityFactor": 1,
-    "sampleSize": 130,
+    "sampleSize": 131,
     "status": "held-out-no-improvement"
   }
 }
