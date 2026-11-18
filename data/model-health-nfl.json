@@ -1,176 +1,55 @@
 {
-  "updatedAt": "2026-11-18T04:24:55.647Z",
+  "updatedAt": "2026-11-18T14:02:57.909Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 150,
     "coveredGames": {
       "snaps": 150,
       "epa": 150,
-      "pressure": 137,
-      "contact": 137,
-      "charting": 149
+      "pressure": 149,
+      "contact": 149,
+      "charting": 150
     },
     "missingGames": [
-      {
-        "id": "401873053",
-        "game": "New England Patriots at Detroit Lions",
-        "date": "2026-11-15T14:30Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873058",
-        "game": "Kansas City Chiefs at Atlanta Falcons",
-        "date": "2026-11-15T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873056",
-        "game": "Houston Texans at Cleveland Browns",
-        "date": "2026-11-15T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873060",
-        "game": "Minnesota Vikings at Green Bay Packers",
-        "date": "2026-11-15T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873057",
-        "game": "Jacksonville Jaguars at Tennessee Titans",
-        "date": "2026-11-15T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873059",
-        "game": "Miami Dolphins at Indianapolis Colts",
-        "date": "2026-11-15T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873055",
-        "game": "Carolina Panthers at New Orleans Saints",
-        "date": "2026-11-15T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873054",
-        "game": "Buffalo Bills at New York Jets",
-        "date": "2026-11-15T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873062",
-        "game": "Seattle Seahawks at Las Vegas Raiders",
-        "date": "2026-11-15T21:05Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873061",
-        "game": "Los Angeles Rams at Arizona Cardinals",
-        "date": "2026-11-15T21:05Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873063",
-        "game": "San Francisco 49ers at Dallas Cowboys",
-        "date": "2026-11-15T21:25Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873064",
-        "game": "Pittsburgh Steelers at Cincinnati Bengals",
-        "date": "2026-11-16T01:20Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
       {
         "id": "401873065",
         "game": "Los Angeles Chargers at Baltimore Ravens",
         "date": "2026-11-17T01:15Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       }
     ],
     "sourceHealth": {
+      "rushing": {
+        "status": "available",
+        "rows": 1195,
+        "fetchedAt": "2026-11-18T14:02:31.733Z"
+      },
       "snaps": {
         "status": "available",
         "rows": 14004,
-        "fetchedAt": "2026-11-18T04:24:44.587Z"
+        "fetchedAt": "2026-11-18T14:02:31.733Z"
       },
       "passing": {
         "status": "available",
-        "rows": 317,
-        "fetchedAt": "2026-11-18T04:24:44.587Z"
-      },
-      "rushing": {
-        "status": "available",
-        "rows": 1093,
-        "fetchedAt": "2026-11-18T04:24:44.587Z"
+        "rows": 347,
+        "fetchedAt": "2026-11-18T14:02:31.733Z"
       },
       "charting": {
         "status": "available",
-        "rows": 25310,
-        "fetchedAt": "2026-11-18T04:24:44.587Z"
+        "rows": 25480,
+        "fetchedAt": "2026-11-18T14:02:31.733Z"
       },
       "pbp": {
         "status": "available",
         "rows": 26246,
-        "fetchedAt": "2026-11-18T04:24:44.587Z"
+        "fetchedAt": "2026-11-18T14:02:31.733Z"
       }
     },
-    "asOf": "2026-11-18T04:24:44.587Z"
+    "asOf": "2026-11-18T14:02:31.733Z"
   },
   "totalsLineage": [
     {
@@ -1282,8 +1161,8 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 122,
-    "Low": 125,
+    "Medium": 120,
+    "Low": 127,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1296,11 +1175,11 @@
         "total": "Low"
       },
       "confidenceScore": 76,
-      "sample": 7.6,
+      "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.684,
-      "homeWin": 68.3,
+      "reliability": 0.681,
+      "homeWin": 68.2,
       "marketBooks": 1,
       "spreadEdge": -2.3,
       "totalEdge": 1.3,
@@ -1341,7 +1220,7 @@
       "homeWin": 67.1,
       "marketBooks": 1,
       "spreadEdge": -0.3,
-      "totalEdge": -2.1,
+      "totalEdge": -1.6,
       "injuryUncertainty": 2.5
     },
     {
@@ -1379,27 +1258,27 @@
       "homeWin": 60.9,
       "marketBooks": 1,
       "spreadEdge": 0.2,
-      "totalEdge": 0.7,
+      "totalEdge": 1.1,
       "injuryUncertainty": 3.9
     },
     {
       "game": "Arizona Cardinals at Kansas City Chiefs",
-      "confidence": "Medium",
+      "confidence": "Low",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 80,
-      "sample": 7.7,
+      "confidenceScore": 73,
+      "sample": 7.6,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.71,
-      "homeWin": 70.4,
+      "reliability": 0.664,
+      "homeWin": 69.2,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.3,
-      "injuryUncertainty": 2.3
+      "injuryUncertainty": 3.7
     },
     {
       "game": "Pittsburgh Steelers at Philadelphia Eagles",
@@ -1410,11 +1289,11 @@
         "total": "Low"
       },
       "confidenceScore": 36,
-      "sample": 6.9,
+      "sample": 6.8,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.653,
-      "homeWin": 43.9,
+      "reliability": 0.65,
+      "homeWin": 44,
       "marketBooks": 1,
       "spreadEdge": 1.3,
       "totalEdge": 0.4,
