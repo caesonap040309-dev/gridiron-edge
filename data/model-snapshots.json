@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T21:59:16.190Z",
+  "updatedAt": "2026-11-19T03:32:10.572Z",
   "entries": [
     {
       "league": "cfb",
@@ -795570,6 +795570,2598 @@
           "headToHeadAverageTotal": 39.5
         },
         "market": null
+      },
+      "policyVersion": 1,
+      "qualifiedPlays": []
+    },
+    {
+      "league": "nfl",
+      "id": "401873079",
+      "date": "2026-11-26T01:00Z",
+      "prediction": {
+        "probabilityEvidence": {
+          "homeWin": 0.6229985264034057,
+          "homeCover": null,
+          "over": 0.4688889335439997
+        },
+        "version": 17,
+        "winner": "Los Angeles Rams",
+        "homeWin": 62.3,
+        "spread": -5.8,
+        "total": 44.3,
+        "homeScore": 25,
+        "awayScore": 19,
+        "sample": 7.8,
+        "evidenceGames": 8,
+        "observedGames": 44,
+        "createdAt": "2026-09-13T19:54:46.200Z",
+        "asOf": "2026-11-19T03:31:59.149Z",
+        "closingConsensus": {
+          "capturedAt": "2026-11-19T03:31:59.149Z",
+          "homePoint": null,
+          "total": 45.5
+        },
+        "baseline": {
+          "version": 16,
+          "spread": -5.3,
+          "total": 44.2,
+          "homeWin": 59.2
+        },
+        "homeOffense": 26.1,
+        "homeDefense": 18.3,
+        "awayOffense": 23,
+        "awayDefense": 20.8,
+        "dataQuality": {
+          "eligible": false,
+          "reasons": [
+            "Fresh sportsbook lines unavailable"
+          ],
+          "warnings": [],
+          "oddsAgeMinutes": null,
+          "injuryAgeHours": 0,
+          "reliabilityFactor": 0.88,
+          "checkedAt": "2026-11-19T03:31:59.149Z"
+        },
+        "totalsEvidence": {
+          "total": -0.3,
+          "delta": -0.21999999999999997,
+          "status": "applied with conservative caps",
+          "expectedPossessions": 10.152850194040473,
+          "leaguePossessions": 10.21,
+          "historyGames": 8,
+          "components": {
+            "pace": -0.24268431471581844,
+            "efficiency": -0.0003850139558787685,
+            "homeMatchup": {
+              "terms": [
+                {
+                  "kind": "pass",
+                  "weight": 0.5433789370011095,
+                  "success": 0.504652406089532,
+                  "league": 0.44985355014644984,
+                  "opponentDefenseResidual": 0.008050468433227535,
+                  "signal": 0.03415099907083708
+                },
+                {
+                  "kind": "run",
+                  "weight": 0.4566210629988905,
+                  "success": 0.5851506291095442,
+                  "league": 0.49672591206735267,
+                  "opponentDefenseResidual": 0.007820318325863426,
+                  "signal": 0.04394751035812706
+                }
+              ],
+              "signal": 0.07809850942896414
+            },
+            "awayMatchup": {
+              "terms": [
+                {
+                  "kind": "pass",
+                  "weight": 0.5757900942450854,
+                  "success": 0.4607293364087224,
+                  "league": 0.44985355014644984,
+                  "opponentDefenseResidual": -0.049104760634261224,
+                  "signal": -0.022011864756540322
+                },
+                {
+                  "kind": "run",
+                  "weight": 0.4242099057549146,
+                  "success": 0.42555690787227907,
+                  "league": 0.49672591206735267,
+                  "opponentDefenseResidual": -0.06134789815702448,
+                  "signal": -0.056214982657716746
+                }
+              ],
+              "signal": -0.07822684741425706
+            },
+            "redZone": {
+              "home": -0.08033807343383981,
+              "away": 0.018954617085319366
+            },
+            "credibility": 1
+          },
+          "priorTotalAdjustment": -0.08,
+          "teams": {
+            "home": "Los Angeles Rams",
+            "away": "Green Bay Packers"
+          },
+          "asOf": "2026-11-19T03:31:59.149Z",
+          "rawTotal": 42.70594761390559,
+          "marketTotal": 45.5,
+          "marketWeight": 0.56,
+          "appliedAdjustment": -0.3,
+          "injuryTotal": -0.3904,
+          "projectedTotal": 44.270616950118466,
+          "verification": "calculation checked before save"
+        },
+        "enrichmentEvidence": {
+          "home": {
+            "games": 8,
+            "lastGameDate": "2026-11-15T21:05Z",
+            "snaps": [
+              {
+                "id": "DotsKe00",
+                "name": "Kevin Dotson",
+                "position": "OL",
+                "offense": 1,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 76,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "McClWa00",
+                "name": "Warren McClendon",
+                "position": "OL",
+                "offense": 1,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 76,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "LimmBe00",
+                "name": "Beaux Limmer",
+                "position": "OL",
+                "offense": 1,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 76,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "StafMa00",
+                "name": "Matthew Stafford",
+                "position": "QB",
+                "offense": 1,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 76,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "JackAl01",
+                "name": "Alaric Jackson",
+                "position": "OL",
+                "offense": 0.97,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 74,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "ParkCo02",
+                "name": "Colby Parkinson",
+                "position": "TE",
+                "offense": 0.7,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 53,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "AlleDa02",
+                "name": "Davis Allen",
+                "position": "TE",
+                "offense": 0.68,
+                "defense": 0,
+                "special": 0.18,
+                "offenseSnaps": 52,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "HigbTy00",
+                "name": "Tyler Higbee",
+                "position": "TE",
+                "offense": 0.67,
+                "defense": 0,
+                "special": 0.41,
+                "offenseSnaps": 51,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "MurrBi00",
+                "name": "Bill Murray",
+                "position": "OL",
+                "offense": 0.64,
+                "defense": 0,
+                "special": 0.36,
+                "offenseSnaps": 49,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "MumpKo00",
+                "name": "Konata Mumpfield",
+                "position": "WR",
+                "offense": 0.63,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 48,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "DaniCJ00",
+                "name": "CJ Daniels",
+                "position": "WR",
+                "offense": 0.61,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 46,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "WillKy02",
+                "name": "Kyren Williams",
+                "position": "RB",
+                "offense": 0.51,
+                "defense": 0,
+                "special": 0.14,
+                "offenseSnaps": 39,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "CoruBl00",
+                "name": "Blake Corum",
+                "position": "RB",
+                "offense": 0.51,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 39,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "RiveRo01",
+                "name": "Ronnie Rivers",
+                "position": "RB",
+                "offense": 0.22,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 17,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "ShelCo00",
+                "name": "Coleman Shelton",
+                "position": "OL",
+                "offense": 0.22,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 17,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "AtweTu00",
+                "name": "Tutu Atwell",
+                "position": "WR",
+                "offense": 0.21,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 16,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "McMaDy00",
+                "name": "Dylan McMahon",
+                "position": "OL",
+                "offense": 0.13,
+                "defense": 0,
+                "special": 0.05,
+                "offenseSnaps": 10,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "SmitXa00",
+                "name": "Xavier Smith",
+                "position": "WR",
+                "offense": 0.12,
+                "defense": 0,
+                "special": 0.32,
+                "offenseSnaps": 9,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "QuesDa00",
+                "name": "David Quessenberry",
+                "position": "OL",
+                "offense": 0.08,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 6,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "KlarMa00",
+                "name": "Max Klare",
+                "position": "TE",
+                "offense": 0.05,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 4,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "PresBr00",
+                "name": "Brennan Presley",
+                "position": "WR",
+                "offense": 0.03,
+                "defense": 0,
+                "special": 0.14,
+                "offenseSnaps": 2,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "LakeQu00",
+                "name": "Quentin Lake",
+                "position": "S",
+                "offense": 0,
+                "defense": 1,
+                "special": 0.09,
+                "offenseSnaps": 0,
+                "defenseSnaps": 35
+              },
+              {
+                "id": "WallJo00",
+                "name": "Josh Wallace",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0.86,
+                "special": 0.09,
+                "offenseSnaps": 0,
+                "defenseSnaps": 30
+              },
+              {
+                "id": "McDuTr00",
+                "name": "Trent McDuffie",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0.86,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 30
+              },
+              {
+                "id": "CurlKa00",
+                "name": "Kamren Curl",
+                "position": "S",
+                "offense": 0,
+                "defense": 0.86,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 30
+              },
+              {
+                "id": "KincKa00",
+                "name": "Kamren Kinchens",
+                "position": "S",
+                "offense": 0,
+                "defense": 0.71,
+                "special": 0.36,
+                "offenseSnaps": 0,
+                "defenseSnaps": 25
+              },
+              {
+                "id": "DonaAa00",
+                "name": "Aaron Donald",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.66,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 23
+              },
+              {
+                "id": "YounBy01",
+                "name": "Byron Young",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.63,
+                "special": 0.09,
+                "offenseSnaps": 0,
+                "defenseSnaps": 22
+              },
+              {
+                "id": "DaviTy05",
+                "name": "Tyler Davis",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.63,
+                "special": 0.09,
+                "offenseSnaps": 0,
+                "defenseSnaps": 22
+              },
+              {
+                "id": "ForbEm00",
+                "name": "Emmanuel Forbes",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0.6,
+                "special": 0.27,
+                "offenseSnaps": 0,
+                "defenseSnaps": 21
+              },
+              {
+                "id": "LandNa01",
+                "name": "Nathan Landman",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.57,
+                "special": 0.14,
+                "offenseSnaps": 0,
+                "defenseSnaps": 20
+              },
+              {
+                "id": "FiskBr00",
+                "name": "Braden Fiske",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.57,
+                "special": 0.09,
+                "offenseSnaps": 0,
+                "defenseSnaps": 20
+              },
+              {
+                "id": "StewJo03",
+                "name": "Josaiah Stewart",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.51,
+                "special": 0.41,
+                "offenseSnaps": 0,
+                "defenseSnaps": 18
+              },
+              {
+                "id": "GarrMy00",
+                "name": "Myles Garrett",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.49,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 17
+              },
+              {
+                "id": "BailWe00",
+                "name": "Wesley Bailey",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.43,
+                "special": 0.45,
+                "offenseSnaps": 0,
+                "defenseSnaps": 15
+              },
+              {
+                "id": "HamiTy00",
+                "name": "Ty Hamilton",
+                "position": "NT",
+                "offense": 0,
+                "defense": 0.43,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 15
+              },
+              {
+                "id": "DolaSh00",
+                "name": "Shaun Dolac",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.37,
+                "special": 0.73,
+                "offenseSnaps": 0,
+                "defenseSnaps": 13
+              },
+              {
+                "id": "SpeiOm00",
+                "name": "Omar Speights",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.37,
+                "special": 0.59,
+                "offenseSnaps": 0,
+                "defenseSnaps": 13
+              },
+              {
+                "id": "MurcLa00",
+                "name": "Larrell Murchison",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.26,
+                "special": 0.23,
+                "offenseSnaps": 0,
+                "defenseSnaps": 9
+              },
+              {
+                "id": "McCoJa02",
+                "name": "Jaylen McCollough",
+                "position": "S",
+                "offense": 0,
+                "defense": 0.17,
+                "special": 0.73,
+                "offenseSnaps": 0,
+                "defenseSnaps": 6
+              },
+              {
+                "id": "LampCa00",
+                "name": "Cam Lampkin",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0.03,
+                "special": 0.64,
+                "offenseSnaps": 0,
+                "defenseSnaps": 1
+              },
+              {
+                "id": "StuaGr00",
+                "name": "Grant Stuard",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.64,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "WillDa15",
+                "name": "Damarion Williams",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.59,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "EvanEt00",
+                "name": "Ethan Evans",
+                "position": "P",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.32,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "McQuJa00",
+                "name": "Jake McQuaide",
+                "position": "LS",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.32,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "KartJo00",
+                "name": "Joshua Karty",
+                "position": "K",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.32,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "McMaBr01",
+                "name": "Brandon McManus",
+                "position": "K",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              }
+            ],
+            "pressureAllowed": 0.16185133883875757,
+            "pressureGenerated": 0.19899553937500752,
+            "yardsBeforeContact": 2.792207792207792,
+            "yardsAfterContact": 1.7316017316017316,
+            "runEPA": 0.08391625344528718,
+            "passEPA": 0.10391511828920023,
+            "runEPAAllowed": -0.16568684909239442,
+            "passEPAAllowed": -0.06840982031059771,
+            "blitzRate": 0.28936170212765955,
+            "passEPAAgainstBlitz": 0.022987161105758568,
+            "motionRate": 0.6970954356846473,
+            "playActionRate": 0.16182572614107885,
+            "kickingAboveExpected": -0.10396085808890473,
+            "puntNet": 40.25925925925926,
+            "returnAverage": 9.794520547945206,
+            "coverage": {
+              "routes": "unavailable",
+              "manZone": "unavailable",
+              "blockingGrades": "unavailable",
+              "runBlocking": "yards before contact; not a blocking grade",
+              "epa": "nflfastR via nflverse"
+            }
+          },
+          "away": {
+            "games": 8,
+            "lastGameDate": "2026-11-15T18:00Z",
+            "snaps": [
+              {
+                "id": "BeltAn00",
+                "name": "Anthony Belton",
+                "position": "G",
+                "offense": 1,
+                "defense": 0,
+                "special": 0.12,
+                "offenseSnaps": 55,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "WillJo11",
+                "name": "John Williams",
+                "position": "G",
+                "offense": 1,
+                "defense": 0,
+                "special": 0.12,
+                "offenseSnaps": 55,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "TomlLa01",
+                "name": "Laken Tomlinson",
+                "position": "G",
+                "offense": 1,
+                "defense": 0,
+                "special": 0.12,
+                "offenseSnaps": 55,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "MorgJo03",
+                "name": "Jordan Morgan",
+                "position": "T",
+                "offense": 1,
+                "defense": 0,
+                "special": 0.12,
+                "offenseSnaps": 55,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "GlovTr00",
+                "name": "Travis Glover",
+                "position": "G",
+                "offense": 1,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 55,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "KrafTu00",
+                "name": "Tucker Kraft",
+                "position": "TE",
+                "offense": 0.95,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 52,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "LoveJo03",
+                "name": "Jordan Love",
+                "position": "QB",
+                "offense": 0.95,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 52,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "WatsCh00",
+                "name": "Christian Watson",
+                "position": "WR",
+                "offense": 0.85,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 47,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "GoldMa02",
+                "name": "Matthew Golden",
+                "position": "WR",
+                "offense": 0.84,
+                "defense": 0,
+                "special": 0.08,
+                "offenseSnaps": 46,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "BrooCh00",
+                "name": "Chris Brooks",
+                "position": "RB",
+                "offense": 0.47,
+                "defense": 0,
+                "special": 0.5,
+                "offenseSnaps": 26,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "RedmMa00",
+                "name": "Mark Redman",
+                "position": "TE",
+                "offense": 0.38,
+                "defense": 0,
+                "special": 0.35,
+                "offenseSnaps": 21,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "SmitJo01",
+                "name": "Jonnu Smith",
+                "position": "TE",
+                "offense": 0.36,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 20,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "WillSa01",
+                "name": "Savion Williams",
+                "position": "WR",
+                "offense": 0.36,
+                "defense": 0,
+                "special": 0.15,
+                "offenseSnaps": 20,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "LloyMa00",
+                "name": "MarShawn Lloyd",
+                "position": "RB",
+                "offense": 0.25,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 14,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "JohnKa03",
+                "name": "Kaleb Johnson",
+                "position": "RB",
+                "offense": 0.25,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 14,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "MichJ00",
+                "name": "J. Michael Sturdivant",
+                "position": "WR",
+                "offense": 0.16,
+                "defense": 0,
+                "special": 0.62,
+                "offenseSnaps": 9,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "DabnDr00",
+                "name": "Drake Dabney",
+                "position": "TE",
+                "offense": 0.05,
+                "defense": 0,
+                "special": 0.31,
+                "offenseSnaps": 3,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "BectMe00",
+                "name": "Mekhi Becton",
+                "position": "G",
+                "offense": 0.05,
+                "defense": 0,
+                "special": 0.12,
+                "offenseSnaps": 3,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "TaylTy00",
+                "name": "Tyrod Taylor",
+                "position": "QB",
+                "offense": 0.05,
+                "defense": 0,
+                "special": 0,
+                "offenseSnaps": 3,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "WillEv00",
+                "name": "Evan Williams",
+                "position": "S",
+                "offense": 0,
+                "defense": 1,
+                "special": 0.35,
+                "offenseSnaps": 0,
+                "defenseSnaps": 69
+              },
+              {
+                "id": "McKiXa00",
+                "name": "Xavier McKinney",
+                "position": "S",
+                "offense": 0,
+                "defense": 1,
+                "special": 0.23,
+                "offenseSnaps": 0,
+                "defenseSnaps": 69
+              },
+              {
+                "id": "NixoKe00",
+                "name": "Keisean Nixon",
+                "position": "CB",
+                "offense": 0,
+                "defense": 1,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 69
+              },
+              {
+                "id": "McDuIs00",
+                "name": "Isaiah McDuffie",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.99,
+                "special": 0.12,
+                "offenseSnaps": 0,
+                "defenseSnaps": 68
+              },
+              {
+                "id": "HoppTy00",
+                "name": "Ty'Ron Hopper",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.97,
+                "special": 0.38,
+                "offenseSnaps": 0,
+                "defenseSnaps": 67
+              },
+              {
+                "id": "ValeCa00",
+                "name": "Carrington Valentine",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0.8,
+                "special": 0.12,
+                "offenseSnaps": 0,
+                "defenseSnaps": 55
+              },
+              {
+                "id": "BrooKa00",
+                "name": "Karl Brooks",
+                "position": "DT",
+                "offense": 0,
+                "defense": 0.61,
+                "special": 0.12,
+                "offenseSnaps": 0,
+                "defenseSnaps": 42
+              },
+              {
+                "id": "WyatDe00",
+                "name": "Devonte Wyatt",
+                "position": "DT",
+                "offense": 0,
+                "defense": 0.61,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 42
+              },
+              {
+                "id": "VanNLu00",
+                "name": "Lukas Van Ness",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.54,
+                "special": 0.15,
+                "offenseSnaps": 0,
+                "defenseSnaps": 37
+              },
+              {
+                "id": "BullJa00",
+                "name": "Javon Bullard",
+                "position": "S",
+                "offense": 0,
+                "defense": 0.52,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 36
+              },
+              {
+                "id": "CoxxBr02",
+                "name": "Brenton Cox",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.51,
+                "special": 0.23,
+                "offenseSnaps": 0,
+                "defenseSnaps": 35
+              },
+              {
+                "id": "SorrBa00",
+                "name": "Barryn Sorrell",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.49,
+                "special": 0.73,
+                "offenseSnaps": 0,
+                "defenseSnaps": 34
+              },
+              {
+                "id": "DennDa01",
+                "name": "Dani Dennis-Sutton",
+                "position": "DE",
+                "offense": 0,
+                "defense": 0.49,
+                "special": 0.46,
+                "offenseSnaps": 0,
+                "defenseSnaps": 34
+              },
+              {
+                "id": "McClCh01",
+                "name": "Chris McClellan",
+                "position": "DT",
+                "offense": 0,
+                "defense": 0.46,
+                "special": 0.27,
+                "offenseSnaps": 0,
+                "defenseSnaps": 32
+              },
+              {
+                "id": "RileJo00",
+                "name": "Jordon Riley",
+                "position": "DT",
+                "offense": 0,
+                "defense": 0.41,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 28
+              },
+              {
+                "id": "CampAn00",
+                "name": "Anthony Campbell",
+                "position": "DT",
+                "offense": 0,
+                "defense": 0.36,
+                "special": 0.27,
+                "offenseSnaps": 0,
+                "defenseSnaps": 25
+              },
+              {
+                "id": "CissBr00",
+                "name": "Brandon Cisse",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0.2,
+                "special": 0,
+                "offenseSnaps": 0,
+                "defenseSnaps": 14
+              },
+              {
+                "id": "HaddKa00",
+                "name": "Kamal Hadden",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0.03,
+                "special": 0.58,
+                "offenseSnaps": 0,
+                "defenseSnaps": 2
+              },
+              {
+                "id": "NiemNi00",
+                "name": "Nick Niemann",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0.01,
+                "special": 0.88,
+                "offenseSnaps": 0,
+                "defenseSnaps": 1
+              },
+              {
+                "id": "WelcKr00",
+                "name": "Kristian Welch",
+                "position": "LB",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.77,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "OladKi00",
+                "name": "Kitan Oladapo",
+                "position": "S",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.65,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "StJuBe00",
+                "name": "Benjamin St-Juste",
+                "position": "CB",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.46,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "MeltBo00",
+                "name": "Bo Melton",
+                "position": "WR",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.38,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "OrzeMa00",
+                "name": "Matthew Orzech",
+                "position": "LS",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "WhelDa00",
+                "name": "Daniel Whelan",
+                "position": "P",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.27,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "SmacTr00",
+                "name": "Trey Smack",
+                "position": "K",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.23,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "MoorSk01",
+                "name": "Skyy Moore",
+                "position": "WR",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.12,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              },
+              {
+                "id": "BankAa00",
+                "name": "Aaron Banks",
+                "position": "G",
+                "offense": 0,
+                "defense": 0,
+                "special": 0.12,
+                "offenseSnaps": 0,
+                "defenseSnaps": 0
+              }
+            ],
+            "pressureAllowed": 0.20153794573637995,
+            "pressureGenerated": 0.19031538701345704,
+            "yardsBeforeContact": 1.6611111111111112,
+            "yardsAfterContact": 1.3444444444444446,
+            "runEPA": -0.16991663358935724,
+            "passEPA": 0.16134512344742563,
+            "runEPAAllowed": -0.007036115711855441,
+            "passEPAAllowed": -0.10109580934276709,
+            "blitzRate": 0.3686440677966102,
+            "passEPAAgainstBlitz": 0.15382941464501443,
+            "motionRate": 0.6035805626598465,
+            "playActionRate": 0.12531969309462915,
+            "kickingAboveExpected": -0.2237976974720927,
+            "puntNet": 43.25806451612903,
+            "returnAverage": 15.015151515151516,
+            "coverage": {
+              "routes": "unavailable",
+              "manZone": "unavailable",
+              "blockingGrades": "unavailable",
+              "runBlocking": "yards before contact; not a blocking grade",
+              "epa": "nflfastR via nflverse"
+            }
+          },
+          "adjustment": {
+            "margin": 0.29,
+            "total": 0,
+            "components": {
+              "pressure": 0.03869340740733829,
+              "contact": 0.1357316017316017,
+              "epa": 0.09671028786743659,
+              "blitzMatchup": -0.006914713260703074,
+              "specialTeams": 0.026920024776866183,
+              "credibility": 1
+            },
+            "status": "conservative evidence adjustment; not a trained coefficient claim"
+          },
+          "profiles": {
+            "home": {
+              "asOf": "2026-11-18T21:59:02.583Z",
+              "season": 2026,
+              "coach": [
+                {
+                  "id": "2499338",
+                  "name": "Sean McVay"
+                }
+              ],
+              "schemes": [
+                "Base 3-4 D",
+                "Special Teams",
+                "3WR 1TE"
+              ],
+              "starters": [
+                {
+                  "id": "4362245",
+                  "name": "Braden Fiske",
+                  "position": "DE",
+                  "slot": "lde",
+                  "replacements": [
+                    {
+                      "id": "4240123",
+                      "name": "Larrell Murchison"
+                    },
+                    {
+                      "id": "4250621",
+                      "name": "Kobie Turner"
+                    }
+                  ]
+                },
+                {
+                  "id": "4431118",
+                  "name": "Ty Hamilton",
+                  "position": "DT",
+                  "slot": "nt",
+                  "replacements": [
+                    {
+                      "id": "3125114",
+                      "name": "Poona Ford"
+                    }
+                  ]
+                },
+                {
+                  "id": "16716",
+                  "name": "Aaron Donald",
+                  "position": "DE",
+                  "slot": "rde",
+                  "replacements": [
+                    {
+                      "id": "4568217",
+                      "name": "Tyler Davis"
+                    }
+                  ]
+                },
+                {
+                  "id": "4875196",
+                  "name": "Byron Young",
+                  "position": "LB",
+                  "slot": "wlb",
+                  "replacements": [
+                    {
+                      "id": "4682983",
+                      "name": "Josaiah Stewart"
+                    },
+                    {
+                      "id": "4877357",
+                      "name": "Eddie Walls III"
+                    },
+                    {
+                      "id": "4695022",
+                      "name": "Daniel Rickert"
+                    }
+                  ]
+                },
+                {
+                  "id": "4243181",
+                  "name": "Nate Landman",
+                  "position": "LB",
+                  "slot": "lilb",
+                  "replacements": [
+                    {
+                      "id": "4240255",
+                      "name": "Grant Stuard"
+                    }
+                  ]
+                },
+                {
+                  "id": "4428550",
+                  "name": "Omar Speights",
+                  "position": "LB",
+                  "slot": "rilb",
+                  "replacements": [
+                    {
+                      "id": "4693848",
+                      "name": "Shaun Dolac"
+                    }
+                  ]
+                },
+                {
+                  "id": "3122132",
+                  "name": "Myles Garrett",
+                  "position": "LB",
+                  "slot": "slb",
+                  "replacements": [
+                    {
+                      "id": "4362294",
+                      "name": "Desjuan Johnson"
+                    },
+                    {
+                      "id": "4430919",
+                      "name": "Wesley Bailey"
+                    },
+                    {
+                      "id": "4598574",
+                      "name": "Darryl Peterson III"
+                    }
+                  ]
+                },
+                {
+                  "id": "4572371",
+                  "name": "Josh Wallace",
+                  "position": "CB",
+                  "slot": "lcb",
+                  "replacements": [
+                    {
+                      "id": "4427752",
+                      "name": "Cam Lampkin"
+                    },
+                    {
+                      "id": "4697639",
+                      "name": "Jaylen Watson"
+                    }
+                  ]
+                },
+                {
+                  "id": "4242154",
+                  "name": "Kam Curl",
+                  "position": "S",
+                  "slot": "ss",
+                  "replacements": [
+                    {
+                      "id": "4427120",
+                      "name": "Jaylen McCollough"
+                    }
+                  ]
+                },
+                {
+                  "id": "4596363",
+                  "name": "Kamren Kinchens",
+                  "position": "S",
+                  "slot": "fs",
+                  "replacements": [
+                    {
+                      "id": "5082391",
+                      "name": "Maximus Pulley"
+                    }
+                  ]
+                },
+                {
+                  "id": "4426405",
+                  "name": "Trent McDuffie",
+                  "position": "CB",
+                  "slot": "rcb",
+                  "replacements": [
+                    {
+                      "id": "4429767",
+                      "name": "Emmanuel Forbes Jr."
+                    }
+                  ]
+                },
+                {
+                  "id": "4249128",
+                  "name": "Quentin Lake",
+                  "position": "DB",
+                  "slot": "nb",
+                  "replacements": [
+                    {
+                      "id": "4572371",
+                      "name": "Josh Wallace"
+                    }
+                  ]
+                },
+                {
+                  "id": "16339",
+                  "name": "Brandon McManus",
+                  "position": "ST",
+                  "slot": "pk",
+                  "replacements": [
+                    {
+                      "id": "4566192",
+                      "name": "Joshua Karty"
+                    },
+                    {
+                      "id": "4259619",
+                      "name": "Blake Grupe"
+                    }
+                  ]
+                },
+                {
+                  "id": "5125875",
+                  "name": "Ethan Evans",
+                  "position": "ST",
+                  "slot": "p",
+                  "replacements": []
+                },
+                {
+                  "id": "4386544",
+                  "name": "Xavier Smith",
+                  "position": "ST",
+                  "slot": "pr",
+                  "replacements": [
+                    {
+                      "id": "4569382",
+                      "name": "Jordan Whittington"
+                    }
+                  ]
+                },
+                {
+                  "id": "2575907",
+                  "name": "Joe Cardona",
+                  "position": "ST",
+                  "slot": "ls",
+                  "replacements": []
+                },
+                {
+                  "id": "4710855",
+                  "name": "Konata Mumpfield",
+                  "position": "OFF",
+                  "slot": "wr1",
+                  "replacements": [
+                    {
+                      "id": "4386544",
+                      "name": "Xavier Smith"
+                    },
+                    {
+                      "id": "4569382",
+                      "name": "Jordan Whittington"
+                    }
+                  ]
+                },
+                {
+                  "id": "4605951",
+                  "name": "CJ Daniels",
+                  "position": "OFF",
+                  "slot": "wr2",
+                  "replacements": [
+                    {
+                      "id": "4426515",
+                      "name": "Puka Nacua"
+                    }
+                  ]
+                },
+                {
+                  "id": "4360797",
+                  "name": "Tutu Atwell",
+                  "position": "OFF",
+                  "slot": "wr3",
+                  "replacements": [
+                    {
+                      "id": "16800",
+                      "name": "Davante Adams"
+                    }
+                  ]
+                },
+                {
+                  "id": "4036135",
+                  "name": "Alaric Jackson",
+                  "position": "OT",
+                  "slot": "lt",
+                  "replacements": [
+                    {
+                      "id": "15946",
+                      "name": "David Quessenberry"
+                    }
+                  ]
+                },
+                {
+                  "id": "4362474",
+                  "name": "Steve Avila",
+                  "position": "OG",
+                  "slot": "lg",
+                  "replacements": [
+                    {
+                      "id": "4567175",
+                      "name": "Beaux Limmer"
+                    },
+                    {
+                      "id": "3912189",
+                      "name": "Bill Murray"
+                    }
+                  ]
+                },
+                {
+                  "id": "3052180",
+                  "name": "Coleman Shelton",
+                  "position": "OFF",
+                  "slot": "c",
+                  "replacements": [
+                    {
+                      "id": "4567175",
+                      "name": "Beaux Limmer"
+                    },
+                    {
+                      "id": "4430155",
+                      "name": "Dylan McMahon"
+                    }
+                  ]
+                },
+                {
+                  "id": "3917599",
+                  "name": "Kevin Dotson",
+                  "position": "OT",
+                  "slot": "rg",
+                  "replacements": [
+                    {
+                      "id": "4360859",
+                      "name": "Justin Dedich"
+                    }
+                  ]
+                },
+                {
+                  "id": "4426512",
+                  "name": "Warren McClendon Jr.",
+                  "position": "OG",
+                  "slot": "rt",
+                  "replacements": [
+                    {
+                      "id": "4575003",
+                      "name": "Keagen Trost"
+                    }
+                  ]
+                },
+                {
+                  "id": "12483",
+                  "name": "Matthew Stafford",
+                  "position": "OFF",
+                  "slot": "qb",
+                  "replacements": [
+                    {
+                      "id": "4259553",
+                      "name": "Stetson Bennett IV"
+                    },
+                    {
+                      "id": "4685522",
+                      "name": "Ty Simpson"
+                    },
+                    {
+                      "id": "4877717",
+                      "name": "Matthew Caldwell"
+                    }
+                  ]
+                },
+                {
+                  "id": "2573401",
+                  "name": "Tyler Higbee",
+                  "position": "OFF",
+                  "slot": "te",
+                  "replacements": [
+                    {
+                      "id": "4242557",
+                      "name": "Colby Parkinson"
+                    },
+                    {
+                      "id": "4426553",
+                      "name": "Davis Allen"
+                    },
+                    {
+                      "id": "4833029",
+                      "name": "Max Klare"
+                    }
+                  ]
+                },
+                {
+                  "id": "4430737",
+                  "name": "Kyren Williams",
+                  "position": "OFF",
+                  "slot": "rb",
+                  "replacements": [
+                    {
+                      "id": "4429096",
+                      "name": "Blake Corum"
+                    },
+                    {
+                      "id": "4243003",
+                      "name": "Ronnie Rivers"
+                    },
+                    {
+                      "id": "5082269",
+                      "name": "Dean Connors"
+                    }
+                  ]
+                }
+              ],
+              "rosterIds": [
+                "4426553",
+                "4360797",
+                "4362474",
+                "4259553",
+                "4429096",
+                "4605951",
+                "3917599",
+                "2573401",
+                "4036135",
+                "4833029",
+                "4567175",
+                "4426512",
+                "4710855",
+                "3912189",
+                "4426515",
+                "4242557",
+                "15946",
+                "4243003",
+                "3052180",
+                "4685522",
+                "4386544",
+                "12483",
+                "4575003",
+                "4430737",
+                "4430919",
+                "4242154",
+                "4568217",
+                "4693848",
+                "16716",
+                "4362245",
+                "4429767",
+                "3122132",
+                "4431118",
+                "4362294",
+                "2510863",
+                "4596363",
+                "4249128",
+                "4427752",
+                "4243181",
+                "4427120",
+                "4426405",
+                "4240123",
+                "4598574",
+                "5082391",
+                "4428550",
+                "4682983",
+                "4240255",
+                "4572371",
+                "4567480",
+                "4875196",
+                "2575907",
+                "5125875",
+                "4566192",
+                "16339",
+                "14676",
+                "16800",
+                "4877717",
+                "5082269",
+                "4360859",
+                "4570037",
+                "3125114",
+                "4259619",
+                "4430155",
+                "4045161",
+                "4695022",
+                "4038843",
+                "4250621",
+                "4877357",
+                "4697639",
+                "4569382",
+                "4690182",
+                "4426752",
+                "5160648",
+                "3116135",
+                "4361651",
+                "4046536",
+                "4791223",
+                "4426401",
+                "4258485",
+                "4565908",
+                "4608858",
+                "4428803"
+              ],
+              "coverage": {
+                "depthChart": "available",
+                "routes": "unavailable",
+                "manZone": "unavailable"
+              }
+            },
+            "away": {
+              "asOf": "2026-11-18T21:59:02.583Z",
+              "season": 2026,
+              "coach": [
+                {
+                  "id": "4082797",
+                  "name": "Matt LaFleur"
+                }
+              ],
+              "schemes": [
+                "Base 3-4 D",
+                "Special Teams",
+                "3WR 1TE"
+              ],
+              "starters": [
+                {
+                  "id": "4373423",
+                  "name": "Karl Brooks",
+                  "position": "DE",
+                  "slot": "lde",
+                  "replacements": [
+                    {
+                      "id": "4429136",
+                      "name": "Warren Brinson"
+                    }
+                  ]
+                },
+                {
+                  "id": "4820574",
+                  "name": "Chris McClellan",
+                  "position": "DT",
+                  "slot": "nt",
+                  "replacements": [
+                    {
+                      "id": "4240677",
+                      "name": "Jordon Riley"
+                    },
+                    {
+                      "id": "4259762",
+                      "name": "Jonathan Ford"
+                    },
+                    {
+                      "id": "2983055",
+                      "name": "Javon Hargrave"
+                    }
+                  ]
+                },
+                {
+                  "id": "4361791",
+                  "name": "Devonte Wyatt",
+                  "position": "DE",
+                  "slot": "rde",
+                  "replacements": [
+                    {
+                      "id": "4887255",
+                      "name": "Anthony Campbell"
+                    }
+                  ]
+                },
+                {
+                  "id": "4686906",
+                  "name": "Lukas Van Ness",
+                  "position": "LB",
+                  "slot": "wlb",
+                  "replacements": [
+                    {
+                      "id": "4361776",
+                      "name": "Brenton Cox Jr."
+                    },
+                    {
+                      "id": "4683059",
+                      "name": "Collin Oliver"
+                    }
+                  ]
+                },
+                {
+                  "id": "3124005",
+                  "name": "Zaire Franklin",
+                  "position": "LB",
+                  "slot": "lilb",
+                  "replacements": [
+                    {
+                      "id": "4036141",
+                      "name": "Nick Niemann"
+                    },
+                    {
+                      "id": "4036153",
+                      "name": "Kristian Welch"
+                    }
+                  ]
+                },
+                {
+                  "id": "4239947",
+                  "name": "Isaiah McDuffie",
+                  "position": "LB",
+                  "slot": "rilb",
+                  "replacements": [
+                    {
+                      "id": "4567406",
+                      "name": "Ty'Ron Hopper"
+                    },
+                    {
+                      "id": "4430438",
+                      "name": "Edgerrin Cooper"
+                    }
+                  ]
+                },
+                {
+                  "id": "4683643",
+                  "name": "Barryn Sorrell",
+                  "position": "LB",
+                  "slot": "slb",
+                  "replacements": [
+                    {
+                      "id": "4685315",
+                      "name": "Dani Dennis-Sutton"
+                    },
+                    {
+                      "id": "4361423",
+                      "name": "Micah Parsons"
+                    }
+                  ]
+                },
+                {
+                  "id": "4259493",
+                  "name": "Keisean Nixon",
+                  "position": "CB",
+                  "slot": "lcb",
+                  "replacements": [
+                    {
+                      "id": "4258206",
+                      "name": "Benjamin St-Juste"
+                    }
+                  ]
+                },
+                {
+                  "id": "4428863",
+                  "name": "Evan Williams",
+                  "position": "S",
+                  "slot": "ss",
+                  "replacements": [
+                    {
+                      "id": "4709980",
+                      "name": "Johnathan Baldwin II"
+                    }
+                  ]
+                },
+                {
+                  "id": "4241470",
+                  "name": "Xavier McKinney",
+                  "position": "S",
+                  "slot": "fs",
+                  "replacements": [
+                    {
+                      "id": "4374037",
+                      "name": "Kitan Oladapo"
+                    }
+                  ]
+                },
+                {
+                  "id": "5076652",
+                  "name": "Brandon Cisse",
+                  "position": "CB",
+                  "slot": "rcb",
+                  "replacements": [
+                    {
+                      "id": "4430965",
+                      "name": "Carrington Valentine"
+                    }
+                  ]
+                },
+                {
+                  "id": "4688930",
+                  "name": "Javon Bullard",
+                  "position": "DB",
+                  "slot": "nb",
+                  "replacements": [
+                    {
+                      "id": "4427356",
+                      "name": "Kamal Hadden"
+                    }
+                  ]
+                },
+                {
+                  "id": "4869461",
+                  "name": "Trey Smack",
+                  "position": "ST",
+                  "slot": "pk",
+                  "replacements": []
+                },
+                {
+                  "id": "4248789",
+                  "name": "Daniel Whelan",
+                  "position": "ST",
+                  "slot": "p",
+                  "replacements": []
+                },
+                {
+                  "id": "4430191",
+                  "name": "Skyy Moore",
+                  "position": "ST",
+                  "slot": "pr",
+                  "replacements": [
+                    {
+                      "id": "4701936",
+                      "name": "Matthew Golden"
+                    }
+                  ]
+                },
+                {
+                  "id": "4422336",
+                  "name": "Matt Orzech",
+                  "position": "ST",
+                  "slot": "ls",
+                  "replacements": []
+                },
+                {
+                  "id": "4248528",
+                  "name": "Christian Watson",
+                  "position": "OFF",
+                  "slot": "wr1",
+                  "replacements": [
+                    {
+                      "id": "4430191",
+                      "name": "Skyy Moore"
+                    },
+                    {
+                      "id": "4362249",
+                      "name": "Jayden Reed"
+                    }
+                  ]
+                },
+                {
+                  "id": "4701936",
+                  "name": "Matthew Golden",
+                  "position": "OFF",
+                  "slot": "wr2",
+                  "replacements": [
+                    {
+                      "id": "4259305",
+                      "name": "Bo Melton"
+                    }
+                  ]
+                },
+                {
+                  "id": "4431487",
+                  "name": "Savion Williams",
+                  "position": "OFF",
+                  "slot": "wr3",
+                  "replacements": [
+                    {
+                      "id": "4635009",
+                      "name": "J. Michael Sturdivant"
+                    }
+                  ]
+                },
+                {
+                  "id": "3821571",
+                  "name": "Jordan Morgan",
+                  "position": "OT",
+                  "slot": "lt",
+                  "replacements": [
+                    {
+                      "id": "2312707",
+                      "name": "John Williams"
+                    },
+                    {
+                      "id": "4240090",
+                      "name": "Mekhi Becton"
+                    }
+                  ]
+                },
+                {
+                  "id": "2512477",
+                  "name": "Laken Tomlinson",
+                  "position": "OG",
+                  "slot": "lg",
+                  "replacements": [
+                    {
+                      "id": "4242390",
+                      "name": "Aaron Banks"
+                    },
+                    {
+                      "id": "4569661",
+                      "name": "Jager Burton"
+                    },
+                    {
+                      "id": "4360887",
+                      "name": "Donovan Jennings"
+                    }
+                  ]
+                },
+                {
+                  "id": "4426411",
+                  "name": "Sean Rhyan",
+                  "position": "OFF",
+                  "slot": "c",
+                  "replacements": [
+                    {
+                      "id": "2312707",
+                      "name": "John Williams"
+                    },
+                    {
+                      "id": "4569661",
+                      "name": "Jager Burton"
+                    },
+                    {
+                      "id": "4428037",
+                      "name": "Jacob Monk"
+                    }
+                  ]
+                },
+                {
+                  "id": "14931",
+                  "name": "Kevin Zeitler",
+                  "position": "OT",
+                  "slot": "rg",
+                  "replacements": [
+                    {
+                      "id": "4361904",
+                      "name": "Travis Glover"
+                    },
+                    {
+                      "id": "2512477",
+                      "name": "Laken Tomlinson"
+                    },
+                    {
+                      "id": "4240090",
+                      "name": "Mekhi Becton"
+                    }
+                  ]
+                },
+                {
+                  "id": "4873706",
+                  "name": "Anthony Belton",
+                  "position": "OG",
+                  "slot": "rt",
+                  "replacements": [
+                    {
+                      "id": "4240090",
+                      "name": "Mekhi Becton"
+                    },
+                    {
+                      "id": "4361904",
+                      "name": "Travis Glover"
+                    },
+                    {
+                      "id": "4240435",
+                      "name": "Zach Bako-Bewele"
+                    }
+                  ]
+                },
+                {
+                  "id": "4036378",
+                  "name": "Jordan Love",
+                  "position": "OFF",
+                  "slot": "qb",
+                  "replacements": [
+                    {
+                      "id": "14163",
+                      "name": "Tyrod Taylor"
+                    }
+                  ]
+                },
+                {
+                  "id": "4572680",
+                  "name": "Tucker Kraft",
+                  "position": "OFF",
+                  "slot": "te",
+                  "replacements": [
+                    {
+                      "id": "4431346",
+                      "name": "Mark Redman"
+                    },
+                    {
+                      "id": "3054212",
+                      "name": "Jonnu Smith"
+                    },
+                    {
+                      "id": "4428085",
+                      "name": "Luke Musgrave"
+                    }
+                  ]
+                },
+                {
+                  "id": "4047365",
+                  "name": "Josh Jacobs",
+                  "position": "OFF",
+                  "slot": "rb",
+                  "replacements": [
+                    {
+                      "id": "4819231",
+                      "name": "Kaleb Johnson"
+                    },
+                    {
+                      "id": "4429023",
+                      "name": "MarShawn Lloyd"
+                    },
+                    {
+                      "id": "3149687",
+                      "name": "Chris Brooks"
+                    }
+                  ]
+                }
+              ],
+              "rosterIds": [
+                "4242390",
+                "4240090",
+                "4873706",
+                "3149687",
+                "4569661",
+                "4429466",
+                "4361904",
+                "4701936",
+                "4047365",
+                "4360887",
+                "4819231",
+                "4572680",
+                "4429023",
+                "4036378",
+                "4259305",
+                "4430191",
+                "3821571",
+                "4431346",
+                "4426411",
+                "3054212",
+                "4249836",
+                "4635009",
+                "14163",
+                "2512477",
+                "4248528",
+                "2312707",
+                "4431487",
+                "14931",
+                "4373423",
+                "4688930",
+                "4887255",
+                "5076652",
+                "4361776",
+                "4685315",
+                "3124005",
+                "4427356",
+                "4567406",
+                "4820574",
+                "4239947",
+                "4241470",
+                "4036141",
+                "4259493",
+                "4374037",
+                "4240677",
+                "4683643",
+                "4258206",
+                "4430965",
+                "4686906",
+                "4036153",
+                "4428863",
+                "4361791",
+                "4422336",
+                "4869461",
+                "4248789",
+                "4240435",
+                "4709980",
+                "4429136",
+                "4430438",
+                "4259762",
+                "2983055",
+                "4428037",
+                "4428085",
+                "4683059",
+                "4361423",
+                "4362249",
+                "4360086",
+                "4361027",
+                "5150999",
+                "4426972",
+                "4572261",
+                "4746099",
+                "4685402",
+                "4240623",
+                "4726151",
+                "4693331",
+                "4242996",
+                "5033343",
+                "4428116",
+                "4578436",
+                "4608762",
+                "4572380",
+                "4426347",
+                "4581189"
+              ],
+              "coverage": {
+                "depthChart": "available",
+                "routes": "unavailable",
+                "manZone": "unavailable"
+              }
+            }
+          }
+        },
+        "contextEvidence": {
+          "home": {
+            "games": 8,
+            "leaguePossessions": 10.21,
+            "leagueRedZoneRate": 0.5985090521831736,
+            "leagueRunSuccess": 0.49672591206735267,
+            "leaguePassSuccess": 0.44985355014644984,
+            "specialTeams": {
+              "fgAttempts": 7.8685242593749996,
+              "fgRate": 0.8392887790720944,
+              "leagueFGRate": 0.8452950558213717,
+              "puntAverage": 46.681208116843344
+            },
+            "redZoneTrips": 17.88866006640625,
+            "redZoneTDs": 12.48518969765625,
+            "runSuccess": 0.5851506291095442,
+            "passSuccess": 0.504652406089532,
+            "runAllowed": 0.40990770972018065,
+            "passAllowed": 0.4010417165311202,
+            "runDefenseResidual": -0.06134789815702448,
+            "passDefenseResidual": -0.049104760634261224,
+            "sackAllowed": 0.04068734750144632,
+            "sackGenerated": 0.07961827414547223,
+            "qbHitsPerGame": 4.636617847058185,
+            "earlyPassRate": 0.5433789370011095,
+            "secondsPerPlay": 30.391327228886098,
+            "possessions": 9.851495056873416,
+            "redZoneTDRate": 0.6979387864327877,
+            "garbageShare": 0.04604465999922335,
+            "scripts": {
+              "leading": 0.42346270224820864,
+              "tied": 0.6438986414362413,
+              "trailing": 0.6675938979570228
+            },
+            "epa": null,
+            "pressureRate": null,
+            "snapCounts": null
+          },
+          "away": {
+            "games": 8,
+            "leaguePossessions": 10.21,
+            "leagueRedZoneRate": 0.5985090521831736,
+            "leagueRunSuccess": 0.49672591206735267,
+            "leaguePassSuccess": 0.44985355014644984,
+            "specialTeams": {
+              "fgAttempts": 9.987236291406248,
+              "fgRate": 0.6559370767828893,
+              "leagueFGRate": 0.8452950558213717,
+              "puntAverage": 50.039423691872244
+            },
+            "redZoneTrips": 16.556897837499996,
+            "redZoneTDs": 9.508501332812498,
+            "runSuccess": 0.42555690787227907,
+            "passSuccess": 0.4607293364087224,
+            "runAllowed": 0.5249795690185844,
+            "passAllowed": 0.4369799107296215,
+            "runDefenseResidual": 0.007820318325863426,
+            "passDefenseResidual": 0.008050468433227535,
+            "sackAllowed": 0.07597409180658928,
+            "sackGenerated": 0.07470221888738336,
+            "qbHitsPerGame": 6.354215298909542,
+            "earlyPassRate": 0.5757900942450854,
+            "secondsPerPlay": 30.701725013713606,
+            "possessions": 10.45420533120753,
+            "redZoneTDRate": 0.574292444522822,
+            "garbageShare": 0.051821423617211454,
+            "scripts": {
+              "leading": 0.6248266282349197,
+              "tied": 0.5427144476143126,
+              "trailing": 0.6954336392906132
+            },
+            "epa": null,
+            "pressureRate": null,
+            "snapCounts": null
+          },
+          "adjustment": {
+            "margin": 0.77,
+            "total": -0.08,
+            "coverage": "supported evidence; conservative uncalibrated caps",
+            "components": {
+              "efficiency": 0.75,
+              "line": 0.12060839868969547,
+              "pace": -0.017144941787858237,
+              "specialTeams": 0,
+              "redZoneRegression": {
+                "home": -0.08033807343383981,
+                "away": 0.018954617085319366
+              },
+              "credibility": 1
+            }
+          },
+          "playerInjuries": {
+            "home": [
+              {
+                "athleteId": "2575907",
+                "name": "Joe Cardona",
+                "position": "LS",
+                "status": "Out",
+                "detail": "Not Specified",
+                "reportedAt": "2026-11-17T12:22Z",
+                "availability": 0,
+                "impact": 0.55,
+                "expectedLoss": 0.55,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 1,
+                  "source": "published depth-chart starter",
+                  "replacement": null
+                }
+              },
+              {
+                "athleteId": "4362474",
+                "name": "Steve Avila",
+                "position": "G",
+                "status": "Out",
+                "detail": "Not Specified",
+                "reportedAt": "2026-11-17T12:22Z",
+                "availability": 0,
+                "impact": 0.75,
+                "expectedLoss": 0.75,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 1,
+                  "source": "published depth-chart starter",
+                  "replacement": {
+                    "id": "4567175",
+                    "name": "Beaux Limmer"
+                  }
+                }
+              },
+              {
+                "athleteId": "3052180",
+                "name": "Coleman Shelton",
+                "position": "C",
+                "status": "Doubtful",
+                "detail": "Not Specified",
+                "reportedAt": "2026-11-17T01:07Z",
+                "availability": 20,
+                "impact": 0.8,
+                "expectedLoss": 0.61,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 0.95,
+                  "source": "last-game actual snap share",
+                  "snapShare": 0.22
+                }
+              },
+              {
+                "athleteId": "4430155",
+                "name": "Dylan McMahon",
+                "position": "C",
+                "status": "Injured Reserve",
+                "detail": "Not Specified",
+                "reportedAt": "2026-11-17T00:48Z",
+                "availability": 72,
+                "impact": 0.8,
+                "expectedLoss": 0.1,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 0.46699999999999997,
+                  "source": "last-game actual snap share",
+                  "snapShare": 0.13
+                }
+              },
+              {
+                "athleteId": "16800",
+                "name": "Davante Adams",
+                "position": "WR",
+                "status": "Injured Reserve",
+                "detail": "Surgery",
+                "reportedAt": "2026-11-15T16:06Z",
+                "availability": 72,
+                "impact": 1.25,
+                "expectedLoss": 0.15,
+                "source": "prior workload and efficiency; observed replacement when available",
+                "usageShare": 0.09004739336492891,
+                "historyGames": 8,
+                "replacementQuality": {
+                  "id": "4426515",
+                  "name": "Puka Nacua",
+                  "yardsPerOpportunity": 9.861538461538462,
+                  "sample": 65
+                },
+                "roleEvidence": {
+                  "factor": 0.55,
+                  "source": "published depth-chart backup"
+                }
+              }
+            ],
+            "away": [
+              {
+                "athleteId": "4047365",
+                "name": "Josh Jacobs",
+                "position": "RB",
+                "status": "Out",
+                "detail": "Surgery",
+                "reportedAt": "2026-11-17T15:35Z",
+                "availability": 0,
+                "impact": 0.85,
+                "expectedLoss": 0.44,
+                "source": "prior workload and efficiency; observed replacement when available",
+                "usageShare": 0.2,
+                "historyGames": 8,
+                "replacementQuality": {
+                  "id": "4819231",
+                  "name": "Kaleb Johnson",
+                  "yardsPerOpportunity": 4.136363636363637,
+                  "sample": 44
+                },
+                "roleEvidence": {
+                  "factor": 1,
+                  "source": "published depth-chart starter",
+                  "replacement": {
+                    "id": "4819231",
+                    "name": "Kaleb Johnson"
+                  }
+                }
+              },
+              {
+                "athleteId": "14931",
+                "name": "Kevin Zeitler",
+                "position": "G",
+                "status": "Out",
+                "detail": "Not Specified",
+                "reportedAt": "2026-11-17T12:21Z",
+                "availability": 0,
+                "impact": 0.75,
+                "expectedLoss": 0.75,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 1,
+                  "source": "published depth-chart starter",
+                  "replacement": {
+                    "id": "4361904",
+                    "name": "Travis Glover"
+                  }
+                }
+              },
+              {
+                "athleteId": "4426411",
+                "name": "Sean Rhyan",
+                "position": "G",
+                "status": "Out",
+                "detail": "Sprain",
+                "reportedAt": "2026-11-17T12:21Z",
+                "availability": 0,
+                "impact": 0.75,
+                "expectedLoss": 0.75,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 1,
+                  "source": "published depth-chart starter",
+                  "replacement": {
+                    "id": "2312707",
+                    "name": "John Williams"
+                  }
+                }
+              },
+              {
+                "athleteId": "3124005",
+                "name": "Zaire Franklin",
+                "position": "LB",
+                "status": "Out",
+                "detail": "Fracture",
+                "reportedAt": "2026-11-17T12:21Z",
+                "availability": 0,
+                "impact": 0.7,
+                "expectedLoss": 0.7,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 1,
+                  "source": "published depth-chart starter",
+                  "replacement": {
+                    "id": "4036141",
+                    "name": "Nick Niemann"
+                  }
+                }
+              },
+              {
+                "athleteId": "5076652",
+                "name": "Brandon Cisse",
+                "position": "CB",
+                "status": "Questionable",
+                "detail": "Not Specified",
+                "reportedAt": "2026-11-17T00:27Z",
+                "availability": 55,
+                "impact": 0.95,
+                "expectedLoss": 0.41,
+                "source": "position prior",
+                "replacementQuality": null,
+                "roleEvidence": {
+                  "factor": 0.95,
+                  "source": "last-game actual snap share",
+                  "snapShare": 0.2
+                }
+              }
+            ]
+          },
+          "dataLimits": {
+            "snapCounts": "available",
+            "pressureRate": "available",
+            "epa": "available",
+            "routes": "unavailable",
+            "manZone": "unavailable",
+            "blockingGrades": "unavailable"
+          }
+        },
+        "performanceEvidence": {
+          "games": 10,
+          "home": {
+            "runDefense": {
+              "value": -0.021146673339946454,
+              "games": 9
+            },
+            "passDefense": {
+              "value": 0.008269964183885549,
+              "games": 9
+            },
+            "creatorCoverage": 0.5366830556784117,
+            "games": 10,
+            "explosiveFor": 0.08473929145252068,
+            "explosiveAgainst": 0.07729586710043507,
+            "turnovers": 1.4499999999999997,
+            "takeaways": 1.44,
+            "pointsFor": 25.16,
+            "pointsAgainst": 15.889999999999999,
+            "pointDifferential": 9.270000000000001,
+            "thirdDown": 0.3980283562250775,
+            "thirdDownAttempts": 122,
+            "fourthDown": 0.6666666666666666,
+            "yardsPerPlay": 5.686858022220001
+          },
+          "away": {
+            "runDefense": {
+              "value": -0.008866290774315277,
+              "games": 9
+            },
+            "passDefense": {
+              "value": -0.010550163773809506,
+              "games": 9
+            },
+            "creatorCoverage": 0.5412240824479889,
+            "games": 10,
+            "explosiveFor": 0.09753935289709158,
+            "explosiveAgainst": 0.08497867746783087,
+            "turnovers": 1.75,
+            "takeaways": 2.1,
+            "pointsFor": 24.02,
+            "pointsAgainst": 23.07,
+            "pointDifferential": 0.9499999999999993,
+            "thirdDown": 0.3867809057527539,
+            "thirdDownAttempts": 129,
+            "fourthDown": 0.6470588235294118,
+            "yardsPerPlay": 5.419365107439999
+          }
+        },
+        "power": {
+          "homeOffense": 2.1,
+          "homeDefense": 2.4,
+          "awayOffense": 0.7,
+          "awayDefense": 1.1
+        },
+        "marketMargin": null,
+        "marketTotal": 45.5,
+        "marketBooks": 1,
+        "marketSpreadDeviation": 0,
+        "marketTotalDeviation": 0,
+        "spreadEdge": null,
+        "totalEdge": -1.2,
+        "homeCover": null,
+        "adjustments": {
+          "neutralSite": false,
+          "homeField": 1.7,
+          "rest": 0,
+          "venue": 0.2,
+          "recentForm": 0.4,
+          "headToHead": -0.4,
+          "weatherTotal": 0,
+          "injuryMargin": 0.9,
+          "injuryTotal": -0.4,
+          "performanceMargin": -0.07,
+          "performanceTotal": 0.1,
+          "contextMargin": 0.77,
+          "contextTotal": -0.3,
+          "enrichmentMargin": 0.29
+        },
+        "injuryImpact": {
+          "homeLoss": 2.2,
+          "awayLoss": 3.1,
+          "uncertainty": 1.2,
+          "homeCount": 5,
+          "awayCount": 5,
+          "components": {
+            "home": {
+              "loss": 2.16,
+              "offense": 1.6099999999999999,
+              "defense": 0,
+              "unknown": 0.55
+            },
+            "away": {
+              "loss": 3.05,
+              "offense": 1.94,
+              "defense": 1.1099999999999999,
+              "unknown": 0
+            }
+          },
+          "updatedAt": "2026-11-19T03:32:08.923Z"
+        },
+        "calibration": {
+          "reliability": 74.8,
+          "effectiveSample": 7.8,
+          "dailyFactor": 1,
+          "onlineTotalCorrection": 0,
+          "onlineMarginCorrection": -0.6,
+          "totalCorrectionSamples": 101,
+          "marginCorrectionSamples": 101,
+          "marketWeight": 0.56
+        },
+        "publicBetting": null,
+        "predictionMarket": {
+          "league": "NFL",
+          "home": "Rams",
+          "away": "Packers",
+          "homeProbability": 62,
+          "awayProbability": 38,
+          "volume": 374.620886,
+          "volume24h": 162.453432,
+          "liquidity": 12005.0811,
+          "capturedAt": "2026-11-19T03:31:49.586Z",
+          "startTime": "2026-11-05T13:00:51Z",
+          "source": "Polymarket",
+          "marketUrl": "https://polymarket.com/event/nfl-gb-la-2026-11-26"
+        },
+        "awayCover": null,
+        "overProb": 46.9,
+        "underProb": 53.1,
+        "fairHomeMoneyline": -165,
+        "fairAwayMoneyline": 165,
+        "confidence": "Medium",
+        "confidenceByMarket": {
+          "moneyline": "Medium",
+          "spread": "Low",
+          "total": "Low"
+        },
+        "confidenceScore": 67,
+        "reliability": 0.748,
+        "history": {
+          "seasons": [
+            2024,
+            2025,
+            2026
+          ],
+          "homeGames": 44,
+          "awayGames": 44,
+          "headToHead": 1,
+          "headToHeadAverageTotal": 43
+        },
+        "market": {
+          "capturedAt": "2026-09-13T19:54:46.200Z",
+          "homePoint": null,
+          "spreadPrice": null,
+          "spreadBook": null,
+          "spreadPick": null,
+          "total": 48.5,
+          "totalPrice": -110,
+          "totalBook": "DraftKings",
+          "totalPick": "Under"
+        }
       },
       "policyVersion": 1,
       "qualifiedPlays": []
