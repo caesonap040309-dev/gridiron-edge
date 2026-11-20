@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T21:38:35.597Z",
+  "updatedAt": "2026-11-20T03:20:03.910Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 150,
@@ -38,18 +38,9 @@
         "fetchedAt": "2026-11-19T21:38:25.508Z"
       }
     },
-    "asOf": "2026-11-19T21:38:25.508Z"
+    "asOf": "2026-11-20T03:19:55.465Z"
   },
   "totalsLineage": [
-    {
-      "id": "401873066",
-      "home": "Houston Texans",
-      "away": "Indianapolis Colts",
-      "verified": true,
-      "possessionEvidence": true,
-      "matchupTerms": 4,
-      "appliedAdjustment": 0.6
-    },
     {
       "id": "401873070",
       "home": "Buffalo Bills",
@@ -1150,30 +1141,11 @@
   },
   "confidenceDistribution": {
     "High": 11,
-    "Medium": 122,
-    "Low": 125,
+    "Medium": 125,
+    "Low": 122,
     "Missing": 14
   },
   "confidenceSamples": [
-    {
-      "game": "Indianapolis Colts at Houston Texans",
-      "confidence": "Medium",
-      "confidenceByMarket": {
-        "moneyline": "Medium",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 85,
-      "sample": 7.4,
-      "evidenceGames": 8,
-      "observedGames": 43,
-      "reliability": 0.733,
-      "homeWin": 70.4,
-      "marketBooks": 1,
-      "spreadEdge": -1.8,
-      "totalEdge": 1.3,
-      "injuryUncertainty": 1.2
-    },
     {
       "game": "Miami Dolphins at Buffalo Bills",
       "confidence": "Medium",
@@ -1186,8 +1158,8 @@
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.675,
-      "homeWin": 74.2,
+      "reliability": 0.674,
+      "homeWin": 74.1,
       "marketBooks": 1,
       "spreadEdge": -1.2,
       "totalEdge": 0.5,
@@ -1201,16 +1173,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 77,
+      "confidenceScore": 78,
       "sample": 7.1,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.674,
-      "homeWin": 69.3,
+      "reliability": 0.681,
+      "homeWin": 69.7,
       "marketBooks": 1,
-      "spreadEdge": -0.4,
-      "totalEdge": -1.5,
-      "injuryUncertainty": 2.8
+      "spreadEdge": -0.3,
+      "totalEdge": -1.6,
+      "injuryUncertainty": 2.6
     },
     {
       "game": "Tennessee Titans at Dallas Cowboys",
@@ -1220,16 +1192,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 66,
+      "confidenceScore": 67,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.679,
-      "homeWin": 64.7,
+      "reliability": 0.684,
+      "homeWin": 64.8,
       "marketBooks": 1,
-      "spreadEdge": -0.6,
-      "totalEdge": -0.8,
-      "injuryUncertainty": 2.9
+      "spreadEdge": -0.7,
+      "totalEdge": -0.9,
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Tampa Bay Buccaneers at Detroit Lions",
@@ -1258,16 +1230,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 71,
+      "confidenceScore": 66,
       "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.65,
-      "homeWin": 69.2,
+      "reliability": 0.62,
+      "homeWin": 69.7,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": 1.8,
-      "injuryUncertainty": 4
+      "totalEdge": 1.6,
+      "injuryUncertainty": 5
     },
     {
       "game": "Pittsburgh Steelers at Philadelphia Eagles",
@@ -1277,16 +1249,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 37,
+      "confidenceScore": 38,
       "sample": 6.7,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.655,
+      "reliability": 0.658,
       "homeWin": 43.9,
       "marketBooks": 1,
       "spreadEdge": 1.3,
-      "totalEdge": 0.8,
-      "injuryUncertainty": 3.1
+      "totalEdge": 0.4,
+      "injuryUncertainty": 3
     },
     {
       "game": "Baltimore Ravens at Carolina Panthers",
@@ -1315,12 +1287,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 37,
+      "confidenceScore": 38,
       "sample": 7.6,
       "evidenceGames": 8,
       "observedGames": 43,
       "reliability": 0.622,
-      "homeWin": 59.1,
+      "homeWin": 59.4,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1,
@@ -1338,12 +1310,12 @@
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.68,
-      "homeWin": 69,
+      "reliability": 0.684,
+      "homeWin": 69.6,
       "marketBooks": 1,
-      "spreadEdge": 0.7,
+      "spreadEdge": 0.6,
       "totalEdge": 1.5,
-      "injuryUncertainty": 2.9
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Jacksonville Jaguars at New York Giants",
@@ -1357,8 +1329,8 @@
       "sample": 7.1,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.667,
-      "homeWin": 37,
+      "reliability": 0.666,
+      "homeWin": 37.2,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -0.6,
@@ -1372,16 +1344,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 34,
+      "confidenceScore": 37,
       "sample": 6.9,
       "evidenceGames": 8,
       "observedGames": 43,
-      "reliability": 0.603,
-      "homeWin": 47.3,
+      "reliability": 0.62,
+      "homeWin": 48.2,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -1.8,
-      "injuryUncertainty": 5
+      "injuryUncertainty": 4.4
+    },
+    {
+      "game": "Cincinnati Bengals at Washington Commanders",
+      "confidence": "Medium",
+      "confidenceByMarket": {
+        "moneyline": "Medium",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 53,
+      "sample": 7.1,
+      "evidenceGames": 8,
+      "observedGames": 43,
+      "reliability": 0.676,
+      "homeWin": 39.6,
+      "marketBooks": 1,
+      "spreadEdge": 0.6,
+      "totalEdge": -1.3,
+      "injuryUncertainty": 2.8
     }
   ]
 }
