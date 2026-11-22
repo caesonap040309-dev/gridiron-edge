@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-11-22T15:21:10.552Z",
+  "updatedAt": "2026-11-22T18:02:47.057Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -2744,6 +2744,7 @@
         "blockedByData": 99,
         "belowBettingThresholds": 0,
         "reasons": {
+          "Model forecast needs refreshing": 99,
           "Fresh sportsbook lines unavailable": 99,
           "Current injury coverage unavailable": 99,
           "Listed injury status needs confirmation": 4,
@@ -5697,14 +5698,15 @@
     },
     "filters": {
       "games": {
-        "evaluated": 46,
+        "evaluated": 41,
         "qualified": 0,
-        "blockedByData": 46,
+        "blockedByData": 41,
         "belowBettingThresholds": 0,
         "reasons": {
-          "Fresh sportsbook lines unavailable": 46,
-          "Fresh quote at the modeled line unavailable": 46,
-          "Price outside standard betting range": 29,
+          "Model forecast needs refreshing": 41,
+          "Fresh sportsbook lines unavailable": 41,
+          "Fresh quote at the modeled line unavailable": 41,
+          "Price outside standard betting range": 25,
           "Listed injury status needs confirmation": 3
         }
       },
