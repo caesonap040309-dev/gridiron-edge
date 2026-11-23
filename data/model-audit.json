@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "recoveredForecasts": 285,
-  "updatedAt": "2026-11-22T23:51:00.099Z",
+  "updatedAt": "2026-11-23T02:48:28.315Z",
   "method": "Latest valid saved pregame forecast per game; side-specific recorded prices; matched sportsbook comparisons. All forecasts and qualified bets reported separately.",
   "cfb": {
     "overall": {
@@ -2744,7 +2744,6 @@
         "blockedByData": 171,
         "belowBettingThresholds": 0,
         "reasons": {
-          "Model forecast needs refreshing": 171,
           "Fresh sportsbook lines unavailable": 171,
           "Current injury coverage unavailable": 171,
           "Listed injury status needs confirmation": 4,
@@ -2764,19 +2763,19 @@
   },
   "nfl": {
     "overall": {
-      "plays": 398,
-      "wins": 227,
-      "losses": 166,
+      "plays": 405,
+      "wins": 232,
+      "losses": 168,
       "pushes": 5,
-      "winRate": 0.5776,
+      "winRate": 0.58,
       "winRate95Interval": [
-        0.5283,
-        0.6255
+        0.5311,
+        0.6274
       ],
       "pricedPlays": 173,
       "profitUnits": -14.4476,
       "roi": -0.0835,
-      "brierScore": 0.2354,
+      "brierScore": 0.2357,
       "marketComparisonSamples": 143,
       "modelBrierOnMatchedSamples": 0.2464,
       "marketBrierOnMatchedSamples": 0.245,
@@ -2791,16 +2790,16 @@
         {
           "lower": 0.55,
           "upper": 0.6,
-          "samples": 59,
-          "predicted": 0.5721,
-          "observed": 0.5932
+          "samples": 60,
+          "predicted": 0.5719,
+          "observed": 0.5833
         },
         {
           "lower": 0.6,
           "upper": 0.65,
-          "samples": 22,
+          "samples": 23,
           "predicted": 0.6213,
-          "observed": 0.7727
+          "observed": 0.7391
         },
         {
           "lower": 0.65,
@@ -2812,9 +2811,9 @@
         {
           "lower": 0.7,
           "upper": 0.8,
-          "samples": 14,
-          "predicted": 0.7177,
-          "observed": 0.7143
+          "samples": 15,
+          "predicted": 0.7169,
+          "observed": 0.7333
         },
         {
           "lower": 0.8,
@@ -2834,19 +2833,19 @@
     },
     "byMarket": {
       "moneyline": {
-        "plays": 140,
-        "wins": 94,
-        "losses": 46,
+        "plays": 143,
+        "wins": 95,
+        "losses": 48,
         "pushes": 0,
-        "winRate": 0.6714,
+        "winRate": 0.6643,
         "winRate95Interval": [
-          0.59,
-          0.7437
+          0.5835,
+          0.7365
         ],
         "pricedPlays": 57,
         "profitUnits": -0.5359,
         "roi": -0.0094,
-        "brierScore": 0.22,
+        "brierScore": 0.2209,
         "marketComparisonSamples": 57,
         "modelBrierOnMatchedSamples": 0.2338,
         "marketBrierOnMatchedSamples": 0.2392,
@@ -2861,16 +2860,16 @@
           {
             "lower": 0.55,
             "upper": 0.6,
-            "samples": 52,
-            "predicted": 0.5737,
-            "observed": 0.6154
+            "samples": 53,
+            "predicted": 0.5735,
+            "observed": 0.6038
           },
           {
             "lower": 0.6,
             "upper": 0.65,
-            "samples": 22,
+            "samples": 23,
             "predicted": 0.6213,
-            "observed": 0.7727
+            "observed": 0.7391
           },
           {
             "lower": 0.65,
@@ -2882,9 +2881,9 @@
           {
             "lower": 0.7,
             "upper": 0.8,
-            "samples": 14,
-            "predicted": 0.7177,
-            "observed": 0.7143
+            "samples": 15,
+            "predicted": 0.7169,
+            "observed": 0.7333
           },
           {
             "lower": 0.8,
@@ -2903,14 +2902,14 @@
         ]
       },
       "spread": {
-        "plays": 117,
-        "wins": 64,
+        "plays": 118,
+        "wins": 65,
         "losses": 49,
         "pushes": 4,
-        "winRate": 0.5664,
+        "winRate": 0.5702,
         "winRate95Interval": [
-          0.4743,
-          0.6541
+          0.4785,
+          0.6573
         ],
         "pricedPlays": 58,
         "profitUnits": -2.3292,
@@ -2972,14 +2971,14 @@
         ]
       },
       "total": {
-        "plays": 141,
-        "wins": 69,
+        "plays": 144,
+        "wins": 72,
         "losses": 71,
         "pushes": 1,
-        "winRate": 0.4929,
+        "winRate": 0.5035,
         "winRate95Interval": [
-          0.4113,
-          0.5748
+          0.4225,
+          0.5843
         ],
         "pricedPlays": 58,
         "profitUnits": -11.5825,
@@ -3043,14 +3042,14 @@
     },
     "totalBySide": {
       "Over": {
-        "plays": 54,
-        "wins": 24,
+        "plays": 56,
+        "wins": 26,
         "losses": 29,
         "pushes": 1,
-        "winRate": 0.4528,
+        "winRate": 0.4727,
         "winRate95Interval": [
-          0.3266,
-          0.5855
+          0.3469,
+          0.6021
         ],
         "pricedPlays": 23,
         "profitUnits": -2.8454,
@@ -3112,14 +3111,14 @@
         ]
       },
       "Under": {
-        "plays": 87,
-        "wins": 45,
+        "plays": 88,
+        "wins": 46,
         "losses": 42,
         "pushes": 0,
-        "winRate": 0.5172,
+        "winRate": 0.5227,
         "winRate95Interval": [
-          0.4137,
-          0.6193
+          0.4196,
+          0.6239
         ],
         "pricedPlays": 35,
         "profitUnits": -8.7371,
@@ -3252,19 +3251,19 @@
         ]
       },
       "Medium": {
-        "plays": 73,
-        "wins": 53,
-        "losses": 20,
+        "plays": 75,
+        "wins": 54,
+        "losses": 21,
         "pushes": 0,
-        "winRate": 0.726,
+        "winRate": 0.72,
         "winRate95Interval": [
-          0.6144,
-          0.8151
+          0.6096,
+          0.809
         ],
         "pricedPlays": 26,
         "profitUnits": -0.2407,
         "roi": -0.0093,
-        "brierScore": 0.192,
+        "brierScore": 0.1933,
         "marketComparisonSamples": 26,
         "modelBrierOnMatchedSamples": 0.2265,
         "marketBrierOnMatchedSamples": 0.2261,
@@ -3286,9 +3285,9 @@
           {
             "lower": 0.6,
             "upper": 0.65,
-            "samples": 17,
+            "samples": 18,
             "predicted": 0.6209,
-            "observed": 0.8235
+            "observed": 0.7778
           },
           {
             "lower": 0.65,
@@ -3300,9 +3299,9 @@
           {
             "lower": 0.7,
             "upper": 0.8,
-            "samples": 9,
-            "predicted": 0.7219,
-            "observed": 0.7778
+            "samples": 10,
+            "predicted": 0.7202,
+            "observed": 0.8
           },
           {
             "lower": 0.8,
@@ -3321,19 +3320,19 @@
         ]
       },
       "Low": {
-        "plays": 320,
-        "wins": 171,
-        "losses": 144,
+        "plays": 325,
+        "wins": 175,
+        "losses": 145,
         "pushes": 5,
-        "winRate": 0.5429,
+        "winRate": 0.5469,
         "winRate95Interval": [
-          0.4877,
-          0.597
+          0.4921,
+          0.6005
         ],
         "pricedPlays": 143,
         "profitUnits": -13.9602,
         "roi": -0.0976,
-        "brierScore": 0.2507,
+        "brierScore": 0.2511,
         "marketComparisonSamples": 113,
         "modelBrierOnMatchedSamples": 0.2528,
         "marketBrierOnMatchedSamples": 0.2511,
@@ -3348,9 +3347,9 @@
           {
             "lower": 0.55,
             "upper": 0.6,
-            "samples": 40,
+            "samples": 41,
             "predicted": 0.5639,
-            "observed": 0.525
+            "observed": 0.5122
           },
           {
             "lower": 0.6,
@@ -4229,19 +4228,19 @@
       },
       "17": {
         "moneyline": {
-          "plays": 94,
-          "wins": 68,
-          "losses": 26,
+          "plays": 97,
+          "wins": 69,
+          "losses": 28,
           "pushes": 0,
-          "winRate": 0.7234,
+          "winRate": 0.7113,
           "winRate95Interval": [
-            0.6256,
-            0.8037
+            0.6145,
+            0.7921
           ],
           "pricedPlays": 43,
           "profitUnits": 0.4118,
           "roi": 0.0096,
-          "brierScore": 0.2104,
+          "brierScore": 0.212,
           "marketComparisonSamples": 43,
           "modelBrierOnMatchedSamples": 0.2408,
           "marketBrierOnMatchedSamples": 0.2493,
@@ -4256,16 +4255,16 @@
             {
               "lower": 0.55,
               "upper": 0.6,
-              "samples": 35,
-              "predicted": 0.5742,
-              "observed": 0.6286
+              "samples": 36,
+              "predicted": 0.5739,
+              "observed": 0.6111
             },
             {
               "lower": 0.6,
               "upper": 0.65,
-              "samples": 16,
+              "samples": 17,
               "predicted": 0.6224,
-              "observed": 0.875
+              "observed": 0.8235
             },
             {
               "lower": 0.65,
@@ -4277,9 +4276,9 @@
             {
               "lower": 0.7,
               "upper": 0.8,
-              "samples": 10,
-              "predicted": 0.7179,
-              "observed": 0.7
+              "samples": 11,
+              "predicted": 0.7167,
+              "observed": 0.7273
             },
             {
               "lower": 0.8,
@@ -4298,14 +4297,14 @@
           ]
         },
         "spread": {
-          "plays": 78,
-          "wins": 44,
+          "plays": 79,
+          "wins": 45,
           "losses": 32,
           "pushes": 2,
-          "winRate": 0.5789,
+          "winRate": 0.5844,
           "winRate95Interval": [
-            0.4668,
-            0.6835
+            0.4729,
+            0.6879
           ],
           "pricedPlays": 44,
           "profitUnits": -3.7417,
@@ -4367,14 +4366,14 @@
           ]
         },
         "total": {
-          "plays": 95,
-          "wins": 52,
+          "plays": 98,
+          "wins": 55,
           "losses": 42,
           "pushes": 1,
-          "winRate": 0.5532,
+          "winRate": 0.567,
           "winRate95Interval": [
-            0.4526,
-            0.6496
+            0.4677,
+            0.6612
           ],
           "pricedPlays": 44,
           "profitUnits": -7.0177,
@@ -4439,22 +4438,22 @@
     },
     "errors": {
       "margin": {
-        "samples": 118,
-        "modelMAE": 9.0254,
-        "meanActualMinusModel": -1.3983,
-        "marketMAE": 9.0636
+        "samples": 119,
+        "modelMAE": 8.9706,
+        "meanActualMinusModel": -1.3655,
+        "marketMAE": 9.0168
       },
       "total": {
-        "samples": 141,
-        "modelMAE": 10.4681,
-        "meanActualMinusModel": 0.8043,
-        "marketMAE": 10.2447
+        "samples": 144,
+        "modelMAE": 10.4743,
+        "meanActualMinusModel": 0.9507,
+        "marketMAE": 10.2708
       }
     },
     "excluded": {
       "invalidPregame": 17,
-      "unalignedSpread": 59,
-      "unalignedTotal": 86,
+      "unalignedSpread": 60,
+      "unalignedTotal": 89,
       "missingPregameQuote": 0
     },
     "qualified": {
@@ -5698,15 +5697,14 @@
     },
     "filters": {
       "games": {
-        "evaluated": 27,
+        "evaluated": 38,
         "qualified": 0,
-        "blockedByData": 27,
+        "blockedByData": 38,
         "belowBettingThresholds": 0,
         "reasons": {
-          "Model forecast needs refreshing": 27,
-          "Fresh sportsbook lines unavailable": 27,
-          "Fresh quote at the modeled line unavailable": 27,
-          "Price outside standard betting range": 11
+          "Fresh sportsbook lines unavailable": 38,
+          "Fresh quote at the modeled line unavailable": 38,
+          "Price outside standard betting range": 22
         }
       },
       "props": {
