@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-11-24T10:58:19.910Z",
+  "updatedAt": "2026-11-24T21:14:32.873Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 163,
     "coveredGames": {
-      "snaps": 162,
+      "snaps": 163,
       "epa": 163,
       "pressure": 151,
       "contact": 151,
-      "charting": 151
+      "charting": 162
     },
     "missingGames": [
       {
@@ -17,8 +17,7 @@
         "date": "2026-11-22T18:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -28,8 +27,7 @@
         "date": "2026-11-22T18:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -39,8 +37,7 @@
         "date": "2026-11-22T18:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -50,8 +47,7 @@
         "date": "2026-11-22T18:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -61,8 +57,7 @@
         "date": "2026-11-22T18:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -72,8 +67,7 @@
         "date": "2026-11-22T18:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -83,8 +77,7 @@
         "date": "2026-11-22T18:00Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -94,8 +87,7 @@
         "date": "2026-11-22T21:05Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -105,8 +97,7 @@
         "date": "2026-11-22T21:25Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -116,8 +107,7 @@
         "date": "2026-11-22T21:25Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -127,8 +117,7 @@
         "date": "2026-11-23T01:20Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       },
@@ -137,7 +126,6 @@
         "game": "Cincinnati Bengals at Washington Commanders",
         "date": "2026-11-24T01:15Z",
         "fields": [
-          "snaps",
           "pressure",
           "contact",
           "charting"
@@ -148,31 +136,31 @@
     "sourceHealth": {
       "snaps": {
         "status": "available",
-        "rows": 15128,
-        "fetchedAt": "2026-11-24T10:58:05.853Z"
+        "rows": 15217,
+        "fetchedAt": "2026-11-24T21:14:21.753Z"
       },
       "passing": {
         "status": "available",
         "rows": 352,
-        "fetchedAt": "2026-11-24T10:58:05.853Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 28467,
-        "fetchedAt": "2026-11-24T10:58:05.853Z"
+        "fetchedAt": "2026-11-24T21:14:21.753Z"
       },
       "rushing": {
         "status": "available",
         "rows": 1210,
-        "fetchedAt": "2026-11-24T10:58:05.853Z"
+        "fetchedAt": "2026-11-24T21:14:21.753Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 28467,
+        "fetchedAt": "2026-11-24T21:14:21.753Z"
       },
       "charting": {
         "status": "available",
-        "rows": 25623,
-        "fetchedAt": "2026-11-24T10:58:05.853Z"
+        "rows": 27470,
+        "fetchedAt": "2026-11-24T21:14:21.753Z"
       }
     },
-    "asOf": "2026-11-24T10:58:05.853Z"
+    "asOf": "2026-11-24T21:14:21.753Z"
   },
   "totalsLineage": [
     {
@@ -1162,13 +1150,13 @@
     "marginStatus": "held-out-no-improvement",
     "total": 0,
     "margin": 0,
-    "totalSamples": 113,
-    "marginSamples": 113
+    "totalSamples": 114,
+    "marginSamples": 114
   },
   "confidenceDistribution": {
-    "High": 14,
-    "Medium": 122,
-    "Low": 122,
+    "High": 12,
+    "Medium": 117,
+    "Low": 129,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1180,16 +1168,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 64,
+      "confidenceScore": 56,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.732,
-      "homeWin": 62.9,
+      "reliability": 0.708,
+      "homeWin": 61.6,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.1,
-      "injuryUncertainty": 2.1
+      "totalEdge": -0.5,
+      "injuryUncertainty": 2.8
     },
     {
       "game": "Chicago Bears at Detroit Lions",
@@ -1199,16 +1187,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 81,
-      "sample": 7.6,
+      "confidenceScore": 80,
+      "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.743,
-      "homeWin": 54.1,
+      "reliability": 0.731,
+      "homeWin": 53.8,
       "marketBooks": 1,
-      "spreadEdge": 4.4,
+      "spreadEdge": 4.3,
       "totalEdge": -3.2,
-      "injuryUncertainty": 2
+      "injuryUncertainty": 2.3
     },
     {
       "game": "Philadelphia Eagles at Dallas Cowboys",
@@ -1218,35 +1206,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 57,
+      "confidenceScore": 51,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.677,
-      "homeWin": 63.3,
+      "reliability": 0.646,
+      "homeWin": 63.1,
       "marketBooks": 1,
-      "spreadEdge": -1.5,
+      "spreadEdge": -1.2,
       "totalEdge": 1.5,
-      "injuryUncertainty": 3.8
+      "injuryUncertainty": 4.8
     },
     {
       "game": "Kansas City Chiefs at Buffalo Bills",
-      "confidence": "Medium",
+      "confidence": "Low",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
+      "confidenceScore": 44,
       "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.766,
-      "homeWin": 58,
+      "reliability": 0.721,
+      "homeWin": 57.3,
       "marketBooks": 1,
-      "spreadEdge": 0.6,
-      "totalEdge": -0.9,
-      "injuryUncertainty": 1.2
+      "spreadEdge": 0.5,
+      "totalEdge": -0.4,
+      "injuryUncertainty": 2.6
     },
     {
       "game": "Denver Broncos at Pittsburgh Steelers",
@@ -1256,35 +1244,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 40,
+      "confidenceScore": 37,
       "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.742,
-      "homeWin": 45.9,
+      "reliability": 0.725,
+      "homeWin": 45.8,
       "marketBooks": 1,
-      "spreadEdge": 1.1,
+      "spreadEdge": 1,
       "totalEdge": 1.1,
-      "injuryUncertainty": 2
+      "injuryUncertainty": 2.5
     },
     {
       "game": "New Orleans Saints at Cincinnati Bengals",
-      "confidence": "High",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "High",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 89,
-      "sample": 7.6,
+      "confidenceScore": 78,
+      "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.791,
-      "homeWin": 71.3,
+      "reliability": 0.718,
+      "homeWin": 69.3,
       "marketBooks": 1,
-      "spreadEdge": 0.3,
-      "totalEdge": -1.6,
-      "injuryUncertainty": 0.5
+      "spreadEdge": 0.2,
+      "totalEdge": -1.5,
+      "injuryUncertainty": 2.7
     },
     {
       "game": "New York Giants at Indianapolis Colts",
@@ -1294,16 +1282,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 48,
-      "sample": 7.7,
+      "confidenceScore": 44,
+      "sample": 7.6,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.766,
-      "homeWin": 43.5,
+      "reliability": 0.735,
+      "homeWin": 46.9,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.5,
-      "injuryUncertainty": 1.5
+      "injuryUncertainty": 2.3
     },
     {
       "game": "New York Jets at Miami Dolphins",
@@ -1313,35 +1301,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 39,
-      "sample": 7.6,
+      "confidenceScore": 37,
+      "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.725,
-      "homeWin": 55.8,
+      "reliability": 0.715,
+      "homeWin": 55.5,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": 0.7,
-      "injuryUncertainty": 2.6
+      "totalEdge": 0.9,
+      "injuryUncertainty": 2.8
     },
     {
       "game": "Atlanta Falcons at Minnesota Vikings",
-      "confidence": "Medium",
+      "confidence": "Low",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 68,
+      "confidenceScore": 48,
       "sample": 7.2,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.772,
-      "homeWin": 61.8,
+      "reliability": 0.654,
+      "homeWin": 61.4,
       "marketBooks": 1,
-      "spreadEdge": -1.6,
+      "spreadEdge": -0.8,
       "totalEdge": -2.6,
-      "injuryUncertainty": 0.7
+      "injuryUncertainty": 4.4
     },
     {
       "game": "Tennessee Titans at Jacksonville Jaguars",
@@ -1351,35 +1339,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 82,
+      "confidenceScore": 78,
       "sample": 7.8,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.755,
-      "homeWin": 77.9,
+      "reliability": 0.727,
+      "homeWin": 77.7,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 0.2,
-      "injuryUncertainty": 1.9
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Baltimore Ravens at Houston Texans",
-      "confidence": "Medium",
+      "confidence": "Low",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "Low",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 72,
-      "sample": 7.9,
+      "confidenceScore": 53,
+      "sample": 7.8,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.654,
-      "homeWin": 65.2,
+      "reliability": 0.581,
+      "homeWin": 63.4,
       "marketBooks": 1,
-      "spreadEdge": 2.1,
-      "totalEdge": 0.1,
-      "injuryUncertainty": 1.9
+      "spreadEdge": 2,
+      "totalEdge": -0.4,
+      "injuryUncertainty": 4.4
     },
     {
       "game": "New England Patriots at Los Angeles Chargers",
@@ -1389,16 +1377,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 71,
+      "confidenceScore": 66,
       "sample": 7.7,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.698,
-      "homeWin": 47.4,
+      "reliability": 0.651,
+      "homeWin": 41.6,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": 3.8,
-      "injuryUncertainty": 3.5
+      "totalEdge": 4.1,
+      "injuryUncertainty": 5
     }
   ]
 }
