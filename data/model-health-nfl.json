@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T21:14:32.873Z",
+  "updatedAt": "2026-11-25T04:17:15.370Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 163,
@@ -137,30 +137,30 @@
       "snaps": {
         "status": "available",
         "rows": 15217,
-        "fetchedAt": "2026-11-24T21:14:21.753Z"
-      },
-      "passing": {
-        "status": "available",
-        "rows": 352,
-        "fetchedAt": "2026-11-24T21:14:21.753Z"
+        "fetchedAt": "2026-11-25T04:17:00.549Z"
       },
       "rushing": {
         "status": "available",
         "rows": 1210,
-        "fetchedAt": "2026-11-24T21:14:21.753Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 28467,
-        "fetchedAt": "2026-11-24T21:14:21.753Z"
+        "fetchedAt": "2026-11-25T04:17:00.549Z"
       },
       "charting": {
         "status": "available",
         "rows": 27470,
-        "fetchedAt": "2026-11-24T21:14:21.753Z"
+        "fetchedAt": "2026-11-25T04:17:00.549Z"
+      },
+      "passing": {
+        "status": "available",
+        "rows": 352,
+        "fetchedAt": "2026-11-25T04:17:00.549Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 28467,
+        "fetchedAt": "2026-11-25T04:17:00.549Z"
       }
     },
-    "asOf": "2026-11-24T21:14:21.753Z"
+    "asOf": "2026-11-25T04:17:00.549Z"
   },
   "totalsLineage": [
     {
@@ -1155,8 +1155,8 @@
   },
   "confidenceDistribution": {
     "High": 12,
-    "Medium": 117,
-    "Low": 129,
+    "Medium": 118,
+    "Low": 128,
     "Missing": 14
   },
   "confidenceSamples": [
@@ -1168,16 +1168,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 56,
+      "confidenceScore": 58,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.708,
-      "homeWin": 61.6,
+      "reliability": 0.711,
+      "homeWin": 61.9,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.5,
-      "injuryUncertainty": 2.8
+      "totalEdge": -0.2,
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Chicago Bears at Detroit Lions",
@@ -1187,35 +1187,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 80,
+      "confidenceScore": 77,
       "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.731,
-      "homeWin": 53.8,
+      "reliability": 0.732,
+      "homeWin": 55,
       "marketBooks": 1,
-      "spreadEdge": 4.3,
+      "spreadEdge": 3.8,
       "totalEdge": -3.2,
       "injuryUncertainty": 2.3
     },
     {
       "game": "Philadelphia Eagles at Dallas Cowboys",
-      "confidence": "Low",
+      "confidence": "Medium",
       "confidenceByMarket": {
-        "moneyline": "Low",
+        "moneyline": "Medium",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 51,
+      "confidenceScore": 63,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.646,
-      "homeWin": 63.1,
+      "reliability": 0.702,
+      "homeWin": 63.8,
       "marketBooks": 1,
-      "spreadEdge": -1.2,
-      "totalEdge": 1.5,
-      "injuryUncertainty": 4.8
+      "spreadEdge": -1.4,
+      "totalEdge": 1.2,
+      "injuryUncertainty": 3
     },
     {
       "game": "Kansas City Chiefs at Buffalo Bills",
@@ -1225,14 +1225,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 44,
+      "confidenceScore": 43,
       "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.721,
-      "homeWin": 57.3,
+      "reliability": 0.722,
+      "homeWin": 57.2,
       "marketBooks": 1,
-      "spreadEdge": 0.5,
+      "spreadEdge": 0.4,
       "totalEdge": -0.4,
       "injuryUncertainty": 2.6
     },
@@ -1244,12 +1244,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 37,
-      "sample": 7.5,
+      "confidenceScore": 36,
+      "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.725,
-      "homeWin": 45.8,
+      "reliability": 0.72,
+      "homeWin": 45.9,
       "marketBooks": 1,
       "spreadEdge": 1,
       "totalEdge": 1.1,
@@ -1282,16 +1282,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 44,
+      "confidenceScore": 42,
       "sample": 7.6,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.735,
-      "homeWin": 46.9,
+      "reliability": 0.726,
+      "homeWin": 45.3,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.5,
-      "injuryUncertainty": 2.3
+      "injuryUncertainty": 2.6
     },
     {
       "game": "New York Jets at Miami Dolphins",
@@ -1320,15 +1320,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 48,
+      "confidenceScore": 47,
       "sample": 7.2,
       "evidenceGames": 8,
       "observedGames": 44,
       "reliability": 0.654,
-      "homeWin": 61.4,
+      "homeWin": 61.3,
       "marketBooks": 1,
       "spreadEdge": -0.8,
-      "totalEdge": -2.6,
+      "totalEdge": -2.1,
       "injuryUncertainty": 4.4
     },
     {
@@ -1340,14 +1340,14 @@
         "total": "Low"
       },
       "confidenceScore": 78,
-      "sample": 7.8,
+      "sample": 7.7,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.727,
-      "homeWin": 77.7,
+      "reliability": 0.724,
+      "homeWin": 77.5,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": 0.2,
+      "totalEdge": -0.2,
       "injuryUncertainty": 2.7
     },
     {
@@ -1358,14 +1358,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
+      "confidenceScore": 55,
       "sample": 7.8,
       "evidenceGames": 8,
       "observedGames": 44,
       "reliability": 0.581,
-      "homeWin": 63.4,
+      "homeWin": 63.8,
       "marketBooks": 1,
-      "spreadEdge": 2,
+      "spreadEdge": 1.8,
       "totalEdge": -0.4,
       "injuryUncertainty": 4.4
     },
