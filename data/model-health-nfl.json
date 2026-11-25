@@ -1,166 +1,55 @@
 {
-  "updatedAt": "2026-11-25T04:17:15.370Z",
+  "updatedAt": "2026-11-25T14:36:16.146Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 163,
     "coveredGames": {
       "snaps": 163,
       "epa": 163,
-      "pressure": 151,
-      "contact": 151,
-      "charting": 162
+      "pressure": 162,
+      "contact": 162,
+      "charting": 163
     },
     "missingGames": [
-      {
-        "id": "401873070",
-        "game": "Miami Dolphins at Buffalo Bills",
-        "date": "2026-11-22T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873071",
-        "game": "New Orleans Saints at Chicago Bears",
-        "date": "2026-11-22T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873073",
-        "game": "Tennessee Titans at Dallas Cowboys",
-        "date": "2026-11-22T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873072",
-        "game": "Tampa Bay Buccaneers at Detroit Lions",
-        "date": "2026-11-22T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873067",
-        "game": "Arizona Cardinals at Kansas City Chiefs",
-        "date": "2026-11-22T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873076",
-        "game": "Pittsburgh Steelers at Philadelphia Eagles",
-        "date": "2026-11-22T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873068",
-        "game": "Baltimore Ravens at Carolina Panthers",
-        "date": "2026-11-22T18:00Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873074",
-        "game": "New York Jets at Los Angeles Chargers",
-        "date": "2026-11-22T21:05Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873075",
-        "game": "Las Vegas Raiders at Denver Broncos",
-        "date": "2026-11-22T21:25Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873069",
-        "game": "Jacksonville Jaguars at New York Giants",
-        "date": "2026-11-22T21:25Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
-      {
-        "id": "401873077",
-        "game": "Minnesota Vikings at San Francisco 49ers",
-        "date": "2026-11-23T01:20Z",
-        "fields": [
-          "pressure",
-          "contact"
-        ],
-        "retryDue": true
-      },
       {
         "id": "401873078",
         "game": "Cincinnati Bengals at Washington Commanders",
         "date": "2026-11-24T01:15Z",
         "fields": [
           "pressure",
-          "contact",
-          "charting"
+          "contact"
         ],
         "retryDue": true
       }
     ],
     "sourceHealth": {
-      "snaps": {
+      "passing": {
         "status": "available",
-        "rows": 15217,
-        "fetchedAt": "2026-11-25T04:17:00.549Z"
+        "rows": 380,
+        "fetchedAt": "2026-11-25T14:36:01.387Z"
       },
       "rushing": {
         "status": "available",
-        "rows": 1210,
-        "fetchedAt": "2026-11-25T04:17:00.549Z"
+        "rows": 1303,
+        "fetchedAt": "2026-11-25T14:36:01.387Z"
       },
       "charting": {
         "status": "available",
-        "rows": 27470,
-        "fetchedAt": "2026-11-25T04:17:00.549Z"
+        "rows": 27636,
+        "fetchedAt": "2026-11-25T14:36:01.387Z"
       },
-      "passing": {
+      "snaps": {
         "status": "available",
-        "rows": 352,
-        "fetchedAt": "2026-11-25T04:17:00.549Z"
+        "rows": 15217,
+        "fetchedAt": "2026-11-25T14:36:01.387Z"
       },
       "pbp": {
         "status": "available",
         "rows": 28467,
-        "fetchedAt": "2026-11-25T04:17:00.549Z"
+        "fetchedAt": "2026-11-25T14:36:01.387Z"
       }
     },
-    "asOf": "2026-11-25T04:17:00.549Z"
+    "asOf": "2026-11-25T14:36:01.387Z"
   },
   "totalsLineage": [
     {
@@ -1154,8 +1043,8 @@
     "marginSamples": 114
   },
   "confidenceDistribution": {
-    "High": 12,
-    "Medium": 118,
+    "High": 11,
+    "Medium": 119,
     "Low": 128,
     "Missing": 14
   },
@@ -1176,7 +1065,7 @@
       "homeWin": 61.9,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.2,
+      "totalEdge": -0.6,
       "injuryUncertainty": 2.7
     },
     {
@@ -1192,10 +1081,10 @@
       "evidenceGames": 8,
       "observedGames": 44,
       "reliability": 0.732,
-      "homeWin": 55,
+      "homeWin": 54.9,
       "marketBooks": 1,
       "spreadEdge": 3.8,
-      "totalEdge": -3.2,
+      "totalEdge": -3.1,
       "injuryUncertainty": 2.3
     },
     {
@@ -1206,12 +1095,12 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 63,
-      "sample": 7.3,
+      "confidenceScore": 62,
+      "sample": 7.2,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.702,
-      "homeWin": 63.8,
+      "reliability": 0.699,
+      "homeWin": 63.7,
       "marketBooks": 1,
       "spreadEdge": -1.4,
       "totalEdge": 1.2,
@@ -1226,14 +1115,14 @@
         "total": "Low"
       },
       "confidenceScore": 43,
-      "sample": 7.5,
+      "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.722,
-      "homeWin": 57.2,
+      "reliability": 0.718,
+      "homeWin": 57.1,
       "marketBooks": 1,
       "spreadEdge": 0.4,
-      "totalEdge": -0.4,
+      "totalEdge": 0,
       "injuryUncertainty": 2.6
     },
     {
@@ -1244,15 +1133,15 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 36,
+      "confidenceScore": 50,
       "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 44,
       "reliability": 0.72,
-      "homeWin": 45.9,
+      "homeWin": 45.3,
       "marketBooks": 1,
-      "spreadEdge": 1,
-      "totalEdge": 1.1,
+      "spreadEdge": 1.3,
+      "totalEdge": 2,
       "injuryUncertainty": 2.5
     },
     {
@@ -1271,7 +1160,7 @@
       "homeWin": 69.3,
       "marketBooks": 1,
       "spreadEdge": 0.2,
-      "totalEdge": -1.5,
+      "totalEdge": -1.6,
       "injuryUncertainty": 2.7
     },
     {
@@ -1327,7 +1216,7 @@
       "reliability": 0.654,
       "homeWin": 61.3,
       "marketBooks": 1,
-      "spreadEdge": -0.8,
+      "spreadEdge": -0.9,
       "totalEdge": -2.1,
       "injuryUncertainty": 4.4
     },
@@ -1347,7 +1236,7 @@
       "homeWin": 77.5,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": -0.2,
+      "totalEdge": -0.3,
       "injuryUncertainty": 2.7
     },
     {
