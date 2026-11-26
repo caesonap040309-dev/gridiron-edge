@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T23:39:40.750Z",
+  "updatedAt": "2026-11-26T08:23:52.341Z",
   "coefficientStatus": "Live fixed caps; coefficient changes require chronological held-out calibration or sufficient paired forward improvement",
   "cfb": {
     "forward": {
@@ -113,12 +113,12 @@
     "forward": {
       "promotion": {
         "spread": {
-          "samples": 114,
-          "weeks": 8,
-          "meanErrorDifference": -0.21083333333333332,
+          "samples": 115,
+          "weeks": 9,
+          "meanErrorDifference": -0.24296296296296294,
           "difference95Interval": [
-            -0.3640500027194604,
-            -0.05761666394720619
+            -0.39204125726715555,
+            -0.09388466865877032
           ],
           "promote": true,
           "status": "improvement supports promotion",
@@ -126,12 +126,12 @@
           "minimumWeeks": 6
         },
         "total": {
-          "samples": 114,
-          "weeks": 8,
-          "meanErrorDifference": -0.09427655677655664,
+          "samples": 115,
+          "weeks": 9,
+          "meanErrorDifference": -0.0726902726902732,
           "difference95Interval": [
-            -0.22847477723211493,
-            0.03992166367900166
+            -0.19837713618689978,
+            0.05299659080635338
           ],
           "promote": false,
           "status": "retain existing coefficients",
@@ -140,13 +140,13 @@
         }
       },
       "status": "collecting forward evidence",
-      "pairedGames": 114,
-      "marginError": 9.8105,
-      "baselineMarginError": 10.0158,
-      "totalError": 10.7123,
-      "baselineTotalError": 10.8079,
-      "brier": 0.2249,
-      "baselineBrier": 0.2283,
+      "pairedGames": 115,
+      "marginError": 9.7878,
+      "baselineMarginError": 9.9957,
+      "totalError": 10.6652,
+      "baselineTotalError": 10.7591,
+      "brier": 0.2242,
+      "baselineBrier": 0.2277,
       "byVersion": {
         "15": {
           "games": 13,
@@ -167,13 +167,13 @@
           "baselineBrier": 0.3226
         },
         "17": {
-          "games": 100,
-          "marginError": 10.308,
-          "baselineMarginError": 10.55,
-          "totalError": 10.94,
-          "baselineTotalError": 11.049,
-          "brier": 0.2268,
-          "baselineBrier": 0.2301
+          "games": 101,
+          "marginError": 10.2772,
+          "baselineMarginError": 10.5218,
+          "totalError": 10.8842,
+          "baselineTotalError": 10.9911,
+          "brier": 0.2259,
+          "baselineBrier": 0.2295
         }
       },
       "byMarket": {
@@ -190,23 +190,23 @@
           "meanClosingLineValuePoints": 1.2816
         },
         "total": {
-          "forecasts": 114,
-          "wins": 64,
+          "forecasts": 115,
+          "wins": 65,
           "losses": 50,
           "pushes": 0,
-          "winRate": 0.5614,
+          "winRate": 0.5652,
           "pricedForecasts": 58,
           "profitUnits": -4.9615,
           "roi": -0.0855,
-          "closingLineSamples": 114,
-          "meanClosingLineValuePoints": 1.25
+          "closingLineSamples": 115,
+          "meanClosingLineValuePoints": 1.2826
         },
         "moneyline": {
-          "forecasts": 113,
-          "wins": 71,
+          "forecasts": 114,
+          "wins": 72,
           "losses": 42,
           "pushes": 0,
-          "winRate": 0.6283,
+          "winRate": 0.6316,
           "pricedForecasts": 57,
           "profitUnits": -6.2343,
           "roi": -0.1094,
@@ -218,11 +218,11 @@
     },
     "historical": {
       "method": "Chronological scoring-feature experiment; every game uses strictly earlier results. Excludes sportsbook, weather and live injury adjustments.",
-      "games": 131,
-      "baselineMarginMAE": 9.5042,
-      "candidateMarginMAE": 9.5014,
-      "baselineTotalMAE": 11.2163,
-      "candidateTotalMAE": 11.3273,
+      "games": 132,
+      "baselineMarginMAE": 9.4999,
+      "candidateMarginMAE": 9.4867,
+      "baselineTotalMAE": 11.1591,
+      "candidateTotalMAE": 11.2597,
       "limitation": "Historical feature-development evidence, not an independent betting-profit claim or a full replay of the production forecast."
     }
   }
