@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-28T02:44:00.708Z",
+  "updatedAt": "2026-11-28T11:51:00.502Z",
   "modelVersion": 17,
   "dataCoverage": {
     "completedGames": 168,
@@ -11,18 +11,6 @@
       "charting": 163
     },
     "missingGames": [
-      {
-        "id": "401873083",
-        "game": "Denver Broncos at Pittsburgh Steelers",
-        "date": "2026-11-27T20:00Z",
-        "fields": [
-          "snaps",
-          "pressure",
-          "contact",
-          "charting"
-        ],
-        "retryDue": true
-      },
       {
         "id": "401873079",
         "game": "Green Bay Packers at Los Angeles Rams",
@@ -66,36 +54,48 @@
           "charting"
         ],
         "retryDue": true
+      },
+      {
+        "id": "401873083",
+        "game": "Denver Broncos at Pittsburgh Steelers",
+        "date": "2026-11-27T20:00Z",
+        "fields": [
+          "snaps",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
       }
     ],
     "sourceHealth": {
-      "snaps": {
-        "status": "available",
-        "rows": 15589,
-        "fetchedAt": "2026-11-28T02:43:49.734Z"
-      },
       "passing": {
         "status": "available",
         "rows": 382,
-        "fetchedAt": "2026-11-28T02:43:49.734Z"
+        "fetchedAt": "2026-11-28T11:50:48.392Z"
+      },
+      "snaps": {
+        "status": "available",
+        "rows": 15589,
+        "fetchedAt": "2026-11-28T11:50:48.392Z"
       },
       "rushing": {
         "status": "available",
         "rows": 1309,
-        "fetchedAt": "2026-11-28T02:43:49.734Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 29333,
-        "fetchedAt": "2026-11-28T02:43:49.734Z"
+        "fetchedAt": "2026-11-28T11:50:48.392Z"
       },
       "charting": {
         "status": "available",
         "rows": 27636,
-        "fetchedAt": "2026-11-28T02:43:49.734Z"
+        "fetchedAt": "2026-11-28T11:50:48.392Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 29333,
+        "fetchedAt": "2026-11-28T11:50:48.392Z"
       }
     },
-    "asOf": "2026-11-28T02:43:49.734Z"
+    "asOf": "2026-11-28T11:50:48.392Z"
   },
   "totalsLineage": [
     {
@@ -1040,8 +1040,8 @@
     "marginStatus": "held-out-no-improvement",
     "total": 0,
     "margin": 0,
-    "totalSamples": 118,
-    "marginSamples": 118
+    "totalSamples": 119,
+    "marginSamples": 119
   },
   "confidenceDistribution": {
     "High": 15,
@@ -1082,7 +1082,7 @@
       "evidenceGames": 8,
       "observedGames": 44,
       "reliability": 0.748,
-      "homeWin": 46.2,
+      "homeWin": 46.3,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.4,
@@ -1154,10 +1154,10 @@
         "total": "Low"
       },
       "confidenceScore": 68,
-      "sample": 7.6,
+      "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.638,
+      "reliability": 0.635,
       "homeWin": 64.2,
       "marketBooks": 1,
       "spreadEdge": 1.7,
@@ -1173,10 +1173,10 @@
         "total": "Low"
       },
       "confidenceScore": 79,
-      "sample": 7.5,
+      "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.724,
+      "reliability": 0.721,
       "homeWin": 45.1,
       "marketBooks": 1,
       "spreadEdge": 0.7,
@@ -1192,11 +1192,11 @@
         "total": "Low"
       },
       "confidenceScore": 70,
-      "sample": 7.4,
+      "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.747,
-      "homeWin": 35.9,
+      "reliability": 0.743,
+      "homeWin": 36,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.8,
@@ -1229,16 +1229,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 62,
+      "confidenceScore": 64,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.744,
-      "homeWin": 61.6,
+      "reliability": 0.752,
+      "homeWin": 61.7,
       "marketBooks": 1,
       "spreadEdge": 1,
-      "totalEdge": 2.1,
-      "injuryUncertainty": 1.7
+      "totalEdge": 2.5,
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Carolina Panthers at Tampa Bay Buccaneers",
@@ -1268,8 +1268,8 @@
         "total": "Low"
       },
       "confidenceScore": 63,
-      "sample": 8.2,
-      "evidenceGames": 8.2,
+      "sample": 8.1,
+      "evidenceGames": 8.1,
       "observedGames": 45,
       "reliability": 0.785,
       "homeWin": 56.4,
