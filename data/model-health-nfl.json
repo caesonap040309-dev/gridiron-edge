@@ -1,16 +1,28 @@
 {
-  "updatedAt": "2026-11-27T19:59:35.508Z",
+  "updatedAt": "2026-11-28T02:44:00.708Z",
   "modelVersion": 17,
   "dataCoverage": {
-    "completedGames": 167,
+    "completedGames": 168,
     "coveredGames": {
       "snaps": 167,
-      "epa": 167,
+      "epa": 168,
       "pressure": 163,
       "contact": 163,
       "charting": 163
     },
     "missingGames": [
+      {
+        "id": "401873083",
+        "game": "Denver Broncos at Pittsburgh Steelers",
+        "date": "2026-11-27T20:00Z",
+        "fields": [
+          "snaps",
+          "pressure",
+          "contact",
+          "charting"
+        ],
+        "retryDue": true
+      },
       {
         "id": "401873079",
         "game": "Green Bay Packers at Los Angeles Rams",
@@ -57,44 +69,35 @@
       }
     ],
     "sourceHealth": {
-      "rushing": {
+      "snaps": {
         "status": "available",
-        "rows": 1309,
-        "fetchedAt": "2026-11-27T19:59:19.875Z"
+        "rows": 15589,
+        "fetchedAt": "2026-11-28T02:43:49.734Z"
       },
       "passing": {
         "status": "available",
         "rows": 382,
-        "fetchedAt": "2026-11-27T19:59:19.875Z"
+        "fetchedAt": "2026-11-28T02:43:49.734Z"
+      },
+      "rushing": {
+        "status": "available",
+        "rows": 1309,
+        "fetchedAt": "2026-11-28T02:43:49.734Z"
+      },
+      "pbp": {
+        "status": "available",
+        "rows": 29333,
+        "fetchedAt": "2026-11-28T02:43:49.734Z"
       },
       "charting": {
         "status": "available",
         "rows": 27636,
-        "fetchedAt": "2026-11-27T19:59:19.875Z"
-      },
-      "snaps": {
-        "status": "available",
-        "rows": 15589,
-        "fetchedAt": "2026-11-27T19:59:19.875Z"
-      },
-      "pbp": {
-        "status": "available",
-        "rows": 29177,
-        "fetchedAt": "2026-11-27T19:59:19.875Z"
+        "fetchedAt": "2026-11-28T02:43:49.734Z"
       }
     },
-    "asOf": "2026-11-27T19:59:19.875Z"
+    "asOf": "2026-11-28T02:43:49.734Z"
   },
   "totalsLineage": [
-    {
-      "id": "401873083",
-      "home": "Pittsburgh Steelers",
-      "away": "Denver Broncos",
-      "verified": true,
-      "possessionEvidence": true,
-      "matchupTerms": 4,
-      "appliedAdjustment": -0.29
-    },
     {
       "id": "401873087",
       "home": "Cincinnati Bengals",
@@ -120,7 +123,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.31
+      "appliedAdjustment": -0.3
     },
     {
       "id": "401873084",
@@ -138,7 +141,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.17
+      "appliedAdjustment": 0.19
     },
     {
       "id": "401873085",
@@ -165,7 +168,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.43
+      "appliedAdjustment": 0.45
     },
     {
       "id": "401873091",
@@ -174,7 +177,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.84
+      "appliedAdjustment": -0.83
     },
     {
       "id": "401873086",
@@ -201,7 +204,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.56
+      "appliedAdjustment": -0.54
     },
     {
       "id": "401873098",
@@ -219,7 +222,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.63
+      "appliedAdjustment": 0.64
     },
     {
       "id": "401873097",
@@ -228,7 +231,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.7
+      "appliedAdjustment": 0.73
     },
     {
       "id": "401873102",
@@ -237,7 +240,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.59
+      "appliedAdjustment": 0.61
     },
     {
       "id": "401873099",
@@ -246,7 +249,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.11
+      "appliedAdjustment": 0.13
     },
     {
       "id": "401873095",
@@ -255,7 +258,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.29
+      "appliedAdjustment": 0.31
     },
     {
       "id": "401873101",
@@ -264,7 +267,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.46
+      "appliedAdjustment": 0.47
     },
     {
       "id": "401873103",
@@ -282,7 +285,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.06
+      "appliedAdjustment": 0.08
     },
     {
       "id": "401873106",
@@ -291,7 +294,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.15
+      "appliedAdjustment": 0.17
     },
     {
       "id": "401873105",
@@ -300,7 +303,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.06
+      "appliedAdjustment": -0.04
     },
     {
       "id": "401873107",
@@ -309,7 +312,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.17
+      "appliedAdjustment": -0.42
     },
     {
       "id": "401873108",
@@ -327,7 +330,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.06
+      "appliedAdjustment": -0.04
     },
     {
       "id": "401873110",
@@ -354,7 +357,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.58
+      "appliedAdjustment": -0.56
     },
     {
       "id": "401873112",
@@ -363,7 +366,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.55
+      "appliedAdjustment": -0.57
     },
     {
       "id": "401873114",
@@ -426,7 +429,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.63
+      "appliedAdjustment": -0.62
     },
     {
       "id": "401873121",
@@ -453,7 +456,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.01
+      "appliedAdjustment": -0.28
     },
     {
       "id": "401873124",
@@ -462,7 +465,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.92
+      "appliedAdjustment": -0.91
     },
     {
       "id": "401873125",
@@ -480,7 +483,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.36
+      "appliedAdjustment": 0.38
     },
     {
       "id": "401873133",
@@ -489,7 +492,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.99
+      "appliedAdjustment": -0.98
     },
     {
       "id": "401873131",
@@ -498,7 +501,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.32
+      "appliedAdjustment": 0.34
     },
     {
       "id": "401873130",
@@ -516,7 +519,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.33
+      "appliedAdjustment": 0.05
     },
     {
       "id": "401873134",
@@ -570,7 +573,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.52
+      "appliedAdjustment": 0.51
     },
     {
       "id": "401873136",
@@ -579,7 +582,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.25
+      "appliedAdjustment": 0.27
     },
     {
       "id": "401873138",
@@ -588,7 +591,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.69
+      "appliedAdjustment": -0.68
     },
     {
       "id": "401873139",
@@ -624,7 +627,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.62
+      "appliedAdjustment": -0.77
     },
     {
       "id": "401873143",
@@ -633,7 +636,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.85
+      "appliedAdjustment": -0.84
     },
     {
       "id": "401873146",
@@ -660,7 +663,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.03
+      "appliedAdjustment": 0.05
     },
     {
       "id": "401873144",
@@ -669,7 +672,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.52
+      "appliedAdjustment": 0.24
     },
     {
       "id": "401873150",
@@ -687,7 +690,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": -0.33
+      "appliedAdjustment": -0.31
     },
     {
       "id": "401873151",
@@ -714,7 +717,7 @@
       "verified": true,
       "possessionEvidence": true,
       "matchupTerms": 4,
-      "appliedAdjustment": 0.25
+      "appliedAdjustment": 0.27
     },
     {
       "id": "401873153",
@@ -1042,30 +1045,11 @@
   },
   "confidenceDistribution": {
     "High": 15,
-    "Medium": 118,
-    "Low": 125,
+    "Medium": 120,
+    "Low": 123,
     "Missing": 14
   },
   "confidenceSamples": [
-    {
-      "game": "Denver Broncos at Pittsburgh Steelers",
-      "confidence": "Low",
-      "confidenceByMarket": {
-        "moneyline": "Low",
-        "spread": "Low",
-        "total": "Low"
-      },
-      "confidenceScore": 57,
-      "sample": 7.3,
-      "evidenceGames": 8,
-      "observedGames": 44,
-      "reliability": 0.798,
-      "homeWin": 42.8,
-      "marketBooks": 1,
-      "spreadEdge": 1.4,
-      "totalEdge": 1.5,
-      "injuryUncertainty": 0
-    },
     {
       "game": "New Orleans Saints at Cincinnati Bengals",
       "confidence": "Medium",
@@ -1079,9 +1063,9 @@
       "evidenceGames": 8,
       "observedGames": 44,
       "reliability": 0.728,
-      "homeWin": 69.2,
+      "homeWin": 68,
       "marketBooks": 1,
-      "spreadEdge": 0,
+      "spreadEdge": -0.3,
       "totalEdge": -0.8,
       "injuryUncertainty": 2.2
     },
@@ -1093,16 +1077,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 47,
+      "confidenceScore": 45,
       "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.758,
-      "homeWin": 44,
+      "reliability": 0.748,
+      "homeWin": 46.2,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.4,
-      "injuryUncertainty": 1.4
+      "injuryUncertainty": 1.7
     },
     {
       "game": "New York Jets at Miami Dolphins",
@@ -1112,16 +1096,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 44,
+      "confidenceScore": 40,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.73,
-      "homeWin": 54.8,
+      "reliability": 0.713,
+      "homeWin": 52.6,
       "marketBooks": 1,
       "spreadEdge": null,
-      "totalEdge": 1.5,
-      "injuryUncertainty": 2.1
+      "totalEdge": 1.4,
+      "injuryUncertainty": 2.7
     },
     {
       "game": "Atlanta Falcons at Minnesota Vikings",
@@ -1131,35 +1115,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 60,
+      "confidenceScore": 82,
       "sample": 7,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.678,
-      "homeWin": 63.8,
+      "reliability": 0.771,
+      "homeWin": 65.8,
       "marketBooks": 1,
       "spreadEdge": 0.4,
-      "totalEdge": -2.2,
-      "injuryUncertainty": 3.5
+      "totalEdge": -2.1,
+      "injuryUncertainty": 0.5
     },
     {
       "game": "Tennessee Titans at Jacksonville Jaguars",
-      "confidence": "Medium",
+      "confidence": "High",
       "confidenceByMarket": {
-        "moneyline": "Medium",
+        "moneyline": "High",
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 82,
+      "confidenceScore": 84,
       "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.745,
-      "homeWin": 77.4,
+      "reliability": 0.76,
+      "homeWin": 77.6,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": -0.5,
-      "injuryUncertainty": 1.9
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Baltimore Ravens at Houston Texans",
@@ -1169,14 +1153,14 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 78,
+      "confidenceScore": 68,
       "sample": 7.6,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.737,
-      "homeWin": 67.4,
+      "reliability": 0.638,
+      "homeWin": 64.2,
       "marketBooks": 1,
-      "spreadEdge": 2.2,
+      "spreadEdge": 1.7,
       "totalEdge": -0.4,
       "injuryUncertainty": 2.2
     },
@@ -1188,16 +1172,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 71,
+      "confidenceScore": 79,
       "sample": 7.5,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.676,
-      "homeWin": 44.3,
+      "reliability": 0.724,
+      "homeWin": 45.1,
       "marketBooks": 1,
-      "spreadEdge": -0.4,
-      "totalEdge": 4.1,
-      "injuryUncertainty": 4
+      "spreadEdge": 0.7,
+      "totalEdge": 4.9,
+      "injuryUncertainty": 2.5
     },
     {
       "game": "Washington Commanders at Arizona Cardinals",
@@ -1207,16 +1191,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 64,
+      "confidenceScore": 70,
       "sample": 7.4,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.736,
-      "homeWin": 37.2,
+      "reliability": 0.747,
+      "homeWin": 35.9,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.8,
-      "injuryUncertainty": 2.1
+      "injuryUncertainty": 1.7
     },
     {
       "game": "Seattle Seahawks at San Francisco 49ers",
@@ -1226,16 +1210,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 22,
+      "confidenceScore": 37,
       "sample": 6.7,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.621,
-      "homeWin": 54.5,
+      "reliability": 0.734,
+      "homeWin": 46.6,
       "marketBooks": 1,
-      "spreadEdge": null,
-      "totalEdge": 0.2,
-      "injuryUncertainty": 5
+      "spreadEdge": -0.1,
+      "totalEdge": 0.6,
+      "injuryUncertainty": 1.4
     },
     {
       "game": "Las Vegas Raiders at Cleveland Browns",
@@ -1245,16 +1229,16 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 53,
+      "confidenceScore": 62,
       "sample": 7.3,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.719,
-      "homeWin": 60.1,
+      "reliability": 0.744,
+      "homeWin": 61.6,
       "marketBooks": 1,
-      "spreadEdge": 0.4,
-      "totalEdge": 2,
-      "injuryUncertainty": 2.5
+      "spreadEdge": 1,
+      "totalEdge": 2.1,
+      "injuryUncertainty": 1.7
     },
     {
       "game": "Carolina Panthers at Tampa Bay Buccaneers",
@@ -1264,16 +1248,35 @@
         "spread": "Low",
         "total": "Low"
       },
-      "confidenceScore": 65,
+      "confidenceScore": 63,
       "sample": 6.8,
       "evidenceGames": 8,
       "observedGames": 44,
-      "reliability": 0.686,
-      "homeWin": 64.6,
+      "reliability": 0.685,
+      "homeWin": 64,
       "marketBooks": 1,
       "spreadEdge": null,
       "totalEdge": 1.1,
       "injuryUncertainty": 3
+    },
+    {
+      "game": "Kansas City Chiefs at Los Angeles Rams",
+      "confidence": "Low",
+      "confidenceByMarket": {
+        "moneyline": "Low",
+        "spread": "Low",
+        "total": "Low"
+      },
+      "confidenceScore": 63,
+      "sample": 8.2,
+      "evidenceGames": 8.2,
+      "observedGames": 45,
+      "reliability": 0.785,
+      "homeWin": 56.4,
+      "marketBooks": 1,
+      "spreadEdge": null,
+      "totalEdge": -2.4,
+      "injuryUncertainty": 1.2
     }
   ]
 }
